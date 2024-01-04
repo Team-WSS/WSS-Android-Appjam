@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="headline1">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">20sp</item>
+    </style>
+
+    <style name="title1">
+        <item name="fontFamily">@font/pretendard_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="lineHeight">25.2sp</item>
+    </style>
+
+    <style name="title2">
+        <item name="fontFamily">@font/pretendard_semibold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="lineHeight">22.4sp</item>
+    </style>
+
+    <style name="title3">
+        <item name="fontFamily">@font/pretendard_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">14sp</item>
+    </style>
+
+    <style name="body1">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">17sp</item>
+        <item name="lineHeight">23.3sp</item>
+    </style>
+
+    <style name="body2">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">15sp</item>
+        <item name="lineHeight">22.5sp</item>
+    </style>
+
+    <style name="label1">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="lineHeight">18.8sp</item>
+    </style>
+
+    <style name="label2">
+        <item name="fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="lineHeight">10sp</item>
+    </style>
+</resources>
