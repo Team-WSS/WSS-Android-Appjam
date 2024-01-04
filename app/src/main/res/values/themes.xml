@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.Websoso" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Theme.Websoso" parent="Base.Theme.Websoso" />
+</resources>
