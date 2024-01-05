@@ -1,12 +1,12 @@
-package com.teamwss.websoso.ui.view.keyword
+package com.teamwss.websoso.ui.novelDetail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.teamwss.websoso.R
 
-class KeywordActivity : AppCompatActivity() {
+class NovelDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_keyword)
+        setContentView(R.layout.activity_novel_detail)
     }
 }

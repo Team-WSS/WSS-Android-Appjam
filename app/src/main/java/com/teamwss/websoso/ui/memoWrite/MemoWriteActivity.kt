@@ -1,12 +1,12 @@
-package com.teamwss.websoso.ui.view.postnovel
+package com.teamwss.websoso.ui.memoWrite
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.teamwss.websoso.R
 
-class PostNovelActivity : AppCompatActivity() {
+class MemoWriteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_post_novel)
+        setContentView(R.layout.activity_memo_write)
     }
 }

@@ -1,4 +1,4 @@
-package com.teamwss.websoso.data.remote
+package com.teamwss.websoso.data
 
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory

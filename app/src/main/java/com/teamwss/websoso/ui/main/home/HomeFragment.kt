@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.view.main.home
+package com.teamwss.websoso.ui.main.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
