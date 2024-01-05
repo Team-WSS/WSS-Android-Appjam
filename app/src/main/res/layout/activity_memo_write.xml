@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.memowrite.MemoWriteActivity">
+    tools:context=".ui.memoWrite.MemoWriteActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.view.search
+package com.teamwss.websoso.ui.search
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

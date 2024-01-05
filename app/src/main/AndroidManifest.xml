@@ -16,27 +16,27 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.view.keyword.KeywordActivity"
+            android:name=".ui.keyword.KeywordActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.memowrite.MemoWriteActivity"
+            android:name=".ui.memoWrite.MemoWriteActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.postnovel.PostNovelActivity"
+            android:name=".ui.postNovel.PostNovelActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.noveldetail.NovelDetailActivity"
+            android:name=".ui.novelDetail.NovelDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.search.SearchActivity"
+            android:name=".ui.search.SearchActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.view.main.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

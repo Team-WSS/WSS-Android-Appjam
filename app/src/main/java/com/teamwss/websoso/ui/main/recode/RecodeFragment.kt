@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.view.main.library
+package com.teamwss.websoso.ui.main.recode
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.teamwss.websoso.R
 
-class LibraryFragment : Fragment() {
+class RecodeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_library, container, false)
+        return inflater.inflate(R.layout.fragment_recode, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,6 +21,6 @@ class LibraryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = LibraryFragment()
+        fun newInstance() = RecodeFragment()
     }
 }

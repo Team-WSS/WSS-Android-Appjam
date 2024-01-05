@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.view.main
+package com.teamwss.websoso.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -6,10 +6,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityMainBinding
-import com.teamwss.websoso.ui.view.main.home.HomeFragment
-import com.teamwss.websoso.ui.view.main.library.LibraryFragment
-import com.teamwss.websoso.ui.view.main.mypage.MyPageFragment
-import com.teamwss.websoso.ui.view.main.recode.RecodeFragment
+import com.teamwss.websoso.ui.main.home.HomeFragment
+import com.teamwss.websoso.ui.main.library.LibraryFragment
+import com.teamwss.websoso.ui.main.myPage.MyPageFragment
+import com.teamwss.websoso.ui.main.recode.RecodeFragment
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
