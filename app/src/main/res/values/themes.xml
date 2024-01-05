@@ -5,4 +5,10 @@
     </style>
 
     <style name="Theme.Websoso" parent="Base.Theme.Websoso" />
+
+    <style name="PostRatingBar" parent="Widget.AppCompat.RatingBar">
+        <item name="android:progressDrawable">@drawable/selector_post_rating</item>
+        <item name="android:minHeight">29dp</item>
+        <item name="android:maxHeight">29dp</item>
+    </style>
 </resources>
