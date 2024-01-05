@@ -366,8 +366,8 @@
         android:id="@+id/alPostAppBar"
         android:layout_width="match_parent"
         android:layout_height="76dp"
-        android:gravity="bottom"
         android:background="@android:color/transparent"
+        android:gravity="bottom"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -380,5 +380,13 @@
             android:src="@drawable/ic_navigate_left" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <View
+        android:id="@+id/vPostDialogBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="invisible" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

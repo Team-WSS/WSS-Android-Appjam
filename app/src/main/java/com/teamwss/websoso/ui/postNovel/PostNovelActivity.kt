@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.postNovel
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
@@ -18,6 +17,7 @@ class PostNovelActivity : AppCompatActivity() {
 
         setupAppBarHeight()
         setupAppBar()
+        setupNavigateLeftDialog()
     }
 
     private fun setupAppBarHeight() {
@@ -49,6 +49,24 @@ class PostNovelActivity : AppCompatActivity() {
             val colorAlpha = 255.coerceAtMost((scrollRatio * 255).toInt())
 
             appBarLayout.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
+        }
+    }
+
+    private fun setupNavigateLeftDialog() {
+        binding.ivPostNavigateLeft.setOnClickListener {
+            val dialog = PostNavigateLeftDialog(this)
+
+            dialog.setItemClickListener(object : PostNavigateLeftDialog.ItemClickListener {
+                override fun onExitButtonClick() {
+                    finish()
+                }
+
+                override fun onKeepButtonClick() {
+                    binding.vPostDialogBackground.visibility = android.view.View.INVISIBLE
+                }
+            })
+            binding.vPostDialogBackground.visibility = android.view.View.VISIBLE
+            dialog.show()
         }
     }
 }
