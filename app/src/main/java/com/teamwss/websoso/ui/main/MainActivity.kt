@@ -9,7 +9,7 @@ import com.teamwss.websoso.databinding.ActivityMainBinding
 import com.teamwss.websoso.ui.main.home.HomeFragment
 import com.teamwss.websoso.ui.main.library.LibraryFragment
 import com.teamwss.websoso.ui.main.myPage.MyPageFragment
-import com.teamwss.websoso.ui.main.recode.RecodeFragment
+import com.teamwss.websoso.ui.main.record.RecordFragment
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             val selectedFragment = when (item.itemId) {
                 R.id.menu_home -> HomeFragment.newInstance()
                 R.id.menu_library -> LibraryFragment.newInstance()
-                R.id.menu_recode -> RecodeFragment.newInstance()
+                R.id.menu_recode -> RecordFragment.newInstance()
                 R.id.menu_my_page -> MyPageFragment.newInstance()
                 else -> null
             }

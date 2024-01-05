@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.main.recode
+package com.teamwss.websoso.ui.main.record
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.teamwss.websoso.R
 
-class RecodeFragment : Fragment() {
+class RecordFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +21,6 @@ class RecodeFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = RecodeFragment()
+        fun newInstance() = RecordFragment()
     }
 }
