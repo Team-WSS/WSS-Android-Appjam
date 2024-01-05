@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#666666"
+    android:background="@color/gray_50_F4F5F8"
     tools:context=".ui.postNovel.PostNovelActivity">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:id="@+id/svPost"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,14 +20,14 @@
                 android:id="@+id/clPostDefaultInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF">
+                android:background="@color/white">
 
                 <ImageView
                     android:id="@+id/ivPostCoverBackground"
                     android:layout_width="match_parent"
                     android:layout_height="252dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_genre_fantasy"
+                    android:src="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_editor_absoluteX="0dp" />
 
@@ -40,6 +40,8 @@
                     android:maxLines="3"
                     android:text="당신의 이해를 돕기 위하여"
                     android:textAlignment="center"
+                    android:textAppearance="@style/headline1"
+                    android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +55,8 @@
                     android:maxLines="1"
                     android:text="이보라 / 로판"
                     android:textAlignment="center"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_200_AEADB3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvPostNovelTitle" />
@@ -63,7 +67,7 @@
                     android:layout_height="196dp"
                     android:layout_marginTop="22dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_genre_fantasy"
+                    android:src="@drawable/img_cover_test"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvPostNovelWriter" />
@@ -87,7 +91,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="56dp"
-                    android:text="읽은 상태"
+                    android:text="읽기 상태"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rbPostRating" />
 
@@ -96,6 +102,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" *"
+                    android:textAppearance="@style/title3"
+                    android:textColor="@color/secondary_100_FF675D"
                     app:layout_constraintStart_toEndOf="@id/tvPostReadStatusTitle"
                     app:layout_constraintTop_toTopOf="@+id/tvPostReadStatusTitle" />
 
@@ -116,6 +124,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="35dp"
                     android:text="읽은 날짜"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/primary_200_180A3F"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rvPostReadStatus" />
 
@@ -137,7 +147,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="35dp"
-                    android:background="#F5F5F5"
+                    android:background="@drawable/shape_post_read_date_frame"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +159,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="16dp"
-                        android:text="2023-12-26" />
+                        android:text="2023-12-26"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@color/gray_300_52515F" />
 
                     <TextView
                         android:id="@+id/tvPostReadDateTilde"
@@ -158,14 +170,18 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:text="~" />
+                        android:text="~"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@color/gray_300_52515F" />
 
                     <TextView
                         android:id="@+id/tvPostReadDateEnd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="2023-12-26" />
+                        android:text="2023-12-26"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@color/gray_300_52515F" />
 
                     <View
                         android:layout_width="0dp"
@@ -200,7 +216,8 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="35dp"
                     android:text="키워드"
-                    android:textSize="20sp"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -210,7 +227,7 @@
                     android:layout_height="43dp"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="18dp"
-                    android:background="#F5F5F5"
+                    android:background="@drawable/shape_post_keyword_button"
                     app:layout_constraintTop_toBottomOf="@id/tvPostKeywordTitle">
 
                     <ImageView
@@ -228,7 +245,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="15dp"
-                        android:text="키워드 등록" />
+                        android:text="키워드 등록"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@color/primary_100_6341F0" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -254,6 +273,8 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
                 android:text="작품 소개"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clPostKeyword" />
 
@@ -263,9 +284,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:text="왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해 왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다.  '태어나서 이렇게 멋있는 남자는 처음 봐…….' 왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해 왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다."
+                android:text="왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해 왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다. '태어나서 이렇게 멋있는 남자는 처음 봐…….' 왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다."
+                android:textAppearance="@style/body2"
+                android:textColor="@color/gray_300_52515F"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvPostNovelDetailTitle" />
+
+            <TextView
+                android:id="@+id/tvPostNovelGenreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="35dp"
+                android:text="작품 보러가기"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPostNovelDetail" />
+
+            <TextView
+                android:id="@+id/tvPostNovelGenre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:text="로판"
+                android:textAppearance="@style/body2"
+                android:textColor="@color/gray_300_52515F"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenreTitle" />
 
             <TextView
                 android:id="@+id/tvPostNovelSiteTitle"
@@ -274,8 +321,10 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="35dp"
                 android:text="작품 보러가기"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPostNovelDetail" />
+                app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenre" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPostNovelSite"
@@ -295,7 +344,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="114dp"
                 android:layout_marginBottom="28dp"
-                android:background="#F5F5F5"
+                android:background="@drawable/shape_post_button"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rvPostNovelSite">
@@ -304,17 +353,20 @@
                     android:id="@+id/tvPostButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="내 서재에 등록" />
+                    android:text="내 서재에 등록"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/white" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/alPostAppBar"
         android:layout_width="match_parent"
         android:layout_height="76dp"
+        android:gravity="bottom"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -323,7 +375,7 @@
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginBottom="4dp"
             android:padding="10dp"
             android:src="@drawable/ic_navigate_left" />
 
