@@ -117,6 +117,7 @@
                     android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="@id/tvPostReadStatusTitle"
                     app:layout_constraintTop_toBottomOf="@id/tvPostReadStatusTitle"
+                    app:selectionRequired="true"
                     app:singleSelection="true">
 
                     <com.google.android.material.chip.Chip
