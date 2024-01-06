@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.teamwss.websoso.R
 import com.teamwss.websoso.data.Memo
 import com.teamwss.websoso.databinding.FragmentRecordBinding
 
@@ -23,6 +24,7 @@ class RecordFragment : Fragment() {
         val memoAdapter = RecordAdapter(requireContext())
         binding.rvRecord.adapter = memoAdapter
         memoAdapter.setFriendList(mockMemoList)
+        handleNovelCount()
     }
 
     private val mockMemoList = listOf<Memo>(
@@ -87,6 +89,21 @@ class RecordFragment : Fragment() {
             novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
         ),
     )
+
+    private fun handleNovelCount() {
+        val novelCount = "0"
+
+        val displayText = getString(R.string.record_novel_count, novelCount.toIntOrNull())
+        binding.tvRecordNovelCount.text = displayText
+
+        if (novelCount.toIntOrNull() == 0) {
+            binding.lyRecordNull.visibility = View.VISIBLE
+            binding.lyRecord.visibility = View.GONE
+        } else {
+            binding.lyRecord.visibility = View.VISIBLE
+            binding.lyRecordNull.visibility = View.GONE
+        }
+    }
 
     companion object {
         fun newInstance() = RecordFragment()
