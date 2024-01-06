@@ -108,7 +108,6 @@ class PostNovelActivity : AppCompatActivity() {
     private fun updateDateVisibility(isStartDateVisible: Boolean, isEndDateVisible: Boolean) {
         with(binding) {
             clPostReadDate.visibility = View.VISIBLE
-            llPostReadDate.visibility = View.VISIBLE
 
             tvPostReadDateStart.setVisibility(isStartDateVisible)
             tvPostReadDateTilde.setVisibility(isStartDateVisible && isEndDateVisible)
