@@ -18,6 +18,7 @@ class PostNovelActivity : AppCompatActivity() {
 
         setupAppBar()
         setupNavigateLeftDialog()
+        setupDateToggle()
     }
 
     private fun setupAppBar() {
@@ -25,10 +26,13 @@ class PostNovelActivity : AppCompatActivity() {
         val appBarLayout: AppBarLayout = binding.alPostAppBar
         val titleView: TextView = binding.tvPostTitle
 
+        // 스크롤 높이에 따라 alpha값 변화
         scrollView.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = scrollView.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - appBarLayout.height
-            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
+
+            // 제곱식을 통해 alpha값 보정
+            val scrollRatio = (scrollY.toFloat() + 1 / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
             appBarLayout.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
@@ -36,7 +40,7 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-
+    // 뒤로가기를 눌렀을 때 나오는 Dialog
     private fun setupNavigateLeftDialog() {
         binding.ivPostNavigateLeft.setOnClickListener {
             val dialog = PostNavigateLeftDialog(this)
@@ -52,6 +56,18 @@ class PostNovelActivity : AppCompatActivity() {
             })
             binding.vPostDialogBackground.visibility = android.view.View.VISIBLE
             dialog.show()
+        }
+    }
+
+    // 날짜 토글 설정
+    private fun setupDateToggle() {
+        val ivPostDateSwitch = binding.ivPostDateSwitch
+        val llPostReadDate = binding.llPostReadDate
+        ivPostDateSwitch.isSelected = true
+        ivPostDateSwitch.setOnClickListener {
+            it.isSelected = !it.isSelected
+            llPostReadDate.visibility =
+                if (it.isSelected) android.view.View.VISIBLE else android.view.View.GONE
         }
     }
 }
