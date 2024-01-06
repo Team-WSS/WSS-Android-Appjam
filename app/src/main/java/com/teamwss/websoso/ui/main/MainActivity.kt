@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun changeFragment(fragment: Fragment) {
         supportFragmentManager.commit {
-            replace(R.id.bnvMain, fragment)
+            replace(R.id.fcvMain, fragment)
         }
     }
 
