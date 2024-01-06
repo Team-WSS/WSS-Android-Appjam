@@ -110,15 +110,86 @@
                     app:layout_constraintStart_toEndOf="@id/tvPostReadStatusTitle"
                     app:layout_constraintTop_toTopOf="@+id/tvPostReadStatusTitle" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPostReadStatus"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cgPostReadStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="@id/tvPostReadStatusTitle"
-                    app:layout_constraintTop_toBottomOf="@id/tvPostReadStatusTitle" />
+                    app:layout_constraintTop_toBottomOf="@id/tvPostReadStatusTitle"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/cReadStatusRead"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:checkable="true"
+                        android:checked="true"
+                        android:text="읽음"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@drawable/selector_read_status_text"
+                        app:checkedIcon="@drawable/ic_status_read"
+                        app:checkedIconVisible="true"
+                        app:chipBackgroundColor="@color/white"
+                        app:chipCornerRadius="20dp"
+                        app:chipStartPadding="13dp"
+                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:rippleColor="@color/transparent" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/cReadStatusReading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:checkable="true"
+                        android:text="읽는 중"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@drawable/selector_read_status_text"
+                        app:checkedIcon="@drawable/ic_status_reading"
+                        app:checkedIconVisible="true"
+                        app:chipBackgroundColor="@color/white"
+                        app:chipCornerRadius="20dp"
+                        app:chipStartPadding="13dp"
+                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:rippleColor="@color/transparent" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/cReadStatusStop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:checkable="true"
+                        android:text="하차"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@drawable/selector_read_status_text"
+                        app:checkedIcon="@drawable/ic_status_stop"
+                        app:checkedIconVisible="true"
+                        app:chipBackgroundColor="@color/white"
+                        app:chipCornerRadius="20dp"
+                        app:chipStartPadding="13dp"
+                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:rippleColor="@color/transparent" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/cReadStatusWant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="53dp"
+                        android:checkable="true"
+                        android:text="읽고 싶음"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@drawable/selector_read_status_text"
+                        app:checkedIcon="@drawable/ic_status_want"
+                        app:checkedIconVisible="true"
+                        app:chipBackgroundColor="@color/white"
+                        app:chipCornerRadius="20dp"
+                        app:chipStartPadding="13dp"
+                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                        app:chipStrokeWidth="1dp"
+                        app:rippleColor="@color/transparent" />
+
+                </com.google.android.material.chip.ChipGroup>
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/clPostReadDate"
@@ -126,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="35dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rvPostReadStatus">
+                    app:layout_constraintTop_toBottomOf="@id/cgPostReadStatus">
 
                     <TextView
                         android:id="@+id/tvPostReadDateTitle"
@@ -160,7 +231,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvPostReadDateTitle">
+                        app:layout_constraintTop_toBottomOf="@id/tvPostReadDateTitle"
+                        app:layout_constraintVertical_bias="0.0">
 
                         <TextView
                             android:id="@+id/tvPostReadDateStart"
