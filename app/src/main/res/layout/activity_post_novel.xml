@@ -75,13 +75,13 @@
 
                 <RatingBar
                     android:id="@+id/rbPostRating"
-                    android:progressTint="@color/secondary_100_FF675D"
-                    android:secondaryProgressTint="@color/secondary_100_FF675D"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
                     android:numStars="5"
+                    android:progressTint="@color/secondary_100_FF675D"
                     android:rating="0"
+                    android:secondaryProgressTint="@color/secondary_100_FF675D"
                     android:stepSize="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
+import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostNovelBinding
@@ -27,7 +28,7 @@ class PostNovelActivity : AppCompatActivity() {
         scrollView.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = scrollView.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - appBarLayout.height
-            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f)
+            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
             appBarLayout.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
