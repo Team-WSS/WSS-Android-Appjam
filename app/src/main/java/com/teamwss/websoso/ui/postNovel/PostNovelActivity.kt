@@ -104,7 +104,7 @@ class PostNovelActivity : AppCompatActivity() {
         this.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
-    // 날짜 변이 보일지 설정
+    // 날짜 변경이 보일지 설정
     private fun updateDateVisibility(isStartDateVisible: Boolean, isEndDateVisible: Boolean) {
         with(binding) {
             clPostReadDate.visibility = View.VISIBLE
