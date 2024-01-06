@@ -2,6 +2,7 @@ package com.teamwss.websoso.ui.postNovel
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupAppBar()
         setupNavigateLeftDialog()
         setupDateToggle()
+        setupChipGroupListener()
     }
 
     private fun setupAppBar() {
@@ -51,10 +53,10 @@ class PostNovelActivity : AppCompatActivity() {
                 }
 
                 override fun onKeepButtonClick() {
-                    binding.vPostDialogBackground.visibility = android.view.View.INVISIBLE
+                    binding.vPostDialogBackground.visibility = View.INVISIBLE
                 }
             })
-            binding.vPostDialogBackground.visibility = android.view.View.VISIBLE
+            binding.vPostDialogBackground.visibility = View.VISIBLE
             dialog.show()
         }
     }
@@ -66,8 +68,51 @@ class PostNovelActivity : AppCompatActivity() {
         ivPostDateSwitch.isSelected = true
         ivPostDateSwitch.setOnClickListener {
             it.isSelected = !it.isSelected
-            llPostReadDate.visibility =
-                if (it.isSelected) android.view.View.VISIBLE else android.view.View.GONE
+            llPostReadDate.visibility = if (it.isSelected) View.VISIBLE else View.GONE
+        }
+    }
+
+    // 체크 상태에 따라 날짜 상태 분기
+    private fun setupChipGroupListener() {
+        val readStatusChipGroup = binding.cgPostReadStatus
+        readStatusChipGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                binding.cReadStatusRead.id -> {
+                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
+                    binding.tvPostReadDateTitle.text = "읽은 날짜"
+                }
+
+                binding.cReadStatusReading.id -> {
+                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = false)
+                    binding.tvPostReadDateTitle.text = "시작 날짜"
+                }
+
+                binding.cReadStatusStop.id -> {
+                    updateDateVisibility(isStartDateVisible = false, isEndDateVisible = true)
+                    binding.tvPostReadDateTitle.text = "종료 날짜"
+                }
+
+                binding.cReadStatusWant.id -> {
+                    binding.clPostReadDate.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+    // 가시 여부 설정
+    private fun View.setVisibility(isVisible: Boolean) {
+        this.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    // 날짜 변이 보일지 설정
+    private fun updateDateVisibility(isStartDateVisible: Boolean, isEndDateVisible: Boolean) {
+        with(binding) {
+            clPostReadDate.visibility = View.VISIBLE
+            llPostReadDate.visibility = View.VISIBLE
+
+            tvPostReadDateStart.setVisibility(isStartDateVisible)
+            tvPostReadDateTilde.setVisibility(isStartDateVisible && isEndDateVisible)
+            tvPostReadDateEnd.setVisibility(isEndDateVisible)
         }
     }
 }

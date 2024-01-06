@@ -240,7 +240,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="2023-12-26"
+                            android:text="2023-11-26"
                             android:textAppearance="@style/body2"
                             android:textColor="@color/gray_300_52515F" />
 
@@ -296,6 +296,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="35dp"
                 android:background="#FFFFFF"
+                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/clPostDefaultInfo">
 
                 <TextView
