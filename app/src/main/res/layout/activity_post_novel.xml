@@ -29,7 +29,7 @@
                     android:scaleType="centerCrop"
                     android:src="@color/black"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:layout_editor_absoluteX="0dp" />
+                    tools:layout_editor_absoluteX="-20dp" />
 
                 <TextView
                     android:id="@+id/tvPostNovelTitle"
@@ -65,16 +65,18 @@
                     android:id="@+id/ivPostCover"
                     android:layout_width="128dp"
                     android:layout_height="196dp"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="20dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_cover_test"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvPostNovelWriter" />
 
                 <RatingBar
                     android:id="@+id/rbPostRating"
-                    style="@style/PostRatingBar"
+                    android:progressTint="@color/secondary_100_FF675D"
+                    android:secondaryProgressTint="@color/secondary_100_FF675D"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
@@ -198,6 +200,13 @@
                         android:src="@drawable/ic_calendar" />
 
                 </LinearLayout>
+
+                <View
+                    android:id="@+id/vPostDialogBackground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#99000000"
+                    android:visibility="invisible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -365,28 +374,36 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/alPostAppBar"
         android:layout_width="match_parent"
-        android:layout_height="76dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@android:color/transparent"
         android:gravity="bottom"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/ivPostNavigateLeft"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="4dp"
-            android:padding="10dp"
-            android:src="@drawable/ic_navigate_left" />
+        <TextView
+            android:id="@+id/tvPostTitle"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="당신의 이해를 돕기 위하여"
+            android:textAlignment="center"
+            android:textAppearance="@style/title2"
+            android:textColor="@color/black" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <View
-        android:id="@+id/vPostDialogBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99000000"
-        android:visibility="invisible" />
+    <ImageView
+        android:id="@+id/ivPostNavigateLeft"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="4dp"
+        android:padding="10dp"
+        android:src="@drawable/ic_navigate_left"
+        app:layout_constraintBottom_toBottomOf="@id/alPostAppBar"
+        app:layout_constraintStart_toStartOf="@id/alPostAppBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,9 @@
 package com.teamwss.websoso.ui.postNovel
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.ScrollView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
@@ -15,42 +15,26 @@ class PostNovelActivity : AppCompatActivity() {
         binding = ActivityPostNovelBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupAppBarHeight()
         setupAppBar()
         setupNavigateLeftDialog()
-    }
-
-    private fun setupAppBarHeight() {
-        val densityOfDisplay = resources.displayMetrics.density
-        val defaultAppBarHeight = (52 * densityOfDisplay).toInt()
-
-        val appBarLayout: AppBarLayout = binding.alPostAppBar
-        val params = appBarLayout.layoutParams
-        params.height = defaultAppBarHeight + getActionBarHeight()
-        appBarLayout.layoutParams = params
-    }
-
-    @SuppressLint("DiscouragedApi", "InternalInsetResource")
-    private fun getActionBarHeight(): Int {
-        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        val statusBarHeight = if (resourceId > 0) {
-            resources.getDimensionPixelSize(resourceId)
-        } else 0
-        return statusBarHeight
     }
 
     private fun setupAppBar() {
         val scrollView: ScrollView = binding.svPost
         val appBarLayout: AppBarLayout = binding.alPostAppBar
+        val titleView: TextView = binding.tvPostTitle
 
         scrollView.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = scrollView.scrollY
-            val scrollRatio = scrollY.toFloat() / appBarLayout.height
-            val colorAlpha = 255.coerceAtMost((scrollRatio * 255).toInt())
+            val maxHeight = binding.ivPostCoverBackground.height - appBarLayout.height
+            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f)
+            val colorAlpha = (scrollRatio * 255).toInt()
 
             appBarLayout.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
+            titleView.setTextColor(Color.argb(colorAlpha, 0, 0, 0))
         }
     }
+
 
     private fun setupNavigateLeftDialog() {
         binding.ivPostNavigateLeft.setOnClickListener {
