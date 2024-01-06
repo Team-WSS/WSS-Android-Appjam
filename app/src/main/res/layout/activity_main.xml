@@ -11,16 +11,27 @@
         android:id="@+id/fcvMain"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bnvMain"
+        app:layout_constraintBottom_toTopOf="@id/vMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vMain"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_70_DFDFE3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bnvMain"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnvMain"
         android:layout_width="0dp"
         android:layout_height="82dp"
         android:background="@drawable/shape_bottom_nav"
+        app:itemIconTint="@color/selc_bottom_nav_item"
+        app:itemTextColor="@color/selc_bottom_nav_item"
         app:elevation="15dp"
         app:itemActiveIndicatorStyle="@color/white"
         app:itemIconSize="24dp"
