@@ -20,10 +20,14 @@ class RecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+        handleNovelCountUIChanges()
+    }
+
+    private fun init() {
         val memoAdapter = RecordAdapter()
         binding.rvRecord.adapter = memoAdapter
         memoAdapter.setFriendList(mockMemoList)
-        handleNovelCountUIChanges()
     }
 
     private fun handleNovelCountUIChanges() {
