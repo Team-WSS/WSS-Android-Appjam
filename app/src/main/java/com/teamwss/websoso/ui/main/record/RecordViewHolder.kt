@@ -12,5 +12,4 @@ class RecordViewHolder(private val binding: ItemMemoBinding) :
         binding.tvMemoTitle.text = memo.novelTitle
         binding.tvMemoContent.text = memo.novelContent
     }
-
 }

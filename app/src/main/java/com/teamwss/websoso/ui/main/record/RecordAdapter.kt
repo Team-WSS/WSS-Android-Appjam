@@ -17,12 +17,13 @@ class RecordAdapter(context: Context) : RecyclerView.Adapter<RecordViewHolder>()
     }
 
     override fun getItemCount() = memoList.size
+
     fun setFriendList(memoList: List<Memo>) {
         this.memoList = memoList.toList()
         notifyDataSetChanged()
     }
+
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
         holder.onBind(memoList[position])
     }
-
 }

@@ -91,7 +91,7 @@ class RecordFragment : Fragment() {
     )
 
     private fun handleNovelCount() {
-        val novelCount = "0"
+        val novelCount = "0행"
 
         val displayText = getString(R.string.record_novel_count, novelCount.toIntOrNull())
         binding.tvRecordNovelCount.text = displayText
