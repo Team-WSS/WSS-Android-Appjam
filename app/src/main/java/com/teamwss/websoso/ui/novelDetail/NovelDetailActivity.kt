@@ -12,6 +12,19 @@ class NovelDetailActivity : AppCompatActivity() {
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupRoundCornerToThumbnail()
+        setupFragment()
+    }
+
+    private fun setupRoundCornerToThumbnail() {
         binding.ivNovelDetailThumbnail.clipToOutline = true
+    }
+
+    private fun setupFragment() {
+        val fragmentList = listOf(NovelMemoFragment(), NovelInfoFragment())
+        val viewPagerAdapter = NovelDetailViewPagerAdapter(this)
+        viewPagerAdapter.fragments.addAll(fragmentList)
+
+        binding.vpNovelDetail.adapter = viewPagerAdapter
     }
 }
