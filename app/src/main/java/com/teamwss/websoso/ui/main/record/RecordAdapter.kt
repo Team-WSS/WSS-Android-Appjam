@@ -2,23 +2,23 @@ package com.teamwss.websoso.ui.main.record
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.teamwss.websoso.data.Memo
+import com.teamwss.websoso.ui.main.record.model.Memo
 
 class RecordAdapter : RecyclerView.Adapter<RecordViewHolder>() {
-    private var memoList: List<Memo> = emptyList()
+    private var memoItems: List<Memo> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         return RecordViewHolder.create(parent)
     }
 
-    override fun getItemCount() = memoList.size
+    override fun getItemCount() = memoItems.size
 
     fun setFriendList(memoList: List<Memo>) {
-        this.memoList = memoList.toList()
+        this.memoItems = memoList.toList()
         notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: RecordViewHolder, position: Int) {
-        holder.onBind(memoList[position])
+        holder.onBind(memoItems[position])
     }
 }
