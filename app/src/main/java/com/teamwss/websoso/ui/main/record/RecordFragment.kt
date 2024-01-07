@@ -12,6 +12,7 @@ import com.teamwss.websoso.databinding.FragmentRecordBinding
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
     private lateinit var viewModel: RecordViewModel
+    private lateinit var memoAdapter: RecordAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -23,13 +24,17 @@ class RecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerViewWithMemo()
+        setupRecyclerView()
         handleNovelCountUIChanges()
+        setupMemoList()
     }
 
-    private fun setupRecyclerViewWithMemo() {
-        val memoAdapter = RecordAdapter()
+    private fun setupRecyclerView() {
+        memoAdapter = RecordAdapter()
         binding.rvMemoList.adapter = memoAdapter
+    }
+
+    private fun setupMemoList(){
         viewModel.memoData.observe(viewLifecycleOwner) { memoList ->
             memoAdapter.setFriendList(memoList)
         }
