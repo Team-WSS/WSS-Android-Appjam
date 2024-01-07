@@ -7,7 +7,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.NumberPicker
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.BottomSheetPostBinding
 
@@ -50,13 +53,18 @@ class DatePickerBottomSheet(context: Context) : Dialog(context) {
             npPostBottomSheetDay.minValue = 1
 
             // 최대값 설정
-            npPostBottomSheetYear.maxValue = 10000
+            npPostBottomSheetYear.maxValue = 9999
             npPostBottomSheetMonth.maxValue = 12
             npPostBottomSheetDay.maxValue = 31
 
             // 연도와 월이 바뀔 때마다 일의 최대값 설정
             npPostBottomSheetYear.setOnValueChangedListener { _, _, _ -> setDayMaxValue() }
             npPostBottomSheetMonth.setOnValueChangedListener { _, _, _ -> setDayMaxValue() }
+
+            // 출력 형태 설정
+            npPostBottomSheetYear.setFormatter { String.format("%04d", it) }
+            npPostBottomSheetMonth.setFormatter { String.format("%02d", it) }
+            npPostBottomSheetDay.setFormatter { String.format("%02d", it) }
         }
     }
 

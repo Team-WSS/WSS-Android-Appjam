@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/clPostDatePicker"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_date_bottom_sheet"
-    android:clickable="true"
-    android:focusable="true"
-    android:paddingVertical="34dp"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="0dp"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    android:paddingVertical="34dp">
+
+    <TextView
+        android:id="@+id/tvPostBottomSheetReadDateTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="35dp"
+        android:paddingVertical="10dp"
+        android:text="시작 날짜"
+        android:textAlignment="center"
+        android:textAppearance="@style/title2"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/clPostBottomSheetDatePicker"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clPostBottomSheetReadDateDefault"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="35dp"
         android:background="@drawable/shape_date_bottom_sheet_deselected"
+        app:layout_constraintBottom_toTopOf="@id/clPostBottomSheetDatePicker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
             android:id="@+id/llPostBottomSheetReadDateStart"
@@ -46,7 +54,8 @@
                 android:maxLines="1"
                 android:text="시작 날짜"
                 android:textAlignment="center"
-                android:textAppearance="@style/title2" />
+                android:textAppearance="@style/title2"
+                android:textColor="@color/primary_100_6341F0" />
 
             <TextView
                 android:id="@+id/tvPostBottomSheetReadDateStart"
@@ -55,7 +64,8 @@
                 android:layout_marginTop="2dp"
                 android:maxLines="1"
                 android:text="2023-11-28"
-                android:textAppearance="@style/label1" />
+                android:textAppearance="@style/label1"
+                android:textColor="@color/primary_100_6341F0" />
 
         </LinearLayout>
 
@@ -83,7 +93,8 @@
                 android:maxLines="1"
                 android:text="종료 날짜"
                 android:textAlignment="center"
-                android:textAppearance="@style/title2" />
+                android:textAppearance="@style/title2"
+                android:textColor="@color/gray_100_CBCBD1" />
 
             <TextView
                 android:id="@+id/tvPostBottomSheetReadDateEnd"
@@ -92,11 +103,20 @@
                 android:layout_marginTop="2dp"
                 android:maxLines="1"
                 android:text="2023-12-28"
-                android:textAppearance="@style/label1" />
+                android:textAppearance="@style/label1"
+                android:textColor="@color/gray_100_CBCBD1" />
 
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="37dp"
+        android:background="@drawable/shape_number_picker_background"
+        app:layout_constraintBottom_toBottomOf="@id/clPostBottomSheetDatePicker" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clPostBottomSheetDatePicker"
@@ -104,53 +124,76 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="35dp"
-        android:paddingHorizontal="7dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clPostBottomSheetReadDateDefault">
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toTopOf="@id/llPostButton"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/tvPostBottomSheetYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="23dp"
             android:text="연도"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textAppearance="@style/body2"
             android:textColor="@color/gray_300_52515F"
-            app:layout_constraintEnd_toEndOf="@id/npPostBottomSheetYear"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_goneMarginEnd="60dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="37dp"
+            android:background="@drawable/ic_number_picker_picked"
+            app:layout_constraintBottom_toBottomOf="@id/npPostBottomSheetMonth"
+            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetYear"
+            app:layout_constraintTop_toTopOf="@id/npPostBottomSheetMonth" />
 
         <NumberPicker
             android:id="@+id/npPostBottomSheetYear"
             style="@style/CustomNumberPicker"
-            android:layout_width="0dp"
+            android:layout_width="90dp"
             android:layout_height="111dp"
+            android:layout_marginStart="10dp"
             android:selectionDividerHeight="0dp"
-            app:layout_constraintEnd_toStartOf="@id/npPostBottomSheetMonth"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetYear"
+            app:layout_constraintStart_toStartOf="@id/tvPostBottomSheetYear"
             app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetYear" />
 
         <TextView
             android:id="@+id/tvPostBottomSheetMonth"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
+            android:paddingEnd="10dp"
             android:text="월"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textAppearance="@style/body2"
             android:textColor="@color/gray_300_52515F"
-            app:layout_constraintEnd_toEndOf="@id/npPostBottomSheetMonth"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/ic_number_picker_picked"
+            app:layout_constraintBottom_toBottomOf="@id/npPostBottomSheetMonth"
+            app:layout_constraintEnd_toEndOf="@id/npPostBottomSheetMonth"
+            app:layout_constraintTop_toTopOf="@id/npPostBottomSheetMonth" />
 
         <NumberPicker
             android:id="@+id/npPostBottomSheetMonth"
             style="@style/CustomNumberPicker"
-            android:layout_width="0dp"
+            android:layout_width="75dp"
             android:layout_height="111dp"
-            android:layout_marginStart="40dp"
+            android:layout_marginStart="55dp"
             android:selectionDividerHeight="0dp"
-            app:layout_constraintEnd_toStartOf="@id/npPostBottomSheetDay"
-            app:layout_constraintStart_toEndOf="@+id/npPostBottomSheetYear"
+            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetMonth"
+            app:layout_constraintStart_toStartOf="@id/tvPostBottomSheetMonth"
             app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetMonth" />
 
         <TextView
@@ -159,23 +202,31 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:text="일"
-            android:textAlignment="center"
+            android:textAlignment="textEnd"
             android:textAppearance="@style/body2"
             android:textColor="@color/gray_300_52515F"
-            app:layout_constraintEnd_toEndOf="@id/npPostBottomSheetDay"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/ic_number_picker_picked"
+            app:layout_constraintBottom_toBottomOf="@id/npPostBottomSheetMonth"
+            app:layout_constraintEnd_toEndOf="@id/npPostBottomSheetDay"
+            app:layout_constraintStart_toStartOf="@id/npPostBottomSheetDay"
+            app:layout_constraintTop_toTopOf="@id/npPostBottomSheetMonth" />
 
         <NumberPicker
             android:id="@+id/npPostBottomSheetDay"
             style="@style/CustomNumberPicker"
-            android:layout_width="0dp"
+            android:layout_width="75dp"
             android:layout_height="111dp"
-            android:layout_marginStart="40dp"
             android:selectionDividerHeight="0dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/npPostBottomSheetMonth"
+            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetDay"
+            app:layout_constraintStart_toStartOf="@id/tvPostBottomSheetDay"
             app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetDay" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
