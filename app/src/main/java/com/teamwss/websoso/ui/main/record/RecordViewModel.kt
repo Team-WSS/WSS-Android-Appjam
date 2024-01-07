@@ -1,8 +1,9 @@
-package com.teamwss.websoso.ui.main.record.model
+package com.teamwss.websoso.ui.main.record
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.teamwss.websoso.ui.main.record.model.Memo
 
 class RecordViewModel : ViewModel() {
     private val _novelCount = MutableLiveData<String>()

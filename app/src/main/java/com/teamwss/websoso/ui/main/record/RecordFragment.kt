@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
-import com.teamwss.websoso.ui.main.record.model.RecordViewModel
 
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
