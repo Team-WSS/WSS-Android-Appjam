@@ -21,10 +21,10 @@ class RecordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val memoAdapter = RecordAdapter(requireContext())
+        val memoAdapter = RecordAdapter()
         binding.rvRecord.adapter = memoAdapter
         memoAdapter.setFriendList(mockMemoList)
-        handleNovelCount()
+        handleNovelCountUIChanges()
     }
 
     private val mockMemoList = listOf<Memo>(
@@ -90,8 +90,8 @@ class RecordFragment : Fragment() {
         ),
     )
 
-    private fun handleNovelCount() {
-        val novelCount = "0행"
+    private fun handleNovelCountUIChanges() {
+        val novelCount = "0"
 
         val displayText = getString(R.string.record_novel_count, novelCount.toIntOrNull())
         binding.tvRecordNovelCount.text = displayText
