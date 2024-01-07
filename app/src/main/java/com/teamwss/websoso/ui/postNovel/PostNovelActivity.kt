@@ -7,6 +7,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.appbar.AppBarLayout
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import kotlin.math.pow
 
@@ -21,7 +22,7 @@ class PostNovelActivity : AppCompatActivity() {
         showNavigateLeftDialog()
         setupDateToggle()
         setupChipGroupListener()
-        showDatePickerBottomSheet()
+        showDatePickerDialog()
     }
 
     private fun setupAppBar() {
@@ -54,7 +55,7 @@ class PostNovelActivity : AppCompatActivity() {
     // PostNavigateLeftDialog 객체를 필드에 보관
     private val setupNavigateLeftDialog: PostNavigateLeftDialog by lazy {
         PostNavigateLeftDialog(this).apply {
-            setItemClickListener(object : PostNavigateLeftDialog.ItemClickListener {
+            setExitButtonClickListener(object : PostNavigateLeftDialog.ExitButtonClickListener {
                 override fun onExitButtonClick() {
                     finish()
                 }
@@ -78,27 +79,21 @@ class PostNovelActivity : AppCompatActivity() {
 
     // 체크 상태에 따라 날짜 상태 분기
     private fun setupChipGroupListener() {
-        val readStatusChipGroup = binding.cgPostReadStatus
-        readStatusChipGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                binding.cReadStatusRead.id -> {
-                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
-                    binding.tvPostReadDateTitle.text = "읽은 날짜"
-                }
-
-                binding.cReadStatusReading.id -> {
-                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = false)
-                    binding.tvPostReadDateTitle.text = "시작 날짜"
-                }
-
-                binding.cReadStatusStop.id -> {
-                    updateDateVisibility(isStartDateVisible = false, isEndDateVisible = true)
-                    binding.tvPostReadDateTitle.text = "종료 날짜"
-                }
-
-                binding.cReadStatusWant.id -> {
-                    binding.clPostReadDate.visibility = View.GONE
-                }
+        with(binding) {
+            cReadStatusRead.setOnClickListener {
+                updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
+                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
+            }
+            cReadStatusReading.setOnClickListener {
+                updateDateVisibility(isStartDateVisible = true, isEndDateVisible = false)
+                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
+            }
+            cReadStatusStop.setOnClickListener {
+                updateDateVisibility(isStartDateVisible = false, isEndDateVisible = true)
+                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
+            }
+            cReadStatusWant.setOnClickListener {
+                clPostReadDate.visibility = View.GONE
             }
         }
     }
@@ -119,20 +114,32 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    // 바텀시트 설정
-    private val datePickerBottomSheet: DatePickerBottomSheet by lazy {
-        DatePickerBottomSheet(this).apply {
-            setOnDismissListener {
-                binding.vPostDialogBackground.visibility = View.INVISIBLE
-            }
-        }
-    }
-
     // 바텀시트 표시
-    private fun showDatePickerBottomSheet() {
+    private fun showDatePickerDialog() {
         binding.llPostReadDate.setOnClickListener {
             binding.vPostDialogBackground.visibility = View.VISIBLE
-            datePickerBottomSheet.show()
+
+            // 바텀시트 설정 및 다이알로그 생성
+            val datePickerDialog = DatePickerDialog(this).apply {
+                setOnDateSelectedListener(object : DatePickerDialog.OnDateSelectedListener {
+                    override fun onDateSelected(startDate: String, endDate: String) {
+                        binding.tvPostReadDateStart.text = startDate
+                        binding.tvPostReadDateEnd.text = endDate
+                    }
+                })
+                setOnDismissListener {
+                    binding.vPostDialogBackground.visibility = View.INVISIBLE
+                }
+            }
+
+            with(binding) {
+                val readStatus = tvPostReadDateTitle.text.toString()
+                val startDate = tvPostReadDateStart.text.toString()
+                val endDate = tvPostReadDateEnd.text.toString()
+
+                datePickerDialog.setDialogReadStatus(readStatus, startDate, endDate)
+                datePickerDialog.show()
+            }
         }
     }
 }

@@ -134,9 +134,9 @@
                         app:checkedIconVisible="true"
                         app:chipBackgroundColor="@color/white"
                         app:chipCornerRadius="20dp"
-                        app:chipStartPadding="13dp"
                         app:chipStrokeColor="@drawable/selector_read_status_stroke"
                         app:chipStrokeWidth="1dp"
+                        app:iconStartPadding="8dp"
                         app:rippleColor="@color/transparent" />
 
                     <com.google.android.material.chip.Chip
@@ -151,9 +151,9 @@
                         app:checkedIconVisible="true"
                         app:chipBackgroundColor="@color/white"
                         app:chipCornerRadius="20dp"
-                        app:chipStartPadding="13dp"
                         app:chipStrokeColor="@drawable/selector_read_status_stroke"
                         app:chipStrokeWidth="1dp"
+                        app:iconStartPadding="8dp"
                         app:rippleColor="@color/transparent" />
 
                     <com.google.android.material.chip.Chip
@@ -168,9 +168,9 @@
                         app:checkedIconVisible="true"
                         app:chipBackgroundColor="@color/white"
                         app:chipCornerRadius="20dp"
-                        app:chipStartPadding="13dp"
                         app:chipStrokeColor="@drawable/selector_read_status_stroke"
                         app:chipStrokeWidth="1dp"
+                        app:iconStartPadding="8dp"
                         app:rippleColor="@color/transparent" />
 
                     <com.google.android.material.chip.Chip
@@ -185,9 +185,9 @@
                         app:checkedIconVisible="true"
                         app:chipBackgroundColor="@color/white"
                         app:chipCornerRadius="20dp"
-                        app:chipStartPadding="13dp"
                         app:chipStrokeColor="@drawable/selector_read_status_stroke"
                         app:chipStrokeWidth="1dp"
+                        app:iconStartPadding="8dp"
                         app:rippleColor="@color/transparent" />
 
                 </com.google.android.material.chip.ChipGroup>

@@ -7,7 +7,7 @@
     android:paddingVertical="34dp">
 
     <TextView
-        android:id="@+id/tvPostBottomSheetReadDateTitle"
+        android:id="@+id/tvPostDatePickerReadDateTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
@@ -15,23 +15,22 @@
         android:text="시작 날짜"
         android:textAlignment="center"
         android:textAppearance="@style/title2"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/clPostBottomSheetDatePicker"
+        app:layout_constraintBottom_toTopOf="@id/clPostDatePickerDatePicker"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPostBottomSheetReadDateDefault"
+        android:id="@+id/clPostDatePickerReadDateDefault"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="35dp"
         android:background="@drawable/shape_date_bottom_sheet_deselected"
-        app:layout_constraintBottom_toTopOf="@id/clPostBottomSheetDatePicker"
+        app:layout_constraintBottom_toTopOf="@id/clPostDatePickerDatePicker"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/llPostBottomSheetReadDateStart"
+            android:id="@+id/llPostDatePickerReadDateStart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_date_bottomsheet"
@@ -41,12 +40,12 @@
             android:orientation="vertical"
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/llPostBottomSheetReadDateEnd"
+            app:layout_constraintEnd_toStartOf="@id/llPostDatePickerReadDateEnd"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvPostBottomSheetReadDateStartTitle"
+                android:id="@+id/tvPostDatePickerReadDateStartTitle"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="56dp"
@@ -58,7 +57,7 @@
                 android:textColor="@color/primary_100_6341F0" />
 
             <TextView
-                android:id="@+id/tvPostBottomSheetReadDateStart"
+                android:id="@+id/tvPostDatePickerReadDateStart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -70,7 +69,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llPostBottomSheetReadDateEnd"
+            android:id="@+id/llPostDatePickerReadDateEnd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_date_bottomsheet"
@@ -81,11 +80,11 @@
             android:paddingVertical="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/llPostBottomSheetReadDateStart"
+            app:layout_constraintStart_toEndOf="@id/llPostDatePickerReadDateStart"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvPostBottomSheetReadDateEndTitle"
+                android:id="@+id/tvPostDatePickerReadDateEndTitle"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="56dp"
@@ -97,7 +96,7 @@
                 android:textColor="@color/gray_100_CBCBD1" />
 
             <TextView
-                android:id="@+id/tvPostBottomSheetReadDateEnd"
+                android:id="@+id/tvPostDatePickerReadDateEnd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -116,10 +115,10 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="37dp"
         android:background="@drawable/shape_number_picker_background"
-        app:layout_constraintBottom_toBottomOf="@id/clPostBottomSheetDatePicker" />
+        app:layout_constraintBottom_toBottomOf="@id/clPostDatePickerDatePicker" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clPostBottomSheetDatePicker"
+        android:id="@+id/clPostDatePickerDatePicker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
@@ -129,7 +128,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/tvPostBottomSheetYear"
+            android:id="@+id/tvPostDatePickerYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -147,23 +146,23 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="37dp"
             android:background="@drawable/ic_number_picker_picked"
-            app:layout_constraintBottom_toBottomOf="@id/npPostBottomSheetMonth"
-            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetYear"
-            app:layout_constraintTop_toTopOf="@id/npPostBottomSheetMonth" />
+            app:layout_constraintBottom_toBottomOf="@id/npPostDatePickerMonth"
+            app:layout_constraintEnd_toEndOf="@id/tvPostDatePickerYear"
+            app:layout_constraintTop_toTopOf="@id/npPostDatePickerMonth" />
 
         <NumberPicker
-            android:id="@+id/npPostBottomSheetYear"
+            android:id="@+id/npPostDatePickerYear"
             style="@style/CustomNumberPicker"
             android:layout_width="90dp"
             android:layout_height="111dp"
             android:layout_marginStart="10dp"
             android:selectionDividerHeight="0dp"
-            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetYear"
-            app:layout_constraintStart_toStartOf="@id/tvPostBottomSheetYear"
-            app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetYear" />
+            app:layout_constraintEnd_toEndOf="@id/tvPostDatePickerYear"
+            app:layout_constraintStart_toStartOf="@id/tvPostDatePickerYear"
+            app:layout_constraintTop_toBottomOf="@id/tvPostDatePickerYear" />
 
         <TextView
-            android:id="@+id/tvPostBottomSheetMonth"
+            android:id="@+id/tvPostDatePickerMonth"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -181,23 +180,23 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="60dp"
             android:background="@drawable/ic_number_picker_picked"
-            app:layout_constraintBottom_toBottomOf="@id/npPostBottomSheetMonth"
-            app:layout_constraintEnd_toEndOf="@id/npPostBottomSheetMonth"
-            app:layout_constraintTop_toTopOf="@id/npPostBottomSheetMonth" />
+            app:layout_constraintBottom_toBottomOf="@id/npPostDatePickerMonth"
+            app:layout_constraintEnd_toEndOf="@id/npPostDatePickerMonth"
+            app:layout_constraintTop_toTopOf="@id/npPostDatePickerMonth" />
 
         <NumberPicker
-            android:id="@+id/npPostBottomSheetMonth"
+            android:id="@+id/npPostDatePickerMonth"
             style="@style/CustomNumberPicker"
             android:layout_width="75dp"
             android:layout_height="111dp"
             android:layout_marginStart="55dp"
             android:selectionDividerHeight="0dp"
-            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetMonth"
-            app:layout_constraintStart_toStartOf="@id/tvPostBottomSheetMonth"
-            app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetMonth" />
+            app:layout_constraintEnd_toEndOf="@id/tvPostDatePickerMonth"
+            app:layout_constraintStart_toStartOf="@id/tvPostDatePickerMonth"
+            app:layout_constraintTop_toBottomOf="@id/tvPostDatePickerMonth" />
 
         <TextView
-            android:id="@+id/tvPostBottomSheetDay"
+            android:id="@+id/tvPostDatePickerDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -213,20 +212,20 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="60dp"
             android:background="@drawable/ic_number_picker_picked"
-            app:layout_constraintBottom_toBottomOf="@id/npPostBottomSheetMonth"
-            app:layout_constraintEnd_toEndOf="@id/npPostBottomSheetDay"
-            app:layout_constraintStart_toStartOf="@id/npPostBottomSheetDay"
-            app:layout_constraintTop_toTopOf="@id/npPostBottomSheetMonth" />
+            app:layout_constraintBottom_toBottomOf="@id/npPostDatePickerMonth"
+            app:layout_constraintEnd_toEndOf="@id/npPostDatePickerDay"
+            app:layout_constraintStart_toStartOf="@id/npPostDatePickerDay"
+            app:layout_constraintTop_toTopOf="@id/npPostDatePickerMonth" />
 
         <NumberPicker
-            android:id="@+id/npPostBottomSheetDay"
+            android:id="@+id/npPostDatePickerDay"
             style="@style/CustomNumberPicker"
             android:layout_width="75dp"
             android:layout_height="111dp"
             android:selectionDividerHeight="0dp"
-            app:layout_constraintEnd_toEndOf="@id/tvPostBottomSheetDay"
-            app:layout_constraintStart_toStartOf="@id/tvPostBottomSheetDay"
-            app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetDay" />
+            app:layout_constraintEnd_toEndOf="@id/tvPostDatePickerDay"
+            app:layout_constraintStart_toStartOf="@id/tvPostDatePickerDay"
+            app:layout_constraintTop_toBottomOf="@id/tvPostDatePickerDay" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -238,7 +237,7 @@
         android:layout_marginTop="35dp"
         android:background="@drawable/shape_date_bottom_sheet_button"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/clPostBottomSheetDatePicker">
+        app:layout_constraintTop_toBottomOf="@id/clPostDatePickerDatePicker">
 
         <TextView
             android:id="@+id/tvDatePostButton"

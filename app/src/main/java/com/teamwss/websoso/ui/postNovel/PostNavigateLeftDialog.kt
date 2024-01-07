@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import com.teamwss.websoso.databinding.DialogPostWarningBinding
 
 class PostNavigateLeftDialog(context: Context) : Dialog(context) {
-    private lateinit var itemClickListener: ItemClickListener
+    private lateinit var exitButtonClickListener: ExitButtonClickListener
     private lateinit var binding: DialogPostWarningBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,16 +25,16 @@ class PostNavigateLeftDialog(context: Context) : Dialog(context) {
         }
 
         binding.llPostDialogExitButton.setOnClickListener {
-            itemClickListener.onExitButtonClick()
+            exitButtonClickListener.onExitButtonClick()
             dismiss()
         }
     }
 
-    interface ItemClickListener {
+    interface ExitButtonClickListener {
         fun onExitButtonClick()
     }
 
-    fun setItemClickListener(itemClickListener: ItemClickListener) {
-        this.itemClickListener = itemClickListener
+    fun setExitButtonClickListener(exitButtonClickListener: ExitButtonClickListener) {
+        this.exitButtonClickListener = exitButtonClickListener
     }
 }
