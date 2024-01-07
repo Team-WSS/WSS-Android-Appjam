@@ -2,6 +2,7 @@ package com.teamwss.websoso.ui.novelDetail
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
 
 class NovelDetailActivity : AppCompatActivity() {
@@ -22,9 +23,14 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun setupFragment() {
         val fragmentList = listOf(NovelMemoFragment(), NovelInfoFragment())
+        val fragmentTitleList = listOf("메모", "정보")
         val viewPagerAdapter = NovelDetailViewPagerAdapter(this)
         viewPagerAdapter.fragments.addAll(fragmentList)
 
         binding.vpNovelDetail.adapter = viewPagerAdapter
+
+        TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
+            tab.text = fragmentTitleList[position]
+        }.attach()
     }
 }
