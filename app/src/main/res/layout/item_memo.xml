@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <View
-        android:id="@+id/vMemoLongLine"
+        android:id="@+id/viewMemoLongLine"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginTop="5dp"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
-        android:id="@+id/vMemoShortLine"
+        android:id="@+id/viewMemoShortLine"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="8dp"
