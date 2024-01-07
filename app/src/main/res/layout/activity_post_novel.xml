@@ -281,13 +281,6 @@
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <View
-                    android:id="@+id/vPostDialogBackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#99000000"
-                    android:visibility="invisible" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -486,5 +479,11 @@
         app:layout_constraintBottom_toBottomOf="@id/alPostAppBar"
         app:layout_constraintStart_toStartOf="@id/alPostAppBar" />
 
+    <View
+        android:id="@+id/vPostDialogBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

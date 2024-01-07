@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import com.teamwss.websoso.databinding.DialogPostWarningBinding
 
-class PostNavigateLeftDialog(context: Context): Dialog(context) {
+class PostNavigateLeftDialog(context: Context) : Dialog(context) {
     private lateinit var itemClickListener: ItemClickListener
     private lateinit var binding: DialogPostWarningBinding
 
@@ -20,11 +20,7 @@ class PostNavigateLeftDialog(context: Context): Dialog(context) {
         // 배경 투명화를 통해 둥근 다이알로그
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        // 취소 가능 유무
-        setCancelable(false)
-
         binding.llPostDialogKeepButton.setOnClickListener {
-            itemClickListener.onKeepButtonClick()
             dismiss()
         }
 
@@ -36,7 +32,6 @@ class PostNavigateLeftDialog(context: Context): Dialog(context) {
 
     interface ItemClickListener {
         fun onExitButtonClick()
-        fun onKeepButtonClick()
     }
 
     fun setItemClickListener(itemClickListener: ItemClickListener) {

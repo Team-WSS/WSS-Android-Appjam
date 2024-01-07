@@ -18,9 +18,10 @@ class PostNovelActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAppBar()
-        setupNavigateLeftDialog()
+        showNavigateLeftDialog()
         setupDateToggle()
         setupChipGroupListener()
+        showDatePickerBottomSheet()
     }
 
     private fun setupAppBar() {
@@ -43,21 +44,24 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     // 뒤로가기를 눌렀을 때 나오는 Dialog
-    private fun setupNavigateLeftDialog() {
+    private fun showNavigateLeftDialog() {
         binding.ivPostNavigateLeft.setOnClickListener {
-            val dialog = PostNavigateLeftDialog(this)
+            binding.vPostDialogBackground.visibility = View.VISIBLE
+            setupNavigateLeftDialog.show()
+        }
+    }
 
-            dialog.setItemClickListener(object : PostNavigateLeftDialog.ItemClickListener {
+    // PostNavigateLeftDialog 객체를 필드에 보관
+    private val setupNavigateLeftDialog: PostNavigateLeftDialog by lazy {
+        PostNavigateLeftDialog(this).apply {
+            setItemClickListener(object : PostNavigateLeftDialog.ItemClickListener {
                 override fun onExitButtonClick() {
                     finish()
                 }
-
-                override fun onKeepButtonClick() {
-                    binding.vPostDialogBackground.visibility = View.INVISIBLE
-                }
             })
-            binding.vPostDialogBackground.visibility = View.VISIBLE
-            dialog.show()
+            setOnDismissListener {
+                binding.vPostDialogBackground.visibility = View.INVISIBLE
+            }
         }
     }
 
@@ -112,6 +116,23 @@ class PostNovelActivity : AppCompatActivity() {
             tvPostReadDateStart.setVisibility(isStartDateVisible)
             tvPostReadDateTilde.setVisibility(isStartDateVisible && isEndDateVisible)
             tvPostReadDateEnd.setVisibility(isEndDateVisible)
+        }
+    }
+
+    // 바텀시트 설정
+    private val datePickerBottomSheet: DatePickerBottomSheet by lazy {
+        DatePickerBottomSheet(this).apply {
+            setOnDismissListener {
+                binding.vPostDialogBackground.visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    // 바텀시트 표시
+    private fun showDatePickerBottomSheet() {
+        binding.llPostReadDate.setOnClickListener {
+            binding.vPostDialogBackground.visibility = View.VISIBLE
+            datePickerBottomSheet.show()
         }
     }
 }
