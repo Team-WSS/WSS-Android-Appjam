@@ -17,16 +17,17 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/tlNovelDetailStickyHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <ImageView
                     android:id="@+id/btnNovelDetailNavigateStickyHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:padding="10dp"
                     android:src="@drawable/ic_navigate_left"
                     app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +48,6 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clNovelDetailBanner"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -73,6 +73,19 @@
                 android:src="@drawable/ic_navigate_left"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btnNovelDetailPopupMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_meatball_memo"
+                app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigate" />
 
             <ImageView
                 android:id="@+id/ivNovelDetailGenre"
