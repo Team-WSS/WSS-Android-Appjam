@@ -421,7 +421,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvPostNovelSiteTitle" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/llPostButton"
+                android:id="@+id/llDatePostButton"
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
                 android:layout_marginHorizontal="20dp"
@@ -433,7 +433,7 @@
                 app:layout_constraintTop_toBottomOf="@id/rvPostNovelSite">
 
                 <TextView
-                    android:id="@+id/tvPostButton"
+                    android:id="@+id/tvDatePostButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="내 서재에 등록"

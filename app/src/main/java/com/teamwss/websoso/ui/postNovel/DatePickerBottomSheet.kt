@@ -7,10 +7,8 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.NumberPicker
+import androidx.core.content.ContextCompat
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.BottomSheetPostBinding
 
@@ -30,9 +28,10 @@ class DatePickerBottomSheet(context: Context) : Dialog(context) {
         setupDialog()
 
         // 버튼 클릭 이벤트 설정
-        binding.llPostButton.setOnClickListener {
-            dismiss()
-        }
+        setupPostButtonClickListener()
+
+        // 상단 시작 날짜 종료 날짜 클릭 이벤트 설정
+        setupDateSelection()
     }
 
     private fun setupView() {
@@ -95,5 +94,50 @@ class DatePickerBottomSheet(context: Context) : Dialog(context) {
     // 윤년 체크
     private fun isLeapYear(year: Int): Boolean {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+    }
+
+    private fun setupPostButtonClickListener() {
+        binding.llDatePostButton.setOnClickListener {
+            dismiss()
+        }
+    }
+
+
+    private fun setupDateSelection() {
+        with(binding) {
+            llPostBottomSheetReadDateStart.isSelected = true
+            llPostBottomSheetReadDateStart.setOnClickListener {
+                updateDateSelection(true)
+            }
+
+            llPostBottomSheetReadDateEnd.setOnClickListener {
+                updateDateSelection(false)
+            }
+        }
+    }
+
+    private fun updateDateSelection(isStart: Boolean) {
+        with(binding) {
+            llPostBottomSheetReadDateStart.isSelected = isStart
+            llPostBottomSheetReadDateEnd.isSelected = !isStart
+
+            val startColor = if (isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
+            val endColor = if (!isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
+
+            tvPostBottomSheetReadDateStartTitle.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    startColor
+                )
+            )
+            tvPostBottomSheetReadDateStart.setTextColor(ContextCompat.getColor(context, startColor))
+            tvPostBottomSheetReadDateEndTitle.setTextColor(
+                ContextCompat.getColor(
+                    context,
+                    endColor
+                )
+            )
+            tvPostBottomSheetReadDateEnd.setTextColor(ContextCompat.getColor(context, endColor))
+        }
     }
 }
