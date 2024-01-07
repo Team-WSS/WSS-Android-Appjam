@@ -1,5 +1,4 @@
-package com.teamwss.websoso.data
-
+package com.teamwss.websoso.ui.main.record.model
 
 data class Memo(
     val novelDate:String,
