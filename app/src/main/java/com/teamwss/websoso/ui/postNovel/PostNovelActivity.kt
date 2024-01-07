@@ -35,7 +35,7 @@ class PostNovelActivity : AppCompatActivity() {
             val maxHeight = binding.ivPostCoverBackground.height - appBarLayout.height
 
             // 제곱식을 통해 alpha값 보정
-            val scrollRatio = (scrollY.toFloat() + 1 / maxHeight).coerceAtMost(1f).pow(3 / 2)
+            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
             appBarLayout.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
