@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lyRecord"
+        android:id="@+id/lyNovelExist"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecord"
+            android:id="@+id/rvMemoList"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
@@ -55,7 +55,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lyRecordNull"
+        android:id="@+id/lyNovelNoExist"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="64dp"
