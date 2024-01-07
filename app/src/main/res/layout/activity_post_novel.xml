@@ -410,16 +410,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenre" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvPostNovelSite"
+            <GridLayout
+                android:id="@+id/glPostNovelSite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPostNovelSiteTitle" />
+                app:layout_constraintTop_toBottomOf="@id/tvPostNovelSiteTitle">
+
+                <ImageView
+                    android:id="@+id/ivPostNovelSiteNaver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/ivPostNovelSiteKakao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </GridLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/llDatePostButton"
@@ -431,7 +440,7 @@
                 android:background="@drawable/shape_post_button"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvPostNovelSite">
+                app:layout_constraintTop_toBottomOf="@id/glPostNovelSite">
 
                 <TextView
                     android:id="@+id/tvDatePostButton"
