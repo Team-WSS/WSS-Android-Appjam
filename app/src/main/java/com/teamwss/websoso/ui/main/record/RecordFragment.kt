@@ -32,12 +32,17 @@ class RecordFragment : Fragment() {
         val displayText = getString(R.string.record_novel_count, novelCount.toIntOrNull())
         binding.tvRecordNovelCount.text = displayText
 
-        if (novelCount.toIntOrNull() == 0) {
-            binding.lyRecordNull.visibility = View.VISIBLE
-            binding.lyRecord.visibility = View.GONE
-        } else {
-            binding.lyRecord.visibility = View.VISIBLE
-            binding.lyRecordNull.visibility = View.GONE
+        when (novelCount.toIntOrNull()) {
+
+            0 -> {
+                binding.lyRecordNull.visibility = View.VISIBLE
+                binding.lyRecord.visibility = View.GONE
+            }
+
+            else -> {
+                binding.lyRecord.visibility = View.VISIBLE
+                binding.lyRecordNull.visibility = View.GONE
+            }
         }
     }
 
