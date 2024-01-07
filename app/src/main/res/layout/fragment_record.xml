@@ -18,9 +18,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lyRecord"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvRecordTitle">
 
         <TextView
@@ -40,25 +42,28 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecord"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginTop="24dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvRecordNovelCount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_memo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lyRecordNull"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="64dp"
         android:layout_marginTop="164dp"
         android:layout_marginEnd="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvRecordTitle">
 
         <ImageView
@@ -90,12 +95,14 @@
             android:id="@+id/btnRecordGoToPostNovel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="28dp"
-            android:layout_marginTop="48dp"
             android:background="@drawable/bg_primary50_corner_12dp"
             android:text="@string/record_go_to_post_novel"
             android:textAppearance="@style/title1"
             android:textColor="@color/primary_100_6341F0"
+            android:paddingVertical="18dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginTop="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvRecordNull" />
