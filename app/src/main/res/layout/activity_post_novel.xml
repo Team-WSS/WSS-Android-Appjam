@@ -64,13 +64,14 @@
 
                 <ImageView
                     android:id="@+id/ivPostCover"
-                    android:layout_width="128dp"
-                    android:layout_height="196dp"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="116dp"
                     android:layout_marginTop="20dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_cover_test"
+                    app:layout_constraintDimensionRatio="128:197"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvPostNovelWriter" />
 
