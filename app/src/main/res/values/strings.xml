@@ -48,7 +48,6 @@
     <string name="search_result_null">검색결과가 없어요ㅠ</string>
     <string name="search_title">검색</string>
 
-
     <!-- activity_post_novel -->
     <string name="tv_post_read_status">읽기 상태</string>
     <string name="tv_post_read_status_suffix">" "*</string>
@@ -69,4 +68,7 @@
     <string name="iv_post_cover_description">표지 이미지</string>
     <string name="iv_post_navigate_left_description">뒤로가기</string>
 
+    <!-- Novel Detail -->
+    <string name="novel_detail_memo">메모</string>
+    <string name="novel_detail_info">정보</string>
 </resources>
