@@ -18,8 +18,10 @@ class RecordViewHolder(private val binding: ItemMemoBinding) :
     }
 
     fun onBind(memo: Memo) {
-        binding.tvMemoDate.text = memo.novelDate
-        binding.tvMemoTitle.text = memo.novelTitle
-        binding.tvMemoContent.text = memo.novelContent
+        with(binding) {
+            tvMemoDate.text = memo.novelDate
+            tvMemoTitle.text = memo.novelTitle
+            tvMemoContent.text = memo.novelContent
+        }
     }
 }
