@@ -411,7 +411,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenre" />
 
             <GridLayout
-                android:id="@+id/glPostNovelSite"
+                android:id="@+id/glPostNovelLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
@@ -419,15 +419,55 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvPostNovelSiteTitle">
 
-                <ImageView
-                    android:id="@+id/ivPostNovelSiteNaver"
+                <LinearLayout
+                    android:id="@+id/llPostNovelLinkNaver"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="37dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_link_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="13dp">
 
-                <ImageView
-                    android:id="@+id/ivPostNovelSiteKakao"
+                    <TextView
+                        android:id="@+id/tvPostNovelSiteNaver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="네이버시리즈"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@color/primary_100_6341F0" />
+
+                    <ImageView
+                        android:id="@+id/ivPostNovelSiteNaver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:src="@drawable/ic_link_platform" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llPostNovelLinkKakao"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="37dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/shape_link_button"
+                    android:gravity="center"
+                    android:paddingHorizontal="13dp">
+
+                    <TextView
+                        android:id="@+id/tvPostNovelSiteKakao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="카카오페이지"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@color/primary_100_6341F0" />
+
+                    <ImageView
+                        android:id="@+id/ivPostNovelSiteKakao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:src="@drawable/ic_link_platform" />
+                </LinearLayout>
             </GridLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -440,7 +480,7 @@
                 android:background="@drawable/shape_post_button"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/glPostNovelSite">
+                app:layout_constraintTop_toBottomOf="@id/glPostNovelLink">
 
                 <TextView
                     android:id="@+id/tvDatePostButton"
