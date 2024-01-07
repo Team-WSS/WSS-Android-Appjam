@@ -12,16 +12,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="246dp"
-            android:background="@color/black">
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/tlNovelDetailStickyHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <ImageView
+                    android:id="@+id/btnNovelDetailNavigateStickyHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_navigate_left"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNovelDetailTitleStickyHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="68dp"
+                    android:textAppearance="@style/title2"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigateStickyHeader"
+                    app:layout_constraintStart_toEndOf="@id/btnNovelDetailNavigateStickyHeader"
+                    app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigateStickyHeader"
+                    tools:text="당신의 이해를 돕기 위하여" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clNovelDetailBanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/ivNovelDetailBackground"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="246dp"
+                android:background="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -57,13 +91,13 @@
                 android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="당신의 이해를 돕기 위하여 당신의 이해를 돕기 위하여 당신의 이해를 돕기 위하여 당신의 이해를 돕기 위해서 당신의 이해를"
+                android:text="당신의 이해를 돕기 위하여"
                 android:textAppearance="@style/headline1"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toStartOf="@id/ivNovelDetailThumbnail"
                 app:layout_constraintStart_toStartOf="@id/ivNovelDetailGenre"
                 app:layout_constraintTop_toBottomOf="@id/ivNovelDetailGenre"
-                tools:text="당신의 이해를 돕기 위하여 당신의 이해를 돕기 위하여 당신의 이해를 돕기 위하여 당신의 이해를 돕기 위해서 당신의 이해를" />
+                tools:text="당신의 이해를 돕기 위하여" />
 
             <TextView
                 android:id="@+id/tvNovelDetailAuthor"
@@ -89,8 +123,41 @@
                 app:layout_constraintStart_toEndOf="@id/tvNovelDetailTitle"
                 app:layout_constraintTop_toTopOf="@id/tvNovelDetailTitle"
                 tools:src="@drawable/img" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlNovelDetailMemoInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivNovelDetailBackground"
+                app:tabIndicatorColor="@color/black"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextAppearance="@style/title1"
+                app:tabTextColor="@color/gray_200_AEADB3">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="메모" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="정보" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tlNovelDetailMemoInfo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </layout>
