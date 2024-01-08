@@ -75,10 +75,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
             npPostDatePickerMonth.maxValue = 12
             npPostDatePickerDay.maxValue = 31
 
-            // 연도와 월이 바뀔 때마다 일의 최대값 설정 및 날짜 업데이트
-            npPostDatePickerYear.setOnValueChangedListener { _, _, _ -> setDayMaxValue() }
-            npPostDatePickerMonth.setOnValueChangedListener { _, _, _ -> setDayMaxValue() }
-
             // 출력 형태 설정
             npPostDatePickerYear.setFormatter { String.format("%04d", it) }
             npPostDatePickerMonth.setFormatter { String.format("%02d", it) }
@@ -202,18 +198,21 @@ class DatePickerDialog(context: Context) : Dialog(context) {
     private fun setupNumberPickerListener() {
         with(binding) {
             npPostDatePickerYear.setOnValueChangedListener { _, _, _ ->
+                setDayMaxValue()
                 updateDate(
                     llPostDatePickerReadDateStart.isSelected
                 )
                 if (readStatus == context.getString(R.string.post_read_status_read)) isDateValid()
             }
             npPostDatePickerMonth.setOnValueChangedListener { _, _, _ ->
+                setDayMaxValue()
                 updateDate(
                     llPostDatePickerReadDateStart.isSelected
                 )
                 if (readStatus == context.getString(R.string.post_read_status_read)) isDateValid()
             }
             npPostDatePickerDay.setOnValueChangedListener { _, _, _ ->
+                setDayMaxValue()
                 updateDate(
                     llPostDatePickerReadDateStart.isSelected
                 )
