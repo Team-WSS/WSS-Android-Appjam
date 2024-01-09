@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.novelDetail
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
@@ -14,7 +15,15 @@ class NovelDetailActivity : AppCompatActivity() {
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setTranslucentOnStatusBar()
         setupFragment()
+    }
+
+    private fun setTranslucentOnStatusBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     private fun setupFragment() {
