@@ -166,6 +166,7 @@ class PostNovelActivity : AppCompatActivity() {
                 // 이미지 블러처리
                 transformations(BlurTransformation(this@PostNovelActivity, 25))
             }
+            rbPostRating.rating = 5.0f
             tvPostReadDateStart.text = "2023-12-26"
             tvPostReadDateEnd.text = "2023-12-26"
             tvPostNovelDetail.text =
