@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -66,9 +65,11 @@ class SearchActivity : AppCompatActivity() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             binding.lySearchView.setBackgroundResource(R.color.transparent)
             var handled = false
-            Log.d("123123", action.toString())
+
             if (action == EditorInfo.IME_ACTION_DONE) {
-                Log.d("123123", "1231231235")
+                val inputMethodManager =
+                    this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
                 binding.lySearchView.setBackgroundResource(R.drawable.bg_gray50_corner_12dp)
                 handled = true
             } else {
