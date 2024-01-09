@@ -19,6 +19,7 @@
             android:id="@+id/tvNovelMemoMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="새로운 메모를 작성해보세요"
             android:paddingBottom="18dp"
             android:textAppearance="@style/body2"
             android:textColor="@color/gray_200_AEADB3"
