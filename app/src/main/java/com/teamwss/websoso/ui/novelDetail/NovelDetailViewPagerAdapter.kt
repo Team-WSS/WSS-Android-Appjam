@@ -6,9 +6,17 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class NovelDetailViewPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
-    val fragments = mutableListOf<Fragment>()
 
-    override fun getItemCount(): Int = fragments.size
+    override fun getItemCount(): Int = FRAGMENT_COUNT
 
-    override fun createFragment(position: Int): Fragment = fragments[position]
+    override fun createFragment(position: Int): Fragment {
+        return when (position) {
+            0 -> NovelMemoFragment()
+            else -> NovelInfoFragment()
+        }
+    }
+
+    companion object {
+        private const val FRAGMENT_COUNT = 2
+    }
 }

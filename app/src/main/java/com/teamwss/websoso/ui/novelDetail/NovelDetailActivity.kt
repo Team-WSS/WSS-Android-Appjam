@@ -15,16 +15,13 @@ class NovelDetailActivity : AppCompatActivity() {
 
         setupFragment()
     }
-    private fun setupFragment() {
-        val fragmentList = listOf(NovelMemoFragment(), NovelInfoFragment())
-        val fragmentTitleList = listOf("메모", "정보")
-        val viewPagerAdapter = NovelDetailViewPagerAdapter(this)
-        viewPagerAdapter.fragments.addAll(fragmentList)
 
-        binding.vpNovelDetail.adapter = viewPagerAdapter
+    private fun setupFragment() {
+        val tabTitleList = listOf("메모", "정보")
+        binding.vpNovelDetail.adapter = NovelDetailViewPagerAdapter(this)
 
         TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
-            tab.text = fragmentTitleList[position]
+            tab.text = tabTitleList[position]
         }.attach()
     }
 }
