@@ -50,26 +50,17 @@ class PostNovelActivity : AppCompatActivity() {
             val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
-            val white = getColor(R.color.white)
-            val black = getColor(R.color.black)
-
             binding.alPostAppBar.setBackgroundColor(
-                Color.argb(
-                    colorAlpha,
-                    Color.red(white),
-                    Color.green(white),
-                    Color.blue(white)
-                )
+                getColor(R.color.white).changeAlpha(colorAlpha)
             )
             binding.tvPostTitle.setTextColor(
-                Color.argb(
-                    colorAlpha,
-                    Color.red(black),
-                    Color.green(black),
-                    Color.blue(black)
-                )
+                getColor(R.color.black).changeAlpha(colorAlpha)
             )
         }
+    }
+
+    private fun Int.changeAlpha(newAlpha: Int): Int {
+        return Color.argb(newAlpha, Color.red(this), Color.green(this), Color.blue(this))
     }
 
     private fun setupDateToggle() {
@@ -157,6 +148,7 @@ class PostNovelActivity : AppCompatActivity() {
     private fun initDummyNovelInfo() {
         with(binding) {
             tvPostNovelTitle.text = "노 게임 노 라이프"
+            tvPostTitle.text = "노 게임 노 라이프"
             tvPostNovelAuthor.text = "카미야 유우"
             ivPostCover.load("https://i.namu.wiki/i/j1S3TlFyve1UjbCnzF_g6qEgFnMi8usZ_DLCn8lP91FwgpPgwkv_GNCD2fmu5uEPgPU5CSdzDF5qwe_8Ains2UzdgGgI-bzT95MQeBrceU9E7Hr26fWBFREMLDGiZm01VtAXHgXRO9kviGz3sYwQ-w.webp") {
                 crossfade(true)
