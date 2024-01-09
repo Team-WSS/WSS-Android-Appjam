@@ -47,7 +47,7 @@ class PostNovelActivity : AppCompatActivity() {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height
 
-            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
+            val scrollRatio = ((scrollY.toFloat() + 15) / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
             binding.alPostAppBar.setBackgroundColor(
