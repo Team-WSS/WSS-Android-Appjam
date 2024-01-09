@@ -25,18 +25,15 @@ class DatePickerDialog(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setupView()
+        binding = DialogDatePickerBinding.inflate(LayoutInflater.from(context))
+        setContentView(binding.root)
+
         setupDatePicker()
         setupDialog()
         setupPostButtonClickListener()
         setupDateTypeSelector()
         setupNumberPickerListener()
         checkReadStatus()
-    }
-
-    private fun setupView() {
-        binding = DialogDatePickerBinding.inflate(LayoutInflater.from(context))
-        setContentView(binding.root)
     }
 
     fun setDialogReadStatus(readStatus: String, startDate: String, endDate: String) {
