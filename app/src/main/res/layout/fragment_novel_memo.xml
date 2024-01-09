@@ -19,8 +19,8 @@
             android:id="@+id/tvNovelMemoMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="새로운 메모를 작성해보세요"
             android:paddingBottom="18dp"
+            android:text="새로운 메모를 작성해보세요"
             android:textAppearance="@style/body2"
             android:textColor="@color/gray_200_AEADB3"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,7 +43,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/clNovelMemoNavigateNewMemo" />
+        app:layout_constraintTop_toBottomOf="@id/clNovelMemoNavigateNewMemo"
+        tools:listitem="@layout/item_memo" />
 
     <ImageView
         android:id="@+id/btnNovelMemoAddMemo"
