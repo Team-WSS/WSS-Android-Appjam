@@ -56,6 +56,7 @@
             android:background="@null"
             android:inputType="text"
             android:textAppearance="@style/body2"
+            android:textCursorDrawable="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/ivSearch"
             app:layout_constraintStart_toEndOf="@id/ivSearch"
             app:layout_constraintTop_toTopOf="@id/ivSearch"
