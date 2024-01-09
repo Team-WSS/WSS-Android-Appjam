@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/ivNovelDetailBackground"
                 android:layout_width="0dp"
-                android:layout_height="246dp"
+                android:layout_height="272dp"
                 android:background="@color/black"
                 android:src="@drawable/img"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="28dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="10dp"
@@ -112,7 +112,7 @@
                 app:layout_constraintEnd_toStartOf="@id/ivNovelDetailThumbnail"
                 app:layout_constraintStart_toStartOf="@id/ivNovelDetailGenre"
                 app:layout_constraintTop_toBottomOf="@id/ivNovelDetailGenre"
-                tools:text="당신의 이해를 돕기 위하여" />
+                tools:text="당신의 이해를 돕기 당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여" />
 
             <TextView
                 android:id="@+id/tvNovelDetailAuthor"
@@ -173,10 +173,8 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tlNovelDetailMemoInfo"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@id/tlNovelDetailMemoInfo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
