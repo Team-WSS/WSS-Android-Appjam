@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
+import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailMemoAdapter
 
 class NovelMemoFragment : Fragment() {
     private var _binding: FragmentNovelMemoBinding? = null
     private val binding: FragmentNovelMemoBinding
         get() = requireNotNull(_binding)
+
+    private lateinit var rvNovelMemoAdapter: NovelDetailMemoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -24,8 +28,20 @@ class NovelMemoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initAdapter()
+        initRecyclerView()
         clickAddingMemoFab()
         clickAddingMemoBox()
+    }
+
+    private fun initAdapter() {
+        rvNovelMemoAdapter = NovelDetailMemoAdapter()
+    }
+
+    private fun initRecyclerView() {
+        with(binding.rvNovelMemo) {
+            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 
     private fun clickAddingMemoFab() {
