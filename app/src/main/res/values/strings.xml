@@ -71,4 +71,7 @@
     <!-- Novel Detail -->
     <string name="novel_detail_memo">메모</string>
     <string name="novel_detail_info">정보</string>
+
+    <!-- Memo Write -->
+    <string name="memo_write_complete">완료</string>
 </resources>
