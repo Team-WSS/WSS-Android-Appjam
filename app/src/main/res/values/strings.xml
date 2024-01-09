@@ -72,6 +72,18 @@
     <string name="novel_detail_memo">메모</string>
     <string name="novel_detail_info">정보</string>
 
+    <!-- Novel Info -->
+    <string name="novel_info_my_evaluation">내 평가</string>
+    <string name="novel_info_read_status">읽기 상태</string>
+    <string name="novel_info_read_date">읽은 날짜</string>
+    <string name="novel_info_tilde">~</string>
+    <string name="novel_info_key_word">키워드</string>
+    <string name="novel_info_intro">작품 소개</string>
+
     <!-- Memo Write -->
     <string name="memo_write_complete">완료</string>
+    <string name="novel_info_genre">장르</string>
+    <string name="novel_info_platform_title">작품 보러가기</string>
+    <string name="novel_info_naver_series">네이버시리즈</string>
+    <string name="novel_info_kakao_page">카카오페이지</string>
 </resources>
