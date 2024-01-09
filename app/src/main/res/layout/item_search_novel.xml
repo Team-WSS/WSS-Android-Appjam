@@ -7,8 +7,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivSearchNovel"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="76dp"
+        android:layout_height="104dp"
         android:layout_marginEnd="280dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,6 +33,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/label1"
         android:textColor="@color/gray_200_AEADB3"
+        android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="@id/tvSearchNovelTitle"
         app:layout_constraintTop_toBottomOf="@id/tvSearchNovelTitle" />
 
@@ -42,6 +43,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/label1"
         android:textColor="@color/gray_200_AEADB3"
+        android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="@id/tvSearchNovelTitle"
         app:layout_constraintTop_toBottomOf="@id/tvSearchNovelAuthor" />
 
