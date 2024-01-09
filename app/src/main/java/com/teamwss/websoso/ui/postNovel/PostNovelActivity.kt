@@ -24,7 +24,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupAppBar()
         showNavigateLeftDialog()
         setupDateToggle()
-        setupChipGroupListener()
+        setupReadStatusChip()
         showDatePickerDialog()
         initDummyNovelInfo()
     }
@@ -78,12 +78,12 @@ class PostNovelActivity : AppCompatActivity() {
         ivPostDateSwitch.isSelected = true
         ivPostDateSwitch.setOnClickListener {
             it.isSelected = !it.isSelected
-            llPostReadDate.visibility = if (it.isSelected) View.VISIBLE else View.GONE
+            llPostReadDate.setVisibility(it.isSelected)
         }
     }
 
     // 체크 상태에 따라 날짜 상태 분기
-    private fun setupChipGroupListener() {
+    private fun setupReadStatusChip() {
         with(binding) {
             cReadStatusRead.setOnClickListener {
                 updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
