@@ -6,5 +6,136 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.home.HomeFragment">
 
+    <ImageView
+        android:id="@+id/ivHomeLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/ic_home_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clHomeSearch"
+        android:layout_width="0dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivHomeLogo"
+        app:layout_constraintTop_toTopOf="@id/ivHomeLogo">
+
+        <ImageView
+            android:id="@+id/ivHomeSearch"
+            android:layout_width="22dp"
+            android:layout_height="0dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvHomeSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="등록할 작품 검색하기"
+            android:textAppearance="@style/body2"
+            android:textColor="@color/gray_200_AEADB3"
+            app:layout_constraintBottom_toBottomOf="@id/ivHomeSearch"
+            app:layout_constraintStart_toEndOf="@id/ivHomeSearch"
+            app:layout_constraintTop_toTopOf="@id/ivHomeSearch" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/gray_100_CBCBD1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/btnHomeAvatarTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_primary50_corner_876dp"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="8dp"
+        android:text="지나친 악역영애"
+        android:textAppearance="@style/title3"
+        android:textColor="@color/primary_100_6341F0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clHomeSearch" />
+
+    <TextView
+        android:id="@+id/tvHomeAvatarComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="명진 영애, 오랜만입니다"
+        android:textAppearance="@style/title1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnHomeAvatarTag"
+        tools:text="명진 영애, 오랜만입니다" />
+
+    <ImageView
+        android:id="@+id/ivHomeAvatar"
+        android:layout_width="330dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/img_home_test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHomeAvatarComment"
+        tools:src="@drawable/img_home_test" />
+
+    <View
+        android:id="@+id/vHomeSubTitleDot"
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/bg_selected_circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivHomeAvatar" />
+
+    <TextView
+        android:id="@+id/tvHomeSosoPick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:text="소소’s pick"
+        android:textAppearance="@style/headline1"
+        app:layout_constraintBottom_toBottomOf="@id/vHomeSubTitleDot"
+        app:layout_constraintStart_toEndOf="@id/vHomeSubTitleDot"
+        app:layout_constraintTop_toTopOf="@id/vHomeSubTitleDot" />
+
+    <TextView
+        android:id="@+id/tvHomeSosoPickDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="9dp"
+        android:text="지금 소소들이 등록한 작품"
+        android:textAppearance="@style/body2"
+        android:textColor="@color/gray_200_AEADB3"
+        app:layout_constraintBottom_toBottomOf="@id/vHomeSubTitleDot"
+        app:layout_constraintStart_toEndOf="@id/tvHomeSosoPick"
+        app:layout_constraintTop_toTopOf="@id/vHomeSubTitleDot" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHomeSosoPick"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHomeSosoPick"
+        tools:listitem="@layout/item_home" />
 </androidx.constraintlayout.widget.ConstraintLayout>
