@@ -21,6 +21,6 @@ class LibraryFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = LibraryFragment()
+        val newInstance = LibraryFragment()
     }
 }
