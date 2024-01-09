@@ -7,11 +7,11 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
-import coil.transform.RoundedCornersTransformation
 import com.google.android.material.appbar.AppBarLayout
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import jp.wasabeef.transformers.coil.BlurTransformation
+import jp.wasabeef.transformers.coil.RoundedCornersTransformation
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -157,14 +157,14 @@ class PostNovelActivity : AppCompatActivity() {
                 crossfade(true)
                 placeholder(R.drawable.img_cover_test)
                 error(R.drawable.img_cover_test)
-                transformations(RoundedCornersTransformation(12f))
+                transformations(RoundedCornersTransformation(30))
             }
             ivPostCoverBackground.load("https://i.namu.wiki/i/j1S3TlFyve1UjbCnzF_g6qEgFnMi8usZ_DLCn8lP91FwgpPgwkv_GNCD2fmu5uEPgPU5CSdzDF5qwe_8Ains2UzdgGgI-bzT95MQeBrceU9E7Hr26fWBFREMLDGiZm01VtAXHgXRO9kviGz3sYwQ-w.webp") {
                 crossfade(true)
                 placeholder(R.drawable.img_cover_test)
                 error(R.drawable.img_cover_test)
                 // 이미지 블러처리
-                transformations(BlurTransformation(this@PostNovelActivity))
+                transformations(BlurTransformation(this@PostNovelActivity, 25))
             }
             tvPostReadDateStart.text = "2023-12-26"
             tvPostReadDateEnd.text = "2023-12-26"
