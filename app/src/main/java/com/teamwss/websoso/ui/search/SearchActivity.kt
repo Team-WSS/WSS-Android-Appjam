@@ -4,19 +4,27 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivitySearchBinding
+import com.teamwss.websoso.ui.search.model.SearchResult
 
 class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
+    private lateinit var searchAdapter: SearchAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showKeyboardOnEditTextFocus()
         deleteEditTextOnCancleBtn()
+        changeEditTextBackground()
+        setupRecyclerView()
+        setResultNovelList()
     }
 
     private fun showKeyboardOnEditTextFocus() {
@@ -29,7 +37,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun deleteEditTextOnCancleBtn() {
-        val searchBtn = binding.ivSearchCancel
+        val searchCancelBtn = binding.ivSearchCancel
         val etSearch = binding.etSearch
 
         etSearch.addTextChangedListener(object : TextWatcher {
@@ -38,22 +46,98 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
+                binding.lySearchView.setBackgroundResource(R.drawable.bg_transparent_stroke_gray70_2dp_corner_12dp)
             }
 
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) {
-                    searchBtn.visibility = View.GONE
+                    searchCancelBtn.visibility = View.GONE
                 } else {
-                    searchBtn.visibility = View.VISIBLE
+                    searchCancelBtn.visibility = View.VISIBLE
                 }
             }
         })
-
-        searchBtn.setOnClickListener {
+        searchCancelBtn.setOnClickListener {
             etSearch.text.clear()
         }
-
     }
 
+    private fun changeEditTextBackground() {
+        binding.etSearch.setOnEditorActionListener { _, action, _ ->
+            binding.lySearchView.setBackgroundResource(R.color.transparent)
+            var handled = false
+            Log.d("123123", action.toString())
+            if (action == EditorInfo.IME_ACTION_DONE) {
+                Log.d("123123", "1231231235")
+                binding.lySearchView.setBackgroundResource(R.drawable.bg_gray50_corner_12dp)
+                handled = true
+            } else {
+                binding.lySearchView.setBackgroundResource(R.color.transparent)
+            }
+            handled
+        }
+    }
+
+    private fun setupRecyclerView() {
+        searchAdapter = SearchAdapter()
+        binding.rvSearchResult.adapter = searchAdapter
+    }
+
+    private fun setResultNovelList() {
+        val resultList = mockResultNovelList
+        searchAdapter.setResultNovelList(resultList)
+    }
+
+    companion object {
+        private val mockResultNovelList = listOf<SearchResult>(
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+            SearchResult(
+                resultNovelImage = R.drawable.img_cover_test,
+                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelAuthor = "이보라",
+                resultNovelGenre = "로판",
+            ),
+        )
+    }
 }
