@@ -251,7 +251,7 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    interface InputSelectedDateListener {
+    fun interface InputSelectedDateListener {
         fun inputSelectedDate(startDate: String, endDate: String)
     }
 

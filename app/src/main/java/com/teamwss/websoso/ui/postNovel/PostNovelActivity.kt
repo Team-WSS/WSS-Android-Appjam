@@ -28,11 +28,7 @@ class PostNovelActivity : AppCompatActivity() {
 
     private val setupNavigateLeftDialog: PostNavigateLeftDialog by lazy {
         PostNavigateLeftDialog(this).apply {
-            setExitButtonClickListener(object : PostNavigateLeftDialog.ExitButtonClickListener {
-                override fun onExitButtonClick() {
-                    finish()
-                }
-            })
+            setExitButtonClickListener { finish() }
             setOnDismissListener {
                 hideBlackBackground()
             }
@@ -123,11 +119,9 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun createDateSelectedListener(): DatePickerDialog.InputSelectedDateListener {
-        return object : DatePickerDialog.InputSelectedDateListener {
-            override fun inputSelectedDate(startDate: String, endDate: String) {
-                binding.tvPostReadDateStart.text = startDate
-                binding.tvPostReadDateEnd.text = endDate
-            }
+        return DatePickerDialog.InputSelectedDateListener { startDate, endDate ->
+            binding.tvPostReadDateStart.text = startDate
+            binding.tvPostReadDateEnd.text = endDate
         }
     }
 

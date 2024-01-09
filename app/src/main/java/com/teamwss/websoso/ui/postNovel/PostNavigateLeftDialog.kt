@@ -29,7 +29,7 @@ class PostNavigateLeftDialog(context: Context) : Dialog(context) {
         }
     }
 
-    interface ExitButtonClickListener {
+    fun interface ExitButtonClickListener {
         fun onExitButtonClick()
     }
 
