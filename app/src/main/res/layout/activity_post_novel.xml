@@ -506,7 +506,7 @@
         android:id="@+id/alPostAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
+        android:background="@color/white"
         android:gravity="bottom"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -521,7 +521,7 @@
             android:text="당신의 이해를 돕기 위하여"
             android:textAlignment="center"
             android:textAppearance="@style/title2"
-            android:textColor="@color/transparent" />
+            android:textColor="@color/black" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

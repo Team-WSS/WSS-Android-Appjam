@@ -116,22 +116,16 @@ class DatePickerDialog(context: Context) : Dialog(context) {
             llPostDatePickerReadDateStart.isSelected = isStart
             llPostDatePickerReadDateEnd.isSelected = !isStart
 
-            val startColor = if (isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
-            val endColor = if (!isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
-
-            tvPostDatePickerReadDateStartTitle.setTextColor(
-                ContextCompat.getColor(
-                    context, startColor
-                )
-            )
-            tvPostDatePickerReadDateStart.setTextColor(ContextCompat.getColor(context, startColor))
-
-            tvPostDatePickerReadDateEndTitle.setTextColor(
-                ContextCompat.getColor(
-                    context, endColor
-                )
-            )
-            tvPostDatePickerReadDateEnd.setTextColor(ContextCompat.getColor(context, endColor))
+            val startColorResId =
+                if (isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
+            val endColorResId =
+                if (!isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
+            val startColorValue = ContextCompat.getColor(context, startColorResId)
+            val endColorValue = ContextCompat.getColor(context, endColorResId)
+            tvPostDatePickerReadDateStartTitle.setTextColor(startColorValue)
+            tvPostDatePickerReadDateStart.setTextColor(startColorValue)
+            tvPostDatePickerReadDateEndTitle.setTextColor(endColorValue)
+            tvPostDatePickerReadDateEnd.setTextColor(endColorValue)
         }
     }
 
