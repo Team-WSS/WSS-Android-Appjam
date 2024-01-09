@@ -21,40 +21,12 @@ class PostNovelActivity : AppCompatActivity() {
         binding = ActivityPostNovelBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupAppBar()
         showNavigateLeftDialog()
+        setupAppBar()
         setupDateToggle()
         setupReadStatusChip()
         showDatePickerDialog()
         initDummyNovelInfo()
-    }
-
-    // 기본 앱바 설정
-    private fun setupAppBar() {
-        val scrollView: ScrollView = binding.svPost
-        val appBarLayout: AppBarLayout = binding.alPostAppBar
-        val titleView: TextView = binding.tvPostTitle
-
-        // 스크롤 높이에 따라 alpha값 변화
-        scrollView.viewTreeObserver.addOnScrollChangedListener {
-            val scrollY = scrollView.scrollY
-            val maxHeight = binding.ivPostCoverBackground.height - appBarLayout.height
-
-            // 제곱식을 통해 alpha값 보정
-            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
-            val colorAlpha = (scrollRatio * 255).toInt()
-
-            appBarLayout.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
-            titleView.setTextColor(Color.argb(colorAlpha, 0, 0, 0))
-        }
-    }
-
-    // 뒤로가기를 눌렀을 때 나오는 Dialog
-    private fun showNavigateLeftDialog() {
-        binding.ivPostNavigateLeft.setOnClickListener {
-            binding.vPostDialogBackground.visibility = View.VISIBLE
-            setupNavigateLeftDialog.show()
-        }
     }
 
     // PostNavigateLeftDialog 객체를 필드에 보관
@@ -68,6 +40,31 @@ class PostNovelActivity : AppCompatActivity() {
             setOnDismissListener {
                 binding.vPostDialogBackground.visibility = View.INVISIBLE
             }
+        }
+    }
+
+    // 뒤로가기를 눌렀을 때 나오는 Dialog
+    private fun showNavigateLeftDialog() {
+        binding.ivPostNavigateLeft.setOnClickListener {
+            binding.vPostDialogBackground.visibility = View.VISIBLE
+            setupNavigateLeftDialog.show()
+        }
+    }
+
+    // 기본 앱바 설정
+    private fun setupAppBar() {
+
+        // 스크롤 높이에 따라 alpha값 변화
+        binding.svPost.viewTreeObserver.addOnScrollChangedListener {
+            val scrollY = binding.svPost.scrollY
+            val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height
+
+            // 제곱식을 통해 alpha값 보정
+            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
+            val colorAlpha = (scrollRatio * 255).toInt()
+
+            binding.alPostAppBar.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
+            binding.tvPostTitle.setTextColor(Color.argb(colorAlpha, 0, 0, 0))
         }
     }
 
