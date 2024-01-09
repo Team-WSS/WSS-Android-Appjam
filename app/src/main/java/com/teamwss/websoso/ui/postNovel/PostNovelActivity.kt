@@ -43,7 +43,6 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupAppBar() {
-
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height
@@ -51,13 +50,34 @@ class PostNovelActivity : AppCompatActivity() {
             val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
-            binding.alPostAppBar.setBackgroundColor(Color.argb(colorAlpha, 255, 255, 255))
-            binding.tvPostTitle.setTextColor(Color.argb(colorAlpha, 0, 0, 0))
+            val white = getColor(R.color.white)
+            val black = getColor(R.color.black)
+
+            binding.alPostAppBar.setBackgroundColor(
+                Color.argb(
+                    colorAlpha,
+                    Color.red(white),
+                    Color.green(white),
+                    Color.blue(white)
+                )
+            )
+            binding.tvPostTitle.setTextColor(
+                Color.argb(
+                    colorAlpha,
+                    Color.red(black),
+                    Color.green(black),
+                    Color.blue(black)
+                )
+            )
         }
     }
 
     private fun setupDateToggle() {
-        binding.scPostDateSwitch.setOnCheckedChangeListener { _, isChecked -> binding.llPostReadDate.setVisibility(isChecked) }
+        binding.scPostDateSwitch.setOnCheckedChangeListener { _, isChecked ->
+            binding.llPostReadDate.setVisibility(
+                isChecked
+            )
+        }
     }
 
     private fun setupReadStatusChip() {
