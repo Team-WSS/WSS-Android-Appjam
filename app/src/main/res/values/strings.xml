@@ -12,4 +12,10 @@
     <string name="record_novel_count">%d개</string>
     <string name="record_null_post_novel">읽은 웹소설에 대해\n기록을 남겨볼까요?</string>
     <string name="record_go_to_post_novel">웹소설 등록하기</string>
+
+    <!-- PostNovelActivity -->
+    <string name="post_read_status_read">읽은 날짜</string>
+    <string name="post_read_status_reading">시작 날짜</string>
+    <string name="post_read_status_stop">종료 날짜</string>
+
 </resources>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_post_dialog_background"
+    android:paddingHorizontal="14dp"
+    android:paddingVertical="24dp">
+
+    <ImageView
+        android:id="@+id/vPostDialogIconBackground"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_alert_post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPostBottomSheetYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="등록을 취소할까요?"
+        android:textAlignment="center"
+        android:textAppearance="@style/title2"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vPostDialogIconBackground" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llPostDialogExitButton"
+        android:layout_width="116dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/shape_post_dialog_button"
+        android:backgroundTint="@color/gray_50_F4F5F8"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetYear">
+
+        <TextView
+            android:id="@+id/tvDialogExitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="나가기"
+            android:textAppearance="@style/label1"
+            android:textColor="@color/gray_300_52515F" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llPostDialogKeepButton"
+        android:layout_width="116dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_post_dialog_button"
+        android:backgroundTint="@color/primary_200_180A3F"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/llPostDialogExitButton"
+        app:layout_constraintTop_toBottomOf="@id/tvPostBottomSheetYear">
+
+        <TextView
+            android:id="@+id/tvDialogKeepButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="계속 작성하기"
+            android:textAppearance="@style/label1"
+            android:textColor="@color/white" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>
