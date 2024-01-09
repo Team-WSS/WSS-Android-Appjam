@@ -34,7 +34,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         checkReadStatus()
     }
 
-    // 바인딩과 뷰 설정
     private fun setupView() {
         binding = DialogDatePickerBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
@@ -46,49 +45,39 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         this.endDate = endDate
     }
 
-    // 날짜 피커 설정
     private fun setupDatePicker() {
         with(binding) {
-            // 순환 안되게 막기
             npPostDatePickerYear.wrapSelectorWheel = false
             npPostDatePickerMonth.wrapSelectorWheel = false
             npPostDatePickerDay.wrapSelectorWheel = false
 
-            // 최소값 설정
             npPostDatePickerYear.minValue = 1
             npPostDatePickerMonth.minValue = 1
             npPostDatePickerDay.minValue = 1
 
-            // 최대값 설정
             npPostDatePickerYear.maxValue = 9999
             npPostDatePickerMonth.maxValue = 12
             npPostDatePickerDay.maxValue = 31
 
-            // 출력 형태 설정
             npPostDatePickerYear.setFormatter { String.format("%04d", it) }
             npPostDatePickerMonth.setFormatter { String.format("%02d", it) }
             npPostDatePickerDay.setFormatter { String.format("%02d", it) }
         }
     }
 
-    // 다이얼로그 설정
     private fun setupDialog() {
-        // 배경 투명화를 통해 둥근 다이얼로그
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window?.attributes?.windowAnimations = R.style.DialogAnimation
         window?.setGravity(Gravity.BOTTOM)
         window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }
 
-    // 월 체크
     private fun setDayMaxValue() {
         val year = binding.npPostDatePickerYear.value
         val month = binding.npPostDatePickerMonth.value
 
-        // 월에 따른 일의 최대값 설정
         binding.npPostDatePickerDay.maxValue = when (month) {
             2 -> if (isLeapYear(year)) 29 else 28
             4, 6, 9, 11 -> 30
@@ -96,12 +85,10 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // 윤년 체크
     private fun isLeapYear(year: Int): Boolean {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
     }
 
-    // 완료 버튼 클릭 이벤트 설정
     private fun setupPostButtonClickListener() {
         binding.llDatePostButton.setOnClickListener {
             setupAnotherDateValid()
@@ -110,7 +97,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // selector 클릭 이벤트 설정
     private fun setupDateTypeSelector() {
         with(binding) {
             updateDateSelector(true)
@@ -128,7 +114,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // selector 업데이트
     private fun updateDateSelector(isStart: Boolean) {
         with(binding) {
             llPostDatePickerReadDateStart.isSelected = isStart
@@ -139,23 +124,20 @@ class DatePickerDialog(context: Context) : Dialog(context) {
 
             tvPostDatePickerReadDateStartTitle.setTextColor(
                 ContextCompat.getColor(
-                    context,
-                    startColor
+                    context, startColor
                 )
             )
             tvPostDatePickerReadDateStart.setTextColor(ContextCompat.getColor(context, startColor))
 
             tvPostDatePickerReadDateEndTitle.setTextColor(
                 ContextCompat.getColor(
-                    context,
-                    endColor
+                    context, endColor
                 )
             )
             tvPostDatePickerReadDateEnd.setTextColor(ContextCompat.getColor(context, endColor))
         }
     }
 
-    // numberPicker 업데이트
     private fun updateDateNumberPicker(isStart: Boolean) {
         if (isStart) {
             with(binding) {
@@ -172,13 +154,11 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // 날짜 업데이트
     private fun updateDate(isStart: Boolean) {
         val year = binding.npPostDatePickerYear.value
         val month = binding.npPostDatePickerMonth.value
         val day = binding.npPostDatePickerDay.value
 
-        // yyyy-mm-dd 형태로 변환
         val formattedYear = String.format("%04d", year)
         val formattedMonth = String.format("%02d", month)
         val formattedDay = String.format("%02d", day)
@@ -191,7 +171,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // numberPicker 변동시 반영
     private fun setupNumberPickerListener() {
         with(binding) {
             npPostDatePickerYear.setOnValueChangedListener { _, _, _ ->
@@ -218,7 +197,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // 유저의 읽기 상태 확인
     private fun checkReadStatus() {
         when (readStatus) {
             context.getString(R.string.post_read_status_read) -> {
@@ -237,7 +215,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // 날짜 유효성 검증
     private fun isDateValid() {
 
         val selectedStartDate = LocalDate.of(
@@ -262,7 +239,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    // 시작 날짜 또는 종료 날짜만 사용할 시 나머지 값 보정
     private fun setupAnotherDateValid() {
         when (readStatus) {
             context.getString(R.string.post_read_status_reading) -> {

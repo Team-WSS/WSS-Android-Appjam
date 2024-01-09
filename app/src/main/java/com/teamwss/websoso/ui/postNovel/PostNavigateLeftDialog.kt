@@ -17,7 +17,6 @@ class PostNavigateLeftDialog(context: Context) : Dialog(context) {
         binding = DialogPostWarningBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
-        // 배경 투명화를 통해 둥근 다이알로그
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         binding.llPostDialogKeepButton.setOnClickListener {

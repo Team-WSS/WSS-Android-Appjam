@@ -3,11 +3,8 @@ package com.teamwss.websoso.ui.postNovel
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.ScrollView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import coil.load
-import com.google.android.material.appbar.AppBarLayout
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import jp.wasabeef.transformers.coil.BlurTransformation
@@ -29,7 +26,6 @@ class PostNovelActivity : AppCompatActivity() {
         initDummyNovelInfo()
     }
 
-    // PostNavigateLeftDialog 객체를 필드에 보관
     private val setupNavigateLeftDialog: PostNavigateLeftDialog by lazy {
         PostNavigateLeftDialog(this).apply {
             setExitButtonClickListener(object : PostNavigateLeftDialog.ExitButtonClickListener {
@@ -38,28 +34,24 @@ class PostNovelActivity : AppCompatActivity() {
                 }
             })
             setOnDismissListener {
-                binding.vPostDialogBackground.visibility = View.INVISIBLE
+                hideBlackBackground()
             }
         }
     }
 
-    // 뒤로가기를 눌렀을 때 나오는 Dialog
     private fun showNavigateLeftDialog() {
         binding.ivPostNavigateLeft.setOnClickListener {
-            binding.vPostDialogBackground.visibility = View.VISIBLE
+            showBlackBackground()
             setupNavigateLeftDialog.show()
         }
     }
 
-    // 기본 앱바 설정
     private fun setupAppBar() {
 
-        // 스크롤 높이에 따라 alpha값 변화
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height
 
-            // 제곱식을 통해 alpha값 보정
             val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
@@ -68,7 +60,6 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    // 날짜 토글 설정
     private fun setupDateToggle() {
         val ivPostDateSwitch = binding.ivPostDateSwitch
         val llPostReadDate = binding.llPostReadDate
@@ -79,7 +70,6 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    // 체크 상태에 따라 날짜 상태 분기
     private fun setupReadStatusChip() {
         with(binding) {
             cReadStatusRead.setOnClickListener {
@@ -100,12 +90,10 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    // 가시 여부 설정
     private fun View.setVisibility(isVisible: Boolean) {
         this.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
-    // 날짜 변경이 보일지 설정
     private fun updateDateVisibility(isStartDateVisible: Boolean, isEndDateVisible: Boolean) {
         with(binding) {
             clPostReadDate.visibility = View.VISIBLE
@@ -116,36 +104,48 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    // 바텀시트 표시
     private fun showDatePickerDialog() {
         binding.llPostReadDate.setOnClickListener {
-            binding.vPostDialogBackground.visibility = View.VISIBLE
+            showBlackBackground()
+            setDialogData(createDialog())
+        }
+    }
 
-            // 바텀시트 설정 및 다이알로그 생성
-            val datePickerDialog = DatePickerDialog(this).apply {
-                setOnDateSelectedListener(object : DatePickerDialog.InputSelectedDateListener {
-                    override fun inputSelectedDate(startDate: String, endDate: String) {
-                        binding.tvPostReadDateStart.text = startDate
-                        binding.tvPostReadDateEnd.text = endDate
-                    }
-                })
-                setOnDismissListener {
-                    binding.vPostDialogBackground.visibility = View.INVISIBLE
-                }
-            }
+    private fun showBlackBackground() {
+        binding.vPostDialogBackground.visibility = View.VISIBLE
+    }
 
-            with(binding) {
-                val readStatus = tvPostReadDateTitle.text.toString()
-                val startDate = tvPostReadDateStart.text.toString()
-                val endDate = tvPostReadDateEnd.text.toString()
+    private fun createDialog(): DatePickerDialog {
+        return DatePickerDialog(this).apply {
+            setOnDateSelectedListener(createDateSelectedListener())
+            setOnDismissListener { hideBlackBackground() }
+        }
+    }
 
-                datePickerDialog.setDialogReadStatus(readStatus, startDate, endDate)
-                datePickerDialog.show()
+    private fun createDateSelectedListener(): DatePickerDialog.InputSelectedDateListener {
+        return object : DatePickerDialog.InputSelectedDateListener {
+            override fun inputSelectedDate(startDate: String, endDate: String) {
+                binding.tvPostReadDateStart.text = startDate
+                binding.tvPostReadDateEnd.text = endDate
             }
         }
     }
 
-    // 테스트용 더미데이터 출력
+    private fun hideBlackBackground() {
+        binding.vPostDialogBackground.visibility = View.INVISIBLE
+    }
+
+    private fun setDialogData(datePickerDialog: DatePickerDialog) {
+        with(binding) {
+            val readStatus = tvPostReadDateTitle.text.toString()
+            val startDate = tvPostReadDateStart.text.toString()
+            val endDate = tvPostReadDateEnd.text.toString()
+
+            datePickerDialog.setDialogReadStatus(readStatus, startDate, endDate)
+            datePickerDialog.show()
+        }
+    }
+
     private fun initDummyNovelInfo() {
         with(binding) {
             tvPostNovelTitle.text = "노 게임 노 라이프"
@@ -160,7 +160,6 @@ class PostNovelActivity : AppCompatActivity() {
                 crossfade(true)
                 placeholder(R.drawable.img_cover_test)
                 error(R.drawable.img_cover_test)
-                // 이미지 블러처리
                 transformations(BlurTransformation(this@PostNovelActivity, 25))
             }
             rbPostRating.rating = 5.0f
