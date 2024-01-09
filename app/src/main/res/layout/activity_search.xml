@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="@id/ivSearchBack" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lySearchView"
+        android:id="@+id/clSearchView"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginHorizontal="20dp"
@@ -80,7 +80,7 @@
         android:layout_height="1dp"
         android:background="@color/gray_70_DFDFE3"
         android:layout_marginTop="12dp"
-        app:layout_constraintTop_toBottomOf="@id/lySearchView"
+        app:layout_constraintTop_toBottomOf="@id/clSearchView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -98,7 +98,7 @@
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lySearchResultNoExist"
+        android:id="@+id/clSearchResultNoExist"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="168dp"

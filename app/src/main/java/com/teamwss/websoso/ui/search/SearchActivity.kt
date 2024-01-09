@@ -45,7 +45,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.lySearchView.setBackgroundResource(R.drawable.bg_transparent_stroke_gray70_2dp_corner_12dp)
+                binding.clSearchView.setBackgroundResource(R.drawable.bg_transparent_stroke_gray70_2dp_corner_12dp)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -63,17 +63,17 @@ class SearchActivity : AppCompatActivity() {
 
     private fun changeEditTextBackground() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
-            binding.lySearchView.setBackgroundResource(R.color.transparent)
+            binding.clSearchView.setBackgroundResource(R.color.transparent)
             var handled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 val inputMethodManager =
                     this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
-                binding.lySearchView.setBackgroundResource(R.drawable.bg_gray50_corner_12dp)
+                binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_corner_12dp)
                 handled = true
             } else {
-                binding.lySearchView.setBackgroundResource(R.color.transparent)
+                binding.clSearchView.setBackgroundResource(R.color.transparent)
             }
             handled
         }
