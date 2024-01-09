@@ -178,10 +178,16 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         val month = binding.npPostDatePickerMonth.value
         val day = binding.npPostDatePickerDay.value
 
+        // yyyy-mm-dd 형태로 변환
+        val formattedYear = String.format("%04d", year)
+        val formattedMonth = String.format("%02d", month)
+        val formattedDay = String.format("%02d", day)
+        val formattedDate = "$formattedYear-$formattedMonth-$formattedDay"
+
         if (isStart) {
-            startDate = "$year-$month-$day"
+            startDate = formattedDate
         } else {
-            endDate = "$year-$month-$day"
+            endDate = formattedDate
         }
     }
 
