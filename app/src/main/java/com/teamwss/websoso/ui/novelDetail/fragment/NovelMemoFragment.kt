@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.novelDetail
+package com.teamwss.websoso.ui.novelDetail.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
+import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 
 class NovelDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNovelDetailBinding
