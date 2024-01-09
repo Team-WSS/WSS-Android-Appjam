@@ -152,7 +152,7 @@
 
         <NumberPicker
             android:id="@+id/npPostDatePickerYear"
-            style="@style/CustomNumberPicker"
+            style="@style/CustomDateNumberPicker"
             android:layout_width="90dp"
             android:layout_height="111dp"
             android:layout_marginStart="10dp"
@@ -186,7 +186,7 @@
 
         <NumberPicker
             android:id="@+id/npPostDatePickerMonth"
-            style="@style/CustomNumberPicker"
+            style="@style/CustomDateNumberPicker"
             android:layout_width="75dp"
             android:layout_height="111dp"
             android:layout_marginStart="55dp"
@@ -219,7 +219,7 @@
 
         <NumberPicker
             android:id="@+id/npPostDatePickerDay"
-            style="@style/CustomNumberPicker"
+            style="@style/CustomDateNumberPicker"
             android:layout_width="75dp"
             android:layout_height="111dp"
             android:selectionDividerHeight="0dp"

@@ -67,7 +67,7 @@ class DatePickerDialog(context: Context) : Dialog(context) {
 
     private fun setupDialog() {
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window?.attributes?.windowAnimations = R.style.DialogAnimation
+        window?.attributes?.windowAnimations = R.style.BottomSheetDialogAnimation
         window?.setGravity(Gravity.BOTTOM)
         window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT

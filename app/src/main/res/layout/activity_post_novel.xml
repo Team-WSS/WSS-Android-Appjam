@@ -82,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
                     android:numStars="5"
+                    android:progressBackgroundTint="@color/gray_70_DFDFE3"
                     android:progressTint="@color/secondary_100_FF675D"
                     android:rating="0"
                     android:secondaryProgressTint="@color/secondary_100_FF675D"
@@ -135,6 +136,7 @@
                         app:checkedIconVisible="true"
                         app:chipBackgroundColor="@color/white"
                         app:chipCornerRadius="20dp"
+                        app:chipIconSize="16dp"
                         app:chipStrokeColor="@drawable/selector_read_status_stroke"
                         app:chipStrokeWidth="1dp"
                         app:iconStartPadding="8dp"
@@ -213,15 +215,16 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/ivPostDateSwitch"
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/scPostDateSwitch"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="14dp"
-                        android:src="@drawable/selector_post_toggle"
+                        android:layout_height="16dp"
+                        android:checked="true"
+                        android:thumb="@drawable/shape_date_switch_thumb"
                         app:layout_constraintBottom_toBottomOf="@id/tvPostReadDateTitle"
                         app:layout_constraintStart_toEndOf="@id/tvPostReadDateTitle"
-                        app:layout_constraintTop_toTopOf="@id/tvPostReadDateTitle" />
+                        app:layout_constraintTop_toTopOf="@id/tvPostReadDateTitle"
+                        app:track="@drawable/selector_date_switch_background" />
 
                     <LinearLayout
                         android:id="@+id/llPostReadDate"

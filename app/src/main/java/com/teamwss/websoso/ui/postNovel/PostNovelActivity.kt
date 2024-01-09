@@ -57,13 +57,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupDateToggle() {
-        val ivPostDateSwitch = binding.ivPostDateSwitch
-        val llPostReadDate = binding.llPostReadDate
-        ivPostDateSwitch.isSelected = true
-        ivPostDateSwitch.setOnClickListener {
-            it.isSelected = !it.isSelected
-            llPostReadDate.setVisibility(it.isSelected)
-        }
+        binding.scPostDateSwitch.setOnCheckedChangeListener { _, isChecked -> binding.llPostReadDate.setVisibility(isChecked) }
     }
 
     private fun setupReadStatusChip() {
