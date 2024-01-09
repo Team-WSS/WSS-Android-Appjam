@@ -21,7 +21,7 @@ class SearchActivity : AppCompatActivity() {
         setContentView(binding.root)
         showKeyboardOnEditTextFocus()
         deleteEditTextOnCancleBtn()
-        changeEditTextBackground()
+        handleSearchEditTextOnInputFinish()
         setupRecyclerView()
         setResultNovelList()
     }
@@ -61,7 +61,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeEditTextBackground() {
+    private fun handleSearchEditTextOnInputFinish() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             binding.clSearchView.setBackgroundResource(R.color.transparent)
             var handled = false
