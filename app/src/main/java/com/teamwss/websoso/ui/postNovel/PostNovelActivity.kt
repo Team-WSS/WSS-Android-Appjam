@@ -29,6 +29,7 @@ class PostNovelActivity : AppCompatActivity() {
         initDummyNovelInfo()
     }
 
+    // 기본 앱바 설정
     private fun setupAppBar() {
         val scrollView: ScrollView = binding.svPost
         val appBarLayout: AppBarLayout = binding.alPostAppBar
@@ -125,8 +126,8 @@ class PostNovelActivity : AppCompatActivity() {
 
             // 바텀시트 설정 및 다이알로그 생성
             val datePickerDialog = DatePickerDialog(this).apply {
-                setOnDateSelectedListener(object : DatePickerDialog.OnDateSelectedListener {
-                    override fun onDateSelected(startDate: String, endDate: String) {
+                setOnDateSelectedListener(object : DatePickerDialog.InputSelectedDateListener {
+                    override fun inputSelectedDate(startDate: String, endDate: String) {
                         binding.tvPostReadDateStart.text = startDate
                         binding.tvPostReadDateEnd.text = endDate
                     }
@@ -147,6 +148,7 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
+    // 테스트용 더미데이터 출력
     private fun initDummyNovelInfo() {
         with(binding) {
             tvPostNovelTitle.text = "노 게임 노 라이프"
@@ -161,6 +163,7 @@ class PostNovelActivity : AppCompatActivity() {
                 crossfade(true)
                 placeholder(R.drawable.img_cover_test)
                 error(R.drawable.img_cover_test)
+                // 이미지 블러처리
                 transformations(BlurTransformation(this@PostNovelActivity))
             }
             tvPostReadDateStart.text = "2023-12-26"

@@ -34,7 +34,7 @@ class PostNavigateLeftDialog(context: Context) : Dialog(context) {
         fun onExitButtonClick()
     }
 
-    fun setExitButtonClickListener(exitButtonClickListener: ExitButtonClickListener) {
-        this.exitButtonClickListener = exitButtonClickListener
+    fun setExitButtonClickListener(listener: ExitButtonClickListener) {
+        this.exitButtonClickListener = listener
     }
 }

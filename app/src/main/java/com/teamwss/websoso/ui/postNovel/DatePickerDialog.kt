@@ -16,7 +16,7 @@ import com.teamwss.websoso.databinding.DialogDatePickerBinding
 import java.time.LocalDate
 
 class DatePickerDialog(context: Context) : Dialog(context) {
-    private lateinit var onDateSelectedListener: OnDateSelectedListener
+    private lateinit var inputSelectedDateListener: InputSelectedDateListener
     private lateinit var binding: DialogDatePickerBinding
     private lateinit var readStatus: String
     private lateinit var startDate: String
@@ -25,28 +25,16 @@ class DatePickerDialog(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // 바인딩과 뷰 설정
         setupView()
-
-        // 날짜 피커 설정
         setupDatePicker()
-
-        // 다이얼로그 설정
         setupDialog()
-
-        // 완료 버튼 클릭 이벤트 설정
         setupPostButtonClickListener()
-
-        // 상단 시작 날짜 종료 날짜 클릭 이벤트 설정
-        setupDateSelector()
-
-        // numberPicker 리스너 설정
+        setupDateTypeSelector()
         setupNumberPickerListener()
-
-        // 읽기 상태 확인
         checkReadStatus()
     }
 
+    // 바인딩과 뷰 설정
     private fun setupView() {
         binding = DialogDatePickerBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
@@ -58,6 +46,7 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         this.endDate = endDate
     }
 
+    // 날짜 피커 설정
     private fun setupDatePicker() {
         with(binding) {
             // 순환 안되게 막기
@@ -82,6 +71,7 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
+    // 다이얼로그 설정
     private fun setupDialog() {
         // 배경 투명화를 통해 둥근 다이얼로그
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -111,16 +101,17 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
     }
 
+    // 완료 버튼 클릭 이벤트 설정
     private fun setupPostButtonClickListener() {
         binding.llDatePostButton.setOnClickListener {
             setupAnotherDateValid()
-            onDateSelectedListener.onDateSelected(startDate, endDate)
+            inputSelectedDateListener.inputSelectedDate(startDate, endDate)
             dismiss()
         }
     }
 
     // selector 클릭 이벤트 설정
-    private fun setupDateSelector() {
+    private fun setupDateTypeSelector() {
         with(binding) {
             updateDateSelector(true)
             updateDateNumberPicker(true)
@@ -278,11 +269,11 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    interface OnDateSelectedListener {
-        fun onDateSelected(startDate: String, endDate: String)
+    interface InputSelectedDateListener {
+        fun inputSelectedDate(startDate: String, endDate: String)
     }
 
-    fun setOnDateSelectedListener(listener: OnDateSelectedListener) {
-        onDateSelectedListener = listener
+    fun setOnDateSelectedListener(listener: InputSelectedDateListener) {
+        inputSelectedDateListener = listener
     }
 }
