@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/img_search_test"
-        app:shapeAppearanceOverlay="@style/imgcorner"
+        app:shapeAppearanceOverlay="@style/novel_image_corner_10"
         android:scaleType="fitCenter"
         android:layout_marginEnd="300dp"
         app:layout_constraintDimensionRatio="3:4"
