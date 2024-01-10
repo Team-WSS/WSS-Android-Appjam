@@ -35,6 +35,7 @@
 
                     <ImageView
                         android:id="@+id/ivPostCoverBackground"
+                        loadBlurredImage="@{postNovelViewModel.dummyData.userNovelImg}"
                         android:layout_width="match_parent"
                         android:layout_height="252dp"
                         android:foreground="@drawable/bg_gray_gradient"
@@ -75,13 +76,13 @@
 
                     <ImageView
                         android:id="@+id/ivPostCover"
+                        loadCoverImage="@{postNovelViewModel.dummyData.userNovelImg}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="116dp"
                         android:layout_marginTop="20dp"
                         android:contentDescription="@string/iv_post_cover_description"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/img_loading_thumbnail"
                         app:layout_constraintDimensionRatio="128:197"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -215,6 +216,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="35dp"
+                        android:visibility="@{postNovelViewModel.isStartDateVisible || postNovelViewModel.isEndDateVisible ? 0 : 8}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cgPostReadStatus">
 
@@ -262,7 +264,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="@{postNovelViewModel.startDate}"
                                 android:textAppearance="@style/body2"
-                                android:textColor="@color/gray_300_52515F" />
+                                android:textColor="@color/gray_300_52515F"
+                                android:visibility="@{postNovelViewModel.isStartDateVisible ? 0 : 8}" />
 
                             <TextView
                                 android:id="@+id/tvPostReadDateTilde"
@@ -273,7 +276,8 @@
                                 android:layout_marginEnd="20dp"
                                 android:text="@string/tv_post_read_date_tilde"
                                 android:textAppearance="@style/body2"
-                                android:textColor="@color/gray_300_52515F" />
+                                android:textColor="@color/gray_300_52515F"
+                                android:visibility="@{postNovelViewModel.isStartDateVisible &amp;&amp; postNovelViewModel.isEndDateVisible ? 0 : 8}" />
 
                             <TextView
                                 android:id="@+id/tvPostReadDateEnd"
@@ -282,7 +286,8 @@
                                 android:layout_gravity="center_vertical"
                                 android:text="@{postNovelViewModel.endDate}"
                                 android:textAppearance="@style/body2"
-                                android:textColor="@color/gray_300_52515F" />
+                                android:textColor="@color/gray_300_52515F"
+                                android:visibility="@{postNovelViewModel.isEndDateVisible ? 0 : 8}" />
 
                             <View
                                 android:layout_width="0dp"

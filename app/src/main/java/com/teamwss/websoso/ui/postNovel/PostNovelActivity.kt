@@ -105,17 +105,17 @@ class PostNovelActivity : AppCompatActivity() {
         postNovelViewModel.readStatus.observe(this@PostNovelActivity) {
             when (it) {
                 getString(R.string.api_read_status_finish) -> {
-                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
+                    postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = true)
                     binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
                 }
 
                 getString(R.string.api_read_status_reading) -> {
-                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = false)
+                    postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = false)
                     binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
                 }
 
                 getString(R.string.api_read_status_drop) -> {
-                    updateDateVisibility(isStartDateVisible = false, isEndDateVisible = true)
+                    postNovelViewModel.updateIsDateVisible(isStartDateVisible = false, isEndDateVisible = true)
                     binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
                 }
 
@@ -152,23 +152,6 @@ class PostNovelActivity : AppCompatActivity() {
     private fun initUserNovelInfo() {
         postNovelViewModel.getUserNovelInfo()
         postNovelViewModel.dummyData.observe(this@PostNovelActivity) {
-            val coverImg = it.userNovelImg
-            val loadingImg = R.drawable.img_loading_thumbnail
-            with(binding) {
-                ivPostCover.load(coverImg) {
-                    crossfade(true)
-                    placeholder(loadingImg)
-                    error(loadingImg)
-                    transformations(RoundedCornersTransformation(30))
-                }
-                ivPostCoverBackground.load(coverImg) {
-                    crossfade(true)
-                    placeholder(loadingImg)
-                    error(loadingImg)
-                    transformations(BlurTransformation(this@PostNovelActivity, 25))
-                }
-            }
-
             when (postNovelViewModel.dummyData.value?.userNovelReadStatus) {
                 getString(R.string.api_read_status_finish) -> {
                     binding.cReadStatusRead.isChecked = true
@@ -194,10 +177,6 @@ class PostNovelActivity : AppCompatActivity() {
             postNovelViewModel.updateReadDate(
                 postNovelViewModel.dummyData.value?.readStartDate ?: LocalDate.now().toString(),
                 postNovelViewModel.dummyData.value?.readEndDate ?: LocalDate.now().toString()
-            )
-
-            postNovelViewModel.updateReadStatus(
-                postNovelViewModel.dummyData.value?.userNovelReadStatus ?: ""
             )
         }
     }

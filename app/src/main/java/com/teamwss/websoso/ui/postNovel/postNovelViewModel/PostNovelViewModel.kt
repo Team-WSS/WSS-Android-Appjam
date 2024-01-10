@@ -1,8 +1,12 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.teamwss.websoso.util.loadBlurredImage
+import com.teamwss.websoso.util.loadCoverImage
 import java.time.LocalDate
 
 class PostNovelViewModel : ViewModel() {
@@ -29,6 +33,10 @@ class PostNovelViewModel : ViewModel() {
     val isStartSelected: LiveData<Boolean> get() = _isStartSelected
     private val _isDateValid = MutableLiveData<Boolean>()
     val isDateValid: LiveData<Boolean> get() = _isDateValid
+    private val _isStartDateVisible = MutableLiveData<Boolean>()
+    val isStartDateVisible: LiveData<Boolean> get() = _isStartDateVisible
+    private val _isEndDateVisible = MutableLiveData<Boolean>()
+    val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
 
     fun getUserNovelInfo() {
         _dummyData.value = DummyData(
@@ -86,6 +94,21 @@ class PostNovelViewModel : ViewModel() {
     }
     fun updateIsDateValid() {
         _isDateValid.value = !splitDate(_selectedStartDate.value.toString()).isAfter(splitDate(_selectedEndDate.value.toString()))
+    }
+
+    fun updateIsDateVisible(isStartDateVisible : Boolean = true, isEndDateVisible : Boolean = true) {
+        _isStartDateVisible.value = isStartDateVisible
+        _isEndDateVisible.value = isEndDateVisible
+    }
+
+    @BindingAdapter("loadCoverImage")
+    fun setCoverImage(imageView: ImageView, imageUrl: String?) {
+        loadCoverImage(imageView, imageUrl)
+    }
+
+    @BindingAdapter("blurredCoverImage")
+    fun setBlurredCoverImage(imageView: ImageView, imageUrl: String?) {
+        loadBlurredImage(imageView, imageUrl)
     }
 }
 
