@@ -86,4 +86,10 @@
 
     <!-- Memo Write -->
     <string name="memo_write_complete">완료</string>
+
+    <!-- Edit Memo Cancel Dialog -->
+    <string name="dialog_cancel_title">작성을 취소할까요?</string>
+    <string name="dialog_cancel_content">작성 중인 내용이 모두 사라져요!</string>
+    <string name="dialog_cancel_exit">나가기</string>
+    <string name="dialog_cancel_keep_write">계속 진행하기</string>
 </resources>
