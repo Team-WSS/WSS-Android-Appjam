@@ -21,7 +21,7 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
         showKeyboardOnEditTextFocus()
-        deleteEditTextOnCancleBtn()
+        setupSearchEditText()
         handleSearchEditTextOnInputFinish()
         setupRecyclerView()
         setResultNovelList()
@@ -36,27 +36,43 @@ class SearchActivity : AppCompatActivity() {
         inputMethodManager.showSoftInput(binding.etSearch, 0)
     }
 
-    private fun deleteEditTextOnCancleBtn() {
-        binding.etSearch.addTextChangedListener(object : TextWatcher {
+    private fun setupSearchEditText() {
+        binding.etSearch.addTextChangedListener(getTextWatcher())
+        binding.ivSearchCancel.setOnClickListener {
+            clearSearchEditText()
+        }
+    }
+
+    private fun getTextWatcher(): TextWatcher {
+        return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
+                updateSearchViewBackground()
             }
 
             override fun afterTextChanged(text: Editable?) {
-                if (text.isNullOrEmpty()) {
-                    binding.ivSearchCancel.visibility = View.GONE
-                } else {
-                    binding.ivSearchCancel.visibility = View.VISIBLE
-                }
+                toggleCancelVisibility(text)
             }
-        })
-        binding.ivSearchCancel.setOnClickListener {
-            binding.etSearch.text.clear()
         }
+    }
+
+    private fun updateSearchViewBackground() {
+        binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
+    }
+
+    private fun toggleCancelVisibility(text: Editable?) {
+        if (text.isNullOrEmpty()) {
+            binding.ivSearchCancel.visibility = View.GONE
+        } else {
+            binding.ivSearchCancel.visibility = View.VISIBLE
+        }
+    }
+
+    private fun clearSearchEditText() {
+        binding.etSearch.text.clear()
     }
 
     private fun handleSearchEditTextOnInputFinish() {
