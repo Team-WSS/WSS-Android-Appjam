@@ -36,10 +36,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun deleteEditTextOnCancleBtn() {
-        val searchCancelBtn = binding.ivSearchCancel
-        val etSearch = binding.etSearch
-
-        etSearch.addTextChangedListener(object : TextWatcher {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
@@ -50,14 +47,14 @@ class SearchActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 if (s.isNullOrEmpty()) {
-                    searchCancelBtn.visibility = View.GONE
+                    binding.ivSearchCancel.visibility = View.GONE
                 } else {
-                    searchCancelBtn.visibility = View.VISIBLE
+                    binding.ivSearchCancel.visibility = View.VISIBLE
                 }
             }
         })
-        searchCancelBtn.setOnClickListener {
-            etSearch.text.clear()
+        binding.ivSearchCancel.setOnClickListener {
+            binding.etSearch.text.clear()
         }
     }
 
