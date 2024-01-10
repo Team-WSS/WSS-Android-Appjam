@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:background="@drawable/bg_primary50_corner_876dp"
+        android:background="@drawable/bg_primary50_radius_876dp"
         android:paddingHorizontal="14dp"
         android:paddingVertical="8dp"
         android:text="지나친 악역영애"

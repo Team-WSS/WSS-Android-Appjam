@@ -95,7 +95,7 @@
             android:id="@+id/btnRecordGoToPostNovel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_primary50_corner_12dp"
+            android:background="@drawable/bg_primary50_radius_12dp"
             android:text="@string/record_go_to_post_novel"
             android:textAppearance="@style/title1"
             android:textColor="@color/primary_100_6341F0"
