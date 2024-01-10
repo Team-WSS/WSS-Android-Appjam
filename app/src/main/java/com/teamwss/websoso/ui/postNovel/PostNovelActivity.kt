@@ -42,19 +42,11 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private val navigateLeftDialog: PostNavigateLeftDialog by lazy {
-        PostNavigateLeftDialog(this).apply {
-            setExitButtonClickListener { finish() }
-            setOnDismissListener {
-                postNovelViewModel.updateIsDialogShown(false)
-            }
-        }
-    }
-
     private fun setupNavigateLeftDialog() {
         binding.ivPostNavigateLeft.setOnClickListener {
             postNovelViewModel.updateIsDialogShown(true)
-            navigateLeftDialog.show()
+            val dialogFragment = PostNavigateLeftDialog()
+            dialogFragment.show(supportFragmentManager, "PostNavigateLeftDialog")
         }
     }
 
