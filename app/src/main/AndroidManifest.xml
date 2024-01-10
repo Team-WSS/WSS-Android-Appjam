@@ -34,6 +34,7 @@
         <activity
             android:name=".ui.search.SearchActivity"
             android:exported="false"
+            android:windowSoftInputMode="stateAlwaysVisible"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"

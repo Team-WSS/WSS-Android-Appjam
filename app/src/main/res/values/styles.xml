@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="novel_image_corner_10">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10%</item> <!-- 원형을 위해 50%로 지정 -->
+    </style>
+</resources>
