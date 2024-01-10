@@ -3,6 +3,7 @@
     <style name="Base.Theme.Websoso" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:includeFontPadding">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="Theme.Websoso" parent="Base.Theme.Websoso" />
