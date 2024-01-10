@@ -42,12 +42,12 @@ class SearchActivity : AppCompatActivity() {
 
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
                 binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
             }
 
-            override fun afterTextChanged(s: Editable?) {
-                if (s.isNullOrEmpty()) {
+            override fun afterTextChanged(text: Editable?) {
+                if (text.isNullOrEmpty()) {
                     binding.ivSearchCancel.visibility = View.GONE
                 } else {
                     binding.ivSearchCancel.visibility = View.VISIBLE
@@ -97,7 +97,7 @@ class SearchActivity : AppCompatActivity() {
             ),
             SearchResult(
                 resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
+                resultNovelTitle = "당신의 이해를 돕기 위해서라는 웹소설이있어요 이거는 겁나 긴 제목을 위한 것입니다 과연 이게 어떻게 나올까요 나도 궁금하네요",
                 resultNovelAuthor = "이보라",
                 resultNovelGenre = "로판",
             ),
