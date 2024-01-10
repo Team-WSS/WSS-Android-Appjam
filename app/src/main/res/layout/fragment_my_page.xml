@@ -1,6 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvMyPageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/my_page_title"
+        android:textAppearance="@style/title2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:id="@+id/slMyPage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageTitle"
+        app:layout_constraintVertical_bias="0.0"
+        tool:layout_editor_absoluteX="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clMyPageContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <View
+                android:id="@+id/viewMyPageHeaderBackground"
+                android:layout_width="match_parent"
+                android:layout_height="465dp"
+                android:background="@color/gray_50_F4F5F8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivMyPageGenreMark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:src="@drawable/ic_genre_romance_fantasy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvMyPageAvatarName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="추락한 영애"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivMyPageGenreMark" />
+
+            <TextView
+                android:id="@+id/tvMyPageAvatarTagline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="김명진 영애, 오늘도 왔구나?"
+                android:textAppearance="@style/body2"
+                android:textColor="@color/gray_300_52515F"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMyPageAvatarName" />
+
+            <ImageView
+                android:id="@+id/ivMyPageAvatar"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_marginHorizontal="68dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/img_avatar_test"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMyPageAvatarTagline" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clMyPageProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/bg_white_radius_12dp"
+                android:elevation="4dp"
+                android:paddingVertical="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivMyPageAvatar">
+
+                <TextView
+                    android:id="@+id/tvMyPageUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="김명진님"
+                    android:textAppearance="@style/headline1"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivMyPageEditUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_navigate_right"
+                    app:layout_constraintBottom_toBottomOf="@id/tvMyPageUserName"
+                    app:layout_constraintStart_toEndOf="@id/tvMyPageUserName"
+                    app:layout_constraintTop_toTopOf="@id/tvMyPageUserName" />
+
+                <ImageView
+                    android:id="@+id/ivMyPageRegistrationNovel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginTop="28dp"
+                    android:src="@drawable/ic_book"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvMyPageUserName" />
+
+                <TextView
+                    android:id="@+id/tvMyPageRegistrationNovel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="등록작품"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_300_52515F"
+                    app:layout_constraintBottom_toBottomOf="@id/ivMyPageRegistrationNovel"
+                    app:layout_constraintStart_toEndOf="@id/ivMyPageRegistrationNovel"
+                    app:layout_constraintTop_toTopOf="@id/ivMyPageRegistrationNovel" />
+
+                <TextView
+                    android:id="@+id/tvMyPageRegistrationCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvMyPageRegistrationNovel"
+                    app:layout_constraintStart_toStartOf="@id/ivMyPageRegistrationNovel"
+                    app:layout_constraintTop_toBottomOf="@id/ivMyPageRegistrationNovel" />
+
+                <View
+                    android:id="@+id/viewMyPageBetweenLine"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/gray_70_DFDFE3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/tvMyPageUserName"
+                    app:layout_constraintStart_toEndOf="@id/tvMyPageRegistrationNovel"
+                    app:layout_constraintTop_toBottomOf="@id/tvMyPageUserName" />
+
+                <ImageView
+                    android:id="@+id/ivMyPageMemo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:src="@drawable/ic_memo"
+                    app:layout_constraintStart_toEndOf="@id/viewMyPageBetweenLine"
+                    app:layout_constraintTop_toTopOf="@id/ivMyPageRegistrationNovel" />
+
+                <TextView
+                    android:id="@+id/tvMyPageMemo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="기록"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_300_52515F"
+                    app:layout_constraintBottom_toBottomOf="@id/ivMyPageMemo"
+                    app:layout_constraintStart_toEndOf="@id/ivMyPageMemo"
+                    app:layout_constraintTop_toTopOf="@id/ivMyPageMemo" />
+
+                <TextView
+                    android:id="@+id/tvMyPageMemoCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:text="0"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toEndOf="@id/ivMyPageMemo"
+                    app:layout_constraintTop_toTopOf="@id/tvMyPageRegistrationCount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvMyPageSelectedAvatarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:text="캐릭터 선택"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@id/clMyPageProfile"
+                app:layout_constraintTop_toBottomOf="@id/clMyPageProfile" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMyPageSelected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="@id/tvMyPageSelectedAvatarTitle"
+                app:layout_constraintTop_toBottomOf="@id/tvMyPageSelectedAvatarTitle"
+                tool:listitem="@layout/item_avatar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
