@@ -1,9 +1,12 @@
 package com.teamwss.websoso.ui.memoWrite
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.teamwss.websoso.databinding.DialogMemoDeleteBinding
 
@@ -24,8 +27,14 @@ class DialogMemoDelete : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initDialogBackground()
         clickMemoDropBtn()
         clickMemoKeepBtn()
+    }
+
+    private fun initDialogBackground() {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
     }
 
     private fun clickMemoDropBtn() {
