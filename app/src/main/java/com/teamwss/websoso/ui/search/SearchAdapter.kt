@@ -13,12 +13,12 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
 
     override fun getItemCount() = novelItems.size
 
+    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
+        holder.onBind(novelItems[position])
+    }
+
     fun setResultNovelList(novelList: List<SearchResult>) {
         this.novelItems = novelList.toList()
         notifyDataSetChanged()
-    }
-
-    override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
-        holder.onBind(novelItems[position])
     }
 }
