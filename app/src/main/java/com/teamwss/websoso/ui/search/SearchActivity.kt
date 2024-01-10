@@ -78,18 +78,18 @@ class SearchActivity : AppCompatActivity() {
     private fun handleSearchEditTextOnInputFinish() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             binding.clSearchView.setBackgroundResource(R.color.transparent)
-            var handled = false
+            var isHandled: Boolean = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 val inputMethodManager =
                     this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
                 binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_radius_12dp)
-                handled = true
+                isHandled = true
             } else {
                 binding.clSearchView.setBackgroundResource(R.color.transparent)
             }
-            handled
+            isHandled
         }
     }
 
