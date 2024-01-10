@@ -42,7 +42,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.clSearchView.setBackgroundResource(R.drawable.bg_transparent_stroke_gray70_2dp_corner_12dp)
+                binding.clSearchView.setBackgroundResource(R.drawable.bg_transparent_stroke_gray70_2dp_radius_12dp)
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -67,7 +67,7 @@ class SearchActivity : AppCompatActivity() {
                 val inputMethodManager =
                     this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
-                binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_corner_12dp)
+                binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_radius_12dp)
                 handled = true
             } else {
                 binding.clSearchView.setBackgroundResource(R.color.transparent)
