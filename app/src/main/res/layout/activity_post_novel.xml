@@ -29,6 +29,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="252dp"
                     android:foreground="@drawable/bg_gray_gradient"
+                    android:importantForAccessibility="no"
                     android:scaleType="centerCrop"
                     android:src="@drawable/img_loading_thumbnail"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -40,7 +41,6 @@
                     android:layout_marginTop="96dp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:text="당신의 이해를 돕기 위하여"
                     android:textAlignment="center"
                     android:textAppearance="@style/headline1"
                     android:textColor="@color/white"
@@ -55,7 +55,6 @@
                     android:layout_marginTop="6dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="이보라"
                     android:textAlignment="center"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_200_AEADB3"
@@ -69,6 +68,7 @@
                     android:layout_height="0dp"
                     android:layout_marginHorizontal="116dp"
                     android:layout_marginTop="20dp"
+                    android:contentDescription="@string/iv_post_cover_description"
                     android:scaleType="fitCenter"
                     android:src="@drawable/img_loading_thumbnail"
                     app:layout_constraintDimensionRatio="128:197"
@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="56dp"
-                    android:text="읽기 상태"
+                    android:text="@string/tv_post_read_status"
                     android:textAppearance="@style/title1"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +107,7 @@
                     android:id="@+id/tvPostReadStatusSuffix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" *"
+                    android:text="@string/tv_post_read_status_suffix"
                     android:textAppearance="@style/title3"
                     android:textColor="@color/secondary_100_FF675D"
                     app:layout_constraintStart_toEndOf="@id/tvPostReadStatusTitle"
@@ -129,7 +129,7 @@
                         android:layout_height="53dp"
                         android:checkable="true"
                         android:checked="true"
-                        android:text="읽음"
+                        android:text="@string/c_read_status_read"
                         android:textAppearance="@style/body2"
                         android:textColor="@drawable/selector_read_status_text"
                         app:checkedIcon="@drawable/ic_status_read"
@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="53dp"
                         android:checkable="true"
-                        android:text="읽는 중"
+                        android:text="@string/c_read_status_reading"
                         android:textAppearance="@style/body2"
                         android:textColor="@drawable/selector_read_status_text"
                         app:checkedIcon="@drawable/ic_status_reading"
@@ -165,7 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="53dp"
                         android:checkable="true"
-                        android:text="하차"
+                        android:text="@string/c_read_status_stop"
                         android:textAppearance="@style/body2"
                         android:textColor="@drawable/selector_read_status_text"
                         app:checkedIcon="@drawable/ic_status_stop"
@@ -183,7 +183,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="53dp"
                         android:checkable="true"
-                        android:text="읽고 싶음"
+                        android:text="@string/c_read_status_want"
                         android:textAppearance="@style/body2"
                         android:textColor="@drawable/selector_read_status_text"
                         app:checkedIcon="@drawable/ic_status_want"
@@ -212,7 +212,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
-                        android:text="읽은 날짜"
+                        android:text="@string/tv_post_read_date_title"
                         android:textAppearance="@style/title1"
                         android:textColor="@color/primary_200_180A3F"
                         app:layout_constraintStart_toStartOf="parent"
@@ -237,6 +237,7 @@
                         android:layout_marginTop="12dp"
                         android:background="@drawable/shape_post_read_date_frame"
                         android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -248,7 +249,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="2023-11-26"
                             android:textAppearance="@style/body2"
                             android:textColor="@color/gray_300_52515F" />
 
@@ -259,7 +259,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="20dp"
-                            android:text="~"
+                            android:text="@string/tv_post_read_date_tilde"
                             android:textAppearance="@style/body2"
                             android:textColor="@color/gray_300_52515F" />
 
@@ -268,7 +268,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:text="2023-12-26"
                             android:textAppearance="@style/body2"
                             android:textColor="@color/gray_300_52515F" />
 
@@ -282,7 +281,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginEnd="16dp"
+                            android:importantForAccessibility="no"
                             android:scaleType="fitCenter"
                             android:src="@drawable/ic_calendar" />
 
@@ -297,7 +296,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="35dp"
                 android:background="#FFFFFF"
-                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/clPostDefaultInfo">
 
                 <TextView
@@ -306,7 +304,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="35dp"
-                    android:text="키워드"
+                    android:text="@string/tv_post_keyword_title"
                     android:textAppearance="@style/title1"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
@@ -327,6 +325,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="13dp"
+                        android:importantForAccessibility="no"
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_plus_keyword" />
 
@@ -336,7 +335,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="15dp"
-                        android:text="키워드 등록"
+                        android:text="@string/tv_post_keyword"
                         android:textAppearance="@style/body2"
                         android:textColor="@color/primary_100_6341F0" />
 
@@ -363,7 +362,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="32dp"
-                android:text="작품 소개"
+                android:text="@string/tv_post_novel_detail_title"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -375,7 +374,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:text="왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해 왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다. '태어나서 이렇게 멋있는 남자는 처음 봐…….' 왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다."
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
                 app:layout_constraintStart_toStartOf="parent"
@@ -387,7 +385,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="35dp"
-                android:text="장르"
+                android:text="@string/tv_post_novel_genre_title"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -399,7 +397,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:text="로판"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
                 app:layout_constraintStart_toStartOf="parent"
@@ -411,7 +408,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="35dp"
-                android:text="작품 보러가기"
+                android:text="@string/tv_post_novel_site_title"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
@@ -439,7 +436,7 @@
                         android:id="@+id/tvPostNovelSiteNaver"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="네이버시리즈"
+                        android:text="@string/tv_post_novel_site_naver"
                         android:textAppearance="@style/body2"
                         android:textColor="@color/primary_100_6341F0" />
 
@@ -448,6 +445,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
                         android:src="@drawable/ic_link_platform" />
                 </LinearLayout>
 
@@ -464,7 +462,7 @@
                         android:id="@+id/tvPostNovelSiteKakao"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="카카오페이지"
+                        android:text="@string/tv_post_novel_site_kakao"
                         android:textAppearance="@style/body2"
                         android:textColor="@color/primary_100_6341F0" />
 
@@ -473,6 +471,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
+                        android:importantForAccessibility="no"
                         android:src="@drawable/ic_link_platform" />
                 </LinearLayout>
             </GridLayout>
@@ -493,7 +492,7 @@
                     android:id="@+id/tvDatePostButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="내 서재에 등록"
+                    android:text="@string/tv_date_post_button"
                     android:textAppearance="@style/title1"
                     android:textColor="@color/white" />
 
@@ -518,7 +517,6 @@
             android:layout_marginBottom="15dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="당신의 이해를 돕기 위하여"
             android:textAlignment="center"
             android:textAppearance="@style/title2"
             android:textColor="@color/transparent" />
@@ -531,6 +529,7 @@
         android:layout_height="44dp"
         android:layout_marginStart="4dp"
         android:layout_marginBottom="4dp"
+        android:contentDescription="@string/iv_post_navigate_left_description"
         android:padding="10dp"
         android:src="@drawable/ic_navigate_left"
         app:layout_constraintBottom_toBottomOf="@id/alPostAppBar"
