@@ -9,13 +9,6 @@ import com.teamwss.websoso.ui.search.model.SearchResult
 
 class SearchViewHolder(private val binding: ItemSearchNovelBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    companion object {
-        fun create(parent: ViewGroup): SearchViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val binding = ItemSearchNovelBinding.inflate(inflater, parent, false)
-            return SearchViewHolder(binding)
-        }
-    }
 
     fun onBind(searchNovel: SearchResult) {
         with(binding) {
@@ -23,6 +16,14 @@ class SearchViewHolder(private val binding: ItemSearchNovelBinding) :
             tvSearchNovelTitle.text = searchNovel.resultNovelTitle
             tvSearchNovelAuthor.text = searchNovel.resultNovelAuthor
             tvSearchNovelGenre.text = searchNovel.resultNovelGenre
+        }
+    }
+
+    companion object {
+        fun create(parent: ViewGroup): SearchViewHolder {
+            val inflater = LayoutInflater.from(parent.context)
+            val binding = ItemSearchNovelBinding.inflate(inflater, parent, false)
+            return SearchViewHolder(binding)
         }
     }
 }
