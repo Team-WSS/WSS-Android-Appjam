@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="postNovelViewModel"
             type="com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel" />
@@ -556,7 +557,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#99000000"
-            android:visibility="invisible" />
+            android:visibility="@{postNovelViewModel.isDialogShown}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

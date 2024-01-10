@@ -31,8 +31,9 @@ class PostNovelActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.postNovelViewModel = postNovelViewModel
 
+        postNovelViewModel.updateIsDialogShown(false)
+
         setTranslucentOnStatusBar()
-        observeIsDialogShown()
         setupNavigateLeftDialog()
         setupDatePickerDialog()
 
@@ -49,12 +50,6 @@ class PostNovelActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-    }
-
-    private fun observeIsDialogShown() {
-        postNovelViewModel.isDialogShown.observe(this) {
-            binding.vPostDialogBackground.visibility = if (it) View.VISIBLE else View.GONE
-        }
     }
 
     private fun setupNavigateLeftDialog() {

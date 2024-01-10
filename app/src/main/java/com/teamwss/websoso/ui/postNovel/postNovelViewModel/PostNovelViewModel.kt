@@ -21,15 +21,14 @@ class PostNovelViewModel : ViewModel() {
     val selectedEndDate: LiveData<String> get() = _selectedEndDate
     private val _rating = MutableLiveData<Float>()
     val rating: LiveData<Float> get() = _rating
-    private val _isDialogShown = MutableLiveData<Boolean>()
-    val isDialogShown: LiveData<Boolean> get() = _isDialogShown
+    private val _isDialogShown = MutableLiveData<Int>()
+    val isDialogShown: LiveData<Int> get() = _isDialogShown
     private val _dummyData = MutableLiveData<DummyData>()
     val dummyData: LiveData<DummyData> get() = _dummyData
     private val _isStartSelected = MutableLiveData<Boolean>()
     val isStartSelected: LiveData<Boolean> get() = _isStartSelected
     private val _isDateValid = MutableLiveData<Boolean>()
     val isDateValid: LiveData<Boolean> get() = _isDateValid
-
 
     fun getUserNovelInfo() {
         _dummyData.value = DummyData(
@@ -70,7 +69,8 @@ class PostNovelViewModel : ViewModel() {
     }
 
     fun updateIsDialogShown(isShown: Boolean = false) {
-        _isDialogShown.value = isShown
+        if (isShown) _isDialogShown.value = 0
+        else _isDialogShown.value = 8
     }
 
     fun updateIsStartSelected(isSelected: Boolean = true) {
