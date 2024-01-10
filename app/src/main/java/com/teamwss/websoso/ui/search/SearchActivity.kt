@@ -42,7 +42,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                binding.clSearchView.setBackgroundResource(R.drawable.bg_transparent_stroke_gray70_2dp_radius_12dp)
+                binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
             }
 
             override fun afterTextChanged(s: Editable?) {
