@@ -1,7 +1,5 @@
 package com.teamwss.websoso.ui.postNovel
 
-import android.app.Dialog
-import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,35 +9,56 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogDatePickerBinding
 import java.time.LocalDate
 
-class DatePickerDialog(context: Context) : Dialog(context) {
-    private lateinit var inputSelectedDateListener: InputSelectedDateListener
-    private lateinit var binding: DialogDatePickerBinding
+class DatePickerDialog : DialogFragment() {
+    private var _binding: DialogDatePickerBinding? = null
+    private val binding: DialogDatePickerBinding get() = requireNotNull(_binding)
+    private val postNovelViewModel: PostNovelViewModel by activityViewModels()
+
     private lateinit var readStatus: String
     private lateinit var startDate: String
     private lateinit var endDate: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
+        _binding = DialogDatePickerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        binding = DialogDatePickerBinding.inflate(LayoutInflater.from(context))
-        setContentView(binding.root)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        readStatus = postNovelViewModel.readStatus.value ?: return
+        startDate = postNovelViewModel.startDate.value ?: return
+        endDate = postNovelViewModel.endDate.value ?: return
 
         setupDatePicker()
-        setupDialog()
         setupPostButtonClickListener()
         setupDateTypeSelector()
         setupNumberPickerListener()
         checkReadStatus()
     }
 
-    fun setDialogReadStatus(readStatus: String, startDate: String, endDate: String) {
-        this.readStatus = readStatus
-        this.startDate = startDate
-        this.endDate = endDate
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            attributes?.windowAnimations = R.style.BottomSheetDialogAnimation
+            setGravity(Gravity.BOTTOM)
+        }
+    }
+
+    override fun onDestroyView() {
+        postNovelViewModel.updateIsDialogShown(false)
+        _binding = null
+        super.onDestroyView()
     }
 
     private fun setupDatePicker() {
@@ -62,15 +81,6 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    private fun setupDialog() {
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        window?.attributes?.windowAnimations = R.style.BottomSheetDialogAnimation
-        window?.setGravity(Gravity.BOTTOM)
-        window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-    }
-
     private fun setDayMaxValue() {
         val year = binding.npPostDatePickerYear.value
         val month = binding.npPostDatePickerMonth.value
@@ -89,15 +99,24 @@ class DatePickerDialog(context: Context) : Dialog(context) {
     private fun setupPostButtonClickListener() {
         binding.llDatePostButton.setOnClickListener {
             setupAnotherDateValid()
-            inputSelectedDateListener.inputSelectedDate(startDate, endDate)
+            postNovelViewModel.updateReadDate(startDate, endDate)
             dismiss()
         }
     }
 
     private fun setupDateTypeSelector() {
         with(binding) {
-            updateDateSelector(true)
-            updateDateNumberPicker(true)
+            when (readStatus) {
+                getString(R.string.c_read_status_stop) -> {
+                    updateDateSelector(false)
+                    updateDateNumberPicker(false)
+                }
+
+                else -> {
+                    updateDateSelector(true)
+                    updateDateNumberPicker(true)
+                }
+            }
 
             llPostDatePickerReadDateStart.setOnClickListener {
                 updateDateSelector(true)
@@ -120,8 +139,8 @@ class DatePickerDialog(context: Context) : Dialog(context) {
                 if (isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
             val endColorResId =
                 if (!isStart) R.color.primary_100_6341F0 else R.color.gray_100_CBCBD1
-            val startColorValue = ContextCompat.getColor(context, startColorResId)
-            val endColorValue = ContextCompat.getColor(context, endColorResId)
+            val startColorValue = ContextCompat.getColor(requireContext(), startColorResId)
+            val endColorValue = ContextCompat.getColor(requireContext(), endColorResId)
             tvPostDatePickerReadDateStartTitle.setTextColor(startColorValue)
             tvPostDatePickerReadDateStart.setTextColor(startColorValue)
             tvPostDatePickerReadDateEndTitle.setTextColor(endColorValue)
@@ -145,7 +164,7 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         }
     }
 
-    private fun updateDate(isStart: Boolean) {
+    private fun formatDate(isStart: Boolean) {
         val year = binding.npPostDatePickerYear.value
         val month = binding.npPostDatePickerMonth.value
         val day = binding.npPostDatePickerDay.value
@@ -163,45 +182,42 @@ class DatePickerDialog(context: Context) : Dialog(context) {
     }
 
     private fun setupNumberPickerListener() {
+        val readStatusRead = getString(R.string.c_read_status_read)
         with(binding) {
             npPostDatePickerYear.setOnValueChangedListener { _, _, _ ->
                 setDayMaxValue()
-                updateDate(
-                    llPostDatePickerReadDateStart.isSelected
-                )
-                if (readStatus == context.getString(R.string.post_read_status_read)) isDateValid()
+                formatDate(llPostDatePickerReadDateStart.isSelected)
+                if (readStatus == readStatusRead) isDateValid()
             }
             npPostDatePickerMonth.setOnValueChangedListener { _, _, _ ->
                 setDayMaxValue()
-                updateDate(
-                    llPostDatePickerReadDateStart.isSelected
-                )
-                if (readStatus == context.getString(R.string.post_read_status_read)) isDateValid()
+                formatDate(llPostDatePickerReadDateStart.isSelected)
+                if (readStatus == readStatusRead) isDateValid()
             }
             npPostDatePickerDay.setOnValueChangedListener { _, _, _ ->
                 setDayMaxValue()
-                updateDate(
-                    llPostDatePickerReadDateStart.isSelected
-                )
-                if (readStatus == context.getString(R.string.post_read_status_read)) isDateValid()
+                formatDate(llPostDatePickerReadDateStart.isSelected)
+                if (readStatus == readStatusRead) isDateValid()
             }
         }
     }
 
     private fun checkReadStatus() {
         when (readStatus) {
-            context.getString(R.string.post_read_status_read) -> {
+            getString(R.string.c_read_status_read) -> {
                 binding.clPostDatePickerReadDateDefault.visibility = View.VISIBLE
             }
 
-            context.getString(R.string.post_read_status_reading) -> {
+            getString(R.string.c_read_status_reading) -> {
                 binding.clPostDatePickerReadDateDefault.visibility = View.GONE
-                binding.tvPostDatePickerReadDateTitle.text = readStatus
+                binding.tvPostDatePickerReadDateTitle.text =
+                    getString(R.string.post_read_status_reading)
             }
 
-            context.getString(R.string.post_read_status_stop) -> {
+            getString(R.string.c_read_status_stop) -> {
                 binding.clPostDatePickerReadDateDefault.visibility = View.GONE
-                binding.tvPostDatePickerReadDateTitle.text = readStatus
+                binding.tvPostDatePickerReadDateTitle.text =
+                    getString(R.string.post_read_status_stop)
             }
         }
     }
@@ -222,31 +238,33 @@ class DatePickerDialog(context: Context) : Dialog(context) {
         if (selectedStartDate.isAfter(selectedEndDate)) {
             binding.llDatePostButton.isEnabled = false
             binding.llDatePostButton.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.gray_200_AEADB3))
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.gray_200_AEADB3
+                    )
+                )
         } else {
             binding.llDatePostButton.isEnabled = true
             binding.llDatePostButton.backgroundTintList =
-                ColorStateList.valueOf(ContextCompat.getColor(context, R.color.primary_100_6341F0))
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.primary_100_6341F0
+                    )
+                )
         }
     }
 
     private fun setupAnotherDateValid() {
         when (readStatus) {
-            context.getString(R.string.post_read_status_reading) -> {
+            getString(R.string.c_read_status_reading) -> {
                 endDate = startDate
             }
 
-            context.getString(R.string.post_read_status_stop) -> {
+            getString(R.string.c_read_status_stop) -> {
                 startDate = endDate
             }
         }
-    }
-
-    fun interface InputSelectedDateListener {
-        fun inputSelectedDate(startDate: String, endDate: String)
-    }
-
-    fun setOnDateSelectedListener(listener: InputSelectedDateListener) {
-        inputSelectedDateListener = listener
     }
 }
