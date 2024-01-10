@@ -3,23 +3,23 @@ package com.teamwss.websoso.ui.main.home.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.teamwss.websoso.data.model.HomeNovel
+import com.teamwss.websoso.data.model.HomeNovelEntity
 
-class HomeAdapter: ListAdapter<HomeNovel, HomeViewHolder>(HomeDiffCallback) {
+class HomeAdapter: ListAdapter<HomeNovelEntity, HomeViewHolder>(HomeDiffCallback) {
 
     companion object {
         private val HomeDiffCallback = object :
-            DiffUtil.ItemCallback<HomeNovel>() {
+            DiffUtil.ItemCallback<HomeNovelEntity>() {
             override fun areItemsTheSame(
-                oldItem: HomeNovel,
-                newItem: HomeNovel
+                oldItem: HomeNovelEntity,
+                newItem: HomeNovelEntity
             ): Boolean {
                 return oldItem.novelId == newItem.novelId
             }
 
             override fun areContentsTheSame(
-                oldItem: HomeNovel,
-                newItem: HomeNovel
+                oldItem: HomeNovelEntity,
+                newItem: HomeNovelEntity
             ): Boolean {
                 return oldItem == newItem
             }

@@ -1,6 +1,6 @@
 package com.teamwss.websoso.data.model
 
-data class HomeNovel (
+data class HomeNovelEntity (
     val novelId: Long,
     val novelImg: String,
     val novelTitle: String,
