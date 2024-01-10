@@ -30,7 +30,7 @@
                     android:layout_height="252dp"
                     android:foreground="@drawable/bg_gray_gradient"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img_cover_test"
+                    android:src="@drawable/img_loading_thumbnail"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -70,7 +70,7 @@
                     android:layout_marginHorizontal="116dp"
                     android:layout_marginTop="20dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/img_cover_test"
+                    android:src="@drawable/img_loading_thumbnail"
                     app:layout_constraintDimensionRatio="128:197"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

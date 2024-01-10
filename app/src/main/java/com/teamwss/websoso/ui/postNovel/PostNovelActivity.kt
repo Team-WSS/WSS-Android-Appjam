@@ -152,14 +152,14 @@ class PostNovelActivity : AppCompatActivity() {
             tvPostNovelAuthor.text = "카미야 유우"
             ivPostCover.load("https://i.namu.wiki/i/j1S3TlFyve1UjbCnzF_g6qEgFnMi8usZ_DLCn8lP91FwgpPgwkv_GNCD2fmu5uEPgPU5CSdzDF5qwe_8Ains2UzdgGgI-bzT95MQeBrceU9E7Hr26fWBFREMLDGiZm01VtAXHgXRO9kviGz3sYwQ-w.webp") {
                 crossfade(true)
-                placeholder(R.drawable.shape_loading_thumbnail)
-                error(R.drawable.shape_loading_thumbnail)
+                placeholder(R.drawable.img_loading_thumbnail)
+                error(R.drawable.img_loading_thumbnail)
                 transformations(RoundedCornersTransformation(30))
             }
             ivPostCoverBackground.load("https://i.namu.wiki/i/j1S3TlFyve1UjbCnzF_g6qEgFnMi8usZ_DLCn8lP91FwgpPgwkv_GNCD2fmu5uEPgPU5CSdzDF5qwe_8Ains2UzdgGgI-bzT95MQeBrceU9E7Hr26fWBFREMLDGiZm01VtAXHgXRO9kviGz3sYwQ-w.webp") {
                 crossfade(true)
-                placeholder(R.drawable.shape_loading_thumbnail)
-                error(R.drawable.shape_loading_thumbnail)
+                placeholder(R.drawable.img_loading_thumbnail)
+                error(R.drawable.img_loading_thumbnail)
                 transformations(BlurTransformation(this@PostNovelActivity, 25))
             }
             rbPostRating.rating = 5.0f
