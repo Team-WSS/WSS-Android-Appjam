@@ -92,4 +92,8 @@
     <string name="dialog_cancel_content">작성 중인 내용이 모두 사라져요!</string>
     <string name="dialog_cancel_exit">나가기</string>
     <string name="dialog_cancel_keep_write">계속 진행하기</string>
+
+    <!-- Delete Memo Dialog -->
+    <string name="dialog_delete_title">메모를 삭제하실 건가요?</string>
+    <string name="dialog_delete_content">삭제한 메모는 다시 되돌릴 수 없어요!</string>
 </resources>
