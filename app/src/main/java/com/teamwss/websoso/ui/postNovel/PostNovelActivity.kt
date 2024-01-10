@@ -8,6 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
+import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
+import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostNavigateLeftDialog
+import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 import jp.wasabeef.transformers.coil.BlurTransformation
 import jp.wasabeef.transformers.coil.RoundedCornersTransformation
 import kotlin.math.pow

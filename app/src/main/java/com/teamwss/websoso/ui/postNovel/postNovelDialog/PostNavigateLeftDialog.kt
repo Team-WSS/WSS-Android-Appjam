@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.postNovel
+package com.teamwss.websoso.ui.postNovel.postNovelDialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.databinding.DialogPostNavigateLeftBinding
+import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 
 class PostNavigateLeftDialog : DialogFragment() {
     private var _binding: DialogPostNavigateLeftBinding? = null
