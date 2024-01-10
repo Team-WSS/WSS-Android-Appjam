@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogMemoDeleteContent" />
 
     <TextView
-        android:id="@+id/btnDialogMemoDeleteKeepWrite"
+        android:id="@+id/btnDialogMemoDeleteKeep"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
