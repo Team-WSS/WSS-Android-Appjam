@@ -106,10 +106,11 @@
 
     <TextView
         android:id="@+id/tvHomeSosoPick"
+        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
-        android:text="소소’s pick"
+        android:text="@string/home_sosopick"
         android:textAppearance="@style/headline1"
         app:layout_constraintBottom_toBottomOf="@id/vHomeSubTitleDot"
         app:layout_constraintStart_toEndOf="@id/vHomeSubTitleDot"
@@ -120,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
-        android:text="지금 소소들이 등록한 작품"
+        android:text="@string/home_sosopick_description"
         android:textAppearance="@style/body2"
         android:textColor="@color/gray_200_AEADB3"
         app:layout_constraintBottom_toBottomOf="@id/vHomeSubTitleDot"
