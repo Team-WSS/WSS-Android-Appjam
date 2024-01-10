@@ -5,5 +5,5 @@ data class HomeNovel (
     val novelImg: String,
     val novelTitle: String,
     val novelAuthor: String,
-    val novelRegisteredCount: Long
+    val novelRegisteredCount: Long,
 )
