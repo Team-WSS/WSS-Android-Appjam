@@ -10,7 +10,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.teamwss.websoso.databinding.DialogNovelDeleteBinding
 
-class DialogNovelDelete : DialogFragment() {
+class DialogNovelDelete(private val clickNovelDelete: () -> Unit) : DialogFragment() {
     private var _binding: DialogNovelDeleteBinding? = null
     private val binding: DialogNovelDeleteBinding
         get() = requireNotNull(_binding)
@@ -34,13 +34,16 @@ class DialogNovelDelete : DialogFragment() {
     }
 
     private fun clickNovelDeleteBtn() {
-        // @Delete /user-novels/{userNovelId}
-        // dismiss()
-        // 서재 뷰로 이동
+        binding.btnDialogNovelDeleteDrop.setOnClickListener {
+            clickNovelDelete()
+            dismiss()
+        }
     }
 
     private fun clickCancelBtn() {
-        dismiss()
+        binding.btnDialogCancelDismiss.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun onDestroy() {
