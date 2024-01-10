@@ -5,7 +5,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.teamwss.websoso.data.model.HomeNovelEntity
 
-class HomeAdapter: ListAdapter<HomeNovelEntity, HomeViewHolder>(HomeDiffCallback) {
+class HomeAdapter : ListAdapter<HomeNovelEntity, HomeViewHolder>(HomeDiffCallback) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+        return HomeViewHolder.create(parent)
+    }
+
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.onBind(item)
+    }
 
     companion object {
         private val HomeDiffCallback = object :
@@ -24,14 +33,5 @@ class HomeAdapter: ListAdapter<HomeNovelEntity, HomeViewHolder>(HomeDiffCallback
                 return oldItem == newItem
             }
         }
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder.create(parent)
-    }
-
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.onBind(item)
     }
 }
