@@ -104,4 +104,8 @@
     <string name="dialog_novel_delete_content">읽기 정보와 작성한 메모가 모두 사라져요!\n삭제한 내용은 절대 되돌릴 수 없어요ㅠ</string>
     <string name="dialog_novel_delete_drop">삭제하기</string>
     <string name="dialog_novel_delete_dismiss">취소</string>
+
+    <!-- Novel Info Popup -->
+    <string name="popup_novel_info_delete">작품을 서재에서 삭제</string>
+    <string name="popup_novel_info_edit_novel">작품 정보 수정</string>
 </resources>

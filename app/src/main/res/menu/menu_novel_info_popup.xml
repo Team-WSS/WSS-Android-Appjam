@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/world"
-        android:title="작품을 서재에서 삭제" />
+        android:id="@+id/btnNovelInfoPopupDeleteNovel"
+        android:title="@string/popup_novel_info_delete" />
     <item
-        android:id="@+id/world2"
-        android:title="작품 정보 수정" />
+        android:id="@+id/btnNovelInfoPopupEditNovel"
+        android:title="@string/popup_novel_info_edit_novel" />
 </menu>
