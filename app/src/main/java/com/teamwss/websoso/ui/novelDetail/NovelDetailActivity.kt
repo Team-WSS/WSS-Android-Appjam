@@ -1,7 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
@@ -11,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
-import com.teamwss.websoso.ui.main.library.LibraryFragment
-import com.teamwss.websoso.ui.memoWrite.DialogMemoDelete
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 
 class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
