@@ -13,6 +13,7 @@ import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostNavigateLeftDialog
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 import jp.wasabeef.transformers.coil.BlurTransformation
 import jp.wasabeef.transformers.coil.RoundedCornersTransformation
+import java.time.LocalDate
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -25,18 +26,20 @@ class PostNovelActivity : AppCompatActivity() {
         setContentView(binding.root)
         postNovelViewModel = ViewModelProvider(this)[PostNovelViewModel::class.java]
 
+        binding.lifecycleOwner = this
+        binding.postNovelViewModel = postNovelViewModel
+
         observeIsDialogShown()
         setupNavigateLeftDialog()
         setupDatePickerDialog()
 
         setupAppBar()
-
         setupDateToggle()
-        setupReadStatusChip()
+        setupReadStatusChipClickListener()
 
-        observeSelectedDate()
         initUserNovelInfo()
-        updateUserNovelInfoUI()
+        updateReadStatusUI()
+        updateRatingBar()
     }
 
     private fun observeIsDialogShown() {
@@ -76,19 +79,44 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupReadStatusChip() {
-        with(binding) {
-            cReadStatusRead.setOnClickListener {
-                postNovelViewModel.updateReadStatus(getString(R.string.c_read_status_read))
-            }
-            cReadStatusReading.setOnClickListener {
-                postNovelViewModel.updateReadStatus(getString(R.string.c_read_status_reading))
-            }
-            cReadStatusStop.setOnClickListener {
-                postNovelViewModel.updateReadStatus(getString(R.string.c_read_status_stop))
-            }
-            cReadStatusWant.setOnClickListener {
-                postNovelViewModel.updateReadStatus(getString(R.string.c_read_status_want))
+    private fun setupReadStatusChipClickListener() {
+        binding.cReadStatusRead.setOnClickListener {
+            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_finish))
+        }
+        binding.cReadStatusReading.setOnClickListener {
+            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_reading))
+        }
+        binding.cReadStatusStop.setOnClickListener {
+            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_drop))
+        }
+        binding.cReadStatusWant.setOnClickListener {
+            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_wish))
+        }
+    }
+
+
+    private fun updateReadStatusUI() {
+        postNovelViewModel.updateReadStatus(postNovelViewModel.readStatus.value.toString())
+        postNovelViewModel.readStatus.observe(this@PostNovelActivity) {
+            when (it) {
+                getString(R.string.api_read_status_finish) -> {
+                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
+                    binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
+                }
+
+                getString(R.string.api_read_status_reading) -> {
+                    updateDateVisibility(isStartDateVisible = true, isEndDateVisible = false)
+                    binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
+                }
+
+                getString(R.string.api_read_status_drop) -> {
+                    updateDateVisibility(isStartDateVisible = false, isEndDateVisible = true)
+                    binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
+                }
+
+                getString(R.string.api_read_status_wish) -> {
+                    binding.clPostReadDate.visibility = View.GONE
+                }
             }
         }
     }
@@ -116,106 +144,65 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun observeSelectedDate() {
-        with(postNovelViewModel) {
-            startDate.observe(this@PostNovelActivity) {
-                binding.tvPostReadDateStart.text = it
-            }
-            endDate.observe(this@PostNovelActivity) {
-                binding.tvPostReadDateEnd.text = it
-            }
-        }
-    }
-
     private fun initUserNovelInfo() {
-        val dummyData = postNovelViewModel.getUserNovelInfo()
-        with(binding) {
-            tvPostNovelTitle.text = dummyData.userNovelTitle
-            tvPostTitle.text = tvPostNovelTitle.text
-            tvPostNovelAuthor.text = dummyData.userNovelAuthor
-            tvPostNovelDetail.text = dummyData.userNovelDescription
-            tvPostNovelGenre.text = dummyData.userNovelGenre
-
-            rbPostRating.rating = dummyData.userNovelRating
-            tvPostReadDateStart.text = dummyData.readStartDate
-            tvPostReadDateEnd.text = dummyData.readEndDate
-
-            val coverImg = dummyData.userNovelImg
+        postNovelViewModel.getUserNovelInfo()
+        postNovelViewModel.dummyData.observe(this@PostNovelActivity) {
+            val coverImg = it.userNovelImg
             val loadingImg = R.drawable.img_loading_thumbnail
-            ivPostCover.load(coverImg) {
-                crossfade(true)
-                placeholder(loadingImg)
-                error(loadingImg)
-                transformations(RoundedCornersTransformation(30))
+            with(binding) {
+                ivPostCover.load(coverImg) {
+                    crossfade(true)
+                    placeholder(loadingImg)
+                    error(loadingImg)
+                    transformations(RoundedCornersTransformation(30))
+                }
+                ivPostCoverBackground.load(coverImg) {
+                    crossfade(true)
+                    placeholder(loadingImg)
+                    error(loadingImg)
+                    transformations(BlurTransformation(this@PostNovelActivity, 25))
+                }
             }
-            ivPostCoverBackground.load(coverImg) {
-                crossfade(true)
-                placeholder(loadingImg)
-                error(loadingImg)
-                transformations(BlurTransformation(this@PostNovelActivity, 25))
-            }
 
-            when (dummyData.userNovelReadStatus) {
-                getString(R.string.c_read_status_read) -> {
-                    cReadStatusRead.isChecked = true
+            when (postNovelViewModel.dummyData.value?.userNovelReadStatus) {
+                getString(R.string.api_read_status_finish) -> {
+                    binding.cReadStatusRead.isChecked = true
+                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_finish))
                 }
 
-                getString(R.string.c_read_status_reading) -> {
-                    cReadStatusReading.isChecked = true
+                getString(R.string.api_read_status_reading) -> {
+                    binding.cReadStatusReading.isChecked = true
+                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_reading))
                 }
 
-                getString(R.string.c_read_status_stop) -> {
-                    cReadStatusStop.isChecked = true
+                getString(R.string.api_read_status_drop) -> {
+                    binding.cReadStatusStop.isChecked = true
+                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_drop))
                 }
 
-                getString(R.string.c_read_status_want) -> {
-                    cReadStatusWant.isChecked = true
+                getString(R.string.api_read_status_wish) -> {
+                    binding.cReadStatusWant.isChecked = true
+                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_wish))
                 }
             }
 
             postNovelViewModel.updateReadDate(
-                tvPostReadDateStart.text.toString(),
-                tvPostReadDateEnd.text.toString()
+                postNovelViewModel.dummyData.value?.readStartDate ?: LocalDate.now().toString(),
+                postNovelViewModel.dummyData.value?.readEndDate ?: LocalDate.now().toString()
             )
 
-            postNovelViewModel.updateReadStatus(dummyData.userNovelReadStatus)
+            postNovelViewModel.updateReadStatus(
+                postNovelViewModel.dummyData.value?.userNovelReadStatus ?: ""
+            )
         }
     }
 
-    private fun updateUserNovelInfoUI() {
-        with(postNovelViewModel) {
-            readStatus.observe(this@PostNovelActivity) {
-                checkReadStatus(it)
+    private fun updateRatingBar() {
+            binding.rbPostRating.setOnRatingBarChangeListener { _, rating, _ ->
+                postNovelViewModel.updateRating(rating)
             }
-            startDate.observe(this@PostNovelActivity) {
-                binding.tvPostReadDateStart.text = it
-            }
-            endDate.observe(this@PostNovelActivity) {
-                binding.tvPostReadDateEnd.text = it
+            postNovelViewModel.rating.observe(this@PostNovelActivity) {
+                binding.rbPostRating.rating = it
             }
         }
     }
-
-    private fun checkReadStatus(readStatus: String) {
-        when (readStatus) {
-            getString(R.string.c_read_status_read) -> {
-                updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
-                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
-            }
-
-            getString(R.string.c_read_status_reading) -> {
-                updateDateVisibility(isStartDateVisible = true, isEndDateVisible = false)
-                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
-            }
-
-            getString(R.string.c_read_status_stop) -> {
-                updateDateVisibility(isStartDateVisible = false, isEndDateVisible = true)
-                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
-            }
-
-            getString(R.string.c_read_status_want) -> {
-                binding.clPostReadDate.visibility = View.GONE
-            }
-        }
-    }
-}

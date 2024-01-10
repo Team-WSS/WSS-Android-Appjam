@@ -17,6 +17,10 @@
     <string name="post_read_status_read">읽은 날짜</string>
     <string name="post_read_status_reading">시작 날짜</string>
     <string name="post_read_status_stop">종료 날짜</string>
+    <string name="api_read_status_finish">FINISH</string>
+    <string name="api_read_status_reading">READING</string>
+    <string name="api_read_status_drop">DROP</string>
+    <string name="api_read_status_wish">WISH</string>
 
     <!-- activity_post_novel -->
     <string name="tv_post_read_status">읽기 상태</string>

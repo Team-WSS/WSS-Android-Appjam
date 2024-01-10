@@ -1,545 +1,562 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray_50_F4F5F8"
-    tools:context=".ui.postNovel.PostNovelActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ScrollView
-        android:id="@+id/svPost"
+    <data>
+        <variable
+            name="postNovelViewModel"
+            type="com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray_50_F4F5F8"
+        tools:context=".ui.postNovel.PostNovelActivity">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/svPost"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clPostDefaultInfo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingBottom="35dp"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/ivPostCoverBackground"
-                    android:layout_width="match_parent"
-                    android:layout_height="252dp"
-                    android:foreground="@drawable/bg_gray_gradient"
-                    android:importantForAccessibility="no"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img_loading_thumbnail"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvPostNovelTitle"
-                    android:layout_width="248dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="96dp"
-                    android:ellipsize="end"
-                    android:maxLines="3"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/headline1"
-                    android:textColor="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/tvPostNovelAuthor"
-                    android:layout_width="248dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/body2"
-                    android:textColor="@color/gray_200_AEADB3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvPostNovelTitle" />
-
-                <ImageView
-                    android:id="@+id/ivPostCover"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginHorizontal="116dp"
-                    android:layout_marginTop="20dp"
-                    android:contentDescription="@string/iv_post_cover_description"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/img_loading_thumbnail"
-                    app:layout_constraintDimensionRatio="128:197"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvPostNovelAuthor" />
-
-                <RatingBar
-                    android:id="@+id/rbPostRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="22dp"
-                    android:numStars="5"
-                    android:progressBackgroundTint="@color/gray_70_DFDFE3"
-                    android:progressTint="@color/secondary_100_FF675D"
-                    android:rating="0"
-                    android:secondaryProgressTint="@color/secondary_100_FF675D"
-                    android:stepSize="0.5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ivPostCover" />
-
-                <TextView
-                    android:id="@+id/tvPostReadStatusTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="56dp"
-                    android:text="@string/tv_post_read_status"
-                    android:textAppearance="@style/title1"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rbPostRating" />
-
-                <TextView
-                    android:id="@+id/tvPostReadStatusSuffix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_post_read_status_suffix"
-                    android:textAppearance="@style/title3"
-                    android:textColor="@color/secondary_100_FF675D"
-                    app:layout_constraintStart_toEndOf="@id/tvPostReadStatusTitle"
-                    app:layout_constraintTop_toTopOf="@+id/tvPostReadStatusTitle" />
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/cgPostReadStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    app:layout_constraintStart_toStartOf="@id/tvPostReadStatusTitle"
-                    app:layout_constraintTop_toBottomOf="@id/tvPostReadStatusTitle"
-                    app:selectionRequired="true"
-                    app:singleSelection="true">
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/cReadStatusRead"
-                        android:layout_width="wrap_content"
-                        android:layout_height="53dp"
-                        android:checkable="true"
-                        android:checked="true"
-                        android:text="@string/c_read_status_read"
-                        android:textAppearance="@style/body2"
-                        android:textColor="@drawable/selector_read_status_text"
-                        app:checkedIcon="@drawable/ic_status_read"
-                        app:checkedIconVisible="true"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipCornerRadius="20dp"
-                        app:chipIconSize="16dp"
-                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
-                        app:chipStrokeWidth="1dp"
-                        app:iconStartPadding="8dp"
-                        app:rippleColor="@color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/cReadStatusReading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="53dp"
-                        android:checkable="true"
-                        android:text="@string/c_read_status_reading"
-                        android:textAppearance="@style/body2"
-                        android:textColor="@drawable/selector_read_status_text"
-                        app:checkedIcon="@drawable/ic_status_reading"
-                        app:checkedIconVisible="true"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipCornerRadius="20dp"
-                        app:chipIconSize="16dp"
-                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
-                        app:chipStrokeWidth="1dp"
-                        app:iconStartPadding="8dp"
-                        app:rippleColor="@color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/cReadStatusStop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="53dp"
-                        android:checkable="true"
-                        android:text="@string/c_read_status_stop"
-                        android:textAppearance="@style/body2"
-                        android:textColor="@drawable/selector_read_status_text"
-                        app:checkedIcon="@drawable/ic_status_stop"
-                        app:checkedIconVisible="true"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipCornerRadius="20dp"
-                        app:chipIconSize="16dp"
-                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
-                        app:chipStrokeWidth="1dp"
-                        app:iconStartPadding="8dp"
-                        app:rippleColor="@color/transparent" />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/cReadStatusWant"
-                        android:layout_width="wrap_content"
-                        android:layout_height="53dp"
-                        android:checkable="true"
-                        android:text="@string/c_read_status_want"
-                        android:textAppearance="@style/body2"
-                        android:textColor="@drawable/selector_read_status_text"
-                        app:checkedIcon="@drawable/ic_status_want"
-                        app:checkedIconVisible="true"
-                        app:chipBackgroundColor="@color/white"
-                        app:chipCornerRadius="20dp"
-                        app:chipIconSize="16dp"
-                        app:chipStrokeColor="@drawable/selector_read_status_stroke"
-                        app:chipStrokeWidth="1dp"
-                        app:iconStartPadding="8dp"
-                        app:rippleColor="@color/transparent" />
-
-                </com.google.android.material.chip.ChipGroup>
-
+                android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clPostReadDate"
+                    android:id="@+id/clPostDefaultInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="35dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cgPostReadStatus">
+                    android:background="@color/white"
+                    android:paddingBottom="35dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/ivPostCoverBackground"
+                        android:layout_width="match_parent"
+                        android:layout_height="252dp"
+                        android:foreground="@drawable/bg_gray_gradient"
+                        android:importantForAccessibility="no"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/img_loading_thumbnail"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvPostReadDateTitle"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvPostNovelTitle"
+                        android:layout_width="248dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/tv_post_read_date_title"
-                        android:textAppearance="@style/title1"
-                        android:textColor="@color/primary_200_180A3F"
+                        android:layout_marginTop="96dp"
+                        android:ellipsize="end"
+                        android:maxLines="3"
+                        android:text="@{postNovelViewModel.dummyData.userNovelTitle}"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/headline1"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/scPostDateSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="16dp"
-                        android:checked="true"
-                        android:thumb="@drawable/shape_date_switch_thumb"
-                        app:layout_constraintBottom_toBottomOf="@id/tvPostReadDateTitle"
-                        app:layout_constraintStart_toEndOf="@id/tvPostReadDateTitle"
-                        app:layout_constraintTop_toTopOf="@id/tvPostReadDateTitle"
-                        app:track="@drawable/selector_date_switch_background" />
-
-                    <LinearLayout
-                        android:id="@+id/llPostReadDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/shape_post_read_date_frame"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                    <TextView
+                        android:id="@+id/tvPostNovelAuthor"
+                        android:layout_width="248dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="@{postNovelViewModel.dummyData.userNovelAuthor}"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/body2"
+                        android:textColor="@color/gray_200_AEADB3"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvPostReadDateTitle"
-                        app:layout_constraintVertical_bias="0.0">
+                        app:layout_constraintTop_toBottomOf="@id/tvPostNovelTitle" />
 
-                        <TextView
-                            android:id="@+id/tvPostReadDateStart"
+                    <ImageView
+                        android:id="@+id/ivPostCover"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="116dp"
+                        android:layout_marginTop="20dp"
+                        android:contentDescription="@string/iv_post_cover_description"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/img_loading_thumbnail"
+                        app:layout_constraintDimensionRatio="128:197"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvPostNovelAuthor" />
+
+                    <RatingBar
+                        android:id="@+id/rbPostRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="22dp"
+                        android:numStars="5"
+                        android:progressBackgroundTint="@color/gray_70_DFDFE3"
+                        android:progressTint="@color/secondary_100_FF675D"
+                        android:rating="@{postNovelViewModel.dummyData.userNovelRating}"
+                        android:secondaryProgressTint="@color/secondary_100_FF675D"
+                        android:stepSize="0.5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/ivPostCover" />
+
+                    <TextView
+                        android:id="@+id/tvPostReadStatusTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="56dp"
+                        android:text="@string/tv_post_read_status"
+                        android:textAppearance="@style/title1"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rbPostRating" />
+
+                    <TextView
+                        android:id="@+id/tvPostReadStatusSuffix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tv_post_read_status_suffix"
+                        android:textAppearance="@style/title3"
+                        android:textColor="@color/secondary_100_FF675D"
+                        app:layout_constraintStart_toEndOf="@id/tvPostReadStatusTitle"
+                        app:layout_constraintTop_toTopOf="@+id/tvPostReadStatusTitle" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cgPostReadStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintStart_toStartOf="@id/tvPostReadStatusTitle"
+                        app:layout_constraintTop_toBottomOf="@id/tvPostReadStatusTitle"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/cReadStatusRead"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
+                            android:layout_height="53dp"
+                            android:checkable="true"
+                            android:checked="true"
+                            android:text="@string/c_read_status_read"
                             android:textAppearance="@style/body2"
-                            android:textColor="@color/gray_300_52515F" />
+                            android:textColor="@drawable/selector_read_status_text"
+                            app:checkedIcon="@drawable/ic_status_read"
+                            app:checkedIconVisible="true"
+                            app:chipBackgroundColor="@color/white"
+                            app:chipCornerRadius="20dp"
+                            app:chipIconSize="16dp"
+                            app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                            app:chipStrokeWidth="1dp"
+                            app:iconStartPadding="8dp"
+                            app:rippleColor="@color/transparent" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/cReadStatusReading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="53dp"
+                            android:checkable="true"
+                            android:text="@string/c_read_status_reading"
+                            android:textAppearance="@style/body2"
+                            android:textColor="@drawable/selector_read_status_text"
+                            app:checkedIcon="@drawable/ic_status_reading"
+                            app:checkedIconVisible="true"
+                            app:chipBackgroundColor="@color/white"
+                            app:chipCornerRadius="20dp"
+                            app:chipIconSize="16dp"
+                            app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                            app:chipStrokeWidth="1dp"
+                            app:iconStartPadding="8dp"
+                            app:rippleColor="@color/transparent" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/cReadStatusStop"
+                            android:layout_width="wrap_content"
+                            android:layout_height="53dp"
+                            android:checkable="true"
+                            android:text="@string/c_read_status_stop"
+                            android:textAppearance="@style/body2"
+                            android:textColor="@drawable/selector_read_status_text"
+                            app:checkedIcon="@drawable/ic_status_stop"
+                            app:checkedIconVisible="true"
+                            app:chipBackgroundColor="@color/white"
+                            app:chipCornerRadius="20dp"
+                            app:chipIconSize="16dp"
+                            app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                            app:chipStrokeWidth="1dp"
+                            app:iconStartPadding="8dp"
+                            app:rippleColor="@color/transparent" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/cReadStatusWant"
+                            android:layout_width="wrap_content"
+                            android:layout_height="53dp"
+                            android:checkable="true"
+                            android:text="@string/c_read_status_want"
+                            android:textAppearance="@style/body2"
+                            android:textColor="@drawable/selector_read_status_text"
+                            app:checkedIcon="@drawable/ic_status_want"
+                            app:checkedIconVisible="true"
+                            app:chipBackgroundColor="@color/white"
+                            app:chipCornerRadius="20dp"
+                            app:chipIconSize="16dp"
+                            app:chipStrokeColor="@drawable/selector_read_status_stroke"
+                            app:chipStrokeWidth="1dp"
+                            app:iconStartPadding="8dp"
+                            app:rippleColor="@color/transparent" />
+
+                    </com.google.android.material.chip.ChipGroup>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clPostReadDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cgPostReadStatus">
 
                         <TextView
-                            android:id="@+id/tvPostReadDateTilde"
+                            android:id="@+id/tvPostReadDateTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
                             android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
-                            android:text="@string/tv_post_read_date_tilde"
-                            android:textAppearance="@style/body2"
-                            android:textColor="@color/gray_300_52515F" />
+                            android:text="@string/tv_post_read_date_title"
+                            android:textAppearance="@style/title1"
+                            android:textColor="@color/primary_200_180A3F"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/tvPostReadDateEnd"
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/scPostDateSwitch"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:textAppearance="@style/body2"
-                            android:textColor="@color/gray_300_52515F" />
+                            android:layout_height="16dp"
+                            android:checked="true"
+                            android:thumb="@drawable/shape_date_switch_thumb"
+                            app:layout_constraintBottom_toBottomOf="@id/tvPostReadDateTitle"
+                            app:layout_constraintStart_toEndOf="@id/tvPostReadDateTitle"
+                            app:layout_constraintTop_toTopOf="@id/tvPostReadDateTitle"
+                            app:track="@drawable/selector_date_switch_background" />
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
+                        <LinearLayout
+                            android:id="@+id/llPostReadDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_marginHorizontal="20dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/shape_post_read_date_frame"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvPostReadDateTitle"
+                            app:layout_constraintVertical_bias="0.0">
 
-                        <ImageView
-                            android:id="@+id/ivPostDateEdit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:importantForAccessibility="no"
-                            android:scaleType="fitCenter"
-                            android:src="@drawable/ic_calendar" />
+                            <TextView
+                                android:id="@+id/tvPostReadDateStart"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="@{postNovelViewModel.startDate}"
+                                android:textAppearance="@style/body2"
+                                android:textColor="@color/gray_300_52515F" />
 
-                    </LinearLayout>
+                            <TextView
+                                android:id="@+id/tvPostReadDateTilde"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginEnd="20dp"
+                                android:text="@string/tv_post_read_date_tilde"
+                                android:textAppearance="@style/body2"
+                                android:textColor="@color/gray_300_52515F" />
+
+                            <TextView
+                                android:id="@+id/tvPostReadDateEnd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="@{postNovelViewModel.endDate}"
+                                android:textAppearance="@style/body2"
+                                android:textColor="@color/gray_300_52515F" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:id="@+id/ivPostDateEdit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:importantForAccessibility="no"
+                                android:scaleType="fitCenter"
+                                android:src="@drawable/ic_calendar" />
+
+                        </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPostKeyword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="35dp"
+                    android:background="#FFFFFF"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/clPostDefaultInfo">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clPostKeyword"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="35dp"
-                android:background="#FFFFFF"
-                app:layout_constraintTop_toBottomOf="@id/clPostDefaultInfo">
+                    <TextView
+                        android:id="@+id/tvPostKeywordTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="35dp"
+                        android:text="@string/tv_post_keyword_title"
+                        android:textAppearance="@style/title1"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/llPostKeyword"
+                        android:layout_width="match_parent"
+                        android:layout_height="43dp"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="18dp"
+                        android:background="@drawable/shape_post_keyword_button"
+                        app:layout_constraintTop_toBottomOf="@id/tvPostKeywordTitle">
+
+                        <ImageView
+                            android:id="@+id/ivPostKeyword"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="13dp"
+                            android:importantForAccessibility="no"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_plus_keyword" />
+
+                        <TextView
+                            android:id="@+id/tvPostKeyword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="15dp"
+                            android:text="@string/tv_post_keyword"
+                            android:textAppearance="@style/body2"
+                            android:textColor="@color/primary_100_6341F0" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvPostKeyword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="35dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/llPostKeyword" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tvPostKeywordTitle"
+                    android:id="@+id/tvPostNovelDetailTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/tv_post_novel_detail_title"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clPostKeyword" />
+
+                <TextView
+                    android:id="@+id/tvPostNovelDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{postNovelViewModel.dummyData.userNovelDescription}"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_300_52515F"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPostNovelDetailTitle" />
+
+                <TextView
+                    android:id="@+id/tvPostNovelGenreTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="35dp"
-                    android:text="@string/tv_post_keyword_title"
+                    android:text="@string/tv_post_novel_genre_title"
                     android:textAppearance="@style/title1"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@id/tvPostNovelDetail" />
+
+                <TextView
+                    android:id="@+id/tvPostNovelGenre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{postNovelViewModel.dummyData.userNovelGenre}"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_300_52515F"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenreTitle" />
+
+                <TextView
+                    android:id="@+id/tvPostNovelSiteTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="35dp"
+                    android:text="@string/tv_post_novel_site_title"
+                    android:textAppearance="@style/title1"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenre" />
+
+                <GridLayout
+                    android:id="@+id/glPostNovelLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPostNovelSiteTitle">
+
+                    <LinearLayout
+                        android:id="@+id/llPostNovelLinkNaver"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/shape_link_button"
+                        android:gravity="center"
+                        android:paddingHorizontal="13dp">
+
+                        <TextView
+                            android:id="@+id/tvPostNovelSiteNaver"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_post_novel_site_naver"
+                            android:textAppearance="@style/body2"
+                            android:textColor="@color/primary_100_6341F0" />
+
+                        <ImageView
+                            android:id="@+id/ivPostNovelSiteNaver"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_link_platform" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llPostNovelLinkKakao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="37dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/shape_link_button"
+                        android:gravity="center"
+                        android:paddingHorizontal="13dp">
+
+                        <TextView
+                            android:id="@+id/tvPostNovelSiteKakao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/tv_post_novel_site_kakao"
+                            android:textAppearance="@style/body2"
+                            android:textColor="@color/primary_100_6341F0" />
+
+                        <ImageView
+                            android:id="@+id/ivPostNovelSiteKakao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/ic_link_platform" />
+                    </LinearLayout>
+                </GridLayout>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/llPostKeyword"
+                    android:id="@+id/llDatePostButton"
                     android:layout_width="match_parent"
-                    android:layout_height="43dp"
+                    android:layout_height="53dp"
                     android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="18dp"
-                    android:background="@drawable/shape_post_keyword_button"
-                    app:layout_constraintTop_toBottomOf="@id/tvPostKeywordTitle">
-
-                    <ImageView
-                        android:id="@+id/ivPostKeyword"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="13dp"
-                        android:importantForAccessibility="no"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/ic_plus_keyword" />
+                    android:layout_marginTop="114dp"
+                    android:layout_marginBottom="28dp"
+                    android:background="@drawable/shape_post_button"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/glPostNovelLink">
 
                     <TextView
-                        android:id="@+id/tvPostKeyword"
+                        android:id="@+id/tvDatePostButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="15dp"
-                        android:text="@string/tv_post_keyword"
-                        android:textAppearance="@style/body2"
-                        android:textColor="@color/primary_100_6341F0" />
+                        android:text="@string/tv_date_post_button"
+                        android:textAppearance="@style/title1"
+                        android:textColor="@color/white" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvPostKeyword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginBottom="35dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llPostKeyword" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/alPostAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/transparent"
+            android:gravity="bottom"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvPostNovelDetailTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvPostTitle"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/tv_post_novel_detail_title"
-                android:textAppearance="@style/title1"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clPostKeyword" />
+                android:layout_gravity="center"
+                android:layout_marginBottom="15dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{postNovelViewModel.dummyData.userNovelTitle}"
+                android:textAlignment="center"
+                android:textAppearance="@style/title2"
+                android:textColor="@color/transparent" />
 
-            <TextView
-                android:id="@+id/tvPostNovelDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:textAppearance="@style/body2"
-                android:textColor="@color/gray_300_52515F"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPostNovelDetailTitle" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:id="@+id/tvPostNovelGenreTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="35dp"
-                android:text="@string/tv_post_novel_genre_title"
-                android:textAppearance="@style/title1"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPostNovelDetail" />
+        <ImageView
+            android:id="@+id/ivPostNavigateLeft"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="4dp"
+            android:contentDescription="@string/iv_post_navigate_left_description"
+            android:padding="10dp"
+            android:src="@drawable/ic_navigate_left"
+            app:layout_constraintBottom_toBottomOf="@id/alPostAppBar"
+            app:layout_constraintStart_toStartOf="@id/alPostAppBar" />
 
-            <TextView
-                android:id="@+id/tvPostNovelGenre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                android:textAppearance="@style/body2"
-                android:textColor="@color/gray_300_52515F"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenreTitle" />
+        <View
+            android:id="@+id/vPostDialogBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000"
+            android:visibility="invisible" />
 
-            <TextView
-                android:id="@+id/tvPostNovelSiteTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="35dp"
-                android:text="@string/tv_post_novel_site_title"
-                android:textAppearance="@style/title1"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPostNovelGenre" />
-
-            <GridLayout
-                android:id="@+id/glPostNovelLink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvPostNovelSiteTitle">
-
-                <LinearLayout
-                    android:id="@+id/llPostNovelLinkNaver"
-                    android:layout_width="wrap_content"
-                    android:layout_height="37dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/shape_link_button"
-                    android:gravity="center"
-                    android:paddingHorizontal="13dp">
-
-                    <TextView
-                        android:id="@+id/tvPostNovelSiteNaver"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv_post_novel_site_naver"
-                        android:textAppearance="@style/body2"
-                        android:textColor="@color/primary_100_6341F0" />
-
-                    <ImageView
-                        android:id="@+id/ivPostNovelSiteNaver"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_link_platform" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llPostNovelLinkKakao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="37dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/shape_link_button"
-                    android:gravity="center"
-                    android:paddingHorizontal="13dp">
-
-                    <TextView
-                        android:id="@+id/tvPostNovelSiteKakao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/tv_post_novel_site_kakao"
-                        android:textAppearance="@style/body2"
-                        android:textColor="@color/primary_100_6341F0" />
-
-                    <ImageView
-                        android:id="@+id/ivPostNovelSiteKakao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:importantForAccessibility="no"
-                        android:src="@drawable/ic_link_platform" />
-                </LinearLayout>
-            </GridLayout>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/llDatePostButton"
-                android:layout_width="match_parent"
-                android:layout_height="53dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="114dp"
-                android:layout_marginBottom="28dp"
-                android:background="@drawable/shape_post_button"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/glPostNovelLink">
-
-                <TextView
-                    android:id="@+id/tvDatePostButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tv_date_post_button"
-                    android:textAppearance="@style/title1"
-                    android:textColor="@color/white" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/alPostAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/transparent"
-        android:gravity="bottom"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvPostTitle"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAlignment="center"
-            android:textAppearance="@style/title2"
-            android:textColor="@color/transparent" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <ImageView
-        android:id="@+id/ivPostNavigateLeft"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="4dp"
-        android:contentDescription="@string/iv_post_navigate_left_description"
-        android:padding="10dp"
-        android:src="@drawable/ic_navigate_left"
-        app:layout_constraintBottom_toBottomOf="@id/alPostAppBar"
-        app:layout_constraintStart_toStartOf="@id/alPostAppBar" />
-
-    <View
-        android:id="@+id/vPostDialogBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99000000"
-        android:visibility="invisible" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
