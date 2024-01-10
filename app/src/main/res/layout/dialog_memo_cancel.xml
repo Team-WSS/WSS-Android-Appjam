@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogCancelContent" />
 
     <TextView
-        android:id="@+id/btnDialogDeleteDismss"
+        android:id="@+id/btnDialogCancelDismiss"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"

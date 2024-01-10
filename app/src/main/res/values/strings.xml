@@ -94,8 +94,10 @@
     <string name="dialog_cancel_keep_write">계속 진행하기</string>
 
     <!-- Delete Memo Dialog -->
-    <string name="dialog_delete_title">메모를 삭제하실 건가요?</string>
-    <string name="dialog_delete_content">삭제한 메모는 다시 되돌릴 수 없어요!</string>
+    <string name="dialog_memo_delete_title">메모를 삭제하실 건가요?</string>
+    <string name="dialog_memo_delete_content">삭제한 메모는 다시 되돌릴 수 없어요!</string>
+    <string name="dialog_memo_delete_drop">삭제하기</string>
+    <string name="dialog_memo_delete_dismiss">취소</string>
 
     <!-- Delete Novel Dialog -->
     <string name="dialog_novel_delete_title">이 작품을 삭제하실 건가요?</string>

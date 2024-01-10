@@ -8,7 +8,7 @@
     android:paddingVertical="24dp">
 
     <ImageView
-        android:id="@+id/ivDialogDeleteWarning"
+        android:id="@+id/ivDialogMemoDeleteWarning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_warning_circle"
@@ -17,55 +17,55 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvDialogDeleteTitle"
+        android:id="@+id/tvDialogMemoDeleteTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="@string/dialog_delete_title"
+        android:text="@string/dialog_memo_delete_title"
         android:textAppearance="@style/title2"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivDialogDeleteWarning" />
+        app:layout_constraintTop_toBottomOf="@id/ivDialogMemoDeleteWarning" />
 
     <TextView
-        android:id="@+id/tvDialogDeleteContent"
+        android:id="@+id/tvDialogMemoDeleteContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/dialog_delete_content"
+        android:text="@string/dialog_memo_delete_content"
         android:textAppearance="@style/label1"
         android:textColor="@color/gray_30_848484"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialogDeleteTitle" />
+        app:layout_constraintTop_toBottomOf="@id/tvDialogMemoDeleteTitle" />
 
     <TextView
-        android:id="@+id/btnDialogDeleteDrop"
+        android:id="@+id/btnDialogMemoDeleteDrop"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/bg_gray50_radius_8dp"
         android:gravity="center"
-        android:text="@string/dialog_cancel_exit"
+        android:text="@string/dialog_memo_delete_drop"
         android:textAppearance="@style/label1"
         android:textColor="@color/gray_300_52515F"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialogDeleteContent" />
+        app:layout_constraintTop_toBottomOf="@id/tvDialogMemoDeleteContent" />
 
     <TextView
-        android:id="@+id/btnDialogDeleteDismss"
+        android:id="@+id/btnDialogMemoDeleteKeepWrite"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/bg_primary200_radius_8dp"
         android:gravity="center"
-        android:text="@string/dialog_cancel_keep_write"
+        android:text="@string/dialog_memo_delete_dismiss"
         android:textAppearance="@style/label1"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/btnDialogDeleteDrop"
+        app:layout_constraintBottom_toBottomOf="@id/btnDialogMemoDeleteDrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnDialogDeleteDrop"
-        app:layout_constraintTop_toTopOf="@id/btnDialogDeleteDrop" />
+        app:layout_constraintStart_toEndOf="@id/btnDialogMemoDeleteDrop"
+        app:layout_constraintTop_toTopOf="@id/btnDialogMemoDeleteDrop" />
 </androidx.constraintlayout.widget.ConstraintLayout>
