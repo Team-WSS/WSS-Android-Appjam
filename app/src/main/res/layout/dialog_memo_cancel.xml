@@ -42,12 +42,11 @@
 
     <TextView
         android:id="@+id/btnDialogCancelExit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="116dp"
+        android:layout_height="40dp"
         android:layout_marginTop="18dp"
         android:background="@drawable/bg_gray50_radius_8dp"
-        android:paddingHorizontal="44dp"
-        android:paddingVertical="12dp"
+        android:gravity="center"
         android:text="@string/dialog_cancel_exit"
         android:textAppearance="@style/label1"
         android:textColor="@color/gray_300_52515F"
@@ -57,12 +56,11 @@
 
     <TextView
         android:id="@+id/btnDialogDeleteDismss"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="116dp"
+        android:layout_height="40dp"
         android:layout_marginStart="20dp"
         android:background="@drawable/bg_primary200_radius_8dp"
-        android:paddingHorizontal="22dp"
-        android:paddingVertical="12dp"
+        android:gravity="center"
         android:text="@string/dialog_cancel_keep_write"
         android:textAppearance="@style/label1"
         android:textColor="@color/white"
