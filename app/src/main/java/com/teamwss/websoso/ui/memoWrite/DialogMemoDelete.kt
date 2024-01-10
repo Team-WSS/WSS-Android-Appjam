@@ -21,20 +21,16 @@ class DialogMemoDelete : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DialogMemoDeleteBinding.inflate(inflater, container, false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initDialogBackground()
         clickMemoDropBtn()
         clickMemoKeepBtn()
-    }
-
-    private fun initDialogBackground() {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
     }
 
     private fun clickMemoDropBtn() {

@@ -10,39 +10,39 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.teamwss.websoso.databinding.DialogMemoCancelBinding
 
-class DialogMemoCancel : DialogFragment() {
+class DialogMemoCancel(private val clickExit: () -> Unit) :
+    DialogFragment() {
     private var _binding: DialogMemoCancelBinding? = null
     private val binding: DialogMemoCancelBinding
         get() = requireNotNull(_binding)
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = DialogMemoCancelBinding.inflate(inflater, container, false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initDialogBackground()
         clickExitBtn()
         clickKeepWriteBtn()
     }
 
-    private fun initDialogBackground() {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
-    }
-
     private fun clickExitBtn() {
-        // 나가기 버튼 눌렀을 때 상태가 작성 취소로 바뀜 -> 뷰가 다르게 바껴야 함 + dismiss()
+        binding.btnDialogCancelExit.setOnClickListener {
+            clickExit
+            dismiss()
+        }
     }
 
     private fun clickKeepWriteBtn() {
-        dismiss()
+        binding.btnDialogCancelDismiss.setOnClickListener {
+            dismiss()
+        }
     }
 
     override fun onDestroy() {

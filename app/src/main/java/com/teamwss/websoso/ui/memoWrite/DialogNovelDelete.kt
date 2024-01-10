@@ -21,20 +21,16 @@ class DialogNovelDelete : DialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = DialogNovelDeleteBinding.inflate(inflater, container, false)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initDialogBackground()
         clickNovelDeleteBtn()
         clickCancelBtn()
-    }
-
-    private fun initDialogBackground() {
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
     }
 
     private fun clickNovelDeleteBtn() {
