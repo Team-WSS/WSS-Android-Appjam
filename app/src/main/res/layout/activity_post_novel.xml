@@ -519,7 +519,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/alPostAppBar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="76dp"
             android:background="@color/transparent"
             android:gravity="bottom"
             app:layout_constraintTop_toTopOf="parent">

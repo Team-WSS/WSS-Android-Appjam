@@ -2,7 +2,9 @@ package com.teamwss.websoso.ui.postNovel
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import coil.load
@@ -29,6 +31,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.postNovelViewModel = postNovelViewModel
 
+        setTranslucentOnStatusBar()
         observeIsDialogShown()
         setupNavigateLeftDialog()
         setupDatePickerDialog()
@@ -40,6 +43,12 @@ class PostNovelActivity : AppCompatActivity() {
         initUserNovelInfo()
         updateReadStatusUI()
         updateRatingBar()
+    }
+    private fun setTranslucentOnStatusBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     private fun observeIsDialogShown() {
@@ -57,6 +66,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupAppBar() {
+        Log.e("fsead",binding.alPostAppBar.layoutParams.height.toString())
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height

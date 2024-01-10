@@ -22,6 +22,15 @@
     <string name="api_read_status_drop">DROP</string>
     <string name="api_read_status_wish">WISH</string>
 
+    <!-- fragment_home -->
+    <string name="home_sosopick">소소’s pick</string>
+    <string name="home_sosopick_description">지금 소소들이 등록한 작품</string>
+
+    <!-- SearchActivity -->
+    <string name="search_result_null">검색결과가 없어요ㅠ</string>
+    <string name="search_title">검색</string>
+
+
     <!-- activity_post_novel -->
     <string name="tv_post_read_status">읽기 상태</string>
     <string name="tv_post_read_status_suffix">" "*</string>
