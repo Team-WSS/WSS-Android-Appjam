@@ -10,6 +10,7 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostNavigateLeftDialog
+import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 import java.time.LocalDate
 import kotlin.math.pow
@@ -29,23 +30,16 @@ class PostNovelActivity : AppCompatActivity() {
 
         postNovelViewModel.updateIsDialogShown(false)
 
-        setTranslucentOnStatusBar()
         setupAppBar()
         setupDateToggle()
 
         setupNavigateLeftDialog()
         setupDatePickerDialog()
+        setupPostSuccessDialog()
 
         initUserNovelInfo()
         setupReadStatusUI()
         observeRatingBar()
-    }
-
-    private fun setTranslucentOnStatusBar() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
     }
 
     private fun setupAppBar() {
@@ -86,6 +80,15 @@ class PostNovelActivity : AppCompatActivity() {
 
             val dialogFragment = DatePickerDialog()
             dialogFragment.show(supportFragmentManager, "DatePickerDialog")
+        }
+    }
+
+    private fun setupPostSuccessDialog() {
+        binding.llPostButton.setOnClickListener {
+            postNovelViewModel.updateIsDialogShown(true)
+
+            val dialogFragment = PostSuccessDialog()
+            dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
         }
     }
 

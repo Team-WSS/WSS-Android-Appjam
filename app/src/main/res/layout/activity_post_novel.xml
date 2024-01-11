@@ -505,7 +505,7 @@
                 </GridLayout>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/llDatePostButton"
+                    android:id="@+id/llPostButton"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
                     android:layout_marginHorizontal="20dp"
@@ -532,7 +532,7 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/alPostAppBar"
             android:layout_width="match_parent"
-            android:layout_height="76dp"
+            android:layout_height="?attr/actionBarSize"
             android:background="@color/transparent"
             android:gravity="bottom"
             app:layout_constraintTop_toTopOf="parent">

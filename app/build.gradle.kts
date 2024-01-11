@@ -78,4 +78,7 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil:2.5.0")
     implementation("jp.wasabeef.transformers:coil:1.0.6")
+
+    // lottie
+    implementation ("com.airbnb.android:lottie:5.0.2")
 }

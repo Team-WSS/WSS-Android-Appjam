@@ -7,34 +7,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
-import com.teamwss.websoso.databinding.DialogPostNavigateLeftBinding
+import com.teamwss.websoso.databinding.DialogPostSuccessBinding
 import com.teamwss.websoso.ui.main.MainActivity
-import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 
-class PostNavigateLeftDialog : DialogFragment() {
-    private var _binding: DialogPostNavigateLeftBinding? = null
-    private val binding: DialogPostNavigateLeftBinding get() = requireNotNull(_binding)
-    private val postNovelViewModel: PostNovelViewModel by activityViewModels()
+class PostSuccessDialog : DialogFragment() {
+    private var _binding: DialogPostSuccessBinding? = null
+    private val binding: DialogPostSuccessBinding get() = requireNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        _binding = DialogPostNavigateLeftBinding.inflate(inflater, container, false)
+        _binding = DialogPostSuccessBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding.llPostDialogKeepButton.setOnClickListener {
+        binding.llNavigateToMemo.setOnClickListener {
             dismiss()
         }
 
-        binding.llPostDialogExitButton.setOnClickListener {
+        binding.tvBackToHome.setOnClickListener {
             val intent = Intent(activity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
@@ -42,8 +38,17 @@ class PostNavigateLeftDialog : DialogFragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.apply {
+            setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+            setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+            isCancelable = false
+        }
+    }
+
     override fun onDestroyView() {
-        postNovelViewModel.updateIsDialogShown(false)
         _binding = null
         super.onDestroyView()
     }
