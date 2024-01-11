@@ -136,15 +136,15 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/cReadStatusRead"
+                            android:id="@+id/cReadStatusFinish"
                             android:layout_width="wrap_content"
                             android:layout_height="53dp"
                             android:checkable="true"
                             android:checked="true"
-                            android:text="@string/c_read_status_read"
+                            android:text="@string/c_read_status_finish"
                             android:textAppearance="@style/body2"
                             android:textColor="@drawable/selector_read_status_text"
-                            app:checkedIcon="@drawable/ic_status_read"
+                            app:checkedIcon="@drawable/ic_status_finish"
                             app:checkedIconVisible="true"
                             app:chipBackgroundColor="@color/white"
                             app:chipCornerRadius="20dp"
@@ -173,14 +173,14 @@
                             app:rippleColor="@color/transparent" />
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/cReadStatusStop"
+                            android:id="@+id/cReadStatusDrop"
                             android:layout_width="wrap_content"
                             android:layout_height="53dp"
                             android:checkable="true"
-                            android:text="@string/c_read_status_stop"
+                            android:text="@string/c_read_status_drop"
                             android:textAppearance="@style/body2"
                             android:textColor="@drawable/selector_read_status_text"
-                            app:checkedIcon="@drawable/ic_status_stop"
+                            app:checkedIcon="@drawable/ic_status_drop"
                             app:checkedIconVisible="true"
                             app:chipBackgroundColor="@color/white"
                             app:chipCornerRadius="20dp"
@@ -191,14 +191,14 @@
                             app:rippleColor="@color/transparent" />
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/cReadStatusWant"
+                            android:id="@+id/cReadStatusWish"
                             android:layout_width="wrap_content"
                             android:layout_height="53dp"
                             android:checkable="true"
-                            android:text="@string/c_read_status_want"
+                            android:text="@string/c_read_status_wish"
                             android:textAppearance="@style/body2"
                             android:textColor="@drawable/selector_read_status_text"
-                            app:checkedIcon="@drawable/ic_status_want"
+                            app:checkedIcon="@drawable/ic_status_wish"
                             app:checkedIconVisible="true"
                             app:chipBackgroundColor="@color/white"
                             app:chipCornerRadius="20dp"

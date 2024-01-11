@@ -74,16 +74,16 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupReadStatusChipClickListener() {
-        binding.cReadStatusRead.setOnClickListener {
+        binding.cReadStatusFinish.setOnClickListener {
             postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_finish))
         }
         binding.cReadStatusReading.setOnClickListener {
             postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_reading))
         }
-        binding.cReadStatusStop.setOnClickListener {
+        binding.cReadStatusDrop.setOnClickListener {
             postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_drop))
         }
-        binding.cReadStatusWant.setOnClickListener {
+        binding.cReadStatusWish.setOnClickListener {
             postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_wish))
         }
     }
@@ -128,10 +128,10 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun initCheckedStatus(readStatus: String) {
         when (readStatus) {
-            getString(R.string.api_read_status_finish) -> binding.cReadStatusRead.isChecked = true
+            getString(R.string.api_read_status_finish) -> binding.cReadStatusFinish.isChecked = true
             getString(R.string.api_read_status_reading) -> binding.cReadStatusReading.isChecked = true
-            getString(R.string.api_read_status_drop) -> binding.cReadStatusStop.isChecked = true
-            getString(R.string.api_read_status_wish) -> binding.cReadStatusWant.isChecked = true
+            getString(R.string.api_read_status_drop) -> binding.cReadStatusDrop.isChecked = true
+            getString(R.string.api_read_status_wish) -> binding.cReadStatusWish.isChecked = true
         }
     }
 

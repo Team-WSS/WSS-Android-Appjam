@@ -34,10 +34,10 @@
     <!-- activity_post_novel -->
     <string name="tv_post_read_status">읽기 상태</string>
     <string name="tv_post_read_status_suffix">" "*</string>
-    <string name="c_read_status_read">읽음</string>
+    <string name="c_read_status_finish">읽음</string>
     <string name="c_read_status_reading">읽는 중</string>
-    <string name="c_read_status_stop">하차</string>
-    <string name="c_read_status_want">읽고 싶음</string>
+    <string name="c_read_status_drop">하차</string>
+    <string name="c_read_status_wish">읽고 싶음</string>
     <string name="tv_post_read_date_title">읽은 날짜</string>
     <string name="tv_post_read_date_tilde">~</string>
     <string name="tv_post_keyword_title">키워드</string>
