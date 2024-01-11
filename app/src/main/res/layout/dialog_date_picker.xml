@@ -62,7 +62,7 @@
                     android:layout_marginHorizontal="56dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="시작 날짜"
+                    android:text="@string/tv_post_date_picker_read_date_start_title"
                     android:textAlignment="center"
                     android:textAppearance="@style/title2"
                     android:textColor="@{postNovelViewModel.isNumberPickerStartSelected()?@color/primary_100_6341F0:@color/gray_100_CBCBD1}" />
@@ -102,7 +102,7 @@
                     android:layout_marginHorizontal="56dp"
                     android:ellipsize="end"
                     android:maxLines="1"
-                    android:text="종료 날짜"
+                    android:text="@string/tv_post_date_picker_read_date_end_title"
                     android:textAlignment="center"
                     android:textAppearance="@style/title2"
                     android:textColor="@{postNovelViewModel.isNumberPickerStartSelected()?@color/gray_100_CBCBD1:@color/primary_100_6341F0}" />
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="23dp"
-                android:text="연도"
+                android:text="@string/tv_post_date_picker_year"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
@@ -180,8 +180,9 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
+                android:paddingStart="0dp"
                 android:paddingEnd="10dp"
-                android:text="월"
+                android:text="@string/tv_post_date_picker_month"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
@@ -215,7 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
-                android:text="일"
+                android:text="@string/tv_post_date_picker_day"
                 android:textAlignment="textEnd"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
@@ -258,10 +259,10 @@
             app:layout_constraintTop_toBottomOf="@id/clPostDatePickerDatePicker">
 
             <TextView
-                android:id="@+id/tvDatePostButton"
+                android:id="@+id/tvPostDateEditButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="완료"
+                android:text="@string/tv_post_date_edit_button"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/white" />
 

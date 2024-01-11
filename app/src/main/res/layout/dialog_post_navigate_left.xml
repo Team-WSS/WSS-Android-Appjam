@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="등록을 취소할까요?"
+        android:text="@string/tv_post_bottom_sheet_year"
         android:textAlignment="center"
         android:textAppearance="@style/title2"
         android:textColor="@color/black"
@@ -46,7 +46,7 @@
             android:id="@+id/tvDialogExitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="나가기"
+            android:text="@string/tv_dialog_exit_button"
             android:textAppearance="@style/label1"
             android:textColor="@color/gray_300_52515F" />
 
@@ -70,7 +70,7 @@
             android:id="@+id/tvDialogKeepButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="계속 작성하기"
+            android:text="@string/tv_dialog_keep_button"
             android:textAppearance="@style/label1"
             android:textColor="@color/white" />
 

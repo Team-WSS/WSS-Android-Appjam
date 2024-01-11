@@ -517,10 +517,10 @@
                     app:layout_constraintTop_toBottomOf="@id/glPostNovelLink">
 
                     <TextView
-                        android:id="@+id/tvDatePostButton"
+                        android:id="@+id/tvPostCompleteButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/tv_date_post_button"
+                        android:text="@string/tv_post_complete_button"
                         android:textAppearance="@style/title1"
                         android:textColor="@color/white" />
 
