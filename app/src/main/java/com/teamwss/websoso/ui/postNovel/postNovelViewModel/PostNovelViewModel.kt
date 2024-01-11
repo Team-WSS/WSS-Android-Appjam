@@ -1,34 +1,31 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.teamwss.websoso.util.loadBlurredImage
-import com.teamwss.websoso.util.loadCoverImage
 import java.time.LocalDate
 
 class PostNovelViewModel : ViewModel() {
 
+    private val _dummyData = MutableLiveData<DummyData>()
+    val dummyData: LiveData<DummyData> get() = _dummyData
     private val _readStatus = MutableLiveData<String>()
     val readStatus: LiveData<String> get() = _readStatus
     private val _startDate = MutableLiveData<String>()
     val startDate: LiveData<String> get() = _startDate
-    private val _selectedStartDate: MutableLiveData<String> =
-        MutableLiveData(LocalDate.now().toString())
-    val selectedStartDate: LiveData<String> get() = _selectedStartDate
     private val _endDate = MutableLiveData<String>()
     val endDate: LiveData<String> get() = _endDate
     private val _selectedEndDate: MutableLiveData<String> =
         MutableLiveData(LocalDate.now().toString())
     val selectedEndDate: LiveData<String> get() = _selectedEndDate
+    private val _selectedStartDate: MutableLiveData<String> =
+        MutableLiveData(LocalDate.now().toString())
+    val selectedStartDate: LiveData<String> get() = _selectedStartDate
     private val _rating = MutableLiveData<Float>()
     val rating: LiveData<Float> get() = _rating
+    
     private val _isDialogShown = MutableLiveData<Int>()
     val isDialogShown: LiveData<Int> get() = _isDialogShown
-    private val _dummyData = MutableLiveData<DummyData>()
-    val dummyData: LiveData<DummyData> get() = _dummyData
     private val _isStartSelected = MutableLiveData<Boolean>()
     val isStartSelected: LiveData<Boolean> get() = _isStartSelected
     private val _isDateValid = MutableLiveData<Boolean>()
@@ -85,18 +82,21 @@ class PostNovelViewModel : ViewModel() {
         _isStartSelected.value = isSelected
     }
 
-    private fun splitDate(date: String): LocalDate {
+    private fun splitDateToLocalDate(date: String): LocalDate {
         return LocalDate.of(
             date.split("-")[0].toInt(),
             date.split("-")[1].toInt(),
             date.split("-")[2].toInt()
         )
     }
+
     fun updateIsDateValid() {
-        _isDateValid.value = !splitDate(_selectedStartDate.value.toString()).isAfter(splitDate(_selectedEndDate.value.toString()))
+        _isDateValid.value = !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
+            splitDateToLocalDate(_selectedEndDate.value.toString())
+        )
     }
 
-    fun updateIsDateVisible(isStartDateVisible : Boolean = true, isEndDateVisible : Boolean = true) {
+    fun updateIsDateVisible(isStartDateVisible: Boolean = true, isEndDateVisible: Boolean = true) {
         _isStartDateVisible.value = isStartDateVisible
         _isEndDateVisible.value = isEndDateVisible
     }
