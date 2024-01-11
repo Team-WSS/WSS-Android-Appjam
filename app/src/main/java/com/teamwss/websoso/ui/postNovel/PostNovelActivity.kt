@@ -57,12 +57,12 @@ class PostNovelActivity : AppCompatActivity() {
     private fun setupAppBar() {
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
-            val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height
+            val maxHeight = binding.ivPostCoverBackground.height - binding.viewPostAppBar.height
 
             val scrollRatio = ((scrollY.toFloat() + 15) / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
-            binding.alPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
+            binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
             binding.tvPostTitle.setTextColor(getColor(R.color.black).changeAlpha(colorAlpha))
         }
     }

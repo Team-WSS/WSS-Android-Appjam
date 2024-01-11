@@ -531,28 +531,29 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/alPostAppBar"
+        <View
+            android:id="@+id/viewPostAppBar"
             android:layout_width="match_parent"
             android:layout_height="76dp"
             android:background="@color/transparent"
-            android:gravity="bottom"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvPostTitle"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{postNovelViewModel.editResponse.userNovelTitle}"
-                android:textAlignment="center"
-                android:textAppearance="@style/title2"
-                android:textColor="@color/transparent" />
-
-        </com.google.android.material.appbar.AppBarLayout>
+        <TextView
+            android:id="@+id/tvPostTitle"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{postNovelViewModel.editResponse.userNovelTitle}"
+            android:textAlignment="center"
+            android:textAppearance="@style/title2"
+            android:textColor="@color/transparent"
+            app:layout_constraintBottom_toBottomOf="@id/viewPostAppBar"
+            app:layout_constraintEnd_toEndOf="@id/viewPostAppBar"
+            app:layout_constraintStart_toStartOf="@id/viewPostAppBar"
+            app:layout_goneMarginBottom="15dp" />
 
         <ImageView
             android:id="@+id/ivPostNavigateLeft"
@@ -563,8 +564,8 @@
             android:contentDescription="@string/iv_post_navigate_left_description"
             android:padding="10dp"
             android:src="@drawable/ic_navigate_left"
-            app:layout_constraintBottom_toBottomOf="@id/alPostAppBar"
-            app:layout_constraintStart_toStartOf="@id/alPostAppBar" />
+            app:layout_constraintBottom_toBottomOf="@id/viewPostAppBar"
+            app:layout_constraintStart_toStartOf="@id/viewPostAppBar" />
 
         <View
             android:id="@+id/vPostDialogBackground"
