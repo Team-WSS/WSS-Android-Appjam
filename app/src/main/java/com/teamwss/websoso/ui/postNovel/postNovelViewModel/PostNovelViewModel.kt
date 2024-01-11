@@ -1,8 +1,12 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
+import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import okhttp3.internal.platform.Platform
 import java.time.LocalDate
 
 class PostNovelViewModel : ViewModel() {
@@ -35,6 +39,13 @@ class PostNovelViewModel : ViewModel() {
     val isStartDateVisible: LiveData<Boolean> get() = _isStartDateVisible
     private val _isEndDateVisible = MutableLiveData<Boolean>()
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
+
+    private val _platforms = MutableLiveData<List<EditResponse.Platform>>()
+    val platforms: LiveData<List<EditResponse.Platform>> get() = _platforms
+    private val _naverUrl = MutableLiveData<String>()
+    val naverUrl: LiveData<String> get() = _naverUrl
+    private val _kakaoUrl = MutableLiveData<String>()
+    val kakaoUrl: LiveData<String> get() = _kakaoUrl
 
     fun getUserNovelInfo() {
         _editResponse.value = EditResponse(
@@ -125,16 +136,16 @@ class PostNovelViewModel : ViewModel() {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
     }
 
-    fun setupAnotherDateValid(statusReading: String, statusDrop: String) {
+    fun setupAnotherDateValid() {
         when (_readStatus.value) {
-            statusReading -> {
+            READING -> {
                 updateSelectedDate(
                     _selectedStartDate.value!!,
                     _selectedStartDate.value!!
                 )
             }
 
-            statusDrop -> {
+            DROP -> {
                 updateSelectedDate(
                     _selectedEndDate.value!!,
                     _selectedEndDate.value!!
@@ -150,6 +161,23 @@ class PostNovelViewModel : ViewModel() {
         return "$formattedYear-$formattedMonth-$formattedDay"
     }
 
+    fun setPlatforms(list: List<EditResponse.Platform>) {
+        _platforms.value = list
+        list.forEach { platform ->
+            when (platform.platformName) {
+                NAVER_SERIES -> _naverUrl.value = platform.platformUrl
+                KAKAO_PAGE -> _kakaoUrl.value = platform.platformUrl
+            }
+        }
+    }
+
+    companion object {
+        const val READING = "READING"
+        const val DROP = "DROP"
+
+        const val NAVER_SERIES = "네이버시리즈"
+        const val KAKAO_PAGE = "카카오페이지"
+    }
 }
 
 data class EditResponse(

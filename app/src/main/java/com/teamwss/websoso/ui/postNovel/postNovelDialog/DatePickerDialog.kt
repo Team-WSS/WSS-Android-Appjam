@@ -86,10 +86,7 @@ class DatePickerDialog : DialogFragment() {
 
     private fun setupPostButtonClickListener() {
         binding.llDatePostButton.setOnClickListener {
-            postNovelViewModel.setupAnotherDateValid(
-                getString(R.string.api_read_status_reading),
-                getString(R.string.api_read_status_drop)
-            )
+            postNovelViewModel.setupAnotherDateValid()
             postNovelViewModel.updateReadDate(
                 postNovelViewModel.selectedStartDate.value!!,
                 postNovelViewModel.selectedEndDate.value!!
@@ -149,5 +146,12 @@ class DatePickerDialog : DialogFragment() {
             updateSelectedDate()
             postNovelViewModel.updateIsDateValid()
         }
+    }
+
+    companion object{
+        const val FINISH = "FINISH"
+        const val READING = "READING"
+        const val DROP = "DROP"
+        const val WISH = "WISH"
     }
 }

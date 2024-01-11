@@ -1,6 +1,8 @@
 package com.teamwss.websoso.ui.postNovel
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -39,6 +41,7 @@ class PostNovelActivity : AppCompatActivity() {
         initUserNovelInfo()
         setupReadStatusUI()
         observeRatingBar()
+        setupUrlButton()
     }
 
     private fun setupAppBar() {
@@ -98,7 +101,7 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun observeDummyData() {
         postNovelViewModel.editResponse.observe(this@PostNovelActivity) { dummyData ->
-            val readStatus = dummyData?.userNovelReadStatus ?: getString(R.string.api_read_status_finish)
+            val readStatus = dummyData?.userNovelReadStatus ?: FINISH
             postNovelViewModel.updateReadStatus(readStatus)
 
             val readStartDate = dummyData?.readStartDate ?: LocalDate.now().toString()
@@ -107,6 +110,9 @@ class PostNovelActivity : AppCompatActivity() {
 
             val novelRating = dummyData?.userNovelRating ?: 0.0f
             postNovelViewModel.updateRating(novelRating)
+
+            val platforms = dummyData?.platforms ?: listOf()
+            postNovelViewModel.setPlatforms(platforms)
         }
     }
 
@@ -119,34 +125,25 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun handleReadStatus(readStatus: String) {
         when (readStatus) {
-            getString(R.string.api_read_status_finish) -> updateUIForStatusFinish()
-            getString(R.string.api_read_status_reading) -> updateUIForStatusReading()
-            getString(R.string.api_read_status_drop) -> updateUIForStatusDrop()
-            getString(R.string.api_read_status_wish) -> updateUIForStatusWish()
+            FINISH -> updateUIForStatusFinish()
+            READING -> updateUIForStatusReading()
+            DROP -> updateUIForStatusDrop()
+            WISH -> updateUIForStatusWish()
         }
     }
 
     private fun updateUIForStatusFinish() {
-        postNovelViewModel.updateIsDateVisible(
-            isStartDateVisible = true,
-            isEndDateVisible = true
-        )
+        postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = true)
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_finish)
     }
 
     private fun updateUIForStatusReading() {
-        postNovelViewModel.updateIsDateVisible(
-            isStartDateVisible = true,
-            isEndDateVisible = false
-        )
+        postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = false)
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
     }
 
     private fun updateUIForStatusDrop() {
-        postNovelViewModel.updateIsDateVisible(
-            isStartDateVisible = false,
-            isEndDateVisible = true
-        )
+        postNovelViewModel.updateIsDateVisible(isStartDateVisible = false, isEndDateVisible = true)
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_drop)
     }
 
@@ -158,5 +155,24 @@ class PostNovelActivity : AppCompatActivity() {
         binding.rbPostRating.setOnRatingBarChangeListener { _, rating, _ ->
             postNovelViewModel.updateRating(rating)
         }
+    }
+
+    private fun setupUrlButton() {
+        postNovelViewModel.platforms.observe(this) {
+            binding.llPostNovelLinkNaver.setOnClickListener { openUrl(postNovelViewModel.naverUrl.value.toString()) }
+            binding.llPostNovelLinkKakao.setOnClickListener { openUrl(postNovelViewModel.kakaoUrl.value.toString()) }
+        }
+    }
+
+    private fun openUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
+    }
+
+    companion object {
+        const val FINISH = "FINISH"
+        const val READING = "READING"
+        const val DROP = "DROP"
+        const val WISH = "WISH"
     }
 }

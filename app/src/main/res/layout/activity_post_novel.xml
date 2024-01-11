@@ -458,7 +458,8 @@
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/shape_link_button"
                         android:gravity="center"
-                        android:paddingHorizontal="13dp">
+                        android:paddingHorizontal="13dp"
+                        android:visibility="@{postNovelViewModel.naverUrl != null ? 0: 8}">
 
                         <TextView
                             android:id="@+id/tvPostNovelSiteNaver"
@@ -484,7 +485,8 @@
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/shape_link_button"
                         android:gravity="center"
-                        android:paddingHorizontal="13dp">
+                        android:paddingHorizontal="13dp"
+                        android:visibility="@{postNovelViewModel.kakaoUrl != null ? 0: 8}">
 
                         <TextView
                             android:id="@+id/tvPostNovelSiteKakao"
