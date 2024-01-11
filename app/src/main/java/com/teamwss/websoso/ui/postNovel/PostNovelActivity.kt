@@ -148,14 +148,14 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun handleReadStatus(readStatus: String) {
         when (readStatus) {
-            getString(R.string.api_read_status_finish) -> updateUIForFinishedReading()
-            getString(R.string.api_read_status_reading) -> updateUIForReading()
-            getString(R.string.api_read_status_drop) -> updateUIForDroppedReading()
-            getString(R.string.api_read_status_wish) -> updateUIForWishReading()
+            getString(R.string.api_read_status_finish) -> updateUIForStatusFinish()
+            getString(R.string.api_read_status_reading) -> updateUIForStatusReading()
+            getString(R.string.api_read_status_drop) -> updateUIForStatusDrop()
+            getString(R.string.api_read_status_wish) -> updateUIForStatusWish()
         }
     }
 
-    private fun updateUIForFinishedReading() {
+    private fun updateUIForStatusFinish() {
         postNovelViewModel.updateIsDateVisible(
             isStartDateVisible = true,
             isEndDateVisible = true
@@ -163,7 +163,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
     }
 
-    private fun updateUIForReading() {
+    private fun updateUIForStatusReading() {
         postNovelViewModel.updateIsDateVisible(
             isStartDateVisible = true,
             isEndDateVisible = false
@@ -171,7 +171,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
     }
 
-    private fun updateUIForDroppedReading() {
+    private fun updateUIForStatusDrop() {
         postNovelViewModel.updateIsDateVisible(
             isStartDateVisible = false,
             isEndDateVisible = true
@@ -179,7 +179,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
     }
 
-    private fun updateUIForWishReading() {
+    private fun updateUIForStatusWish() {
         binding.clPostReadDate.visibility = View.GONE
     }
 

@@ -162,6 +162,7 @@
                 android:id="@+id/npPostDatePickerYear"
                 style="@style/CustomDateNumberPicker"
                 android:layout_width="90dp"
+                android:value=""
                 android:layout_height="111dp"
                 android:layout_marginStart="10dp"
                 android:selectionDividerHeight="0dp"

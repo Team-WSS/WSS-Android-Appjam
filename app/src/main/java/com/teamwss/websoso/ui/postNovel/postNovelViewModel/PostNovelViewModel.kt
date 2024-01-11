@@ -23,7 +23,7 @@ class PostNovelViewModel : ViewModel() {
     val selectedStartDate: LiveData<String> get() = _selectedStartDate
     private val _rating = MutableLiveData<Float>()
     val rating: LiveData<Float> get() = _rating
-    
+
     private val _isDialogShown = MutableLiveData<Int>()
     val isDialogShown: LiveData<Int> get() = _isDialogShown
     private val _isNumberPickerStartSelected = MutableLiveData<Boolean>()
@@ -54,7 +54,6 @@ class PostNovelViewModel : ViewModel() {
             ),
         )
     }
-
 
     fun updateReadStatus(readStatus: String) {
         _readStatus.value = readStatus
@@ -92,9 +91,10 @@ class PostNovelViewModel : ViewModel() {
     }
 
     fun updateIsDateValid() {
-        _isNumberPickerDateValid.value = !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
-            splitDateToLocalDate(_selectedEndDate.value.toString())
-        )
+        _isNumberPickerDateValid.value =
+            !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
+                splitDateToLocalDate(_selectedEndDate.value.toString())
+            )
     }
 
     fun updateIsDateVisible(isStartDateVisible: Boolean = true, isEndDateVisible: Boolean = true) {
