@@ -35,15 +35,11 @@ class DatePickerDialog : DialogFragment() {
         binding.lifecycleOwner = this
         binding.postNovelViewModel = postNovelViewModel
 
+        initDialogDateInfo()
         setupDatePicker()
         setupPostButtonClickListener()
         setupDateTypeSelector()
 
-        postNovelViewModel.readStatus.observe(this@DatePickerDialog) {
-            setupNumberPickerListener(it)
-            checkReadStatus(it)
-            Log.e("readStatus", it)
-        }
     }
 
     override fun onStart() {
@@ -60,6 +56,17 @@ class DatePickerDialog : DialogFragment() {
         postNovelViewModel.updateIsDialogShown(false)
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun initDialogDateInfo(){
+        postNovelViewModel.readStatus.observe(this@DatePickerDialog) {
+            setupNumberPickerListener(it)
+            checkReadStatus(it)
+        }
+        postNovelViewModel.updateSelectedDate(
+            postNovelViewModel.startDate.value!!,
+            postNovelViewModel.endDate.value!!
+        )
     }
 
     private fun setupDatePicker() {
