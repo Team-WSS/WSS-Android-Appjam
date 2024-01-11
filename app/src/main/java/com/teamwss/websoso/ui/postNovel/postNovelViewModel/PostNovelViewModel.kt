@@ -7,8 +7,8 @@ import java.time.LocalDate
 
 class PostNovelViewModel : ViewModel() {
 
-    private val _dummyData = MutableLiveData<DummyData>()
-    val dummyData: LiveData<DummyData> get() = _dummyData
+    private val _editResponse = MutableLiveData<EditResponse>()
+    val editResponse: LiveData<EditResponse> get() = _editResponse
     private val _readStatus = MutableLiveData<String>()
     val readStatus: LiveData<String> get() = _readStatus
     private val _startDate = MutableLiveData<String>()
@@ -37,7 +37,7 @@ class PostNovelViewModel : ViewModel() {
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
 
     fun getUserNovelInfo() {
-        _dummyData.value = DummyData(
+        _editResponse.value = EditResponse(
             novelId = 1,
             userNovelTitle = "재혼황후",
             userNovelAuthor = "알파타르트",
@@ -49,7 +49,7 @@ class PostNovelViewModel : ViewModel() {
             readStartDate = "2023-06-30",
             readEndDate = "2024-01-11",
             platforms = listOf(
-                DummyData.Platform("네이버시리즈", "https://series.naver.com/novel/detail.series?productNo=3713078"),
+                EditResponse.Platform("네이버시리즈", "https://series.naver.com/novel/detail.series?productNo=3713078"),
             ),
         )
     }
@@ -152,7 +152,7 @@ class PostNovelViewModel : ViewModel() {
 
 }
 
-data class DummyData(
+data class EditResponse(
 
     val novelId: Long = 0,
     val userNovelTitle: String = "",

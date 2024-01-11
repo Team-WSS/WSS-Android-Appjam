@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.postNovel
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.teamwss.websoso.R
@@ -98,7 +97,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun observeDummyData() {
-        postNovelViewModel.dummyData.observe(this@PostNovelActivity) { dummyData ->
+        postNovelViewModel.editResponse.observe(this@PostNovelActivity) { dummyData ->
             val readStatus = dummyData?.userNovelReadStatus ?: getString(R.string.api_read_status_finish)
             postNovelViewModel.updateReadStatus(readStatus)
 

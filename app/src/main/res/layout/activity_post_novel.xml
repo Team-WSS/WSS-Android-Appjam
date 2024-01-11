@@ -35,7 +35,7 @@
 
                     <ImageView
                         android:id="@+id/ivPostCoverBackground"
-                        loadBlurredCoverImage="@{postNovelViewModel.dummyData.userNovelImg}"
+                        loadBlurredCoverImage="@{postNovelViewModel.editResponse.userNovelImg}"
                         android:layout_width="match_parent"
                         android:layout_height="252dp"
                         android:foreground="@drawable/bg_gray_gradient"
@@ -51,7 +51,7 @@
                         android:layout_marginTop="96dp"
                         android:ellipsize="end"
                         android:maxLines="3"
-                        android:text="@{postNovelViewModel.dummyData.userNovelTitle}"
+                        android:text="@{postNovelViewModel.editResponse.userNovelTitle}"
                         android:textAlignment="center"
                         android:textAppearance="@style/headline1"
                         android:textColor="@color/white"
@@ -66,7 +66,7 @@
                         android:layout_marginTop="6dp"
                         android:ellipsize="end"
                         android:maxLines="1"
-                        android:text="@{postNovelViewModel.dummyData.userNovelAuthor}"
+                        android:text="@{postNovelViewModel.editResponse.userNovelAuthor}"
                         android:textAlignment="center"
                         android:textAppearance="@style/body2"
                         android:textColor="@color/gray_200_AEADB3"
@@ -76,7 +76,7 @@
 
                     <ImageView
                         android:id="@+id/ivPostCover"
-                        loadCoverImage="@{postNovelViewModel.dummyData.userNovelImg}"
+                        loadCoverImage="@{postNovelViewModel.editResponse.userNovelImg}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginHorizontal="116dp"
@@ -400,7 +400,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="@{postNovelViewModel.dummyData.userNovelDescription}"
+                    android:text="@{postNovelViewModel.editResponse.userNovelDescription}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
                     app:layout_constraintStart_toStartOf="parent"
@@ -424,7 +424,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
-                    android:text="@{postNovelViewModel.dummyData.userNovelGenre}"
+                    android:text="@{postNovelViewModel.editResponse.userNovelGenre}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
                     app:layout_constraintStart_toStartOf="parent"
@@ -545,7 +545,7 @@
                 android:layout_marginBottom="15dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{postNovelViewModel.dummyData.userNovelTitle}"
+                android:text="@{postNovelViewModel.editResponse.userNovelTitle}"
                 android:textAlignment="center"
                 android:textAppearance="@style/title2"
                 android:textColor="@color/transparent" />
