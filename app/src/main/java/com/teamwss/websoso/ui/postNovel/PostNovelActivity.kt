@@ -61,7 +61,6 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupAppBar() {
-        Log.e("fsead",binding.alPostAppBar.layoutParams.height.toString())
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height
