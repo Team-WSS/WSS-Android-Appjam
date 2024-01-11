@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.postNovel.postNovelDialog
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -56,15 +55,13 @@ class DatePickerDialog : DialogFragment() {
         postNovelViewModel.updateIsDialogShown(false)
     }
 
-    private fun initDialogDateInfo(){
-        postNovelViewModel.readStatus.observe(this@DatePickerDialog) {
-            setupNumberPickerListener(it)
-            checkReadStatus(it)
-        }
+    private fun initDialogDateInfo() {
+        setupNumberPickerListener()
         postNovelViewModel.updateSelectedDate(
             postNovelViewModel.startDate.value!!,
             postNovelViewModel.endDate.value!!
         )
+        postNovelViewModel.updateIsDateValid()
     }
 
     private fun setupDatePicker() {
@@ -89,7 +86,7 @@ class DatePickerDialog : DialogFragment() {
 
     private fun setupPostButtonClickListener() {
         binding.llDatePostButton.setOnClickListener {
-            setupAnotherDateValid()
+            postNovelViewModel.setupAnotherDateValid(getString(R.string.api_read_status_reading), getString(R.string.api_read_status_drop))
             postNovelViewModel.updateReadDate(
                 postNovelViewModel.selectedStartDate.value!!,
                 postNovelViewModel.selectedEndDate.value!!
@@ -109,13 +106,13 @@ class DatePickerDialog : DialogFragment() {
         }
 
         postNovelViewModel.isNumberPickerStartSelected.observe(this@DatePickerDialog) {
-            updateDateSelector(it)
-            updateDateNumberPicker(it)
+            updateDateSelector()
         }
     }
 
-    private fun updateDateSelector(isStart: Boolean) {
+    private fun updateDateSelector() {
         with(binding) {
+            val isStart = postNovelViewModel!!.isNumberPickerStartSelected.value!!
             llPostDatePickerReadDateStart.isSelected = isStart
             llPostDatePickerReadDateEnd.isSelected = !isStart
 
@@ -132,22 +129,12 @@ class DatePickerDialog : DialogFragment() {
         }
     }
 
-    private fun updateDateNumberPicker(isStart: Boolean) {
-        if (isStart) {
-            binding.npPostDatePickerYear.value =
-                postNovelViewModel.selectedStartDate.value!!.split("-")[0].toInt()
-            binding.npPostDatePickerMonth.value =
-                postNovelViewModel.selectedStartDate.value!!.split("-")[1].toInt()
-            binding.npPostDatePickerDay.value =
-                postNovelViewModel.selectedStartDate.value!!.split("-")[2].toInt()
-        } else {
-            binding.npPostDatePickerYear.value =
-                postNovelViewModel.selectedEndDate.value!!.split("-")[0].toInt()
-            binding.npPostDatePickerMonth.value =
-                postNovelViewModel.selectedEndDate.value!!.split("-")[1].toInt()
-            binding.npPostDatePickerDay.value =
-                postNovelViewModel.selectedEndDate.value!!.split("-")[2].toInt()
-        }
+    private fun updateDayMaxValue() {
+        binding.npPostDatePickerDay.maxValue =
+            postNovelViewModel.setDayMaxValue(
+                binding.npPostDatePickerYear.value,
+                binding.npPostDatePickerMonth.value
+            )
     }
 
     private fun formatDate(isStart: Boolean) {
@@ -173,101 +160,21 @@ class DatePickerDialog : DialogFragment() {
         }
     }
 
-    private fun updateDayMaxValue() {
-        binding.npPostDatePickerDay.maxValue =
-            postNovelViewModel.setDayMaxValue(
-                binding.npPostDatePickerYear.value,
-                binding.npPostDatePickerMonth.value
-            )
-    }
-
-    private fun setupNumberPickerListener(readStatus: String) {
-        val readStatusRead = getString(R.string.api_read_status_finish)
+    private fun setupNumberPickerListener() {
         binding.npPostDatePickerYear.setOnValueChangedListener { _, _, _ ->
             updateDayMaxValue()
-            postNovelViewModel.updateIsDateValid()
             formatDate(postNovelViewModel.isNumberPickerStartSelected.value!!)
-            if (readStatus == readStatusRead) isDateValid()
+            postNovelViewModel.updateIsDateValid()
         }
         binding.npPostDatePickerMonth.setOnValueChangedListener { _, _, _ ->
             updateDayMaxValue()
-            postNovelViewModel.updateIsDateValid()
             formatDate(postNovelViewModel.isNumberPickerStartSelected.value!!)
-            if (readStatus == readStatusRead) isDateValid()
+            postNovelViewModel.updateIsDateValid()
         }
         binding.npPostDatePickerDay.setOnValueChangedListener { _, _, _ ->
             updateDayMaxValue()
-            postNovelViewModel.updateIsDateValid()
             formatDate(postNovelViewModel.isNumberPickerStartSelected.value!!)
-            if (readStatus == readStatusRead) isDateValid()
-        }
-    }
-
-    private fun checkReadStatus(readStatus: String) {
-        when (readStatus) {
-            getString(R.string.api_read_status_finish) -> {
-                binding.clPostDatePickerReadDateDefault.visibility = View.VISIBLE
-            }
-
-            getString(R.string.api_read_status_reading) -> {
-                binding.clPostDatePickerReadDateDefault.visibility = View.GONE
-                binding.tvPostDatePickerReadDateTitle.text =
-                    getString(R.string.post_read_status_reading)
-                postNovelViewModel.updateIsNumberPickerStartSelected(true)
-            }
-
-            getString(R.string.api_read_status_drop) -> {
-                binding.clPostDatePickerReadDateDefault.visibility = View.GONE
-                binding.tvPostDatePickerReadDateTitle.text =
-                    getString(R.string.post_read_status_drop)
-                postNovelViewModel.updateIsNumberPickerStartSelected(false)
-            }
-        }
-    }
-
-
-    private fun isDateValid() {
-            postNovelViewModel.isNumberPickerDateValid.observe(this@DatePickerDialog) {
-                if (!it) {
-                    binding.llDatePostButton.isEnabled = !it
-                    binding.llDatePostButton.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.gray_200_AEADB3
-                            )
-                        )
-                } else {
-                    binding.llDatePostButton.isEnabled = it
-                    binding.llDatePostButton.backgroundTintList =
-                        ColorStateList.valueOf(
-                            ContextCompat.getColor(
-                                requireContext(),
-                                R.color.primary_100_6341F0
-                            )
-                        )
-                }
-            }
-
-    }
-
-    private fun setupAnotherDateValid() {
-        postNovelViewModel.readStatus.observe(this@DatePickerDialog) {
-            when (it) {
-                getString(R.string.api_read_status_reading) -> {
-                    postNovelViewModel.updateSelectedDate(
-                        postNovelViewModel.selectedStartDate.value!!,
-                        postNovelViewModel.selectedStartDate.value!!
-                    )
-                }
-
-                getString(R.string.api_read_status_drop) -> {
-                    postNovelViewModel.updateSelectedDate(
-                        postNovelViewModel.selectedEndDate.value!!,
-                        postNovelViewModel.selectedEndDate.value!!
-                    )
-                }
-            }
+            postNovelViewModel.updateIsDateValid()
         }
     }
 }

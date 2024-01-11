@@ -90,6 +90,18 @@ class PostNovelViewModel : ViewModel() {
         )
     }
 
+    fun formatToYear(date: String): Int {
+        return date.split("-")[0].toInt()
+    }
+
+    fun formatToMonth(date: String): Int {
+        return date.split("-")[1].toInt()
+    }
+
+    fun formatToDay(date: String): Int {
+        return date.split("-")[2].toInt()
+    }
+
     fun updateIsDateValid() {
         _isNumberPickerDateValid.value =
             !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
@@ -112,6 +124,24 @@ class PostNovelViewModel : ViewModel() {
 
     private fun isLeapYear(year: Int): Boolean {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+    }
+
+    fun setupAnotherDateValid(statusReading: String, statusDrop: String) {
+        when (_readStatus.value) {
+            statusReading -> {
+                updateSelectedDate(
+                    _selectedStartDate.value!!,
+                    _selectedStartDate.value!!
+                )
+            }
+
+            statusDrop -> {
+                updateSelectedDate(
+                    _selectedEndDate.value!!,
+                    _selectedEndDate.value!!
+                )
+            }
+        }
     }
 
 }
