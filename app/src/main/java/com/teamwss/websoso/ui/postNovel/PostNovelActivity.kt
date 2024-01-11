@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -100,19 +101,24 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun observeDummyData() {
-        postNovelViewModel.editResponse.observe(this@PostNovelActivity) { dummyData ->
-            val readStatus = dummyData?.userNovelReadStatus ?: FINISH
+        postNovelViewModel.editResponse.observe(this@PostNovelActivity) {
+            val readStatus = it.userNovelReadStatus
             postNovelViewModel.updateReadStatus(readStatus)
 
-            val readStartDate = dummyData?.readStartDate ?: LocalDate.now().toString()
-            val readEndDate = dummyData?.readEndDate ?: LocalDate.now().toString()
+            val readStartDate = it.readStartDate ?: LocalDate.now().toString()
+            val readEndDate = it.readEndDate ?: LocalDate.now().toString()
             postNovelViewModel.updateReadDate(readStartDate, readEndDate)
 
-            val novelRating = dummyData?.userNovelRating ?: 0.0f
+            val novelRating = it.userNovelRating
             postNovelViewModel.updateRating(novelRating)
 
-            val platforms = dummyData?.platforms ?: listOf()
+            val platforms = it.platforms
             postNovelViewModel.setPlatforms(platforms)
+
+            Log.e(
+                "PostNovelActivityTest",
+                "${postNovelViewModel.readStatus.value} ${postNovelViewModel.selectedStartDate.value}"
+            )
         }
     }
 
@@ -134,16 +140,19 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun updateUIForStatusFinish() {
         postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = true)
+        postNovelViewModel.updateIsNumberPickerStartSelected(true)
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_finish)
     }
 
     private fun updateUIForStatusReading() {
         postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = false)
+        postNovelViewModel.updateIsNumberPickerStartSelected(true)
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
     }
 
     private fun updateUIForStatusDrop() {
         postNovelViewModel.updateIsDateVisible(isStartDateVisible = false, isEndDateVisible = true)
+        postNovelViewModel.updateIsNumberPickerStartSelected(false)
         binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_drop)
     }
 

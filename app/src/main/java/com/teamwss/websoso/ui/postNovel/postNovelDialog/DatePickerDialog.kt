@@ -3,6 +3,7 @@ package com.teamwss.websoso.ui.postNovel.postNovelDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,10 @@ class DatePickerDialog : DialogFragment() {
         setupPostButtonClickListener()
         setupDateTypeSelector()
 
+        Log.e(
+            "DatePickerDialogTest",
+            "${postNovelViewModel.isNumberPickerStartSelected.value} ${postNovelViewModel.selectedStartDate.value}"
+        )
     }
 
     override fun onStart() {
@@ -61,7 +66,6 @@ class DatePickerDialog : DialogFragment() {
             postNovelViewModel.endDate.value!!
         )
         postNovelViewModel.updateIsDateValid()
-        postNovelViewModel.updateIsNumberPickerStartSelected(true)
     }
 
     private fun setupDatePicker() {
@@ -98,8 +102,10 @@ class DatePickerDialog : DialogFragment() {
     private fun setupDateTypeSelector() {
         postNovelViewModel.isNumberPickerStartSelected.observe(this@DatePickerDialog) {
             with(binding) {
-                llPostDatePickerReadDateStart.isSelected = postNovelViewModel!!.isNumberPickerStartSelected.value!!
-                llPostDatePickerReadDateEnd.isSelected = !postNovelViewModel!!.isNumberPickerStartSelected.value!!
+                llPostDatePickerReadDateStart.isSelected =
+                    postNovelViewModel!!.isNumberPickerStartSelected.value!!
+                llPostDatePickerReadDateEnd.isSelected =
+                    !postNovelViewModel!!.isNumberPickerStartSelected.value!!
             }
         }
     }
@@ -146,12 +152,5 @@ class DatePickerDialog : DialogFragment() {
             updateSelectedDate()
             postNovelViewModel.updateIsDateValid()
         }
-    }
-
-    companion object{
-        const val FINISH = "FINISH"
-        const val READING = "READING"
-        const val DROP = "DROP"
-        const val WISH = "WISH"
     }
 }
