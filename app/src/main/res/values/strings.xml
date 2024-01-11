@@ -135,7 +135,7 @@
 
     <!-- fragment_library -->
     <string name="library_title">내 서재</string>
-    <string name="library_tb_item_full">전체</string>
+    <string name="library_tb_item_all">전체</string>
     <string name="library_tb_item_finish">읽음</string>
     <string name="library_tb_item_reading">읽는 중</string>
     <string name="library_tb_item_drop">하차</string>
