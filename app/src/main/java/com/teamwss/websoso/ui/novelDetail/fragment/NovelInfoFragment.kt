@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +24,6 @@ class NovelInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        view.requestLayout()
     }
 
     override fun onResume() {
