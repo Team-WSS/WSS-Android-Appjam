@@ -27,8 +27,8 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         super.onCreate(savedInstanceState)
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//
-//        setTitleVisibilityOnToolBar()
+
+        setTitleVisibilityOnToolBar()
         setTranslucentOnStatusBar()
         setupFragment()
         clickAddMemoBtn()
@@ -45,14 +45,15 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
             }
         })
     }
-//
-//    private fun setTitleVisibilityOnToolBar() {
-//        with(binding) {
-//            .addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-//                tvNovelDetailTitleStickyHeader.visibility = View.VISIBLE
-//            }
-//        }
-//    }
+
+    private fun setTitleVisibilityOnToolBar() {
+        with(binding) {
+            ablNovelDetail.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+                tvNovelDetailTitleOnToolBar.visibility = View.VISIBLE
+                ivNovelDetailPopupMenuBtn.visibility = View.GONE
+            }
+        }
+    }
 
     private fun setTranslucentOnStatusBar() {
         window.setFlags(
@@ -68,6 +69,18 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
             tab.text = tabTitleList[position]
         }.attach()
+
+        binding.vpNovelDetail.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                if (position == INDEX_OF_FRAGMENT_NOVEL_INFO) {
+                    binding.ivNovelDetailAddMemoBtn.visibility = View.GONE
+                } else {
+                    binding.ivNovelDetailAddMemoBtn.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     private fun clickAddMemoBtn() {
@@ -111,5 +124,10 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
 
     private fun navigateToNovelEdit() {
         // 이동해
+    }
+
+    companion object {
+        const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
+
     }
 }

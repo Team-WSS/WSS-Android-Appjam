@@ -31,6 +31,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/ablNovelDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent">
@@ -132,6 +133,7 @@
                                 android:textAppearance="@style/title2"
                                 android:textColor="@color/black"
                                 android:visibility="gone"
+                                android:text="당신의 이해를 돕기 위하여"
                                 app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
