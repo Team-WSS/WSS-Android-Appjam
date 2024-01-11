@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -12,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
+import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 
 class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
@@ -29,6 +31,7 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
 
         setTranslucentOnStatusBar()
         setupFragment()
+        clickAddMemoBtn()
         clickPopupBtn()
 
         binding.vpNovelDetail.registerOnPageChangeCallback(object :
@@ -57,6 +60,13 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
             tab.text = tabTitleList[position]
         }.attach()
+    }
+
+    private fun clickAddMemoBtn() {
+        binding.btnNovelDetailAddMemo.setOnClickListener {
+            val intent = Intent(this, MemoWriteActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun clickPopupBtn() {

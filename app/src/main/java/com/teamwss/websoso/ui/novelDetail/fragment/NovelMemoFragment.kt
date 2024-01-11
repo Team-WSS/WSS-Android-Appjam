@@ -30,7 +30,6 @@ class NovelMemoFragment : Fragment() {
 
         initAdapter()
         initRecyclerView()
-        clickAddingMemoFab()
         clickAddingMemoBox()
     }
 
@@ -41,12 +40,6 @@ class NovelMemoFragment : Fragment() {
     private fun initRecyclerView() {
         with(binding.rvNovelMemo) {
             layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-        }
-    }
-
-    private fun clickAddingMemoFab() {
-        binding.btnNovelMemoAddMemo.setOnClickListener {
-            navigateMemoWrite()
         }
     }
 
