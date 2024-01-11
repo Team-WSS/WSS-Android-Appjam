@@ -100,16 +100,6 @@ class PostNovelViewModel : ViewModel() {
         _isStartDateVisible.value = isStartDateVisible
         _isEndDateVisible.value = isEndDateVisible
     }
-
-    @BindingAdapter("loadCoverImage")
-    fun setCoverImage(imageView: ImageView, imageUrl: String?) {
-        loadCoverImage(imageView, imageUrl)
-    }
-
-    @BindingAdapter("blurredCoverImage")
-    fun setBlurredCoverImage(imageView: ImageView, imageUrl: String?) {
-        loadBlurredImage(imageView, imageUrl)
-    }
 }
 
 data class DummyData(
