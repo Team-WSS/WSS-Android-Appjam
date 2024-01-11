@@ -60,4 +60,10 @@ class NovelMemoFragment : Fragment() {
         val intent = Intent(activity, MemoWriteActivity::class.java)
         startActivity(intent)
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        view?.requestLayout()
+    }
 }

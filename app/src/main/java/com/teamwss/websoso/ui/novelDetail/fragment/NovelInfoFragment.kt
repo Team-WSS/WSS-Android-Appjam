@@ -20,4 +20,16 @@ class NovelInfoFragment : Fragment() {
         _binding = FragmentNovelInfoBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.requestLayout()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        view?.requestLayout()
+    }
 }

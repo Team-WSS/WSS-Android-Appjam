@@ -8,17 +8,14 @@ import com.teamwss.websoso.ui.novelDetail.fragment.NovelMemoFragment
 
 class NovelDetailViewPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
+    val fragments = listOf(NovelMemoFragment(), NovelInfoFragment())
 
-    override fun getItemCount(): Int = FRAGMENT_COUNT
+    override fun getItemCount(): Int = fragments.size
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> NovelMemoFragment()
-            else -> NovelInfoFragment()
+            0 -> fragments.first()
+            else -> fragments.last()
         }
-    }
-
-    companion object {
-        private const val FRAGMENT_COUNT = 2
     }
 }

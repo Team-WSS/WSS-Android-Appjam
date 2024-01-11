@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 app:collapsedTitleGravity="center"
                 app:contentScrim="@color/white"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|enterAlways">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/tb_register_novel"
@@ -32,37 +32,41 @@
                     app:contentInsetStart="0dp"
                     app:layout_collapseMode="pin">
 
+                    <!-- 툴바의 내용 추가 -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/btnNovelDetailNavigateStickyHeader"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_navigate_left"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/btnNovelDetailNavigateStickyHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_navigate_left"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/tvNovelDetailTitleStickyHeader"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@style/title2"
-                            android:textColor="@color/black"
-                            app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigateStickyHeader"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigateStickyHeader"
-                            tools:text="당신의 이해를 돕기 위하여" />
+                    <TextView
+                        android:id="@+id/tvNovelDetailTitleStickyHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/title2"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigateStickyHeader"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigateStickyHeader"
+                        tools:text="당신의 이해를 돕기 위하여" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- NestedScrollView 및 나머지 뷰들 추가 -->
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
@@ -193,14 +197,6 @@
                         android:paddingVertical="12dp"
                         android:text="@string/novel_detail_info" />
                 </com.google.android.material.tabs.TabLayout>
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/vpNovelDetail"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tlNovelDetailMemoInfo" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

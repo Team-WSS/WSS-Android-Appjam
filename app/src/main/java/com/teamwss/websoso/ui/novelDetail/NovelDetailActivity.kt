@@ -1,12 +1,14 @@
 package com.teamwss.websoso.ui.novelDetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
@@ -14,6 +16,11 @@ import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 
 class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
     private lateinit var binding: ActivityNovelDetailBinding
+    private val novelDetailAdapter: NovelDetailViewPagerAdapter by lazy {
+        NovelDetailViewPagerAdapter(
+            this
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +30,17 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         setTranslucentOnStatusBar()
         setupFragment()
         clickPopupBtn()
+
+        binding.vpNovelDetail.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                novelDetailAdapter.fragments.forEach { fragment ->
+                    fragment.view?.post { fragment.view?.requestLayout() }
+                }
+            }
+        })
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -58,6 +76,7 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         when (item?.itemId) {
             R.id.btnNovelInfoPopupDeleteNovel ->
                 showNovelDeleteDialog()
+
             R.id.btnNovelInfoPopupEditNovel ->
                 navigateToNovelEdit()
         }
