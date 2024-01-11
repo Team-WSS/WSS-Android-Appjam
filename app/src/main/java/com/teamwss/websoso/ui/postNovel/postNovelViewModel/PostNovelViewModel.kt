@@ -1,8 +1,5 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
-import android.content.Intent
-import android.net.Uri
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,6 +22,8 @@ class PostNovelViewModel : ViewModel() {
     private val _selectedStartDate: MutableLiveData<String> =
         MutableLiveData(LocalDate.now().toString())
     val selectedStartDate: LiveData<String> get() = _selectedStartDate
+    private val _maxDayValue = MutableLiveData<Int>()
+    val maxDayValue: LiveData<Int> get() = _maxDayValue
     private val _rating = MutableLiveData<Float>()
     val rating: LiveData<Float> get() = _rating
 
@@ -60,7 +59,10 @@ class PostNovelViewModel : ViewModel() {
             readStartDate = "2023-06-30",
             readEndDate = "2024-01-11",
             platforms = listOf(
-                EditResponse.Platform("네이버시리즈", "https://series.naver.com/novel/detail.series?productNo=3713078"),
+                EditResponse.Platform(
+                    "네이버시리즈",
+                    "https://series.naver.com/novel/detail.series?productNo=3713078"
+                ),
             ),
         )
     }
@@ -124,8 +126,8 @@ class PostNovelViewModel : ViewModel() {
         _isEndDateVisible.value = isEndDateVisible
     }
 
-    fun setDayMaxValue(year: Int, month: Int): Int {
-        return when (month) {
+    fun setDayMaxValue(year: Int, month: Int) {
+        _maxDayValue.value = when (month) {
             2 -> if (isLeapYear(year)) 29 else 28
             4, 6, 9, 11 -> 30
             else -> 31

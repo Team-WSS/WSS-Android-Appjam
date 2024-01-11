@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.postNovel.postNovelDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -36,11 +35,6 @@ class DatePickerDialog : DialogFragment() {
         setupDatePicker()
         setupPostButtonClickListener()
         setupDateTypeSelector()
-
-        Log.e(
-            "DatePickerDialogTest",
-            "${postNovelViewModel.isNumberPickerStartSelected.value} ${postNovelViewModel.selectedStartDate.value}"
-        )
     }
 
     override fun onStart() {
@@ -65,7 +59,14 @@ class DatePickerDialog : DialogFragment() {
             postNovelViewModel.startDate.value!!,
             postNovelViewModel.endDate.value!!
         )
+        postNovelViewModel.setDayMaxValue(
+            postNovelViewModel.selectedStartDate.value!!.split("-")[0].toInt(),
+            postNovelViewModel.selectedStartDate.value!!.split("-")[1].toInt()
+        )
         postNovelViewModel.updateIsDateValid()
+        postNovelViewModel.maxDayValue.observe(this@DatePickerDialog) {
+            binding.npPostDatePickerDay.maxValue = it
+        }
     }
 
     private fun setupDatePicker() {
@@ -110,14 +111,6 @@ class DatePickerDialog : DialogFragment() {
         }
     }
 
-    private fun updateDayMaxValue() {
-        binding.npPostDatePickerDay.maxValue =
-            postNovelViewModel.setDayMaxValue(
-                binding.npPostDatePickerYear.value,
-                binding.npPostDatePickerMonth.value
-            )
-    }
-
     private fun updateSelectedDate() {
         val year = binding.npPostDatePickerYear.value
         val month = binding.npPostDatePickerMonth.value
@@ -152,5 +145,12 @@ class DatePickerDialog : DialogFragment() {
             updateSelectedDate()
             postNovelViewModel.updateIsDateValid()
         }
+    }
+
+    private fun updateDayMaxValue() {
+        postNovelViewModel.setDayMaxValue(
+            binding.npPostDatePickerYear.value,
+            binding.npPostDatePickerMonth.value
+        )
     }
 }
