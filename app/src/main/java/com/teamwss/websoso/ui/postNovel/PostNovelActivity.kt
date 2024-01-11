@@ -10,6 +10,7 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostNavigateLeftDialog
+import com.teamwss.websoso.ui.postNovel.postNovelViewModel.DummyData
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 import java.time.LocalDate
 import kotlin.math.pow
@@ -39,7 +40,7 @@ class PostNovelActivity : AppCompatActivity() {
 
         initUserNovelInfo()
         updateReadStatusUI()
-        updateRatingBar()
+        observeRatingBar()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -106,78 +107,85 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun initUserNovelInfo() {
         postNovelViewModel.getUserNovelInfo()
-        postNovelViewModel.dummyData.observe(this@PostNovelActivity) {
-            when (postNovelViewModel.dummyData.value?.userNovelReadStatus
-                ?: getString(R.string.api_read_status_finish)) {
-                getString(R.string.api_read_status_finish) -> {
-                    binding.cReadStatusRead.isChecked = true
-                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_finish))
-                }
+        observeDummyData()
+    }
 
-                getString(R.string.api_read_status_reading) -> {
-                    binding.cReadStatusReading.isChecked = true
-                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_reading))
-                }
+    private fun observeDummyData() {
+        postNovelViewModel.dummyData.observe(this@PostNovelActivity) { dummyData ->
+            handleDummyData(dummyData)
+        }
+    }
 
-                getString(R.string.api_read_status_drop) -> {
-                    binding.cReadStatusStop.isChecked = true
-                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_drop))
-                }
+    private fun handleDummyData(dummyData: DummyData?) {
+        val readStatus = dummyData?.userNovelReadStatus ?: getString(R.string.api_read_status_finish)
+        initCheckedStatus(readStatus)
+        postNovelViewModel.updateReadStatus(readStatus)
 
-                getString(R.string.api_read_status_wish) -> {
-                    binding.cReadStatusWant.isChecked = true
-                    postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_wish))
-                }
-            }
+        val readStartDate = dummyData?.readStartDate ?: LocalDate.now().toString()
+        val readEndDate = dummyData?.readEndDate ?: LocalDate.now().toString()
+        postNovelViewModel.updateReadDate(readStartDate, readEndDate)
+    }
 
-            postNovelViewModel.updateReadDate(
-                postNovelViewModel.dummyData.value?.readStartDate ?: LocalDate.now().toString(),
-                postNovelViewModel.dummyData.value?.readEndDate ?: LocalDate.now().toString()
-            )
+    private fun initCheckedStatus(readStatus: String) {
+        when (readStatus) {
+            getString(R.string.api_read_status_finish) -> binding.cReadStatusRead.isChecked = true
+            getString(R.string.api_read_status_reading) -> binding.cReadStatusReading.isChecked = true
+            getString(R.string.api_read_status_drop) -> binding.cReadStatusStop.isChecked = true
+            getString(R.string.api_read_status_wish) -> binding.cReadStatusWant.isChecked = true
         }
     }
 
     private fun updateReadStatusUI() {
         postNovelViewModel.updateReadStatus(postNovelViewModel.readStatus.value.toString())
+        observeReadStatus()
+    }
+
+    private fun observeReadStatus() {
         postNovelViewModel.readStatus.observe(this@PostNovelActivity) {
-            when (it) {
-                getString(R.string.api_read_status_finish) -> {
-                    postNovelViewModel.updateIsDateVisible(
-                        isStartDateVisible = true,
-                        isEndDateVisible = true
-                    )
-                    binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
-                }
-
-                getString(R.string.api_read_status_reading) -> {
-                    postNovelViewModel.updateIsDateVisible(
-                        isStartDateVisible = true,
-                        isEndDateVisible = false
-                    )
-                    binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
-                }
-
-                getString(R.string.api_read_status_drop) -> {
-                    postNovelViewModel.updateIsDateVisible(
-                        isStartDateVisible = false,
-                        isEndDateVisible = true
-                    )
-                    binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
-                }
-
-                getString(R.string.api_read_status_wish) -> {
-                    binding.clPostReadDate.visibility = View.GONE
-                }
-            }
+            handleReadStatus(it)
         }
     }
 
-    private fun updateRatingBar() {
+    private fun handleReadStatus(readStatus: String) {
+        when (readStatus) {
+            getString(R.string.api_read_status_finish) -> updateUIForFinishedReading()
+            getString(R.string.api_read_status_reading) -> updateUIForReading()
+            getString(R.string.api_read_status_drop) -> updateUIForDroppedReading()
+            getString(R.string.api_read_status_wish) -> updateUIForWishReading()
+        }
+    }
+
+    private fun updateUIForFinishedReading() {
+        postNovelViewModel.updateIsDateVisible(
+            isStartDateVisible = true,
+            isEndDateVisible = true
+        )
+        binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
+    }
+
+    private fun updateUIForReading() {
+        postNovelViewModel.updateIsDateVisible(
+            isStartDateVisible = true,
+            isEndDateVisible = false
+        )
+        binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
+    }
+
+    private fun updateUIForDroppedReading() {
+        postNovelViewModel.updateIsDateVisible(
+            isStartDateVisible = false,
+            isEndDateVisible = true
+        )
+        binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
+    }
+
+    private fun updateUIForWishReading() {
+        binding.clPostReadDate.visibility = View.GONE
+    }
+
+    private fun observeRatingBar() {
         binding.rbPostRating.setOnRatingBarChangeListener { _, rating, _ ->
             postNovelViewModel.updateRating(rating)
-        }
-        postNovelViewModel.rating.observe(this@PostNovelActivity) {
-            binding.rbPostRating.rating = it
         }
     }
 }

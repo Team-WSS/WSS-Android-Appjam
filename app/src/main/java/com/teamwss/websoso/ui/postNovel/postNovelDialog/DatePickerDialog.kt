@@ -51,9 +51,9 @@ class DatePickerDialog : DialogFragment() {
     }
 
     override fun onDestroyView() {
-        postNovelViewModel.updateIsDialogShown(false)
-        _binding = null
         super.onDestroyView()
+        _binding = null
+        postNovelViewModel.updateIsDialogShown(false)
     }
 
     private fun initDialogDateInfo(){
