@@ -175,6 +175,32 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.appcompat.widget.Toolbar>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlNovelDetailMemoInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:tabIndicatorColor="@color/black"
+                app:tabIndicatorFullWidth="true"
+                app:tabIndicatorHeight="2dp"
+                app:tabSelectedTextColor="@color/black"
+                app:tabTextAppearance="@style/title1"
+                app:tabTextColor="@color/gray_200_AEADB3">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12dp"
+                        android:text="@string/novel_detail_memo" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12dp"
+                        android:text="@string/novel_detail_info" />
+                </com.google.android.material.tabs.TabLayout>
             </com.google.android.material.appbar.AppBarLayout>
 
             <androidx.core.widget.NestedScrollView
@@ -190,33 +216,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:clipChildren="false">
-
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tlNovelDetailMemoInfo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:tabIndicatorColor="@color/black"
-                        app:tabIndicatorFullWidth="true"
-                        app:tabIndicatorHeight="2dp"
-                        app:tabSelectedTextColor="@color/black"
-                        app:tabTextAppearance="@style/title1"
-                        app:tabTextColor="@color/gray_200_AEADB3">
-
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingVertical="12dp"
-                            android:text="@string/novel_detail_memo" />
-
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:paddingVertical="12dp"
-                            android:text="@string/novel_detail_info" />
-                    </com.google.android.material.tabs.TabLayout>
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/vpNovelDetail"
