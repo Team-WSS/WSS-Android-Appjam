@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -64,6 +63,12 @@ class PostNovelActivity : AppCompatActivity() {
 
             binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
             binding.tvPostTitle.setTextColor(getColor(R.color.black).changeAlpha(colorAlpha))
+
+            if (scrollY == 0) {
+                binding.viewPostAppBar.visibility = View.INVISIBLE
+            } else {
+                binding.viewPostAppBar.visibility = View.VISIBLE
+            }
         }
     }
 
