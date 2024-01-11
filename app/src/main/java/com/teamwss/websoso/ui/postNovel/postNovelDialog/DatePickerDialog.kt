@@ -4,7 +4,6 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogDatePickerBinding
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
-import java.time.LocalDate
 
 class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null
@@ -116,16 +114,16 @@ class DatePickerDialog : DialogFragment() {
     }
 
     private fun setupDateTypeSelector() {
-        postNovelViewModel.updateIsStartSelected(true)
+        postNovelViewModel.updateIsNumberPickerStartSelected(true)
         binding.llPostDatePickerReadDateStart.setOnClickListener {
-            postNovelViewModel.updateIsStartSelected(true)
+            postNovelViewModel.updateIsNumberPickerStartSelected(true)
         }
 
         binding.llPostDatePickerReadDateEnd.setOnClickListener {
-            postNovelViewModel.updateIsStartSelected(false)
+            postNovelViewModel.updateIsNumberPickerStartSelected(false)
         }
 
-        postNovelViewModel.isStartSelected.observe(this@DatePickerDialog) {
+        postNovelViewModel.isNumberPickerStartSelected.observe(this@DatePickerDialog) {
             updateDateSelector(it)
             updateDateNumberPicker(it)
         }
@@ -194,17 +192,17 @@ class DatePickerDialog : DialogFragment() {
         val readStatusRead = getString(R.string.api_read_status_finish)
         binding.npPostDatePickerYear.setOnValueChangedListener { _, _, _ ->
             setDayMaxValue()
-            formatDate(postNovelViewModel.isStartSelected.value!!)
+            formatDate(postNovelViewModel.isNumberPickerStartSelected.value!!)
             if (readStatus == readStatusRead) isDateValid()
         }
         binding.npPostDatePickerMonth.setOnValueChangedListener { _, _, _ ->
             setDayMaxValue()
-            formatDate(postNovelViewModel.isStartSelected.value!!)
+            formatDate(postNovelViewModel.isNumberPickerStartSelected.value!!)
             if (readStatus == readStatusRead) isDateValid()
         }
         binding.npPostDatePickerDay.setOnValueChangedListener { _, _, _ ->
             setDayMaxValue()
-            formatDate(postNovelViewModel.isStartSelected.value!!)
+            formatDate(postNovelViewModel.isNumberPickerStartSelected.value!!)
             if (readStatus == readStatusRead) isDateValid()
         }
     }
@@ -219,14 +217,14 @@ class DatePickerDialog : DialogFragment() {
                 binding.clPostDatePickerReadDateDefault.visibility = View.GONE
                 binding.tvPostDatePickerReadDateTitle.text =
                     getString(R.string.post_read_status_reading)
-                postNovelViewModel.updateIsStartSelected(true)
+                postNovelViewModel.updateIsNumberPickerStartSelected(true)
             }
 
             getString(R.string.api_read_status_drop) -> {
                 binding.clPostDatePickerReadDateDefault.visibility = View.GONE
                 binding.tvPostDatePickerReadDateTitle.text =
                     getString(R.string.post_read_status_stop)
-                postNovelViewModel.updateIsStartSelected(false)
+                postNovelViewModel.updateIsNumberPickerStartSelected(false)
             }
         }
     }
@@ -235,7 +233,7 @@ class DatePickerDialog : DialogFragment() {
     private fun isDateValid() {
         postNovelViewModel.selectedStartDate.observe(this@DatePickerDialog) {
             postNovelViewModel.updateIsDateValid()
-            postNovelViewModel.isDateValid.observe(this@DatePickerDialog) {
+            postNovelViewModel.isNumberPickerDateValid.observe(this@DatePickerDialog) {
                 if (!it) {
                     binding.llDatePostButton.isEnabled = !it
                     binding.llDatePostButton.backgroundTintList =

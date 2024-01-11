@@ -26,11 +26,12 @@ class PostNovelViewModel : ViewModel() {
     
     private val _isDialogShown = MutableLiveData<Int>()
     val isDialogShown: LiveData<Int> get() = _isDialogShown
-    private val _isStartSelected = MutableLiveData<Boolean>()
-    val isStartSelected: LiveData<Boolean> get() = _isStartSelected
-    private val _isDateValid = MutableLiveData<Boolean>()
-    val isDateValid: LiveData<Boolean> get() = _isDateValid
+    private val _isNumberPickerStartSelected = MutableLiveData<Boolean>()
+    val isNumberPickerStartSelected: LiveData<Boolean> get() = _isNumberPickerStartSelected
+    private val _isNumberPickerDateValid = MutableLiveData<Boolean>()
+    val isNumberPickerDateValid: LiveData<Boolean> get() = _isNumberPickerDateValid
     private val _isStartDateVisible = MutableLiveData<Boolean>()
+
     val isStartDateVisible: LiveData<Boolean> get() = _isStartDateVisible
     private val _isEndDateVisible = MutableLiveData<Boolean>()
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
@@ -55,8 +56,8 @@ class PostNovelViewModel : ViewModel() {
     }
 
 
-    fun updateReadStatus(status: String) {
-        _readStatus.value = status
+    fun updateReadStatus(readStatus: String) {
+        _readStatus.value = readStatus
     }
 
     fun updateReadDate(startDate: String, endDate: String) {
@@ -69,8 +70,8 @@ class PostNovelViewModel : ViewModel() {
         _selectedEndDate.value = selectedEndDate
     }
 
-    fun updateRating(rating: Float) {
-        _rating.value = rating
+    fun updateRating(novelRating: Float) {
+        _rating.value = novelRating
     }
 
     fun updateIsDialogShown(isShown: Boolean = false) {
@@ -78,8 +79,8 @@ class PostNovelViewModel : ViewModel() {
         else _isDialogShown.value = 8
     }
 
-    fun updateIsStartSelected(isSelected: Boolean = true) {
-        _isStartSelected.value = isSelected
+    fun updateIsNumberPickerStartSelected(isSelected: Boolean = true) {
+        _isNumberPickerStartSelected.value = isSelected
     }
 
     private fun splitDateToLocalDate(date: String): LocalDate {
@@ -91,7 +92,7 @@ class PostNovelViewModel : ViewModel() {
     }
 
     fun updateIsDateValid() {
-        _isDateValid.value = !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
+        _isNumberPickerDateValid.value = !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
             splitDateToLocalDate(_selectedEndDate.value.toString())
         )
     }
