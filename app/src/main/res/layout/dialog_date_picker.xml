@@ -30,11 +30,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clPostDatePickerReadDateDefault"
             android:layout_width="match_parent"
-            android:visibility="@{postNovelViewModel.readStatus.equals(@string/api_read_status_finish) ? 0 : 8}"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="35dp"
             android:background="@drawable/shape_date_bottom_sheet_deselected"
+            android:visibility="@{postNovelViewModel.readStatus.equals(@string/api_read_status_finish) ? 0 : 8}"
             app:layout_constraintBottom_toTopOf="@id/clPostDatePickerDatePicker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -65,7 +65,7 @@
                     android:text="시작 날짜"
                     android:textAlignment="center"
                     android:textAppearance="@style/title2"
-                    android:textColor="@color/primary_100_6341F0" />
+                    android:textColor="@{postNovelViewModel.isNumberPickerStartSelected()?@color/primary_100_6341F0:@color/gray_100_CBCBD1}" />
 
                 <TextView
                     android:id="@+id/tvPostDatePickerReadDateStart"
@@ -75,7 +75,7 @@
                     android:maxLines="1"
                     android:text="@{postNovelViewModel.selectedStartDate}"
                     android:textAppearance="@style/label1"
-                    android:textColor="@color/primary_100_6341F0" />
+                    android:textColor="@{postNovelViewModel.isNumberPickerStartSelected()?@color/primary_100_6341F0:@color/gray_100_CBCBD1}" />
 
             </LinearLayout>
 
@@ -105,7 +105,7 @@
                     android:text="종료 날짜"
                     android:textAlignment="center"
                     android:textAppearance="@style/title2"
-                    android:textColor="@color/gray_100_CBCBD1" />
+                    android:textColor="@{postNovelViewModel.isNumberPickerStartSelected()?@color/gray_100_CBCBD1:@color/primary_100_6341F0}" />
 
                 <TextView
                     android:id="@+id/tvPostDatePickerReadDateEnd"
@@ -115,7 +115,7 @@
                     android:maxLines="1"
                     android:text="@{postNovelViewModel.selectedEndDate}"
                     android:textAppearance="@style/label1"
-                    android:textColor="@color/gray_100_CBCBD1" />
+                    android:textColor="@{postNovelViewModel.isNumberPickerStartSelected()?@color/gray_100_CBCBD1:@color/primary_100_6341F0}" />
 
             </LinearLayout>
 
@@ -204,8 +204,8 @@
                 android:layout_width="75dp"
                 android:layout_height="111dp"
                 android:layout_marginStart="55dp"
-                android:value="@{postNovelViewModel.isNumberPickerStartSelected() ? postNovelViewModel.formatToMonth(postNovelViewModel.selectedStartDate) : postNovelViewModel.formatToMonth(postNovelViewModel.selectedEndDate)}"
                 android:selectionDividerHeight="0dp"
+                android:value="@{postNovelViewModel.isNumberPickerStartSelected() ? postNovelViewModel.formatToMonth(postNovelViewModel.selectedStartDate) : postNovelViewModel.formatToMonth(postNovelViewModel.selectedEndDate)}"
                 app:layout_constraintEnd_toEndOf="@id/tvPostDatePickerMonth"
                 app:layout_constraintStart_toStartOf="@id/tvPostDatePickerMonth"
                 app:layout_constraintTop_toBottomOf="@id/tvPostDatePickerMonth" />
@@ -237,8 +237,8 @@
                 style="@style/CustomDateNumberPicker"
                 android:layout_width="75dp"
                 android:layout_height="111dp"
-                android:value="@{postNovelViewModel.isNumberPickerStartSelected() ? postNovelViewModel.formatToDay(postNovelViewModel.selectedStartDate) : postNovelViewModel.formatToDay(postNovelViewModel.selectedEndDate)}"
                 android:selectionDividerHeight="0dp"
+                android:value="@{postNovelViewModel.isNumberPickerStartSelected() ? postNovelViewModel.formatToDay(postNovelViewModel.selectedStartDate) : postNovelViewModel.formatToDay(postNovelViewModel.selectedEndDate)}"
                 app:layout_constraintEnd_toEndOf="@id/tvPostDatePickerDay"
                 app:layout_constraintStart_toStartOf="@id/tvPostDatePickerDay"
                 app:layout_constraintTop_toBottomOf="@id/tvPostDatePickerDay" />
@@ -249,11 +249,11 @@
             android:id="@+id/llDatePostButton"
             android:layout_width="match_parent"
             android:layout_height="53dp"
-            android:clickable="@{postNovelViewModel.readStatus.equals(@string/api_read_status_finish) ? postNovelViewModel.isNumberPickerDateValid() : true}"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="35dp"
             android:background="@drawable/shape_date_bottom_sheet_button"
             android:backgroundTint="@{postNovelViewModel.readStatus.equals(@string/api_read_status_finish) ? postNovelViewModel.isNumberPickerDateValid() ? @color/primary_100_6341F0 : @color/gray_200_AEADB3 : @color/primary_100_6341F0}"
+            android:clickable="@{postNovelViewModel.readStatus.equals(@string/api_read_status_finish) ? postNovelViewModel.isNumberPickerDateValid() : true}"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/clPostDatePickerDatePicker">
 

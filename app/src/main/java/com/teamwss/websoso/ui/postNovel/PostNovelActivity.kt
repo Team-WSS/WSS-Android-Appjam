@@ -32,7 +32,6 @@ class PostNovelActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupAppBar()
         setupDateToggle()
-        setupReadStatusChipClickListener()
 
         setupNavigateLeftDialog()
         setupDatePickerDialog()
@@ -72,24 +71,10 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupReadStatusChipClickListener() {
-        binding.cReadStatusFinish.setOnClickListener {
-            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_finish))
-        }
-        binding.cReadStatusReading.setOnClickListener {
-            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_reading))
-        }
-        binding.cReadStatusDrop.setOnClickListener {
-            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_drop))
-        }
-        binding.cReadStatusWish.setOnClickListener {
-            postNovelViewModel.updateReadStatus(getString(R.string.api_read_status_wish))
-        }
-    }
-
     private fun setupNavigateLeftDialog() {
         binding.ivPostNavigateLeft.setOnClickListener {
             postNovelViewModel.updateIsDialogShown(true)
+
             val dialogFragment = PostNavigateLeftDialog()
             dialogFragment.show(supportFragmentManager, "PostNavigateLeftDialog")
         }

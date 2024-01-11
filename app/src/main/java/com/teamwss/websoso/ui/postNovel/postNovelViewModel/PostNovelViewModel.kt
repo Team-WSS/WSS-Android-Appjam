@@ -144,6 +144,13 @@ class PostNovelViewModel : ViewModel() {
         }
     }
 
+    fun formatDate(year: Int, month: Int, day: Int): String {
+        val formattedYear = String.format("%04d", year)
+        val formattedMonth = String.format("%02d", month)
+        val formattedDay = String.format("%02d", day)
+        return "$formattedYear-$formattedMonth-$formattedDay"
+    }
+
 }
 
 data class DummyData(
