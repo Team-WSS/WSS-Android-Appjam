@@ -14,9 +14,9 @@
     <string name="record_go_to_post_novel">웹소설 등록하기</string>
 
     <!-- PostNovelActivity -->
-    <string name="post_read_status_read">읽은 날짜</string>
+    <string name="post_read_status_finish">읽은 날짜</string>
     <string name="post_read_status_reading">시작 날짜</string>
-    <string name="post_read_status_stop">종료 날짜</string>
+    <string name="post_read_status_drop">종료 날짜</string>
     <string name="api_read_status_finish">FINISH</string>
     <string name="api_read_status_reading">READING</string>
     <string name="api_read_status_drop">DROP</string>

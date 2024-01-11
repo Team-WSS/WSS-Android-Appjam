@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="postNovelViewModel"
             type="com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel" />
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="35dp"
             android:paddingVertical="10dp"
-            android:text="시작 날짜"
+            android:text="@{postNovelViewModel.readStatus == @string/api_read_status_reading ? @string/post_read_status_reading : @string/post_read_status_drop}"
             android:textAlignment="center"
             android:textAppearance="@style/title2"
             app:layout_constraintBottom_toTopOf="@id/clPostDatePickerDatePicker"
@@ -29,6 +30,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clPostDatePickerReadDateDefault"
             android:layout_width="match_parent"
+            android:visibility="@{postNovelViewModel.readStatus == @string/api_read_status_finish ? 0 : 8}"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="35dp"
@@ -45,6 +47,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
+                android:onClickListener="@{() -> postNovelViewModel.updateIsNumberPickerStartSelected(true)}"
                 android:orientation="vertical"
                 android:paddingVertical="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -84,6 +87,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
+                android:onClickListener="@{() -> postNovelViewModel.updateIsNumberPickerStartSelected(false)}"
                 android:orientation="vertical"
                 android:paddingVertical="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -162,10 +166,10 @@
                 android:id="@+id/npPostDatePickerYear"
                 style="@style/CustomDateNumberPicker"
                 android:layout_width="90dp"
-                android:value=""
                 android:layout_height="111dp"
                 android:layout_marginStart="10dp"
                 android:selectionDividerHeight="0dp"
+                android:value=""
                 app:layout_constraintEnd_toEndOf="@id/tvPostDatePickerYear"
                 app:layout_constraintStart_toStartOf="@id/tvPostDatePickerYear"
                 app:layout_constraintTop_toBottomOf="@id/tvPostDatePickerYear" />

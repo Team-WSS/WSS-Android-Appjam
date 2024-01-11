@@ -101,6 +101,19 @@ class PostNovelViewModel : ViewModel() {
         _isStartDateVisible.value = isStartDateVisible
         _isEndDateVisible.value = isEndDateVisible
     }
+
+    fun setDayMaxValue(year: Int, month: Int): Int {
+        return when (month) {
+            2 -> if (isLeapYear(year)) 29 else 28
+            4, 6, 9, 11 -> 30
+            else -> 31
+        }
+    }
+
+    private fun isLeapYear(year: Int): Boolean {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
+    }
+
 }
 
 data class DummyData(
