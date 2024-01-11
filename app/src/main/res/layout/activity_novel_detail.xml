@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/iv_register_novel_background"
+            android:id="@+id/ivNovelDetailBackgroundImg"
             android:layout_width="match_parent"
             android:layout_height="276dp"
             android:scaleType="centerCrop"
@@ -102,7 +102,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.appcompat.widget.Toolbar
-                        android:id="@+id/tb_register_novel"
+                        android:id="@+id/tbNovelDetail"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
                         android:layout_marginTop="24dp"
@@ -114,7 +114,7 @@
                             android:layout_height="wrap_content">
 
                             <ImageView
-                                android:id="@+id/btnNovelDetailNavigateStickyHeader"
+                                android:id="@+id/ivNovelDetailNavigateBackBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
@@ -126,19 +126,20 @@
                                 app:layout_constraintTop_toTopOf="parent" />
 
                             <TextView
-                                android:id="@+id/tvNovelDetailTitleStickyHeader"
+                                android:id="@+id/tvNovelDetailTitleOnToolBar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="@style/title2"
                                 android:textColor="@color/black"
-                                app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigateStickyHeader"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigateStickyHeader"
+                                app:layout_constraintTop_toTopOf="@id/ivNovelDetailNavigateBackBtn"
                                 tools:text="당신의 이해를 돕기 위하여" />
 
                             <ImageView
-                                android:id="@+id/btnNovelDetailPopupMenu"
+                                android:id="@+id/ivNovelDetailPopupMenuBtn"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
@@ -146,9 +147,9 @@
                                 android:focusable="true"
                                 android:padding="10dp"
                                 android:src="@drawable/ic_meatball_memo"
-                                app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigateStickyHeader"
+                                app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigateStickyHeader" />
+                                app:layout_constraintTop_toTopOf="@id/ivNovelDetailNavigateBackBtn" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.appcompat.widget.Toolbar>
@@ -201,13 +202,13 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tlNovelDetailMemoInfo" />
+                        tools:ignore="MissingConstraints" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <ImageView
-            android:id="@+id/btnNovelDetailAddMemo"
+            android:id="@+id/ivNovelDetailAddMemoBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="26dp"

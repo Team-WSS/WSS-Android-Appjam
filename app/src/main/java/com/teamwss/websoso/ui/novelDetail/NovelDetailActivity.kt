@@ -27,7 +27,8 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         super.onCreate(savedInstanceState)
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+//
+//        setTitleVisibilityOnToolBar()
         setTranslucentOnStatusBar()
         setupFragment()
         clickAddMemoBtn()
@@ -44,6 +45,14 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
             }
         })
     }
+//
+//    private fun setTitleVisibilityOnToolBar() {
+//        with(binding) {
+//            .addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+//                tvNovelDetailTitleStickyHeader.visibility = View.VISIBLE
+//            }
+//        }
+//    }
 
     private fun setTranslucentOnStatusBar() {
         window.setFlags(
@@ -62,15 +71,15 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
     }
 
     private fun clickAddMemoBtn() {
-        binding.btnNovelDetailAddMemo.setOnClickListener {
+        binding.ivNovelDetailAddMemoBtn.setOnClickListener {
             val intent = Intent(this, MemoWriteActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun clickPopupBtn() {
-        binding.btnNovelDetailPopupMenu.setOnClickListener {
-            showNovelDetailPopup(binding.btnNovelDetailPopupMenu)
+        binding.ivNovelDetailPopupMenuBtn.setOnClickListener {
+            showNovelDetailPopup(binding.ivNovelDetailPopupMenuBtn)
         }
     }
 
