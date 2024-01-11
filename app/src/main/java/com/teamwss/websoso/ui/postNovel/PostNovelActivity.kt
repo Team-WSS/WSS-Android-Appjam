@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.teamwss.websoso.R
@@ -32,6 +33,7 @@ class PostNovelActivity : AppCompatActivity() {
 
         postNovelViewModel.updateIsDialogShown(false)
 
+        setTranslucentOnStatusBar()
         setupAppBar()
         setupDateToggle()
 
@@ -43,6 +45,13 @@ class PostNovelActivity : AppCompatActivity() {
         setupReadStatusUI()
         observeRatingBar()
         setupUrlButton()
+    }
+
+    private fun setTranslucentOnStatusBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     private fun setupAppBar() {
