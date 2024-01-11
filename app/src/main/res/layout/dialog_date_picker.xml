@@ -246,7 +246,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <LinearLayout
             android:id="@+id/llDatePostButton"
             android:layout_width="match_parent"
             android:layout_height="53dp"
@@ -266,7 +266,7 @@
                 android:textAppearance="@style/title1"
                 android:textColor="@color/white" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

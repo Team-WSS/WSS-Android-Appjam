@@ -336,7 +336,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
+                    <LinearLayout
                         android:id="@+id/llPostKeyword"
                         android:layout_width="match_parent"
                         android:layout_height="43dp"
@@ -365,7 +365,7 @@
                             android:textAppearance="@style/body2"
                             android:textColor="@color/primary_100_6341F0" />
 
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvPostKeyword"
@@ -506,7 +506,7 @@
                     </LinearLayout>
                 </GridLayout>
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <LinearLayout
                     android:id="@+id/llPostButton"
                     android:layout_width="match_parent"
                     android:layout_height="53dp"
@@ -526,7 +526,7 @@
                         android:textAppearance="@style/title1"
                         android:textColor="@color/white" />
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
