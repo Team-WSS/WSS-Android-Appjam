@@ -15,8 +15,8 @@
         <ImageView
             android:id="@+id/iv_register_novel_background"
             android:layout_width="match_parent"
-            android:layout_height="308dp"
-            android:scaleType="fitXY"
+            android:layout_height="276dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +37,7 @@
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="308dp"
+                    android:layout_height="276dp"
                     android:background="@color/transparent"
                     app:collapsedTitleGravity="center"
                     app:contentScrim="@color/white"
@@ -45,44 +45,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/ivNovelDetailBackground"
-                            android:layout_width="0dp"
-                            android:layout_height="308dp"
-                            android:background="@color/black"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/img"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/btnNovelDetailNavigate"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="8dp"
-                            android:layout_marginTop="52dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_navigate_left"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <ImageView
-                            android:id="@+id/btnNovelDetailPopupMenu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_meatball_memo"
-                            app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigate"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigate" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="78dp">
 
                         <ImageView
                             android:id="@+id/ivNovelDetailGenre"
@@ -92,8 +56,8 @@
                             android:layout_marginTop="16dp"
                             android:paddingHorizontal="4dp"
                             android:src="@drawable/ic_genre_romance_fantasy"
-                            app:layout_constraintStart_toStartOf="@id/btnNovelDetailNavigate"
-                            app:layout_constraintTop_toBottomOf="@+id/btnNovelDetailNavigate" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/tvNovelDetailTitle"
@@ -172,22 +136,36 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigateStickyHeader"
                                 tools:text="당신의 이해를 돕기 위하여" />
+
+                            <ImageView
+                                android:id="@+id/btnNovelDetailPopupMenu"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_meatball_memo"
+                                app:layout_constraintBottom_toBottomOf="@id/btnNovelDetailNavigateStickyHeader"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/btnNovelDetailNavigateStickyHeader" />
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.appcompat.widget.Toolbar>
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
                 <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tlNovelDetailMemoInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:tabIndicatorColor="@color/black"
-                app:tabIndicatorFullWidth="true"
-                app:tabIndicatorHeight="2dp"
-                app:tabSelectedTextColor="@color/black"
-                app:tabTextAppearance="@style/title1"
-                app:tabTextColor="@color/gray_200_AEADB3">
+                    android:id="@+id/tlNovelDetailMemoInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:tabIndicatorColor="@color/black"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextAppearance="@style/title1"
+                    app:tabTextColor="@color/gray_200_AEADB3">
 
                     <com.google.android.material.tabs.TabItem
                         android:layout_width="wrap_content"
