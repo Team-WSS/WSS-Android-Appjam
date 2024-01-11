@@ -19,8 +19,8 @@ fun loadCoverImage(view: ImageView, imageUrl: String?) {
     }
 }
 
-@BindingAdapter("loadBlurredImage")
-fun loadBlurredImage(view: ImageView, imageUrl: String?) {
+@BindingAdapter("loadBlurredCoverImage")
+fun loadBlurredCoverImage(view: ImageView, imageUrl: String?) {
     imageUrl?.let {
         view.load(it) {
             crossfade(true)
