@@ -123,11 +123,6 @@ class PostNovelActivity : AppCompatActivity() {
 
             val platforms = it.platforms
             postNovelViewModel.setPlatforms(platforms)
-
-            Log.e(
-                "PostNovelActivityTest",
-                "${postNovelViewModel.readStatus.value} ${postNovelViewModel.selectedStartDate.value}"
-            )
         }
     }
 
