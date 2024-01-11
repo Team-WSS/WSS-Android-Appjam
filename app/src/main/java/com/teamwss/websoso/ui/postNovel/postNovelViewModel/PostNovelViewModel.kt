@@ -39,18 +39,17 @@ class PostNovelViewModel : ViewModel() {
     fun getUserNovelInfo() {
         _dummyData.value = DummyData(
             novelId = 1,
-            userNovelTitle = "노 게임 노 라이프",
-            userNovelAuthor = "카미야 유우",
-            userNovelGenre = "라이트노벨",
-            userNovelImg = "https://i.namu.wiki/i/j1S3TlFyve1UjbCnzF_g6qEgFnMi8usZ_DLCn8lP91FwgpPgwkv_GNCD2fmu5uEPgPU5CSdzDF5qwe_8Ains2UzdgGgI-bzT95MQeBrceU9E7Hr26fWBFREMLDGiZm01VtAXHgXRO9kviGz3sYwQ-w.webp",
-            userNovelDescription = "백수에 골방지기지만 인터넷에서는 도시전설이라는 이야기마저 떠도는 천재 게이머 남매, 소라(空)와 시로(白). 둘이 합쳐 하나인 『　　』(공백)인 남매는 세상을 「쓰레기 게임」이라 부르며 지내던 어느 날, 『신』을 자칭하는 소년에게 이끌려 이세계로 소환된다. 그곳은 신에 의해 전쟁이 금지되었으며, 『모든 것』── 「국경선마저도 게임으로 결판이 나는」 세계였다.\n\n다른 종족들에게 연패를 거듭해 마지막 도시 하나만을 남겨둔 인류. 소라와 시로 폐인남매가 이세계에서는 ‘인류의 구세주’가 될 수 있을까?",
-            userNovelRating = 5.0f,
-            userNovelReadStatus = "READING",
-            readStartDate = "2023-12-26",
-            readEndDate = "2023-12-26",
+            userNovelTitle = "재혼황후",
+            userNovelAuthor = "알파타르트",
+            userNovelGenre = "궁중 로맨스, 후회, 계약, 재혼",
+            userNovelImg = "https://i.namu.wiki/i/Fk6vktj6y1nvSrlUst8PrRzPlPm1YDrPsUF2Goe4sLt1ZLeyMsblasD1QPJ85QJTSuit5F93ApG6R1wXZFSq-huKCJ4DrR18TN-hllzYacrHpGlPcPNfUv_QY0PLKs2ASfW09lTCOQl8TMfXxGvkyw.webp",
+            userNovelDescription = "완벽한 황후였다. 그러나 황제는 도움이 될 황후가 필요 없다고 한다. 그가 원하는 건 배우자이지 동료가 아니라 한다.  황제는 나비에를 버리고 노예 출신의 여자를 옆에 두었다. 그래도 괜찮았다. 황제가 그녀에게 다음 황후 자리를 약속하는 걸 듣기 전까진.  나비에는 고민 끝에 결심했다. 그렇다면 난 옆 나라의 황제와 재혼하겠다고.",
+            userNovelRating = 4.5f,
+            userNovelReadStatus = "FINISH",
+            readStartDate = "2023-06-30",
+            readEndDate = "2024-01-11",
             platforms = listOf(
-                DummyData.Platform("네이버시리즈", "https://series.naver.com/"),
-                DummyData.Platform("카카오페이지", "https://page.kakao.com"),
+                DummyData.Platform("네이버시리즈", "https://series.naver.com/novel/detail.series?productNo=3713078"),
             ),
         )
     }
