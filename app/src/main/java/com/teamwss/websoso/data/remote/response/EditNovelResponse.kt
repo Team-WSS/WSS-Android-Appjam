@@ -10,9 +10,9 @@ data class EditNovelResponse(
     @SerialName("platformList")
     val platformList: List<PlatformGetResponse> = listOf(),
     @SerialName("readEndDate")
-    val readEndDate: String = LocalDate.now().toString(),
+    val readEndDate: String? = LocalDate.now().toString(),
     @SerialName("readStartDate")
-    val readStartDate: String = LocalDate.now().toString(),
+    val readStartDate: String? = LocalDate.now().toString(),
     @SerialName("userNovelAuthor")
     val userNovelAuthor: String = "",
     @SerialName("userNovelDescription")
@@ -28,5 +28,5 @@ data class EditNovelResponse(
     @SerialName("userNovelReadStatus")
     val userNovelReadStatus: String = "",
     @SerialName("userNovelTitle")
-    val userNovelTitle: String = ""
+    val userNovelTitle: String = "",
 )

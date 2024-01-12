@@ -8,5 +8,5 @@ data class PlatformGetResponse(
     @SerialName("platformName")
     val platformName: String = "",
     @SerialName("platformUrl")
-    val platformUrl: String = ""
+    val platformUrl: String = "",
 )

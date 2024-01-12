@@ -19,5 +19,5 @@ data class PostNovelResponse(
     @SerialName("novelTitle")
     val novelTitle: String = "",
     @SerialName("platformList")
-    val platformList: List<PlatformGetResponse> = listOf()
+    val platformList: List<PlatformGetResponse> = listOf(),
 )
