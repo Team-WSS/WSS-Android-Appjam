@@ -10,7 +10,6 @@ import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
@@ -30,9 +29,9 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setTitleVisibilityOnToolBar()
         setTranslucentOnStatusBar()
         setupFragment()
+        setItemVisibilityOnToolBar()
         clickAddMemoBtn()
         clickPopupBtn()
 
@@ -48,33 +47,28 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
         })
     }
 
-    private fun setTitleVisibilityOnToolBar() {
-        with(binding) {
-            ablNovelDetail.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-                val totalScrollRange = appBarLayout.totalScrollRange
-                val percentage = (totalScrollRange.toFloat() + verticalOffset) / totalScrollRange
-
-                if (percentage <= TOOLBAR_COLLAPSE_THRESHOLD) {
-                    tbNovelDetail.setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@NovelDetailActivity,
-                            R.color.white
-                        )
-                    )
-                    tvNovelDetailTitleOnToolBar.visibility = View.VISIBLE
-                } else {
-                    tbNovelDetail.setBackgroundColor(
-                        ContextCompat.getColor(
-                            this@NovelDetailActivity,
-                            R.color.transparent
-                        )
-                    )
-                    tvNovelDetailTitleOnToolBar.visibility = View.GONE
-                }
-            }
+    private fun setItemVisibilityOnToolBar() {
+        binding.ablNovelDetail.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val totalScrollRange = appBarLayout.totalScrollRange
+            val percentage = (totalScrollRange.toFloat() + verticalOffset) / totalScrollRange
+            updateToolbarAppearance(percentage <= TOOLBAR_COLLAPSE_THRESHOLD)
         }
     }
 
+    private fun updateToolbarAppearance(isCollapsed: Boolean) {
+        with(binding) {
+            val color = if (isCollapsed) R.color.white else R.color.transparent
+            tbNovelDetail.setBackgroundColor(
+                ContextCompat.getColor(
+                    this@NovelDetailActivity,
+                    color
+                )
+            )
+
+            tvNovelDetailTitleOnToolBar.visibility = if (isCollapsed) View.VISIBLE else View.GONE
+            ivNovelDetailPopupMenuBtn.visibility = if (isCollapsed) View.GONE else View.VISIBLE
+        }
+    }
 
     private fun setTranslucentOnStatusBar() {
         window.setFlags(
@@ -91,7 +85,8 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
             tab.text = tabTitleList[position]
         }.attach()
 
-        binding.vpNovelDetail.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.vpNovelDetail.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
 
