@@ -31,43 +31,10 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
 
         setTranslucentOnStatusBar()
         setupFragment()
+        viewPagerPageChangeCallback()
         setItemVisibilityOnToolBar()
         clickAddMemoBtn()
         clickPopupBtn()
-
-        binding.vpNovelDetail.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-
-                novelDetailAdapter.fragments.forEach { fragment ->
-                    fragment.view?.post { fragment.view?.requestLayout() }
-                }
-            }
-        })
-    }
-
-    private fun setItemVisibilityOnToolBar() {
-        binding.ablNovelDetail.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-            val totalScrollRange = appBarLayout.totalScrollRange
-            val percentage = (totalScrollRange.toFloat() + verticalOffset) / totalScrollRange
-            updateToolbarAppearance(percentage <= TOOLBAR_COLLAPSE_THRESHOLD)
-        }
-    }
-
-    private fun updateToolbarAppearance(isCollapsed: Boolean) {
-        with(binding) {
-            val color = if (isCollapsed) R.color.white else R.color.transparent
-            tbNovelDetail.setBackgroundColor(
-                ContextCompat.getColor(
-                    this@NovelDetailActivity,
-                    color
-                )
-            )
-
-            tvNovelDetailTitleOnToolBar.visibility = if (isCollapsed) View.VISIBLE else View.GONE
-            ivNovelDetailPopupMenuBtn.visibility = if (isCollapsed) View.GONE else View.VISIBLE
-        }
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -97,6 +64,45 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
                 }
             }
         })
+    }
+
+    private fun viewPagerPageChangeCallback() {
+        binding.vpNovelDetail.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                reloadFragmentView()
+            }
+        })
+    }
+
+    private fun reloadFragmentView() {
+        novelDetailAdapter.fragments.forEach { fragment ->
+            fragment.view?.post { fragment.view?.requestLayout() }
+        }
+    }
+
+    private fun setItemVisibilityOnToolBar() {
+        binding.ablNovelDetail.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val totalScrollRange = appBarLayout.totalScrollRange
+            val percentage = (totalScrollRange.toFloat() + verticalOffset) / totalScrollRange
+            updateToolbarAppearance(percentage <= TOOLBAR_COLLAPSE_THRESHOLD)
+        }
+    }
+
+    private fun updateToolbarAppearance(isCollapsed: Boolean) {
+        with(binding) {
+            val color = if (isCollapsed) R.color.white else R.color.transparent
+            tbNovelDetail.setBackgroundColor(
+                ContextCompat.getColor(
+                    this@NovelDetailActivity,
+                    color
+                )
+            )
+
+            tvNovelDetailTitleOnToolBar.visibility = if (isCollapsed) View.VISIBLE else View.GONE
+            ivNovelDetailPopupMenuBtn.visibility = if (isCollapsed) View.GONE else View.VISIBLE
+        }
     }
 
     private fun clickAddMemoBtn() {
