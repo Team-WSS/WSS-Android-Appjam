@@ -55,7 +55,7 @@ class PostNovelViewModel : ViewModel() {
             userNovelImg = "https://i.namu.wiki/i/Fk6vktj6y1nvSrlUst8PrRzPlPm1YDrPsUF2Goe4sLt1ZLeyMsblasD1QPJ85QJTSuit5F93ApG6R1wXZFSq-huKCJ4DrR18TN-hllzYacrHpGlPcPNfUv_QY0PLKs2ASfW09lTCOQl8TMfXxGvkyw.webp",
             userNovelDescription = "완벽한 황후였다. 그러나 황제는 도움이 될 황후가 필요 없다고 한다. 그가 원하는 건 배우자이지 동료가 아니라 한다.  황제는 나비에를 버리고 노예 출신의 여자를 옆에 두었다. 그래도 괜찮았다. 황제가 그녀에게 다음 황후 자리를 약속하는 걸 듣기 전까진.  나비에는 고민 끝에 결심했다. 그렇다면 난 옆 나라의 황제와 재혼하겠다고.",
             userNovelRating = 4.5f,
-            userNovelReadStatus = "FINISH",
+            userNovelReadStatus = "READING",
             readStartDate = "2023-06-30",
             readEndDate = "2024-01-11",
             platforms = listOf(

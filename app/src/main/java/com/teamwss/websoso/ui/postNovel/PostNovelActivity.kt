@@ -8,7 +8,6 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
@@ -115,24 +114,23 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun observeDummyData() {
-        postNovelViewModel.editResponse.observe(this@PostNovelActivity) {
-            val readStatus = it.userNovelReadStatus
-            postNovelViewModel.updateReadStatus(readStatus)
+        val readStatus = postNovelViewModel.editResponse.value?.userNovelReadStatus ?: "READING"
+        postNovelViewModel.updateReadStatus(readStatus)
 
-            val readStartDate = it.readStartDate ?: LocalDate.now().toString()
-            val readEndDate = it.readEndDate ?: LocalDate.now().toString()
-            postNovelViewModel.updateReadDate(readStartDate, readEndDate)
+        val readStartDate =
+            postNovelViewModel.editResponse.value?.readStartDate ?: LocalDate.now().toString()
+        val readEndDate =
+            postNovelViewModel.editResponse.value?.readEndDate ?: LocalDate.now().toString()
+        postNovelViewModel.updateReadDate(readStartDate, readEndDate)
 
-            val novelRating = it.userNovelRating
-            postNovelViewModel.updateRating(novelRating)
+        val novelRating = postNovelViewModel.editResponse.value?.userNovelRating ?: 0f
+        postNovelViewModel.updateRating(novelRating)
 
-            val platforms = it.platforms
-            postNovelViewModel.setPlatforms(platforms)
-        }
+        val platforms = postNovelViewModel.editResponse.value?.platforms ?: listOf()
+        postNovelViewModel.setPlatforms(platforms)
     }
 
     private fun setupReadStatusUI() {
-        postNovelViewModel.updateReadStatus(postNovelViewModel.readStatus.value.toString())
         postNovelViewModel.readStatus.observe(this@PostNovelActivity) {
             handleReadStatus(it)
         }
