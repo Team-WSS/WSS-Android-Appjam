@@ -99,9 +99,9 @@ class PostNovelViewModel : ViewModel() {
 
     private fun splitDateToLocalDate(date: String): LocalDate {
         return LocalDate.of(
-            date.split("-")[0].toInt(),
-            date.split("-")[1].toInt(),
-            date.split("-")[2].toInt()
+            formatToYear(date),
+            formatToMonth(date),
+            formatToDay(date),
         )
     }
 
