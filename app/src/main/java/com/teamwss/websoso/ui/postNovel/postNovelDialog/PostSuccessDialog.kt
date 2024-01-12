@@ -26,16 +26,8 @@ class PostSuccessDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.llNavigateToMemo.setOnClickListener {
-            dismiss()
-        }
-
-        binding.tvBackToHome.setOnClickListener {
-            val intent = Intent(activity, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            dismiss()
-        }
+        setupExitDialogListenser()
+        setupExitActivityListener()
     }
 
     override fun onStart() {
@@ -51,5 +43,20 @@ class PostSuccessDialog : DialogFragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun setupExitDialogListenser() {
+        binding.llNavigateToMemo.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun setupExitActivityListener() {
+        binding.tvBackToHome.setOnClickListener {
+            val intent = Intent(activity, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            dismiss()
+        }
     }
 }
