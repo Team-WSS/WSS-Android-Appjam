@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.teamwss.websoso.R
@@ -19,13 +20,12 @@ import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostNovelBinding
-    private lateinit var postNovelViewModel: PostNovelViewModel
+    private val postNovelViewModel by viewModels<PostNovelViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostNovelBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        postNovelViewModel = ViewModelProvider(this)[PostNovelViewModel::class.java]
 
         binding.lifecycleOwner = this
         binding.postNovelViewModel = postNovelViewModel
