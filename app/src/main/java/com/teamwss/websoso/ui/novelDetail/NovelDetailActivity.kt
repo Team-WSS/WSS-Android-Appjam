@@ -8,7 +8,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
@@ -49,11 +51,30 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
     private fun setTitleVisibilityOnToolBar() {
         with(binding) {
             ablNovelDetail.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
-                tvNovelDetailTitleOnToolBar.visibility = View.VISIBLE
-                ivNovelDetailPopupMenuBtn.visibility = View.GONE
+                val totalScrollRange = appBarLayout.totalScrollRange
+                val percentage = (totalScrollRange.toFloat() + verticalOffset) / totalScrollRange
+
+                if (percentage <= TOOLBAR_COLLAPSE_THRESHOLD) {
+                    tbNovelDetail.setBackgroundColor(
+                        ContextCompat.getColor(
+                            this@NovelDetailActivity,
+                            R.color.white
+                        )
+                    )
+                    tvNovelDetailTitleOnToolBar.visibility = View.VISIBLE
+                } else {
+                    tbNovelDetail.setBackgroundColor(
+                        ContextCompat.getColor(
+                            this@NovelDetailActivity,
+                            R.color.transparent
+                        )
+                    )
+                    tvNovelDetailTitleOnToolBar.visibility = View.GONE
+                }
             }
         }
     }
+
 
     private fun setTranslucentOnStatusBar() {
         window.setFlags(
@@ -128,6 +149,6 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
 
     companion object {
         const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
-
+        const val TOOLBAR_COLLAPSE_THRESHOLD = 0.1
     }
 }
