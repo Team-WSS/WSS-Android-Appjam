@@ -31,26 +31,26 @@ class DatePickerDialog : DialogFragment() {
         binding.lifecycleOwner = this
         binding.postNovelViewModel = postNovelViewModel
 
+        setupDialogAI()
         initDialogDateInfo()
         setupDatePicker()
         setupPostButtonClickListener()
         setupDateTypeSelector()
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onDestroyView() {
+        postNovelViewModel.updateIsDialogShown(false)
+        _binding = null
+        super.onDestroyView()
+    }
+
+    private fun setupDialogAI() {
         dialog?.window?.apply {
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             attributes?.windowAnimations = R.style.BottomSheetDialogAnimation
             setGravity(Gravity.BOTTOM)
         }
-    }
-
-    override fun onDestroyView() {
-        postNovelViewModel.updateIsDialogShown(false)
-        _binding = null
-        super.onDestroyView()
     }
 
     private fun initDialogDateInfo() {

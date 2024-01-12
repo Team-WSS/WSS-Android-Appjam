@@ -28,23 +28,33 @@ class ExitPopupDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-        binding.llPostDialogKeepButton.setOnClickListener {
-            dismiss()
-        }
-
-        binding.llPostDialogExitButton.setOnClickListener {
-            val intent = Intent(activity, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
-            dismiss()
-        }
+        setupDialogUI()
+        setupExitDialogListener()
+        setupExitActivityListener()
     }
 
     override fun onDestroyView() {
         postNovelViewModel.updateIsDialogShown(false)
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun setupDialogUI() {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    }
+
+    private fun setupExitDialogListener(){
+        binding.llPostDialogKeepButton.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun setupExitActivityListener(){
+        binding.llPostDialogExitButton.setOnClickListener {
+            val intent = Intent(activity, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            dismiss()
+        }
     }
 }
