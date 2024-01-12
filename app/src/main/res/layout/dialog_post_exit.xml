@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:text="등록을 취소할까요?"
+        android:text="@string/tv_post_bottom_sheet_year"
         android:textAlignment="center"
         android:textAppearance="@style/title2"
         android:textColor="@color/black"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vPostDialogIconBackground" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/llPostDialogExitButton"
         android:layout_width="116dp"
         android:layout_height="41dp"
@@ -46,13 +46,13 @@
             android:id="@+id/tvDialogExitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="나가기"
+            android:text="@string/tv_dialog_exit_button"
             android:textAppearance="@style/label1"
             android:textColor="@color/gray_300_52515F" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:id="@+id/llPostDialogKeepButton"
         android:layout_width="116dp"
         android:layout_height="41dp"
@@ -70,9 +70,9 @@
             android:id="@+id/tvDialogKeepButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="계속 작성하기"
+            android:text="@string/tv_dialog_keep_button"
             android:textAppearance="@style/label1"
             android:textColor="@color/white" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

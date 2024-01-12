@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.jetbrains.kotlin.ir.backend.js.transformers.irToJs.defineProperty
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -17,6 +20,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "BASE_URL", getApiKey("base.url"))
     }
 
     buildTypes {
@@ -78,4 +82,11 @@ dependencies {
     //coil
     implementation("io.coil-kt:coil:2.5.0")
     implementation("jp.wasabeef.transformers:coil:1.0.6")
+
+    // lottie
+    implementation ("com.airbnb.android:lottie:5.0.2")
+}
+
+fun getApiKey(propertyKey: String): String {
+    return gradleLocalProperties(rootDir).getProperty(propertyKey)
 }

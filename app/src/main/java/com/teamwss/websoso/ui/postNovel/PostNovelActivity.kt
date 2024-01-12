@@ -1,181 +1,187 @@
 package com.teamwss.websoso.ui.postNovel
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import coil.load
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
-import jp.wasabeef.transformers.coil.BlurTransformation
-import jp.wasabeef.transformers.coil.RoundedCornersTransformation
+import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
+import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
+import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
+import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
+import java.time.LocalDate
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostNovelBinding
+    private val postNovelViewModel by viewModels<PostNovelViewModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostNovelBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        showNavigateLeftDialog()
+        binding.lifecycleOwner = this
+        binding.postNovelViewModel = postNovelViewModel
+
+        postNovelViewModel.updateIsDialogShown(false)
+
+        setTranslucentOnStatusBar()
         setupAppBar()
         setupDateToggle()
-        setupReadStatusChip()
-        showDatePickerDialog()
-        initDummyNovelInfo()
+
+        setupExitPopupDialog()
+        setupDatePickerDialog()
+        setupPostSuccessDialog()
+
+        initUserNovelInfo()
+        setupReadStatusUI()
+        observeRatingBar()
+        setupUrlButton()
     }
 
-    private val setupNavigateLeftDialog: PostNavigateLeftDialog by lazy {
-        PostNavigateLeftDialog(this).apply {
-            setExitButtonClickListener { finish() }
-            setOnDismissListener {
-                hideBlackBackground()
-            }
-        }
-    }
-
-    private fun showNavigateLeftDialog() {
-        binding.ivPostNavigateLeft.setOnClickListener {
-            showBlackBackground()
-            setupNavigateLeftDialog.show()
-        }
+    private fun setTranslucentOnStatusBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     private fun setupAppBar() {
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
-            val maxHeight = binding.ivPostCoverBackground.height - binding.alPostAppBar.height
+            val maxHeight = binding.ivPostCoverBackground.height - binding.viewPostAppBar.height
 
-            val scrollRatio = (scrollY.toFloat() / maxHeight).coerceAtMost(1f).pow(3 / 2)
+            val scrollRatio = ((scrollY.toFloat() + 15) / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
-            val white = getColor(R.color.white)
-            val black = getColor(R.color.black)
+            binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
+            binding.tvPostTitle.setTextColor(getColor(R.color.black).changeAlpha(colorAlpha))
 
-            binding.alPostAppBar.setBackgroundColor(
-                Color.argb(
-                    colorAlpha,
-                    Color.red(white),
-                    Color.green(white),
-                    Color.blue(white)
-                )
-            )
-            binding.tvPostTitle.setTextColor(
-                Color.argb(
-                    colorAlpha,
-                    Color.red(black),
-                    Color.green(black),
-                    Color.blue(black)
-                )
-            )
+            if (scrollY == 0) {
+                binding.viewPostAppBar.visibility = View.INVISIBLE
+            } else {
+                binding.viewPostAppBar.visibility = View.VISIBLE
+            }
         }
+    }
+
+    private fun Int.changeAlpha(newAlpha: Int): Int {
+        return Color.argb(newAlpha, Color.red(this), Color.green(this), Color.blue(this))
     }
 
     private fun setupDateToggle() {
         binding.scPostDateSwitch.setOnCheckedChangeListener { _, isChecked ->
-            binding.llPostReadDate.setVisibility(
-                isChecked
-            )
+            binding.llPostReadDate.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
     }
 
-    private fun setupReadStatusChip() {
-        with(binding) {
-            cReadStatusRead.setOnClickListener {
-                updateDateVisibility(isStartDateVisible = true, isEndDateVisible = true)
-                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_read)
-            }
-            cReadStatusReading.setOnClickListener {
-                updateDateVisibility(isStartDateVisible = true, isEndDateVisible = false)
-                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
-            }
-            cReadStatusStop.setOnClickListener {
-                updateDateVisibility(isStartDateVisible = false, isEndDateVisible = true)
-                binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_stop)
-            }
-            cReadStatusWant.setOnClickListener {
-                clPostReadDate.visibility = View.GONE
-            }
+    private fun setupExitPopupDialog() {
+        binding.ivPostExitPopup.setOnClickListener {
+            postNovelViewModel.updateIsDialogShown(true)
+
+            val dialogFragment = ExitPopupDialog()
+            dialogFragment.show(supportFragmentManager, "ExitPopupDialog")
         }
     }
 
-    private fun View.setVisibility(isVisible: Boolean) {
-        this.visibility = if (isVisible) View.VISIBLE else View.GONE
-    }
-
-    private fun updateDateVisibility(isStartDateVisible: Boolean, isEndDateVisible: Boolean) {
-        with(binding) {
-            clPostReadDate.visibility = View.VISIBLE
-
-            tvPostReadDateStart.setVisibility(isStartDateVisible)
-            tvPostReadDateTilde.setVisibility(isStartDateVisible && isEndDateVisible)
-            tvPostReadDateEnd.setVisibility(isEndDateVisible)
-        }
-    }
-
-    private fun showDatePickerDialog() {
+    private fun setupDatePickerDialog() {
         binding.llPostReadDate.setOnClickListener {
-            showBlackBackground()
-            setDialogData(createDialog())
+            postNovelViewModel.updateIsDialogShown(true)
+
+            val dialogFragment = DatePickerDialog()
+            dialogFragment.show(supportFragmentManager, "DatePickerDialog")
         }
     }
 
-    private fun showBlackBackground() {
-        binding.vPostDialogBackground.visibility = View.VISIBLE
-    }
+    private fun setupPostSuccessDialog() {
+        binding.llPostButton.setOnClickListener {
+            postNovelViewModel.updateIsDialogShown(true)
 
-    private fun createDialog(): DatePickerDialog {
-        return DatePickerDialog(this).apply {
-            setOnDateSelectedListener(createDateSelectedListener())
-            setOnDismissListener { hideBlackBackground() }
+            val dialogFragment = PostSuccessDialog()
+            dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
         }
     }
 
-    private fun createDateSelectedListener(): DatePickerDialog.InputSelectedDateListener {
-        return DatePickerDialog.InputSelectedDateListener { startDate, endDate ->
-            binding.tvPostReadDateStart.text = startDate
-            binding.tvPostReadDateEnd.text = endDate
+    private fun initUserNovelInfo() {
+        postNovelViewModel.getUserNovelInfo()
+        observeDummyData()
+    }
+
+    private fun observeDummyData() {
+        val readStatus = postNovelViewModel.editResponse.value?.userNovelReadStatus ?: "READING"
+        postNovelViewModel.updateReadStatus(readStatus)
+
+        val readStartDate =
+            postNovelViewModel.editResponse.value?.readStartDate ?: LocalDate.now().toString()
+        val readEndDate =
+            postNovelViewModel.editResponse.value?.readEndDate ?: LocalDate.now().toString()
+        postNovelViewModel.updateReadDate(readStartDate, readEndDate)
+
+        val novelRating = postNovelViewModel.editResponse.value?.userNovelRating ?: 0f
+        postNovelViewModel.updateRating(novelRating)
+
+        val platforms = postNovelViewModel.editResponse.value?.platforms ?: listOf()
+        postNovelViewModel.setPlatforms(platforms)
+    }
+
+    private fun setupReadStatusUI() {
+        postNovelViewModel.readStatus.observe(this@PostNovelActivity) {
+            handleReadStatus(it)
         }
     }
 
-    private fun hideBlackBackground() {
-        binding.vPostDialogBackground.visibility = View.INVISIBLE
-    }
-
-    private fun setDialogData(datePickerDialog: DatePickerDialog) {
-        with(binding) {
-            val readStatus = tvPostReadDateTitle.text.toString()
-            val startDate = tvPostReadDateStart.text.toString()
-            val endDate = tvPostReadDateEnd.text.toString()
-
-            datePickerDialog.setDialogReadStatus(readStatus, startDate, endDate)
-            datePickerDialog.show()
+    private fun handleReadStatus(readStatus: String) {
+        when (readStatus) {
+            PostNovelViewModel.ReadStatus.FINISH.status -> updateUIForStatusFinish()
+            PostNovelViewModel.ReadStatus.READING.status -> updateUIForStatusReading()
+            PostNovelViewModel.ReadStatus.DROP.status -> updateUIForStatusDrop()
+            PostNovelViewModel.ReadStatus.WISH.status -> updateUIForStatusWish()
         }
     }
 
-    private fun initDummyNovelInfo() {
-        with(binding) {
-            tvPostNovelTitle.text = "노 게임 노 라이프"
-            tvPostNovelAuthor.text = "카미야 유우"
-            ivPostCover.load("https://i.namu.wiki/i/j1S3TlFyve1UjbCnzF_g6qEgFnMi8usZ_DLCn8lP91FwgpPgwkv_GNCD2fmu5uEPgPU5CSdzDF5qwe_8Ains2UzdgGgI-bzT95MQeBrceU9E7Hr26fWBFREMLDGiZm01VtAXHgXRO9kviGz3sYwQ-w.webp") {
-                crossfade(true)
-                placeholder(R.drawable.img_cover_test)
-                error(R.drawable.img_cover_test)
-                transformations(RoundedCornersTransformation(30))
-            }
-            ivPostCoverBackground.load("https://i.namu.wiki/i/j1S3TlFyve1UjbCnzF_g6qEgFnMi8usZ_DLCn8lP91FwgpPgwkv_GNCD2fmu5uEPgPU5CSdzDF5qwe_8Ains2UzdgGgI-bzT95MQeBrceU9E7Hr26fWBFREMLDGiZm01VtAXHgXRO9kviGz3sYwQ-w.webp") {
-                crossfade(true)
-                placeholder(R.drawable.img_cover_test)
-                error(R.drawable.img_cover_test)
-                transformations(BlurTransformation(this@PostNovelActivity, 25))
-            }
-            rbPostRating.rating = 5.0f
-            tvPostReadDateStart.text = "2023-12-26"
-            tvPostReadDateEnd.text = "2023-12-26"
-            tvPostNovelDetail.text =
-                "백수에 골방지기지만 인터넷에서는 도시전설이라는 이야기마저 떠도는 천재 게이머 남매, 소라(空)와 시로(白). 둘이 합쳐 하나인 『　　』(공백)인 남매는 세상을 「쓰레기 게임」이라 부르며 지내던 어느 날, 『신』을 자칭하는 소년에게 이끌려 이세계로 소환된다. 그곳은 신에 의해 전쟁이 금지되었으며, 『모든 것』── 「국경선마저도 게임으로 결판이 나는」 세계였다.\n\n다른 종족들에게 연패를 거듭해 마지막 도시 하나만을 남겨둔 인류. 소라와 시로 폐인남매가 이세계에서는 ‘인류의 구세주’가 될 수 있을까?"
-            tvPostNovelGenre.text = "라이트노벨"
+    private fun updateUIForStatusFinish() {
+        postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = true)
+        postNovelViewModel.updateIsNumberPickerStartSelected(true)
+        binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_finish)
+    }
+
+    private fun updateUIForStatusReading() {
+        postNovelViewModel.updateIsDateVisible(isStartDateVisible = true, isEndDateVisible = false)
+        postNovelViewModel.updateIsNumberPickerStartSelected(true)
+        binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_reading)
+    }
+
+    private fun updateUIForStatusDrop() {
+        postNovelViewModel.updateIsDateVisible(isStartDateVisible = false, isEndDateVisible = true)
+        postNovelViewModel.updateIsNumberPickerStartSelected(false)
+        binding.tvPostReadDateTitle.text = getString(R.string.post_read_status_drop)
+    }
+
+    private fun updateUIForStatusWish() {
+        binding.clPostReadDate.visibility = View.GONE
+    }
+
+    private fun observeRatingBar() {
+        binding.rbPostRating.setOnRatingBarChangeListener { _, rating, _ ->
+            postNovelViewModel.updateRating(rating)
         }
+    }
+
+    private fun setupUrlButton() {
+        postNovelViewModel.platforms.observe(this) {
+            binding.llPostNovelLinkNaver.setOnClickListener { openUrl(postNovelViewModel.naverUrl.value.toString()) }
+            binding.llPostNovelLinkKakao.setOnClickListener { openUrl(postNovelViewModel.kakaoUrl.value.toString()) }
+        }
+    }
+
+    private fun openUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

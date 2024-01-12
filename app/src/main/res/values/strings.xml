@@ -14,14 +14,59 @@
     <string name="record_go_to_post_novel">웹소설 등록하기</string>
 
     <!-- PostNovelActivity -->
-    <string name="post_read_status_read">읽은 날짜</string>
+    <string name="post_read_status_finish">읽은 날짜</string>
     <string name="post_read_status_reading">시작 날짜</string>
-    <string name="post_read_status_stop">종료 날짜</string>
+    <string name="post_read_status_drop">종료 날짜</string>
+    <string name="api_read_status_finish">FINISH</string>
+    <string name="api_read_status_reading">READING</string>
+    <string name="api_read_status_drop">DROP</string>
+    <string name="api_read_status_wish">WISH</string>
+
+    <!-- dialog_post_success -->
+    <string name="tv_post_success_title">내 서재에 작품이\n성공적으로 등록되었어요!</string>
+    <string name="tv_navigate_to_memo">작품에 메모 남기기</string>
+    <string name="tv_back_to_home">홈으로 돌아가기</string>
+
+    <!-- dialog_post_navigate_left -->
+    <string name="tv_dialog_exit_button">나가기</string>
+    <string name="tv_dialog_keep_button">계속 작성하기</string>
+    <string name="tv_post_bottom_sheet_year">등록을 취소할까요?</string>
+
+    <!-- dialog_date_picker -->
+    <string name="tv_post_date_picker_read_date_start_title">시작 날짜</string>
+    <string name="tv_post_date_picker_read_date_end_title">종료 날짜</string>
+    <string name="tv_post_date_picker_year">연도</string>
+    <string name="tv_post_date_picker_month">월</string>
+    <string name="tv_post_date_picker_day">일</string>
+    <string name="tv_post_date_edit_button">완료</string>
+
+    <!-- fragment_home -->
     <string name="home_sosopick">소소’s pick</string>
     <string name="home_sosopick_description">지금 소소들이 등록한 작품</string>
 
     <!-- SearchActivity -->
     <string name="search_result_null">검색결과가 없어요ㅠ</string>
     <string name="search_title">검색</string>
+
+
+    <!-- activity_post_novel -->
+    <string name="tv_post_read_status">읽기 상태</string>
+    <string name="tv_post_read_status_suffix">" "*</string>
+    <string name="c_read_status_finish">읽음</string>
+    <string name="c_read_status_reading">읽는 중</string>
+    <string name="c_read_status_drop">하차</string>
+    <string name="c_read_status_wish">읽고 싶음</string>
+    <string name="tv_post_read_date_title">읽은 날짜</string>
+    <string name="tv_post_read_date_tilde">~</string>
+    <string name="tv_post_keyword_title">키워드</string>
+    <string name="tv_post_keyword">키워드 등록</string>
+    <string name="tv_post_novel_detail_title">작품 소개</string>
+    <string name="tv_post_novel_genre_title">장르</string>
+    <string name="tv_post_novel_site_title">작품 보러가기</string>
+    <string name="tv_post_novel_site_naver">네이버시리즈</string>
+    <string name="tv_post_novel_site_kakao">카카오페이지</string>
+    <string name="tv_post_complete_button">내 서재에 등록</string>
+    <string name="iv_post_cover_description">표지 이미지</string>
+    <string name="iv_post_navigate_left_description">뒤로가기</string>
 
 </resources>
