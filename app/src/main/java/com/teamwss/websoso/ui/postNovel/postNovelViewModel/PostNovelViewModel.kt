@@ -86,8 +86,11 @@ class PostNovelViewModel : ViewModel() {
     }
 
     fun updateIsDialogShown(isShown: Boolean = false) {
-        if (isShown) _isDialogShown.value = 0
-        else _isDialogShown.value = 8
+        val visible = 0
+        val gone = 8
+
+        if (isShown) _isDialogShown.value = visible
+        else _isDialogShown.value = gone
     }
 
     fun updateIsNumberPickerStartSelected(isSelected: Boolean = true) {
