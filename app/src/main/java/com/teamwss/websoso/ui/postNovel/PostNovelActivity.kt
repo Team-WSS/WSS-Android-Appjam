@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
-import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostNavigateLeftDialog
+import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 import java.time.LocalDate
@@ -36,7 +36,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupAppBar()
         setupDateToggle()
 
-        setupNavigateLeftDialog()
+        setupExitPopupDialog()
         setupDatePickerDialog()
         setupPostSuccessDialog()
 
@@ -82,12 +82,12 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupNavigateLeftDialog() {
-        binding.ivPostNavigateLeft.setOnClickListener {
+    private fun setupExitPopupDialog() {
+        binding.ivPostExitPopup.setOnClickListener {
             postNovelViewModel.updateIsDialogShown(true)
 
-            val dialogFragment = PostNavigateLeftDialog()
-            dialogFragment.show(supportFragmentManager, "PostNavigateLeftDialog")
+            val dialogFragment = ExitPopupDialog()
+            dialogFragment.show(supportFragmentManager, "ExitPopupDialog")
         }
     }
 

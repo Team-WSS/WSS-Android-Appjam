@@ -9,19 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.teamwss.websoso.databinding.DialogPostNavigateLeftBinding
+import com.teamwss.websoso.databinding.DialogPostExitBinding
 import com.teamwss.websoso.ui.main.MainActivity
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 
-class PostNavigateLeftDialog : DialogFragment() {
-    private var _binding: DialogPostNavigateLeftBinding? = null
-    private val binding: DialogPostNavigateLeftBinding get() = requireNotNull(_binding)
+class ExitPopupDialog : DialogFragment() {
+    private var _binding: DialogPostExitBinding? = null
+    private val binding: DialogPostExitBinding get() = requireNotNull(_binding)
     private val postNovelViewModel: PostNovelViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        _binding = DialogPostNavigateLeftBinding.inflate(inflater, container, false)
+        _binding = DialogPostExitBinding.inflate(inflater, container, false)
         return binding.root
     }
 
