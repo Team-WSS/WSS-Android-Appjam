@@ -2,6 +2,8 @@ package com.teamwss.websoso.data
 
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.teamwss.websoso.BuildConfig
+import com.teamwss.websoso.data.remote.api.WssService
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -10,7 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
 object NetworkModule {
-    private const val BASE_URL = ""
+    private const val BASE_URL = BuildConfig.BASE_URL
     private const val CONTENT_TYPE = "application/json"
     private val json: Json = Json {
         ignoreUnknownKeys = true
@@ -28,10 +30,15 @@ object NetworkModule {
         .addInterceptor(getLogOkHttpClient())
         .build()
 
-    private val retrofit: Retrofit = Retrofit.Builder()
+    val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(json.asConverterFactory(CONTENT_TYPE.toMediaType()))
+        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .build()
 
+    inline fun <reified T> create(): T = retrofit.create<T>(T::class.java)
+}
+
+object ServicePool {
+    val wssService: WssService by lazy { NetworkModule.create() }
 }
