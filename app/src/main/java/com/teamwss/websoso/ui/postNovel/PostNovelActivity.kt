@@ -140,10 +140,10 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun handleReadStatus(readStatus: String) {
         when (readStatus) {
-            FINISH -> updateUIForStatusFinish()
-            READING -> updateUIForStatusReading()
-            DROP -> updateUIForStatusDrop()
-            WISH -> updateUIForStatusWish()
+            PostNovelViewModel.ReadStatus.FINISH.status -> updateUIForStatusFinish()
+            PostNovelViewModel.ReadStatus.READING.status -> updateUIForStatusReading()
+            PostNovelViewModel.ReadStatus.DROP.status -> updateUIForStatusDrop()
+            PostNovelViewModel.ReadStatus.WISH.status -> updateUIForStatusWish()
         }
     }
 
@@ -185,12 +185,5 @@ class PostNovelActivity : AppCompatActivity() {
     private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
-    }
-
-    companion object {
-        const val FINISH = "FINISH"
-        const val READING = "READING"
-        const val DROP = "DROP"
-        const val WISH = "WISH"
     }
 }

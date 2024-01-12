@@ -131,9 +131,9 @@ class PostNovelViewModel : ViewModel() {
 
     fun setDayMaxValue(year: Int, month: Int) {
         _maxDayValue.value = when (month) {
-            2 -> if (isLeapYear(year)) 29 else 28
-            4, 6, 9, 11 -> 30
-            else -> 31
+            FEBRUARY -> if (isLeapYear(year)) DAYS_IN_FEBRUARY_IN_LEAP_YEAR else DAYS_IN_FEBRUARY_IN_NON_LEAP_YEAR
+            APRIL, JUNE, SEPTEMBER, NOVEMBER -> DAYS_IN_SMALL_MONTH
+            else -> DAYS_IN_LARGE_MONTH
         }
     }
 
@@ -143,14 +143,14 @@ class PostNovelViewModel : ViewModel() {
 
     fun setupAnotherDateValid() {
         when (_readStatus.value) {
-            READING -> {
+            ReadStatus.READING.status -> {
                 updateSelectedDate(
                     _selectedStartDate.value!!,
                     _selectedStartDate.value!!
                 )
             }
 
-            DROP -> {
+            ReadStatus.DROP.status -> {
                 updateSelectedDate(
                     _selectedEndDate.value!!,
                     _selectedEndDate.value!!
@@ -177,11 +177,22 @@ class PostNovelViewModel : ViewModel() {
     }
 
     companion object {
-        const val READING = "READING"
-        const val DROP = "DROP"
-
         const val NAVER_SERIES = "네이버시리즈"
         const val KAKAO_PAGE = "카카오페이지"
+
+        private const val FEBRUARY = 2
+        private const val APRIL = 4
+        private const val JUNE = 6
+        private const val SEPTEMBER = 9
+        private const val NOVEMBER = 11
+        private const val DAYS_IN_FEBRUARY_IN_LEAP_YEAR = 29
+        private const val DAYS_IN_FEBRUARY_IN_NON_LEAP_YEAR = 28
+        private const val DAYS_IN_SMALL_MONTH = 30
+        private const val DAYS_IN_LARGE_MONTH = 31
+    }
+
+    enum class ReadStatus(val status: String) {
+        FINISH("FINISH"), READING("READING"), DROP("DROP"), WISH("WISH")
     }
 }
 
