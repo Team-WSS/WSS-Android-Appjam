@@ -9,7 +9,7 @@
         android:id="@+id/tvMyPageTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="68dp"
         android:text="@string/my_page_title"
         android:textAppearance="@style/title2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,9 @@
         android:layout_marginTop="16dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMyPageTitle">
+        app:layout_constraintTop_toBottomOf="@+id/tvMyPageTitle"
+        app:layout_constraintVertical_bias="0.0"
+        tool:layout_editor_absoluteX="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clMyPageContent"
@@ -44,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:src="@drawable/ic_genre_romance_fantasy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +55,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="추락한 영애"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="김명진 영애, 오늘도 왔구나?"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +78,6 @@
                 android:layout_height="220dp"
                 android:layout_marginHorizontal="68dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/img_avatar_test"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvMyPageAvatarTagline" />
@@ -101,7 +99,7 @@
                     android:id="@+id/tvMyPageUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="김명진님"
+                    android:text="@string/my_page_user_name"
                     android:textAppearance="@style/headline1"
                     android:textColor="@color/black"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="등록작품"
+                    android:text="@string/my_page_regist_novel_count"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
                     app:layout_constraintBottom_toBottomOf="@id/ivMyPageRegistrationNovel"
@@ -146,7 +144,6 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:inputType="number"
-                    android:text="0"
                     android:textAppearance="@style/title1"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -180,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="기록"
+                    android:text="@string/my_page_record_count"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
                     app:layout_constraintBottom_toBottomOf="@id/ivMyPageMemo"
@@ -192,7 +189,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:text="0"
                     android:textAppearance="@style/title1"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toEndOf="@id/ivMyPageMemo"
@@ -205,7 +201,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
-                android:text="캐릭터 선택"
+                android:text="@string/my_page_selected_avatar"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="@id/clMyPageProfile"
@@ -220,106 +216,106 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="@id/tvMyPageSelectedAvatarTitle"
                 app:layout_constraintTop_toBottomOf="@id/tvMyPageSelectedAvatarTitle"
-                tool:listitem="@layout/item_avatar"/>
+                tool:listitem="@layout/item_avatar" />
 
             <View
                 android:id="@+id/viewMyPageThinLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_70_DFDFE3"
                 android:layout_marginTop="36dp"
-                app:layout_constraintTop_toBottomOf="@id/rvMyPageSelected"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:background="@color/gray_70_DFDFE3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvMyPageSelected" />
 
             <View
                 android:id="@+id/viewMyPageThickLine"
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
                 android:background="@color/gray_50_F4F5F8"
-                app:layout_constraintTop_toBottomOf="@id/viewMyPageThinLine"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/viewMyPageThinLine" />
 
             <TextView
                 android:id="@+id/tvMyPageCheckUserInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="계정정보 확인"
+                android:layout_marginTop="20dp"
+                android:text="@string/my_page_user_information"
                 android:textAppearance="@style/body1"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/viewMyPageThickLine"
-                app:layout_constraintStart_toStartOf="@id/tvMyPageSelectedAvatarTitle"/>
+                app:layout_constraintStart_toStartOf="@id/tvMyPageSelectedAvatarTitle"
+                app:layout_constraintTop_toBottomOf="@id/viewMyPageThickLine" />
 
             <View
                 android:id="@+id/viewMyPageCheckUserInfoUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_50_F4F5F8"
                 android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/tvMyPageCheckUserInfo"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:background="@color/gray_50_F4F5F8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMyPageCheckUserInfo" />
 
             <TextView
                 android:id="@+id/tvMyPageLogOut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그아웃"
+                android:layout_marginTop="20dp"
+                android:text="@string/my_page_logout"
                 android:textAppearance="@style/body1"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/viewMyPageCheckUserInfoUnderLine"
-                app:layout_constraintStart_toStartOf="@id/tvMyPageCheckUserInfo"/>
+                app:layout_constraintStart_toStartOf="@id/tvMyPageCheckUserInfo"
+                app:layout_constraintTop_toBottomOf="@id/viewMyPageCheckUserInfoUnderLine" />
 
             <View
                 android:id="@+id/viewMyPageLogOutUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_50_F4F5F8"
                 android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/tvMyPageLogOut"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:background="@color/gray_50_F4F5F8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMyPageLogOut" />
 
             <TextView
                 android:id="@+id/tvMyPageGoToInsta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="웹소소 인스타 보러가기"
+                android:layout_marginTop="20dp"
+                android:text="@string/my_page_go_to_insta"
                 android:textAppearance="@style/body1"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/viewMyPageLogOutUnderLine"
-                app:layout_constraintStart_toStartOf="@id/tvMyPageCheckUserInfo"/>
+                app:layout_constraintStart_toStartOf="@id/tvMyPageCheckUserInfo"
+                app:layout_constraintTop_toBottomOf="@id/viewMyPageLogOutUnderLine" />
 
             <View
                 android:id="@+id/viewMyPageGoToInstaUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_50_F4F5F8"
                 android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/tvMyPageGoToInsta"
-                app:layout_constraintStart_toStartOf="parent"/>
+                android:background="@color/gray_50_F4F5F8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMyPageGoToInsta" />
 
             <TextView
                 android:id="@+id/tvMyPageTermsOfUse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="서비스 이용약관"
+                android:layout_marginTop="20dp"
+                android:text="@string/my_page_terms_of_use"
                 android:textAppearance="@style/body1"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/viewMyPageGoToInstaUnderLine"
-                app:layout_constraintStart_toStartOf="@id/tvMyPageCheckUserInfo"/>
+                app:layout_constraintStart_toStartOf="@id/tvMyPageCheckUserInfo"
+                app:layout_constraintTop_toBottomOf="@id/viewMyPageGoToInstaUnderLine" />
 
             <View
                 android:id="@+id/viewMyPageTermsOfUseUnderLine"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/gray_50_F4F5F8"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="24dp"
-                app:layout_constraintTop_toBottomOf="@id/tvMyPageTermsOfUse"
+                android:background="@color/gray_50_F4F5F8"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/tvMyPageTermsOfUse" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
