@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_navigate_left"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
@@ -19,7 +19,7 @@
         android:id="@+id/tvCheckUserInfoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="계정정보 확인"
+        android:text="@string/check_user_info_title"
         android:textAppearance="@style/title2"
         android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,11 +27,20 @@
         app:layout_constraintTop_toTopOf="@id/ivCheckUserInfoBack"
         app:layout_constraintBottom_toBottomOf="@id/ivCheckUserInfoBack"/>
 
+    <View
+        android:id="@+id/viewHeaderUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_50_F4F5F8"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvCheckUserInfoTitle"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <TextView
         android:id="@+id/tvCheckUserInfoNickNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="닉네임"
+        android:text="@string/check_user_info_nickname_title"
         android:textAppearance="@style/body1"
         android:textColor="@color/black"
         android:layout_marginTop="44dp"
@@ -62,7 +71,7 @@
         android:id="@+id/tvCheckUserInfoEmailTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="이메일"
+        android:text="@string/check_user_info_email_title"
         android:textAppearance="@style/body1"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
@@ -78,7 +87,6 @@
         android:layout_marginTop="4dp"
         app:layout_constraintTop_toBottomOf="@id/tvCheckUserInfoEmailTitle"
         app:layout_constraintStart_toStartOf="@id/tvCheckUserInfoEmailTitle"
-        tool:text="kimmjabc@gmail.com"
         />
 
     <View
@@ -94,7 +102,7 @@
         android:id="@+id/tvCheckUserInfoCancelMembership"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="회원탈퇴"
+        android:text="@string/check_user_info_cancel_membership_title"
         android:textAppearance="@style/body1"
         android:textColor="@color/black"
         android:layout_marginTop="20dp"
