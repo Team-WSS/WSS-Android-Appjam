@@ -8,7 +8,7 @@ fun List<UserNovel>.toData(): List<LibraryUserNovel> {
     return this.map {
         LibraryUserNovel(
             userNovelId = it.userNovelId,
-            userNovelImg = it.userNovelImg,
+            userNovelCover = it.userNovelImg,
             userNovelAuthor = it.userNovelAuthor,
             userNovelRating = it.userNovelRating,
             userNovelTitle = it.userNovelTitle,
