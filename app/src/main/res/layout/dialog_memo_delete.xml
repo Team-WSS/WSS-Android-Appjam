@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogMemoDeleteTitle" />
 
     <TextView
-        android:id="@+id/btnDialogMemoDeleteDrop"
+        android:id="@+id/tvDialogMemoDeleteDropBtn"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginTop="18dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogMemoDeleteContent" />
 
     <TextView
-        android:id="@+id/btnDialogMemoDeleteKeep"
+        android:id="@+id/tvDialogMemoDeleteKeepBtn"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
@@ -64,8 +64,8 @@
         android:text="@string/dialog_memo_delete_dismiss"
         android:textAppearance="@style/label1"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/btnDialogMemoDeleteDrop"
+        app:layout_constraintBottom_toBottomOf="@id/tvDialogMemoDeleteDropBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnDialogMemoDeleteDrop"
-        app:layout_constraintTop_toTopOf="@id/btnDialogMemoDeleteDrop" />
+        app:layout_constraintStart_toEndOf="@id/tvDialogMemoDeleteDropBtn"
+        app:layout_constraintTop_toTopOf="@id/tvDialogMemoDeleteDropBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

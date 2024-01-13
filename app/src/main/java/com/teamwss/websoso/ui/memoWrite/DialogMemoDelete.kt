@@ -34,13 +34,13 @@ class DialogMemoDelete : DialogFragment() {
     }
 
     private fun clickMemoDropBtn() {
-        binding.btnDialogMemoDeleteDrop.setOnClickListener {
+        binding.tvDialogMemoDeleteDropBtn.setOnClickListener {
             // 뷰모델 @Delete /memos/{memoId}
         }
     }
 
     private fun clickMemoKeepBtn() {
-        binding.btnDialogMemoDeleteKeep.setOnClickListener {
+        binding.tvDialogMemoDeleteKeepBtn.setOnClickListener {
             dismiss()
         }
     }

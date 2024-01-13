@@ -41,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogCancelTitle" />
 
     <TextView
-        android:id="@+id/btnDialogCancelExit"
+        android:id="@+id/tvDialogCancelExitBtn"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginTop="18dp"
@@ -55,7 +55,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogCancelContent" />
 
     <TextView
-        android:id="@+id/btnDialogCancelDismiss"
+        android:id="@+id/tvDialogCancelDismissBtn"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
@@ -64,8 +64,8 @@
         android:text="@string/dialog_cancel_keep_write"
         android:textAppearance="@style/label1"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/btnDialogCancelExit"
+        app:layout_constraintBottom_toBottomOf="@id/tvDialogCancelExitBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnDialogCancelExit"
-        app:layout_constraintTop_toTopOf="@id/btnDialogCancelExit" />
+        app:layout_constraintStart_toEndOf="@id/tvDialogCancelExitBtn"
+        app:layout_constraintTop_toTopOf="@id/tvDialogCancelExitBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

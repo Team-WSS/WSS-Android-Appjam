@@ -33,14 +33,14 @@ class DialogMemoCancel(private val clickExit: () -> Unit) :
     }
 
     private fun clickExitBtn() {
-        binding.btnDialogCancelExit.setOnClickListener {
+        binding.tvDialogCancelExitBtn.setOnClickListener {
             clickExit()
             dismiss()
         }
     }
 
     private fun clickKeepWriteBtn() {
-        binding.btnDialogCancelDismiss.setOnClickListener {
+        binding.tvDialogCancelDismissBtn.setOnClickListener {
             dismiss()
         }
     }

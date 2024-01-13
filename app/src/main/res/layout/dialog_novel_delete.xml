@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogNovelDeleteTitle" />
 
     <TextView
-        android:id="@+id/btnDialogNovelDeleteDrop"
+        android:id="@+id/tvDialogNovelDeleteDropBtn"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginTop="18dp"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvDialogNovelDeleteContent" />
 
     <TextView
-        android:id="@+id/btnDialogCancelDismiss"
+        android:id="@+id/tvDialogNovelDeleteDismissBtn"
         android:layout_width="116dp"
         android:layout_height="40dp"
         android:layout_marginStart="20dp"
@@ -65,8 +65,8 @@
         android:text="@string/dialog_novel_delete_dismiss"
         android:textAppearance="@style/label1"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@id/btnDialogNovelDeleteDrop"
+        app:layout_constraintBottom_toBottomOf="@id/tvDialogNovelDeleteDropBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btnDialogNovelDeleteDrop"
-        app:layout_constraintTop_toTopOf="@id/btnDialogNovelDeleteDrop" />
+        app:layout_constraintStart_toEndOf="@id/tvDialogNovelDeleteDropBtn"
+        app:layout_constraintTop_toTopOf="@id/tvDialogNovelDeleteDropBtn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

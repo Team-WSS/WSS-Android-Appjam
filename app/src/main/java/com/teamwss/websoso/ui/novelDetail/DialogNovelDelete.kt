@@ -34,14 +34,14 @@ class DialogNovelDelete(private val clickNovelDelete: () -> Unit) : DialogFragme
     }
 
     private fun clickNovelDeleteBtn() {
-        binding.btnDialogNovelDeleteDrop.setOnClickListener {
+        binding.tvDialogNovelDeleteDropBtn.setOnClickListener {
             clickNovelDelete()
             dismiss()
         }
     }
 
     private fun clickCancelBtn() {
-        binding.btnDialogCancelDismiss.setOnClickListener {
+        binding.tvDialogNovelDeleteDismissBtn.setOnClickListener {
             dismiss()
         }
     }
