@@ -21,8 +21,6 @@ data class UserNovel(
     val userNovelImg: String,
     @SerialName("userNovelAuthor")
     val userNovelAuthor: String,
-    @SerialName("userNovelGenre")
-    val userNovelGenre: String,
     @SerialName("userNovelRating")
     val userNovelRating: Float
 )
