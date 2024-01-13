@@ -30,27 +30,10 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupRecyclerView()
-        setupAvatarList()
         observeUserName()
-        launchChangeNameOnClick()
-        launchCheckUserNameOnClick()
-
-    }
-
-    private fun setupRecyclerView() {
-        avatarAdapter = MyPageAdapter()
-        binding.rvMyPageSelected.adapter = avatarAdapter
-        avatarAdapter.setOnItemClickListener { avatar ->
-            showAvatarDialog(avatar)
-        }
-
-    }
-
-    private fun setupAvatarList() {
-        viewModel.avatarData.observe(viewLifecycleOwner) { avatarList ->
-            avatarAdapter.setAvatarList(avatarList)
-        }
+        setupAvatarRecyclerView()
+        setupAvatarDialog()
+        launchOnClick()
     }
 
     @SuppressLint("StringFormatMatches")
@@ -59,6 +42,38 @@ class MyPageFragment : Fragment() {
             val displayText = getString(R.string.my_page_user_name, userName)
             binding.tvMyPageUserName.text = displayText
         }
+    }
+
+    private fun setupAvatarRecyclerView() {
+        initRecyclerView()
+        setupAvatarList()
+    }
+
+    private fun launchOnClick() {
+        launchChangeNameOnClick()
+        launchCheckUserNameOnClick()
+    }
+
+    private fun setupAvatarDialog() {
+        avatarAdapter.setOnItemClickListener { avatar ->
+            showAvatarDialog(avatar)
+        }
+    }
+
+    private fun initRecyclerView() {
+        avatarAdapter = MyPageAdapter()
+        binding.rvMyPageSelected.adapter = avatarAdapter
+    }
+
+    private fun setupAvatarList() {
+        viewModel.avatarData.observe(viewLifecycleOwner) { avatarList ->
+            avatarAdapter.setAvatarList(avatarList)
+        }
+    }
+
+    private fun showAvatarDialog(avatar: Avatar) {
+        val dialogFragment = AvatarDialogFragment.newInstance(avatar)
+        dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
     }
 
     private fun launchChangeNameOnClick() {
@@ -88,11 +103,6 @@ class MyPageFragment : Fragment() {
                 Log.e("error", "이동실패", e)
             }
         }
-    }
-
-    private fun showAvatarDialog(avatar: Avatar) {
-        val dialogFragment = AvatarDialogFragment.newInstance(avatar)
-        dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
     }
 
     companion object {
