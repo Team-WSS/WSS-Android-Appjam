@@ -143,4 +143,6 @@
     <string name="library_empty_comment">서재가 아직 비어있네요!</string>
     <string name="library_novel_post">웹소설 등록하기</string>
     <string name="tv_post_keyword">키워드 등록</string>
+    <string name="library_menu_newest">최신 순</string>
+    <string name="library_menu_oldest">오래된 순</string>
 </resources>
