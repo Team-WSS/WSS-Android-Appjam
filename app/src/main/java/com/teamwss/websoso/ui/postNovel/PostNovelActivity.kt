@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -111,24 +112,6 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun initUserNovelInfo() {
         postNovelViewModel.getUserNovelInfo(1)
-        observeDummyData()
-    }
-
-    private fun observeDummyData() {
-        val readStatus = postNovelViewModel.editNovelInfo.value?.userNovelReadStatus ?: "FINISH"
-        postNovelViewModel.updateReadStatus(readStatus)
-
-        val readStartDate =
-            postNovelViewModel.editNovelInfo.value?.readStartDate ?: LocalDate.now().toString()
-        val readEndDate =
-            postNovelViewModel.editNovelInfo.value?.readEndDate ?: LocalDate.now().toString()
-        postNovelViewModel.updateReadDate(readStartDate, readEndDate)
-
-        val novelRating = postNovelViewModel.editNovelInfo.value?.userNovelRating ?: 0f
-        postNovelViewModel.updateRating(novelRating)
-
-        val platforms = postNovelViewModel.editNovelInfo.value?.platformList ?: listOf()
-        postNovelViewModel.setPlatforms(platforms)
     }
 
     private fun setupReadStatusUI() {

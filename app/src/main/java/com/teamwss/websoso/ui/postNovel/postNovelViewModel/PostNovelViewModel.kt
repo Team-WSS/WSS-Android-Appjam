@@ -17,10 +17,10 @@ class PostNovelViewModel : ViewModel() {
     val editNovelInfo: LiveData<EditNovelResponse> get() = _editNovelInfo
     private val _readStatus = MutableLiveData<String>()
     val readStatus: LiveData<String> get() = _readStatus
-    private val _startDate = MutableLiveData<String>()
-    val startDate: LiveData<String> get() = _startDate
-    private val _endDate = MutableLiveData<String>()
-    val endDate: LiveData<String> get() = _endDate
+    private val _startDate = MutableLiveData<String?>()
+    val startDate: MutableLiveData<String?> get() = _startDate
+    private val _endDate = MutableLiveData<String?>()
+    val endDate: MutableLiveData<String?> get() = _endDate
     private val _selectedEndDate: MutableLiveData<String> =
         MutableLiveData(LocalDate.now().toString())
     val selectedEndDate: LiveData<String> get() = _selectedEndDate
@@ -57,7 +57,10 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.postNovelService.getEditNovelInfo(novelId)
             }.onSuccess {
                 _editNovelInfo.value = it
-                Log.e("getUserNovelInfo", "getUserNovelInfo() success: ${it}")
+                _readStatus.value = it.userNovelReadStatus
+                _startDate.value = it.readStartDate
+                _endDate.value = it.readEndDate
+                _rating.value = it.userNovelRating
             }.onFailure {
                 Log.e("getUserNovelInfo", "getUserNovelInfo() error: ${it.message}")
             }
