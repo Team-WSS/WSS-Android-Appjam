@@ -10,7 +10,7 @@
         android:id="@+id/tvLibraryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="70dp"
         android:text="@string/library_title"
         android:textAppearance="@style/headline1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,12 +39,12 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_full" />
+            android:text="@string/library_tb_item_all" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_read" />
+            android:text="@string/library_tb_item_finish" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_give_up" />
+            android:text="@string/library_tb_item_drop" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -85,10 +85,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvLibraryNovel"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vpLibraryNovel"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="18dp"
@@ -98,53 +100,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutLibraryStatus"
         tools:listitem="@layout/item_memo" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/lyLibraryEmpty"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutLibraryStatus">
-
-        <ImageView
-            android:id="@+id/ivRecordNull"
-            android:layout_width="48dp"
-            android:layout_height="0dp"
-            android:src="@drawable/ic_book_registration_no_result"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvRecordNull"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/library_empty_comment"
-            android:textAppearance="@style/body1"
-            android:textColor="@color/gray_200_AEADB3"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivRecordNull" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnRecordGoToPostNovel"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            android:background="@drawable/bg_primary50_corner_12dp"
-            android:paddingVertical="18dp"
-            android:stateListAnimator="@null"
-            android:text="@string/library_novel_post"
-            android:textAppearance="@style/title1"
-            android:textColor="@color/primary_100_6341F0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvRecordNull" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
