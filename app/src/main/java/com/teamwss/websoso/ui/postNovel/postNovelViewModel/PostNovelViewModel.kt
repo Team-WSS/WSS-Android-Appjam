@@ -6,15 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
-import com.teamwss.websoso.data.remote.response.EditNovelResponse
+import com.teamwss.websoso.data.mapper.toUI
 import com.teamwss.websoso.data.remote.response.GetPlatformResponse
+import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
+import com.teamwss.websoso.ui.postNovel.postNovelModel.ReadStatus
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class PostNovelViewModel : ViewModel() {
 
-    private val _editNovelInfo = MutableLiveData<EditNovelResponse>()
-    val editNovelInfo: LiveData<EditNovelResponse> get() = _editNovelInfo
+    private val _isNovelPosted = MutableLiveData<Boolean>()
+    val isNovelPosted: LiveData<Boolean> get() = _isNovelPosted
+    private val _editNovelInfo = MutableLiveData<PostNovelInfoModel>()
+    val editNovelInfo: LiveData<PostNovelInfoModel> get() = _editNovelInfo
     private val _readStatus = MutableLiveData<String>()
     val readStatus: LiveData<String> get() = _readStatus
     private val _startDate = MutableLiveData<String?>()
@@ -51,20 +55,38 @@ class PostNovelViewModel : ViewModel() {
     private val _kakaoUrl = MutableLiveData<String>()
     val kakaoUrl: LiveData<String> get() = _kakaoUrl
 
-    fun getUserNovelInfo(novelId: Long) {
+    fun fetchUserNovelInfo(novelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.postNovelService.getEditNovelInfo(novelId)
+                ServicePool.postNovelService.fetchEditNovelInfo(novelId)
             }.onSuccess {
-                _editNovelInfo.value = it
-                _readStatus.value = it.userNovelReadStatus
-                _startDate.value = it.readStartDate
-                _endDate.value = it.readEndDate
-                _rating.value = it.userNovelRating
+                initUserNovelInfo(it.toUI())
+                _isNovelPosted.value = false
             }.onFailure {
-                Log.e("getUserNovelInfo", "getUserNovelInfo() error: ${it.message}")
+                Log.e("fetchUserNovelInfo", "fetchUserNovelInfo() error: ${it.message}")
             }
         }
+    }
+
+    fun fetchDefaultNovelInfo(novelId: Long) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ServicePool.postNovelService.fetchPostNovelInfo(novelId)
+            }.onSuccess {
+                initUserNovelInfo(it.toUI())
+                _isNovelPosted.value = true
+            }.onFailure {
+                Log.e("fetchDefaultNovelInfo", "fetchDefaultNovelInfo() error: ${it.message}")
+            }
+        }
+    }
+
+    private fun initUserNovelInfo(novelInfo: PostNovelInfoModel) {
+        _editNovelInfo.value = novelInfo
+        _readStatus.value = novelInfo.readStatus
+        _startDate.value = novelInfo.readStartDate
+        _endDate.value = novelInfo.readEndDate
+        _rating.value = novelInfo.rating
     }
 
     fun updateReadStatus(readStatus: String) {
@@ -143,14 +165,14 @@ class PostNovelViewModel : ViewModel() {
 
     fun setupAnotherDateValid() {
         when (_readStatus.value) {
-            ReadStatus.READING.status -> {
+            ReadStatus.READING.toString() -> {
                 updateSelectedDate(
                     _selectedStartDate.value!!,
                     _selectedStartDate.value!!
                 )
             }
 
-            ReadStatus.DROP.status -> {
+            ReadStatus.DROP.toString() -> {
                 updateSelectedDate(
                     _selectedEndDate.value!!,
                     _selectedEndDate.value!!
@@ -177,8 +199,8 @@ class PostNovelViewModel : ViewModel() {
     }
 
     companion object {
-        const val NAVER_SERIES = "네이버시리즈"
-        const val KAKAO_PAGE = "카카오페이지"
+        private const val NAVER_SERIES = "네이버시리즈"
+        private const val KAKAO_PAGE = "카카오페이지"
 
         private const val FEBRUARY = 2
         private const val APRIL = 4
@@ -190,29 +212,4 @@ class PostNovelViewModel : ViewModel() {
         private const val DAYS_IN_SMALL_MONTH = 30
         private const val DAYS_IN_LARGE_MONTH = 31
     }
-
-    enum class ReadStatus(val status: String) {
-        FINISH("FINISH"), READING("READING"), DROP("DROP"), WISH("WISH")
-    }
-}
-
-data class EditResponse(
-
-    val novelId: Long = 0,
-    val userNovelTitle: String = "",
-    val userNovelAuthor: String = "",
-    val userNovelGenre: String = "",
-    val userNovelImg: String = "",
-    val userNovelDescription: String = "",
-    val userNovelRating: Float = 0f,
-    val userNovelReadStatus: String = "",
-    val readStartDate: String? = LocalDate.now().toString(),
-    val readEndDate: String? = LocalDate.now().toString(),
-    val platforms: List<Platform> = listOf(),
-
-    ) {
-    data class Platform(
-        val platformName: String = "",
-        val platformUrl: String = "",
-    )
 }

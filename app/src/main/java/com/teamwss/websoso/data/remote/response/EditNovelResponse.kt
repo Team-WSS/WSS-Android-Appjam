@@ -8,11 +8,11 @@ import java.time.LocalDate
 @Serializable
 data class EditNovelResponse(
     @SerialName("platforms")
-    val platformList: List<GetPlatformResponse> = listOf(),
+    val platforms: List<GetPlatformResponse> = listOf(),
     @SerialName("userNovelReadEndDate")
-    val readEndDate: String? = LocalDate.now().toString(),
+    val userNovelReadEndDate: String? = LocalDate.now().toString(),
     @SerialName("userNovelReadStartDate")
-    val readStartDate: String? = LocalDate.now().toString(),
+    val userNovelReadStartDate: String? = LocalDate.now().toString(),
     @SerialName("userNovelAuthor")
     val userNovelAuthor: String = "",
     @SerialName("userNovelDescription")
@@ -20,7 +20,7 @@ data class EditNovelResponse(
     @SerialName("userNovelGenre")
     val userNovelGenre: String = "",
     @SerialName("userNovelId")
-    val userNovelId: Long = 0,
+    val userNovelId: Long = 0L,
     @SerialName("userNovelImg")
     val userNovelImg: String = "",
     @SerialName("userNovelRating")

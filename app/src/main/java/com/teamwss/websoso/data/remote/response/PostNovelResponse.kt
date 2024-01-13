@@ -18,6 +18,6 @@ data class PostNovelResponse(
     val novelImg: String = "",
     @SerialName("novelTitle")
     val novelTitle: String = "",
-    @SerialName("platformList")
-    val platformList: List<GetPlatformResponse> = listOf(),
+    @SerialName("platforms")
+    val platforms: List<GetPlatformResponse> = listOf(),
 )

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -15,8 +14,8 @@ import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
+import com.teamwss.websoso.ui.postNovel.postNovelModel.ReadStatus
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
-import java.time.LocalDate
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -111,7 +110,10 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun initUserNovelInfo() {
-        postNovelViewModel.getUserNovelInfo(1)
+        val testNovelInfoId: Long = 1
+        val testUserInfoId: Long = 50
+        postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
+        postNovelViewModel.fetchUserNovelInfo(testNovelInfoId)
     }
 
     private fun setupReadStatusUI() {
@@ -122,10 +124,10 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun handleReadStatus(readStatus: String) {
         when (readStatus) {
-            PostNovelViewModel.ReadStatus.FINISH.status -> updateUIForStatusFinish()
-            PostNovelViewModel.ReadStatus.READING.status -> updateUIForStatusReading()
-            PostNovelViewModel.ReadStatus.DROP.status -> updateUIForStatusDrop()
-            PostNovelViewModel.ReadStatus.WISH.status -> updateUIForStatusWish()
+            ReadStatus.FINISH.toString() -> updateUIForStatusFinish()
+            ReadStatus.READING.toString() -> updateUIForStatusReading()
+            ReadStatus.DROP.toString() -> updateUIForStatusDrop()
+            ReadStatus.WISH.toString() -> updateUIForStatusWish()
         }
     }
 
