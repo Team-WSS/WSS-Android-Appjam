@@ -18,6 +18,7 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
+import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 
 class NovelDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNovelDetailBinding
@@ -130,41 +131,42 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun showNovelDetailPopup() {
-        val spinnerItems =
-            listOf(R.string.popup_novel_info_delete, R.string.popup_novel_info_edit_novel)
-        binding.ivNovelDetailPopupMenuBtn.setOnClickListener {
-            val listView = ListView(this).apply {
-                adapter = ArrayAdapter(
-                    this@NovelDetailActivity,
-                    R.layout.item_custom_popup_drop_down,
-                    spinnerItems
-                )
-                onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                    when (position) {
-                        0 -> showNovelDeleteDialog()
-                        1 -> navigateToNovelEdit()
-                    }
+        val spinnerItems = listOf("작품을 서재에서 삭제", "작품 수정")
+        val popupWindow = PopupWindow()
+
+        val listView = ListView(this).apply {
+            adapter = ArrayAdapter(
+                this@NovelDetailActivity,
+                R.layout.item_custom_popup_drop_down,
+                spinnerItems
+            )
+            onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                when (position) {
+                    0 -> showNovelDeleteDialog()
+                    1 -> navigateToNovelEdit()
                 }
+                popupWindow.dismiss()
             }
-            val popupWindow =
-                PopupWindow(listView, 196, WindowManager.LayoutParams.WRAP_CONTENT, true)
-            popupWindow.setBackgroundDrawable(
+        }
+
+        popupWindow.apply {
+            contentView = listView
+            width = POPUP_WIDTH
+            height = WindowManager.LayoutParams.WRAP_CONTENT
+            isTouchable = true
+            isOutsideTouchable = true
+            isFocusable = true
+            setBackgroundDrawable(
                 ContextCompat.getDrawable(
-                    this,
+                    this@NovelDetailActivity,
                     R.drawable.bg_gray50_radius_12dp
                 )
             )
-            popupWindow.isOutsideTouchable = true
-            popupWindow.isFocusable = true
-            val xOffset = (-6).intDp
-            val yOffset = 4.intDp
-            popupWindow.showAsDropDown(
-                binding.ivNovelDetailPopupMenuBtn,
-                xOffset,
-                yOffset,
-                Gravity.END
-            )
         }
+
+        val xOffset = POPUP_MARGIN_END.intDp
+        val yOffset = POPUP_MARGIN_TOP.intDp
+        popupWindow.showAsDropDown(binding.ivNovelDetailPopupMenuBtn, xOffset, yOffset, Gravity.END)
     }
 
     private fun showNovelDeleteDialog() {
@@ -176,11 +178,15 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelEdit() {
-        // 이동해
+        val intent = Intent(this, PostNovelActivity::class.java)
+        startActivity(intent)
     }
 
     companion object {
         const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
         const val TOOLBAR_COLLAPSE_THRESHOLD = 0.1
+        const val POPUP_WIDTH = 196
+        const val POPUP_MARGIN_END = -6
+        const val POPUP_MARGIN_TOP = 4
     }
 }
