@@ -130,10 +130,10 @@
                                 android:id="@+id/tvNovelDetailTitleOnToolBar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="당신의 이해를 돕기 위하여"
                                 android:textAppearance="@style/title2"
                                 android:textColor="@color/black"
                                 android:visibility="gone"
-                                android:text="당신의 이해를 돕기 위하여"
                                 app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -152,6 +152,14 @@
                                 app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="@id/ivNovelDetailNavigateBackBtn" />
+
+                            <Spinner
+                                android:id="@+id/spNovelDetail"
+                                android:visibility="invisible"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="@id/ivNovelDetailPopupMenuBtn"
+                                app:layout_constraintTop_toBottomOf="@id/ivNovelDetailPopupMenuBtn" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.appcompat.widget.Toolbar>
