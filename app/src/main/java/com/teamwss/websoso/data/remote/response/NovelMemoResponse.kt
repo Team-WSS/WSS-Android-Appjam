@@ -1,6 +1,6 @@
 package com.teamwss.websoso.data.remote.response
 
-data class NovelMemo(
+data class NovelMemoResponse(
     val memoId: Int,
     val memoContent: String,
     val memoDate: String,

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/btnNovelInfoPopupDeleteNovel"
-        android:title="@string/popup_novel_info_delete" />
-    <item
-        android:id="@+id/btnNovelInfoPopupEditNovel"
-        android:title="@string/popup_novel_info_edit_novel" />
-</menu>

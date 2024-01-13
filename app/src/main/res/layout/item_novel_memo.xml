@@ -6,7 +6,7 @@
 
         <variable
             name="novelMemo"
-            type="com.teamwss.websoso.data.remote.response.NovelMemo" />
+            type="com.teamwss.websoso.data.remote.response.NovelMemoResponse" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
