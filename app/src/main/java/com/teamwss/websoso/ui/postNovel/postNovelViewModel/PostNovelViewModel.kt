@@ -1,15 +1,20 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import okhttp3.internal.platform.Platform
+import androidx.lifecycle.viewModelScope
+import com.teamwss.websoso.data.ServicePool
+import com.teamwss.websoso.data.remote.response.EditNovelResponse
+import com.teamwss.websoso.data.remote.response.GetPlatformResponse
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 class PostNovelViewModel : ViewModel() {
 
-    private val _editResponse = MutableLiveData<EditResponse>()
-    val editResponse: LiveData<EditResponse> get() = _editResponse
+    private val _editNovelInfo = MutableLiveData<EditNovelResponse>()
+    val editNovelInfo: LiveData<EditNovelResponse> get() = _editNovelInfo
     private val _readStatus = MutableLiveData<String>()
     val readStatus: LiveData<String> get() = _readStatus
     private val _startDate = MutableLiveData<String>()
@@ -39,32 +44,24 @@ class PostNovelViewModel : ViewModel() {
     private val _isEndDateVisible = MutableLiveData<Boolean>()
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
 
-    private val _platforms = MutableLiveData<List<EditResponse.Platform>>()
-    val platforms: LiveData<List<EditResponse.Platform>> get() = _platforms
+    private val _platforms = MutableLiveData<List<GetPlatformResponse>>()
+    val platforms: LiveData<List<GetPlatformResponse>> get() = _platforms
     private val _naverUrl = MutableLiveData<String>()
     val naverUrl: LiveData<String> get() = _naverUrl
     private val _kakaoUrl = MutableLiveData<String>()
     val kakaoUrl: LiveData<String> get() = _kakaoUrl
 
-    fun getUserNovelInfo() {
-        _editResponse.value = EditResponse(
-            novelId = 1,
-            userNovelTitle = "재혼황후",
-            userNovelAuthor = "알파타르트",
-            userNovelGenre = "궁중 로맨스, 후회, 계약, 재혼",
-            userNovelImg = "https://i.namu.wiki/i/Fk6vktj6y1nvSrlUst8PrRzPlPm1YDrPsUF2Goe4sLt1ZLeyMsblasD1QPJ85QJTSuit5F93ApG6R1wXZFSq-huKCJ4DrR18TN-hllzYacrHpGlPcPNfUv_QY0PLKs2ASfW09lTCOQl8TMfXxGvkyw.webp",
-            userNovelDescription = "완벽한 황후였다. 그러나 황제는 도움이 될 황후가 필요 없다고 한다. 그가 원하는 건 배우자이지 동료가 아니라 한다.  황제는 나비에를 버리고 노예 출신의 여자를 옆에 두었다. 그래도 괜찮았다. 황제가 그녀에게 다음 황후 자리를 약속하는 걸 듣기 전까진.  나비에는 고민 끝에 결심했다. 그렇다면 난 옆 나라의 황제와 재혼하겠다고.",
-            userNovelRating = 4.5f,
-            userNovelReadStatus = "READING",
-            readStartDate = "2023-06-30",
-            readEndDate = "2024-01-11",
-            platforms = listOf(
-                EditResponse.Platform(
-                    "네이버시리즈",
-                    "https://series.naver.com/novel/detail.series?productNo=3713078"
-                ),
-            ),
-        )
+    fun getUserNovelInfo(novelId: Long) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ServicePool.postNovelService.getEditNovelInfo(novelId)
+            }.onSuccess {
+                _editNovelInfo.value = it
+                Log.e("getUserNovelInfo", "getUserNovelInfo() success: ${it}")
+            }.onFailure {
+                Log.e("getUserNovelInfo", "getUserNovelInfo() error: ${it.message}")
+            }
+        }
     }
 
     fun updateReadStatus(readStatus: String) {
@@ -166,7 +163,7 @@ class PostNovelViewModel : ViewModel() {
         return "$formattedYear-$formattedMonth-$formattedDay"
     }
 
-    fun setPlatforms(list: List<EditResponse.Platform>) {
+    fun setPlatforms(list: List<GetPlatformResponse>) {
         _platforms.value = list
         list.forEach { platform ->
             when (platform.platformName) {

@@ -110,24 +110,24 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun initUserNovelInfo() {
-        postNovelViewModel.getUserNovelInfo()
+        postNovelViewModel.getUserNovelInfo(1)
         observeDummyData()
     }
 
     private fun observeDummyData() {
-        val readStatus = postNovelViewModel.editResponse.value?.userNovelReadStatus ?: "READING"
+        val readStatus = postNovelViewModel.editNovelInfo.value?.userNovelReadStatus ?: "FINISH"
         postNovelViewModel.updateReadStatus(readStatus)
 
         val readStartDate =
-            postNovelViewModel.editResponse.value?.readStartDate ?: LocalDate.now().toString()
+            postNovelViewModel.editNovelInfo.value?.readStartDate ?: LocalDate.now().toString()
         val readEndDate =
-            postNovelViewModel.editResponse.value?.readEndDate ?: LocalDate.now().toString()
+            postNovelViewModel.editNovelInfo.value?.readEndDate ?: LocalDate.now().toString()
         postNovelViewModel.updateReadDate(readStartDate, readEndDate)
 
-        val novelRating = postNovelViewModel.editResponse.value?.userNovelRating ?: 0f
+        val novelRating = postNovelViewModel.editNovelInfo.value?.userNovelRating ?: 0f
         postNovelViewModel.updateRating(novelRating)
 
-        val platforms = postNovelViewModel.editResponse.value?.platforms ?: listOf()
+        val platforms = postNovelViewModel.editNovelInfo.value?.platformList ?: listOf()
         postNovelViewModel.setPlatforms(platforms)
     }
 

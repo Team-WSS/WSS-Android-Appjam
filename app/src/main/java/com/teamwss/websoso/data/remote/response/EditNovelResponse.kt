@@ -7,11 +7,11 @@ import java.time.LocalDate
 
 @Serializable
 data class EditNovelResponse(
-    @SerialName("platformList")
+    @SerialName("platforms")
     val platformList: List<GetPlatformResponse> = listOf(),
-    @SerialName("readEndDate")
+    @SerialName("userNovelReadEndDate")
     val readEndDate: String? = LocalDate.now().toString(),
-    @SerialName("readStartDate")
+    @SerialName("userNovelReadStartDate")
     val readStartDate: String? = LocalDate.now().toString(),
     @SerialName("userNovelAuthor")
     val userNovelAuthor: String = "",
