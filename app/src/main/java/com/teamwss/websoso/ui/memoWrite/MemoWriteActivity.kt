@@ -34,6 +34,6 @@ class MemoWriteActivity : AppCompatActivity() {
         val dialog = DialogMemoCancel(clickExit = {
             finish()
         })
-        dialog.show((supportFragmentManager), "hi")
+        dialog.show((supportFragmentManager), "CancelEditMemoDialog")
     }
 }

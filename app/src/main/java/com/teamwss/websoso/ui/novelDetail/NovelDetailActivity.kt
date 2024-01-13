@@ -180,7 +180,7 @@ class NovelDetailActivity : AppCompatActivity() {
             // 서재 프레그먼트로 이동해야 함
             finish()
         })
-        dialog.show((supportFragmentManager), "hi")
+        dialog.show((supportFragmentManager), "DeleteNovelDialog")
     }
 
     private fun navigateToNovelEdit() {

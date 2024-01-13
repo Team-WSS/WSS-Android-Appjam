@@ -59,4 +59,9 @@ class NovelMemoFragment : Fragment() {
 
         view?.requestLayout()
     }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 }
