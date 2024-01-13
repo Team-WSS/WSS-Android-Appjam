@@ -1,12 +1,19 @@
 package com.teamwss.websoso.ui.main.myPage
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentMyPageBinding
+import com.teamwss.websoso.ui.main.myPage.changeName.ChangeNameActivity
+import com.teamwss.websoso.ui.main.myPage.checkUserInfo.CheckUserInfoActivity
+import com.teamwss.websoso.ui.main.myPage.model.Avatar
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
@@ -25,17 +32,67 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupAvatarList()
+        observeUserName()
+        launchChangeNameOnClick()
+        launchCheckUserNameOnClick()
+
     }
 
     private fun setupRecyclerView() {
         avatarAdapter = MyPageAdapter()
         binding.rvMyPageSelected.adapter = avatarAdapter
+        avatarAdapter.setOnItemClickListener { avatar ->
+            showAvatarDialog(avatar)
+        }
+
     }
 
     private fun setupAvatarList() {
         viewModel.avatarData.observe(viewLifecycleOwner) { avatarList ->
             avatarAdapter.setAvatarList(avatarList)
         }
+    }
+
+    @SuppressLint("StringFormatMatches")
+    private fun observeUserName() {
+        viewModel.userName.observe(viewLifecycleOwner) { userName ->
+            val displayText = getString(R.string.my_page_user_name, userName)
+            binding.tvMyPageUserName.text = displayText
+        }
+    }
+
+    private fun launchChangeNameOnClick() {
+        binding.ivMyPageEditUserName.setOnClickListener {
+            val defaultName = binding.tvMyPageUserName.text.toString()
+
+            val userNameWithoutSuffix = defaultName.removeSuffix("님")
+
+            val intent = Intent(binding.root.context, ChangeNameActivity::class.java)
+            intent.putExtra("userName", userNameWithoutSuffix)
+
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Log.e("error", "이동실패", e)
+            }
+        }
+    }
+
+    private fun launchCheckUserNameOnClick() {
+        binding.tvMyPageCheckUserInfo.setOnClickListener {
+            val intent = Intent(binding.root.context, CheckUserInfoActivity::class.java)
+
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                Log.e("error", "이동실패", e)
+            }
+        }
+    }
+
+    private fun showAvatarDialog(avatar: Avatar) {
+        val dialogFragment = AvatarDialogFragment.newInstance(avatar)
+        dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
     }
 
     companion object {

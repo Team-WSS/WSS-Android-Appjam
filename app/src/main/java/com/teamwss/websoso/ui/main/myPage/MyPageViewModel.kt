@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.main.myPage
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.teamwss.websoso.ui.main.myPage.model.Avatar
@@ -8,8 +9,12 @@ class MyPageViewModel : ViewModel() {
     private val _avatarData = MutableLiveData<List<Avatar>>()
     val avatarData: MutableLiveData<List<Avatar>> get() = _avatarData
 
+    private val _userName = MutableLiveData<String>()
+    val userName: LiveData<String> get() = _userName
+
     init {
         _avatarData.value = getMockAvatarList()
+        _userName.value = "김명진"
     }
 
     private fun getMockAvatarList(): List<Avatar> {
