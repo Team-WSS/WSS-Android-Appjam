@@ -4,13 +4,11 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
 import android.view.Gravity
-import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
-import android.widget.PopupMenu
 import android.widget.PopupWindow
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -21,7 +19,7 @@ import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 
-class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListener {
+class NovelDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNovelDetailBinding
     private val novelDetailAdapter: NovelDetailViewPagerAdapter by lazy {
         NovelDetailViewPagerAdapter(
@@ -167,17 +165,6 @@ class NovelDetailActivity : AppCompatActivity(), PopupMenu.OnMenuItemClickListen
                 Gravity.END
             )
         }
-    }
-
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.btnNovelInfoPopupDeleteNovel ->
-                showNovelDeleteDialog()
-
-            R.id.btnNovelInfoPopupEditNovel ->
-                navigateToNovelEdit()
-        }
-        return false
     }
 
     private fun showNovelDeleteDialog() {
