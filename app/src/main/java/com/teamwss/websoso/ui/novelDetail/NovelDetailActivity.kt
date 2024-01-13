@@ -34,15 +34,16 @@ class NovelDetailActivity : AppCompatActivity() {
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupUI()
+        setupListener()
+    }
+
+    private fun setupUI() {
         setTranslucentOnStatusBar()
         setupFragment()
         viewPagerPageChangeCallback()
         setItemVisibilityOnToolBar()
-        clickAddMemoBtn()
-        clickPopupBtn()
     }
-
-    private val Int.intDp: Int get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
     private fun setTranslucentOnStatusBar() {
         window.setFlags(
@@ -117,6 +118,11 @@ class NovelDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupListener() {
+        clickAddMemoBtn()
+        clickPopupBtn()
+    }
+
     private fun clickAddMemoBtn() {
         binding.ivNovelDetailAddMemoBtn.setOnClickListener {
             val intent = Intent(this, MemoWriteActivity::class.java)
@@ -132,41 +138,41 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun showNovelDetailPopup() {
         val spinnerItems = listOf("작품을 서재에서 삭제", "작품 수정")
-        val popupWindow = PopupWindow()
-
-        val listView = ListView(this).apply {
-            adapter = ArrayAdapter(
-                this@NovelDetailActivity,
-                R.layout.item_custom_popup_drop_down,
-                spinnerItems
-            )
-            onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                when (position) {
-                    0 -> showNovelDeleteDialog()
-                    1 -> navigateToNovelEdit()
-                }
-                popupWindow.dismiss()
-            }
-        }
-
-        popupWindow.apply {
-            contentView = listView
-            width = POPUP_WIDTH
-            height = WindowManager.LayoutParams.WRAP_CONTENT
-            isTouchable = true
-            isOutsideTouchable = true
-            isFocusable = true
-            setBackgroundDrawable(
-                ContextCompat.getDrawable(
-                    this@NovelDetailActivity,
-                    R.drawable.bg_gray50_radius_12dp
-                )
-            )
-        }
+        val listView = createListView(spinnerItems)
+        val popupWindow = createPopupWindow(listView)
 
         val xOffset = POPUP_MARGIN_END.intDp
         val yOffset = POPUP_MARGIN_TOP.intDp
         popupWindow.showAsDropDown(binding.ivNovelDetailPopupMenuBtn, xOffset, yOffset, Gravity.END)
+    }
+
+    private fun createListView(items: List<String>): ListView {
+        return ListView(this).apply {
+            adapter = ArrayAdapter(
+                this@NovelDetailActivity,
+                R.layout.item_custom_popup_drop_down,
+                items
+            )
+            onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+                handlePopupItemClick(position)
+            }
+        }
+    }
+
+    private fun createPopupWindow(listView: ListView): PopupWindow {
+        return PopupWindow(listView, POPUP_WIDTH, WindowManager.LayoutParams.WRAP_CONTENT, true).apply {
+            isTouchable = true
+            isOutsideTouchable = true
+            isFocusable = true
+            setBackgroundDrawable(ContextCompat.getDrawable(this@NovelDetailActivity, R.drawable.bg_gray50_radius_12dp))
+        }
+    }
+
+    private fun handlePopupItemClick(position: Int) {
+        when (position) {
+            0 -> showNovelDeleteDialog()
+            1 -> navigateToNovelEdit()
+        }
     }
 
     private fun showNovelDeleteDialog() {
@@ -181,6 +187,8 @@ class NovelDetailActivity : AppCompatActivity() {
         val intent = Intent(this, PostNovelActivity::class.java)
         startActivity(intent)
     }
+
+    private val Int.intDp: Int get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
     companion object {
         const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
