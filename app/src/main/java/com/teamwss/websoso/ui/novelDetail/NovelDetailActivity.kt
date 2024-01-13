@@ -18,6 +18,7 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
+import com.teamwss.websoso.ui.novelDetail.fragment.DialogNovelDelete
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 
 class NovelDetailActivity : AppCompatActivity() {

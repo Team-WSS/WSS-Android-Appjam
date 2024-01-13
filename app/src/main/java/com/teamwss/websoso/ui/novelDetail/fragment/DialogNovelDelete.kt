@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.novelDetail
+package com.teamwss.websoso.ui.novelDetail.fragment
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
