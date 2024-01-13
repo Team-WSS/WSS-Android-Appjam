@@ -4,8 +4,6 @@ import com.teamwss.websoso.data.remote.request.PostNovelRequest
 import com.teamwss.websoso.data.remote.response.EditNovelResponse
 import com.teamwss.websoso.data.remote.response.PostNovelResponse
 import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Headers
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
