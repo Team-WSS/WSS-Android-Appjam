@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.mapper.toUI
+import com.teamwss.websoso.data.remote.request.PostNovelRequest
 import com.teamwss.websoso.data.remote.response.GetPlatformResponse
 import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import com.teamwss.websoso.ui.postNovel.postNovelModel.ReadStatus
@@ -22,9 +23,9 @@ class PostNovelViewModel : ViewModel() {
     private val _readStatus = MutableLiveData<String>()
     val readStatus: LiveData<String> get() = _readStatus
     private val _startDate = MutableLiveData<String?>()
-    val startDate: MutableLiveData<String?> get() = _startDate
+    val startDate: LiveData<String?> get() = _startDate
     private val _endDate = MutableLiveData<String?>()
-    val endDate: MutableLiveData<String?> get() = _endDate
+    val endDate: LiveData<String?> get() = _endDate
     private val _selectedEndDate: MutableLiveData<String> =
         MutableLiveData(LocalDate.now().toString())
     val selectedEndDate: LiveData<String> get() = _selectedEndDate
@@ -43,11 +44,9 @@ class PostNovelViewModel : ViewModel() {
     private val _isNumberPickerDateValid = MutableLiveData<Boolean>()
     val isNumberPickerDateValid: LiveData<Boolean> get() = _isNumberPickerDateValid
     private val _isStartDateVisible = MutableLiveData<Boolean>()
-
     val isStartDateVisible: LiveData<Boolean> get() = _isStartDateVisible
     private val _isEndDateVisible = MutableLiveData<Boolean>()
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
-
     private val _platforms = MutableLiveData<List<GetPlatformResponse>>()
     val platforms: LiveData<List<GetPlatformResponse>> get() = _platforms
     private val _naverUrl = MutableLiveData<String>()
@@ -60,9 +59,10 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.postNovelService.fetchEditNovelInfo(novelId)
             }.onSuccess {
+                _isNovelPosted.value = true
                 initUserNovelInfo(it.toUI())
-                _isNovelPosted.value = false
             }.onFailure {
+                _isNovelPosted.value = false
                 Log.e("fetchUserNovelInfo", "fetchUserNovelInfo() error: ${it.message}")
             }
         }
@@ -74,9 +74,33 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.postNovelService.fetchPostNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
-                _isNovelPosted.value = true
             }.onFailure {
+                // 통신 실패 로직 추가 예정
                 Log.e("fetchDefaultNovelInfo", "fetchDefaultNovelInfo() error: ${it.message}")
+            }
+        }
+    }
+
+    fun postNovelInfo(novelId: Long, request: PostNovelRequest) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ServicePool.postNovelService.postPostNovelInfo(novelId, request)
+            }.onSuccess {
+                Log.d("postNovelInfo", "postNovelInfo() success: $it")
+            }.onFailure {
+                Log.e("postNovelInfo", "postNovelInfo() error: ${it.message}")
+            }
+        }
+    }
+
+    fun patchNovelInfo(novelId: Long, request: PostNovelRequest) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ServicePool.postNovelService.editPostNovelInfo(novelId, request)
+            }.onSuccess {
+                Log.d("patchNovelInfo", "patchNovelInfo() success: $it")
+            }.onFailure {
+                Log.e("patchNovelInfo", "patchNovelInfo() error: ${it.message}")
             }
         }
     }
@@ -84,8 +108,8 @@ class PostNovelViewModel : ViewModel() {
     private fun initUserNovelInfo(novelInfo: PostNovelInfoModel) {
         _editNovelInfo.value = novelInfo
         _readStatus.value = novelInfo.readStatus
-        _startDate.value = novelInfo.readStartDate
-        _endDate.value = novelInfo.readEndDate
+        _startDate.value = novelInfo.readStartDate ?: LocalDate.now().toString()
+        _endDate.value = novelInfo.readEndDate ?: LocalDate.now().toString()
         _rating.value = novelInfo.rating
     }
 
@@ -93,7 +117,7 @@ class PostNovelViewModel : ViewModel() {
         _readStatus.value = readStatus
     }
 
-    fun updateReadDate(startDate: String, endDate: String) {
+    fun updateReadDate(startDate: String?, endDate: String?) {
         _startDate.value = startDate
         _endDate.value = endDate
     }

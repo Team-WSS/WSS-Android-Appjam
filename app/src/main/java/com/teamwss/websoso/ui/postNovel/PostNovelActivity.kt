@@ -10,6 +10,7 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.teamwss.websoso.R
+import com.teamwss.websoso.data.remote.request.PostNovelRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
@@ -35,14 +36,14 @@ class PostNovelActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupAppBar()
         setupDateToggle()
+        setupSaveButton()
 
         setupExitPopupDialog()
         setupDatePickerDialog()
-        setupPostSuccessDialog()
 
         initUserNovelInfo()
         setupReadStatusUI()
-        observeRatingBar()
+        setupRatingBar()
         setupUrlButton()
     }
 
@@ -82,6 +83,35 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupSaveButton() {
+        binding.llPostButton.setOnClickListener {
+            checkIsDateNull()
+            saveNovelInfo()
+            showPostSuccessDialog()
+        }
+    }
+
+    private fun checkIsDateNull() {
+        if (!binding.scPostDateSwitch.isChecked) {
+            postNovelViewModel.updateReadDate(null, null)
+        }
+    }
+
+    private fun saveNovelInfo() {
+        val id = postNovelViewModel.editNovelInfo.value!!.id
+        val request = PostNovelRequest(
+            postNovelViewModel.rating.value!!,
+            postNovelViewModel.readStatus.value!!,
+            postNovelViewModel.startDate.value,
+            postNovelViewModel.endDate.value
+        )
+
+        postNovelViewModel.isNovelPosted.observe(this@PostNovelActivity) {
+            if (!it) postNovelViewModel.postNovelInfo(id, request)
+            else postNovelViewModel.patchNovelInfo(id, request)
+        }
+    }
+
     private fun setupExitPopupDialog() {
         binding.ivPostExitPopup.setOnClickListener {
             postNovelViewModel.updateIsDialogShown(true)
@@ -100,20 +130,19 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupPostSuccessDialog() {
-        binding.llPostButton.setOnClickListener {
-            postNovelViewModel.updateIsDialogShown(true)
+    private fun showPostSuccessDialog() {
+        postNovelViewModel.updateIsDialogShown(true)
 
-            val dialogFragment = PostSuccessDialog()
-            dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
-        }
+        val dialogFragment = PostSuccessDialog()
+        dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
     }
 
     private fun initUserNovelInfo() {
         val testNovelInfoId: Long = 1
-        val testUserInfoId: Long = 50
-        postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
         postNovelViewModel.fetchUserNovelInfo(testNovelInfoId)
+        postNovelViewModel.isNovelPosted.observe(this@PostNovelActivity) {
+            if (!it) postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
+        }
     }
 
     private fun setupReadStatusUI() {
@@ -153,7 +182,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.clPostReadDate.visibility = View.GONE
     }
 
-    private fun observeRatingBar() {
+    private fun setupRatingBar() {
         binding.rbPostRating.setOnRatingBarChangeListener { _, rating, _ ->
             postNovelViewModel.updateRating(rating)
         }
