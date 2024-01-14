@@ -1,21 +1,17 @@
 package com.teamwss.websoso.data.repository
 
-import com.teamwss.websoso.data.remote.request.LoginRequest
-import com.teamwss.websoso.data.remote.request.UserNovelsRequest
-import com.teamwss.websoso.data.remote.service.LibraryService
+import com.teamwss.websoso.data.remote.request.UserNovelsLibraryRequest
+import com.teamwss.websoso.data.remote.service.UserNovelService
 
 class UserNovelsRepository(
-    private val libraryService: LibraryService
+    private val userNovelService: UserNovelService
 ) {
 
-    suspend fun getNovels(request: UserNovelsRequest) = libraryService.getNovels(
+    suspend fun getNovels(request: UserNovelsLibraryRequest) = userNovelService.getNovels(
         readStatus = request.readStatus,
         lastUserNovelId = request.lastUserNovelId,
         size = request.size,
         sortType = request.sortType.toString()
     )
 
-    suspend fun login(request: LoginRequest) = libraryService.login(
-        loginRequest = request
-    )
 }
