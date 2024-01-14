@@ -15,7 +15,7 @@ class NovelMemoFragment : Fragment() {
     private val binding: FragmentNovelMemoBinding
         get() = requireNotNull(_binding)
 
-    private lateinit var novelMemoAdapter: NovelDetailMemoAdapter
+    private val novelMemoAdapter by lazy { NovelDetailMemoAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -27,13 +27,8 @@ class NovelMemoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initAdapter()
         initRecyclerView()
         onClickAddingMemoBox()
-    }
-
-    private fun initAdapter() {
-        novelMemoAdapter = NovelDetailMemoAdapter()
     }
 
     private fun initRecyclerView() {
