@@ -8,6 +8,8 @@ import com.teamwss.websoso.data.remote.service.AvatarService
 import com.teamwss.websoso.data.remote.service.MemoService
 import com.teamwss.websoso.data.remote.service.NovelService
 import com.teamwss.websoso.data.remote.service.UserNovelService
+import com.teamwss.websoso.data.authInterceptor.AuthInterceptor
+import com.teamwss.websoso.data.remote.service.WssService
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -32,6 +34,7 @@ object NetworkModule {
 
     val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(getLogOkHttpClient())
+        .addInterceptor(AuthInterceptor())
         .build()
 
     val retrofit: Retrofit = Retrofit.Builder()

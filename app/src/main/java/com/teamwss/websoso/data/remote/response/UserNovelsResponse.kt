@@ -7,8 +7,8 @@ import kotlinx.serialization.Serializable
 data class UserNovelsResponse(
     @SerialName("userNovelCount")
     val userNovelCount: Long,
-    @SerialName("userNovelList")
-    val userNovelList: List<UserNovel>
+    @SerialName("userNovels")
+    val userNovels: List<UserNovel>
 )
 
 @Serializable
