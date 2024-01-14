@@ -50,7 +50,7 @@ class NovelMemoFragment : Fragment() {
     }
 
     private fun navigateMemoWrite() {
-        val intent = Intent(activity, MemoWriteActivity::class.java)
+        val intent = MemoWriteActivity.createIntent(requireActivity())
         startActivity(intent)
     }
 

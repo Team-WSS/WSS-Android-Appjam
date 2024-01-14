@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.postNovel
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -183,5 +184,11 @@ class PostNovelActivity : AppCompatActivity() {
     private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    companion object {
+        fun createIntent(context: Context): Intent {
+            return Intent(context, PostNovelActivity::class.java)
+        }
     }
 }

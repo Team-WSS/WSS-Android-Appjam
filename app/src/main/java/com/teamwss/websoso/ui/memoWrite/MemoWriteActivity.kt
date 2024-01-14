@@ -1,5 +1,7 @@
 package com.teamwss.websoso.ui.memoWrite
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -35,5 +37,11 @@ class MemoWriteActivity : AppCompatActivity() {
             finish()
         })
         dialog.show((supportFragmentManager), "CancelEditMemoDialog")
+    }
+
+    companion object {
+        fun createIntent(context: Context): Intent {
+            return Intent(context, MemoWriteActivity::class.java)
+        }
     }
 }

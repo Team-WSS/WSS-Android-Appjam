@@ -185,8 +185,9 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelEdit() {
-        val intent = Intent(this, PostNovelActivity::class.java)
+        val intent = PostNovelActivity.createIntent(this)
         startActivity(intent)
+        finish()
     }
 
     private val Int.intDp: Int get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
