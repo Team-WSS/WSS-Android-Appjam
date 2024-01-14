@@ -30,7 +30,7 @@ class NovelMemoFragment : Fragment() {
 
         initAdapter()
         initRecyclerView()
-        clickAddingMemoBox()
+        onClickAddingMemoBox()
     }
 
     private fun initAdapter() {
@@ -43,7 +43,7 @@ class NovelMemoFragment : Fragment() {
         }
     }
 
-    private fun clickAddingMemoBox() {
+    private fun onClickAddingMemoBox() {
         binding.clNovelMemoNavigateNewMemo.setOnClickListener {
             navigateMemoWrite()
         }

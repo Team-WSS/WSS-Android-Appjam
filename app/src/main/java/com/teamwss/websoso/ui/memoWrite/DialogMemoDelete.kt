@@ -29,17 +29,17 @@ class DialogMemoDelete : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clickMemoDropBtn()
-        clickMemoKeepBtn()
+        onClickMemoDropBtn()
+        onClickMemoKeepBtn()
     }
 
-    private fun clickMemoDropBtn() {
+    private fun onClickMemoDropBtn() {
         binding.tvDialogMemoDeleteDropBtn.setOnClickListener {
             // 뷰모델 @Delete /memos/{memoId}
         }
     }
 
-    private fun clickMemoKeepBtn() {
+    private fun onClickMemoKeepBtn() {
         binding.tvDialogMemoDeleteKeepBtn.setOnClickListener {
             dismiss()
         }

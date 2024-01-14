@@ -28,18 +28,18 @@ class DialogMemoCancel(private val clickExit: () -> Unit) :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clickExitBtn()
-        clickKeepWriteBtn()
+        onClickExitBtn()
+        onClickKeepWriteBtn()
     }
 
-    private fun clickExitBtn() {
+    private fun onClickExitBtn() {
         binding.tvDialogCancelExitBtn.setOnClickListener {
             clickExit()
             dismiss()
         }
     }
 
-    private fun clickKeepWriteBtn() {
+    private fun onClickKeepWriteBtn() {
         binding.tvDialogCancelDismissBtn.setOnClickListener {
             dismiss()
         }

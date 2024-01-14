@@ -21,9 +21,4 @@ class NovelDetailMemoAdapter : RecyclerView.Adapter<NovelMemoViewHolder>() {
     override fun onBindViewHolder(holder: NovelMemoViewHolder, position: Int) {
         holder.onBind(novelMemoResponse[position])
     }
-
-    fun updateData(newData: List<NovelMemoResponse>) {
-        novelMemoResponse = newData
-        notifyDataSetChanged()
-    }
 }

@@ -120,18 +120,18 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun setupListener() {
-        clickAddMemoBtn()
-        clickPopupBtn()
+        onClickAddMemoBtn()
+        onClickPopupBtn()
     }
 
-    private fun clickAddMemoBtn() {
+    private fun onClickAddMemoBtn() {
         binding.ivNovelDetailAddMemoBtn.setOnClickListener {
             val intent = Intent(this, MemoWriteActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun clickPopupBtn() {
+    private fun onClickPopupBtn() {
         binding.ivNovelDetailPopupMenuBtn.setOnClickListener {
             showNovelDetailPopup()
         }
