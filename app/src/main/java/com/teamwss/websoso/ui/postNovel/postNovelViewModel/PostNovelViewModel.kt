@@ -52,6 +52,8 @@ class PostNovelViewModel : ViewModel() {
     val naverUrl: LiveData<String> get() = _naverUrl
     private val _kakaoUrl = MutableLiveData<String>()
     val kakaoUrl: LiveData<String> get() = _kakaoUrl
+    private val _isServerError = MutableLiveData<Boolean>()
+    val isServerError: LiveData<Boolean> get() = _isServerError
 
     fun fetchUserNovelInfo(novelId: Long) {
         viewModelScope.launch {
@@ -74,7 +76,7 @@ class PostNovelViewModel : ViewModel() {
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
             }.onFailure {
-                // 통신 실패 로직 추가 예정
+                _isServerError.value = true
                 Log.e("fetchDefaultNovelInfo", "fetchDefaultNovelInfo() error: ${it.message}")
             }
         }
@@ -85,8 +87,10 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.userNovelService.postPostNovelInfo(novelId, request)
             }.onSuccess {
+                _isServerError.value = false
                 Log.d("postNovelInfo", "postNovelInfo() success: $it")
             }.onFailure {
+                _isServerError.value = true
                 Log.e("postNovelInfo", "postNovelInfo() error: ${it.message}")
             }
         }
@@ -97,8 +101,10 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.novelService.editPostNovelInfo(novelId, request)
             }.onSuccess {
+                _isServerError.value = false
                 Log.d("patchNovelInfo", "patchNovelInfo() success: $it")
             }.onFailure {
+                _isServerError.value = true
                 Log.e("patchNovelInfo", "patchNovelInfo() error: ${it.message}")
             }
         }

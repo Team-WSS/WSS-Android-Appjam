@@ -5,10 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.PostNovelRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
@@ -45,6 +47,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupReadStatusUI()
         setupRatingBar()
         setupUrlButton()
+        setupServerError()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -86,33 +89,37 @@ class PostNovelActivity : AppCompatActivity() {
     private fun setupSaveButton() {
         binding.llPostButton.setOnClickListener {
             saveNovelInfo()
-            showPostSuccessDialog()
+            postNovelViewModel.isServerError.observe(this) {
+                if (!it){
+                    showPostSuccessDialog()
+                }
+            }
         }
     }
 
     private fun checkIsDateNull(): PostNovelRequest {
         return if (!binding.scPostDateSwitch.isChecked) {
             (PostNovelRequest(
-                postNovelViewModel.rating.value!!,
-                postNovelViewModel.readStatus.value!!,
+                binding.rbPostRating.rating,
+                postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
                 null,
                 null
             ))
         } else {
             (PostNovelRequest(
-                postNovelViewModel.rating.value!!,
-                postNovelViewModel.readStatus.value!!,
-                postNovelViewModel.startDate.value.toString(),
-                postNovelViewModel.endDate.value.toString()
+                binding.rbPostRating.rating,
+                postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
+                binding.tvPostReadDateStart.text.toString(),
+                binding.tvPostReadDateEnd.text.toString()
             ))
         }
     }
 
     private fun saveNovelInfo() {
-        val id = postNovelViewModel.editNovelInfo.value!!.id
+        val id = postNovelViewModel.editNovelInfo.value?.id ?: 0
         val request = checkIsDateNull()
 
-        if (!postNovelViewModel.isNovelPosted.value!!) {
+        if (postNovelViewModel.isNovelPosted.value == false) {
             postNovelViewModel.postNovelInfo(id, request)
         } else {
             postNovelViewModel.patchNovelInfo(id, request)
@@ -207,9 +214,15 @@ class PostNovelActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    companion object {
-        fun createIntent(context: Context): Intent {
-            return Intent(context, PostNovelActivity::class.java)
+    private fun setupServerError() {
+        postNovelViewModel.isServerError.observe(this) {
+            if (it) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.post_server_error),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }
