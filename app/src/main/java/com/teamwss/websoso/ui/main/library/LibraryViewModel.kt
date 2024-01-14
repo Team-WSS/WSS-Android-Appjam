@@ -11,7 +11,6 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.teamwss.websoso.App
 import com.teamwss.websoso.data.mapper.toData
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
-import com.teamwss.websoso.data.remote.request.LoginRequest
 import com.teamwss.websoso.data.remote.request.UserNovelsRequest
 import com.teamwss.websoso.data.repository.UserNovelsRepository
 import com.teamwss.websoso.ui.main.library.model.ReadState
@@ -28,8 +27,8 @@ class LibraryViewModel(
     }
 
     init {
-
         getNovels(ReadState.ALL)
+        App.userPrefs.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MDUxOTM1MTEsImV4cCI6MTcwNjA1NzUxMSwidXNlcklkIjoxfQ.VK42vScpGJ9rpie-jbE2xlGeEbrnP4u6eN8UyzoFbvQ"
         Log.d("LibraryViewModel", "init")
     }
 

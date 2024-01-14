@@ -1,7 +1,6 @@
 package com.teamwss.websoso.ui.main.library
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ import com.teamwss.websoso.ui.main.library.model.ReadState
 class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
     private val binding: FragmentLibraryBinding get() = requireNotNull(_binding)
-    private var viewPagerAdapter: LibraryViewPagerAdapter? =null
+    private var viewPagerAdapter: LibraryViewPagerAdapter? = null
     private val viewModel: LibraryViewModel by viewModels {
         LibraryViewModel.Factory
     }
@@ -39,12 +38,6 @@ class LibraryFragment : Fragment() {
         setupViewPagerAndTabs()
         observeReadState()
         observeCurrentNovels()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        view?.requestLayout()
     }
 
     private fun setupViewPagerAndTabs() {
@@ -107,21 +100,13 @@ class LibraryFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        Toast.makeText(requireContext(), "DESTOROY", Toast.LENGTH_SHORT).show()
-        viewModel.readState.removeObservers(viewLifecycleOwner)
-        viewModel.currentUserNovels.removeObservers(viewLifecycleOwner)
-    }
-
     override fun onDestroy() {
-        Log.e("LibraryFragment", "onDestroy")
         _binding = null
         viewPagerAdapter = null
         super.onDestroy()
     }
 
     companion object {
-        val newInstance = LibraryFragment()
+        fun newInstance() = LibraryFragment()
     }
 }
