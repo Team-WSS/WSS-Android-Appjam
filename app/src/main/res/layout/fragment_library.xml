@@ -1,103 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/tvLibraryTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:text="@string/library_title"
-        android:textAppearance="@style/headline1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <View
-        android:id="@+id/vLibraryTbTopLine"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="14dp"
-        android:background="@color/gray_50_F4F5F8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLibraryTitle" />
+        <variable
+            name="viewModel"
+            type="com.teamwss.websoso.ui.main.library.LibraryViewModel" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tbLibrary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vLibraryTbTopLine">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_all" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_finish" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_reading" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_drop" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/library_tb_item_wish" />
-
-    </com.google.android.material.tabs.TabLayout>
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layoutLibraryStatus"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/gray_50_F4F5F8"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tbLibrary">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <TextView
-            android:id="@+id/tvLibraryNovelCount"
+            android:id="@+id/tvLibraryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/record_novel_count"
-            android:textAppearance="@style/label1"
-            android:textColor="@color/gray_200_AEADB3"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="70dp"
+            android:text="@string/library_title"
+            android:textAppearance="@style/headline1"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tbLibrary"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLibraryTitle"
+            app:tabGravity="center"
+            app:tabMode="scrollable">
 
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/library_tb_item_all" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/library_tb_item_finish" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/library_tb_item_reading" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/library_tb_item_drop" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/library_tb_item_wish" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <View
+            android:id="@+id/viewLibraryTbTopLine"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/gray_200_AEADB3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tbLibrary" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutLibraryStatus"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:background="@color/gray_50_F4F5F8"
+            android:paddingVertical="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewLibraryTbTopLine">
+
+            <TextView
+                android:id="@+id/tvLibraryNovelCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@{viewModel.userNovelCount.toString() + '개'}"
+                android:textAppearance="@style/label1"
+                android:textColor="@color/gray_200_AEADB3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpLibraryNovel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="18dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutLibraryStatus"
+            tools:listitem="@layout/item_memo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vpLibraryNovel"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="18dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutLibraryStatus"
-        tools:listitem="@layout/item_memo" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

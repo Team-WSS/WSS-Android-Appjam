@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.main.library
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
@@ -17,7 +19,9 @@ import com.teamwss.websoso.ui.main.library.model.ReadState
 class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
     private val binding: FragmentLibraryBinding get() = requireNotNull(_binding)
-    private var viewPagerAdapter: LibraryViewPagerAdapter? = null
+    private val viewPagerAdapter: LibraryViewPagerAdapter by lazy {
+        LibraryViewPagerAdapter(::clickNovelItem)
+    }
     private val viewModel: LibraryViewModel by viewModels {
         LibraryViewModel.Factory
     }
@@ -32,8 +36,9 @@ class LibraryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = this.viewModel
 
-        viewPagerAdapter = LibraryViewPagerAdapter()
 
         setupViewPagerAndTabs()
         observeReadState()
@@ -74,7 +79,7 @@ class LibraryFragment : Fragment() {
     private fun observeReadState() {
         viewModel.readState.observe(viewLifecycleOwner) { readState ->
             if (viewModel.lastReadState.value != readState) {
-                Toast.makeText(requireContext(), readState.toString(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), readState.toString() + viewModel.lastReadState.value.toString(), Toast.LENGTH_SHORT).show()
                 viewModel.setReadState(readState)
             }
         }
@@ -84,9 +89,14 @@ class LibraryFragment : Fragment() {
         viewModel.currentUserNovels.observe(viewLifecycleOwner) { currentUserNovels ->
             currentUserNovels?.let {
                 viewPagerAdapter?.fetchUserNovels(it)
-                Toast.makeText(requireContext(), "hi", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun clickNovelItem(novelId: Long) {
+        Toast.makeText(requireContext(), novelId.toString(), Toast.LENGTH_SHORT).show()
+
+        // TODO : intent to novel detail activity
     }
 
     private fun getTabTitle(position: Int): String {
@@ -102,7 +112,6 @@ class LibraryFragment : Fragment() {
 
     override fun onDestroy() {
         _binding = null
-        viewPagerAdapter = null
         super.onDestroy()
     }
 
