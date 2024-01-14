@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,7 @@ class NovelMemoFragment : Fragment() {
     private val binding: FragmentNovelMemoBinding
         get() = requireNotNull(_binding)
 
-    private lateinit var rvNovelMemoAdapter: NovelDetailMemoAdapter
+    private lateinit var novelMemoAdapter: NovelDetailMemoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -34,7 +33,7 @@ class NovelMemoFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        rvNovelMemoAdapter = NovelDetailMemoAdapter()
+        novelMemoAdapter = NovelDetailMemoAdapter()
     }
 
     private fun initRecyclerView() {
