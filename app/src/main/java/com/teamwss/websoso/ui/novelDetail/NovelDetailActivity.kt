@@ -59,11 +59,11 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun setupFragment() {
-        val tabTitleList = listOf(getText(R.string.novel_detail_memo), getText(R.string.novel_detail_info))
+        val tabTitleItems = listOf(getText(R.string.novel_detail_memo), getText(R.string.novel_detail_info))
         binding.vpNovelDetail.adapter = NovelDetailViewPagerAdapter(this)
 
         TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
-            tab.text = tabTitleList[position]
+            tab.text = tabTitleItems[position]
         }.attach()
 
         binding.vpNovelDetail.registerOnPageChangeCallback(object :
