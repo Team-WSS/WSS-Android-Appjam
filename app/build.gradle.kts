@@ -85,6 +85,9 @@ dependencies {
 
     // lottie
     implementation ("com.airbnb.android:lottie:5.0.2")
+
+    // security-crypto
+    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
 }
 
 fun getApiKey(propertyKey: String): String {
