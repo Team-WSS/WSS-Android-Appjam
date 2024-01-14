@@ -21,6 +21,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", getApiKey("base.url"))
+        buildConfigField("String", "TEST_TOKEN", getApiKey("test.token"))
     }
 
     buildTypes {
