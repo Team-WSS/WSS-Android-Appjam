@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.databinding.ItemLibraryViewPagerBinding
 
-class LibraryViewPagerAdapter :
+class LibraryViewPagerAdapter(private val onItemClick: (Long) -> Unit) :
     RecyclerView.Adapter<LibraryViewPagerViewHolder>() {
 
     private var userNovels = emptyList<LibraryUserNovelEntity>()
@@ -14,7 +14,7 @@ class LibraryViewPagerAdapter :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryViewPagerViewHolder {
         val binding =
             ItemLibraryViewPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LibraryViewPagerViewHolder(binding)
+        return LibraryViewPagerViewHolder(binding,onItemClick)
     }
 
     override fun onBindViewHolder(holder: LibraryViewPagerViewHolder, position: Int) {

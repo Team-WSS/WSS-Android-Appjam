@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.ListAdapter
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.databinding.ItemLibraryNovelBinding
 
-class LibraryItemAdapter :
+class LibraryItemAdapter(
+    private val onItemClick: (Long) -> Unit
+) :
     ListAdapter<LibraryUserNovelEntity, LibraryItemViewHolder>(FollowerDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryItemViewHolder {
         val binding =
             ItemLibraryNovelBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LibraryItemViewHolder(binding)
+        return LibraryItemViewHolder(binding,onItemClick)
     }
 
     override fun onBindViewHolder(holder: LibraryItemViewHolder, position: Int) {
