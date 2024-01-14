@@ -14,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="5dp">
+        android:paddingTop="24dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivLibraryNovelCover"
@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            loadCoverImage="@{libraryNovel.userNovelCover}"
+            loadRoundedCoverImage="@{libraryNovel.userNovelCover}"
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
