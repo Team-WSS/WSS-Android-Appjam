@@ -1,11 +1,10 @@
 package com.teamwss.websoso.data.remote.request
 
-import com.teamwss.websoso.ui.main.library.model.SortType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserNovelsRequest (
+data class UserNovelsLibraryRequest (
     @SerialName("readStatus")
     val readStatus : String,
     @SerialName("lastUserNovelId")
