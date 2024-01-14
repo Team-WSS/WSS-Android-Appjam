@@ -15,10 +15,10 @@ import java.time.LocalDate
 
 class PostNovelViewModel : ViewModel() {
 
-    private val _isNovelPosted = MutableLiveData<Boolean>()
-    val isNovelPosted: LiveData<Boolean> get() = _isNovelPosted
-    private val _editNovelInfo = MutableLiveData<PostNovelInfoModel>()
-    val editNovelInfo: LiveData<PostNovelInfoModel> get() = _editNovelInfo
+    private val _isNovelAlreadyPosted = MutableLiveData<Boolean>()
+    val isNovelAlreadyPosted: LiveData<Boolean> get() = _isNovelAlreadyPosted
+    private val _novelInfo = MutableLiveData<PostNovelInfoModel>()
+    val novelInfo: LiveData<PostNovelInfoModel> get() = _novelInfo
     private val _readStatus = MutableLiveData<String>()
     val readStatus: LiveData<String> get() = _readStatus
     private val _startDate = MutableLiveData<String?>()
@@ -35,7 +35,6 @@ class PostNovelViewModel : ViewModel() {
     val maxDayValue: LiveData<Int> get() = _maxDayValue
     private val _rating = MutableLiveData<Float>()
     val rating: LiveData<Float> get() = _rating
-
     private val _isDialogShown = MutableLiveData<Int>()
     val isDialogShown: LiveData<Int> get() = _isDialogShown
     private val _isNumberPickerStartSelected = MutableLiveData<Boolean>()
@@ -62,7 +61,7 @@ class PostNovelViewModel : ViewModel() {
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
                 _isServerError.value = false
-                _isNovelPosted.value = it.userNovelId != 0L
+                _isNovelAlreadyPosted.value = it.userNovelId != 0L
             }.onFailure {
                 _isServerError.value = true
                 Log.e("fetchUserNovelInfo", "fetchUserNovelInfo() error: ${it.message}")
@@ -112,7 +111,7 @@ class PostNovelViewModel : ViewModel() {
     }
 
     private fun initUserNovelInfo(novelInfo: PostNovelInfoModel) {
-        _editNovelInfo.value = novelInfo
+        _novelInfo.value = novelInfo
         _readStatus.value = novelInfo.readStatus
         _startDate.value = novelInfo.readStartDate ?: LocalDate.now().toString()
         _endDate.value = novelInfo.readEndDate ?: LocalDate.now().toString()
@@ -170,10 +169,25 @@ class PostNovelViewModel : ViewModel() {
     }
 
     fun updateIsDateValid() {
-        _isNumberPickerDateValid.value =
-            !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
-                splitDateToLocalDate(_selectedEndDate.value.toString())
-            )
+        val currentDate = LocalDate.now()
+
+        val isStartDateValid: Boolean = !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(currentDate)
+        val isEndDateValid: Boolean = !splitDateToLocalDate(_selectedEndDate.value.toString()).isAfter(currentDate)
+        when (_readStatus.value) {
+            ReadStatus.READING.toString() -> {
+                _isNumberPickerDateValid.value = isStartDateValid
+            }
+            ReadStatus.DROP.toString() -> {
+                _isNumberPickerDateValid.value = isEndDateValid
+            }
+            else -> {
+                _isNumberPickerDateValid.value =
+                    isStartDateValid && isEndDateValid &&
+                            !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
+                                splitDateToLocalDate(_selectedEndDate.value.toString())
+                            )
+            }
+        }
     }
 
     fun updateIsDateVisible(isStartDateVisible: Boolean = true, isEndDateVisible: Boolean = true) {

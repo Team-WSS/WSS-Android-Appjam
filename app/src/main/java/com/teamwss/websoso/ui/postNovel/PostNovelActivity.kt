@@ -116,10 +116,10 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun saveNovelInfo() {
-        val id = postNovelViewModel.editNovelInfo.value?.id ?: 0
+        val id = postNovelViewModel.novelInfo.value?.id ?: 0
         val request = checkIsDateNull()
 
-        if (postNovelViewModel.isNovelPosted.value == false) {
+        if (postNovelViewModel.isNovelAlreadyPosted.value == false) {
             postNovelViewModel.postNovelInfo(id, request)
         } else {
             postNovelViewModel.patchNovelInfo(id, request)
@@ -154,11 +154,11 @@ class PostNovelActivity : AppCompatActivity() {
     private fun initUserNovelInfo() {
         val testNovelInfoId: Long = 1
         postNovelViewModel.fetchUserNovelInfo(testNovelInfoId)
-        Log.e("sdfawfqfzxvcz", "${postNovelViewModel.isNovelPosted.value}")
-        postNovelViewModel.isNovelPosted.observe(this@PostNovelActivity) {
+        Log.e("sdfawfqfzxvcz", "${postNovelViewModel.isNovelAlreadyPosted.value}")
+        postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
             if (!it) {
                 postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
-                Log.e("faqwefawegwrgergeahgwr", "${postNovelViewModel.isNovelPosted.value}")
+                Log.e("faqwefawegwrgergeahgwr", "${postNovelViewModel.isNovelAlreadyPosted.value}")
             }
         }
     }
