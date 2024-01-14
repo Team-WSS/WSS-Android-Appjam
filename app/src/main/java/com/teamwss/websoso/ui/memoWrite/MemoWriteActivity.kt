@@ -10,6 +10,10 @@ import com.teamwss.websoso.databinding.ActivityMemoWriteBinding
 class MemoWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoWriteBinding
 
+    private val dialogMemoCancel: DialogMemoCancel by lazy {
+        DialogMemoCancel(::finish)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoWriteBinding.inflate(layoutInflater)
@@ -33,10 +37,7 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     private fun showMemoCancelDialog() {
-        val dialog = DialogMemoCancel(clickExit = {
-            finish()
-        })
-        dialog.show((supportFragmentManager), "CancelEditMemoDialog")
+        dialogMemoCancel.show((supportFragmentManager), "CancelEditMemoDialog")
     }
 
     companion object {
