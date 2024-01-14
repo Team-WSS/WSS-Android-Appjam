@@ -21,15 +21,8 @@ class LibraryViewModel(
     private val userNovelsRepository: UserNovelsRepository
 ) : ViewModel() {
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("LibraryViewModel", "onCleared")
-    }
-
     init {
         getNovels(ReadState.ALL)
-        App.userPrefs.accessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MDUxOTM1MTEsImV4cCI6MTcwNjA1NzUxMSwidXNlcklkIjoxfQ.VK42vScpGJ9rpie-jbE2xlGeEbrnP4u6eN8UyzoFbvQ"
-        Log.d("LibraryViewModel", "init")
     }
 
     private var _readState: MutableLiveData<ReadState> = MutableLiveData(ReadState.ALL)
@@ -45,6 +38,10 @@ class LibraryViewModel(
     val currentUserNovels: LiveData<List<LibraryUserNovelEntity>>
         get() = _currentUserNovels
 
+    private var _currentSortType : MutableLiveData<SortType> = MutableLiveData(SortType.NEWEST)
+    val currentSortType : LiveData<SortType>
+        get() = _currentSortType
+
     fun setReadState(readState: ReadState) {
         if (this.readState.value != readState) {
             _readState.value = readState
@@ -59,8 +56,8 @@ class LibraryViewModel(
                     UserNovelsRequest(
                         readState.toString(),
                         0,
-                        10,
-                        SortType.OLDEST.toString()
+                        USER_NOVEL_COUNT,
+                        currentSortType.value.toString()
                     )
                 )
             }.onSuccess {
@@ -71,8 +68,9 @@ class LibraryViewModel(
         }
     }
 
-
     companion object {
+        const val USER_NOVEL_COUNT = 20
+
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val userNovelsRepository = App.userNovelsRepository
