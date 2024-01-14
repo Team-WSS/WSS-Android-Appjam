@@ -1,7 +1,14 @@
 package com.teamwss.websoso.data.remote.response
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class NovelMemoResponse(
-    val memoId: Int,
-    val memoContent: String,
-    val memoDate: String,
+    @SerialName("memoId")
+    val memoId: Long = 0,
+    @SerialName("memoContent")
+    val memoContent: String = "",
+    @SerialName("memoDate")
+    val memoDate: String = "",
 )
