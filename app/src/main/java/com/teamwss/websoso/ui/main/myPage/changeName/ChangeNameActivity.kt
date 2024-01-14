@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityChangeNameBinding
 
+
 class ChangeNameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeNameBinding
 
@@ -21,10 +22,7 @@ class ChangeNameActivity : AppCompatActivity() {
         binding = ActivityChangeNameBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setTranslucentOnStatusBar()
-        launchBackToMyPageOnClick()
-        setupChangeNameEditText()
-        initChangeNameEditText()
-        setDefaultNameAndTextWatcher(binding.etChangeName, binding.tvChangeNameCount, 10)
+        setupUI()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -32,6 +30,13 @@ class ChangeNameActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
+    }
+
+    private fun setupUI() {
+        launchBackToMyPageOnClick()
+        setupChangeNameEditText()
+        initChangeNameEditText()
+        setDefaultNameAndTextWatcher(binding.etChangeName, binding.tvChangeNameCount, 10)
     }
 
     private fun launchBackToMyPageOnClick() {
