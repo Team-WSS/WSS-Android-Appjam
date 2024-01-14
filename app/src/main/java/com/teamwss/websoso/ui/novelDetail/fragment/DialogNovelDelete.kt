@@ -29,18 +29,18 @@ class DialogNovelDelete(private val clickNovelDelete: () -> Unit) : DialogFragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        clickNovelDeleteBtn()
-        clickCancelBtn()
+        clickNovelDeleteButton()
+        clickCancelButton()
     }
 
-    private fun clickNovelDeleteBtn() {
+    private fun clickNovelDeleteButton() {
         binding.tvDialogNovelDeleteDropBtn.setOnClickListener {
             clickNovelDelete()
             dismiss()
         }
     }
 
-    private fun clickCancelBtn() {
+    private fun clickCancelButton() {
         binding.tvDialogNovelDeleteDismissBtn.setOnClickListener {
             dismiss()
         }

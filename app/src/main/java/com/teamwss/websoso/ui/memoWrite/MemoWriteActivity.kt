@@ -16,7 +16,7 @@ class MemoWriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setTranslucentOnStatusBar()
-        onClickMemoEditCancelBtn()
+        onClickMemoEditCancelButton()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -26,7 +26,7 @@ class MemoWriteActivity : AppCompatActivity() {
         )
     }
 
-    private fun onClickMemoEditCancelBtn() {
+    private fun onClickMemoEditCancelButton() {
         binding.ivMemoEditCancelBtn.setOnClickListener {
             showMemoCancelDialog()
         }
