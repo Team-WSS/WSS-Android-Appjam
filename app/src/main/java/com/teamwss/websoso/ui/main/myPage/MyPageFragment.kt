@@ -1,9 +1,9 @@
 package com.teamwss.websoso.ui.main.myPage
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -71,14 +71,8 @@ class MyPageFragment : Fragment() {
 
             val userNameWithoutSuffix = defaultName.removeSuffix("님")
 
-            val intent = Intent(binding.root.context, ChangeNameActivity::class.java)
-            intent.putExtra("userName", userNameWithoutSuffix)
-
-            try {
-                startActivity(intent)
-            } catch (e: Exception) {
-                Log.e("error", "이동실패", e)
-            }
+            val intent = createChangeNameIntent(binding.root.context, userNameWithoutSuffix)
+            startActivity(intent)
         }
     }
 
@@ -86,11 +80,7 @@ class MyPageFragment : Fragment() {
         binding.tvMyPageCheckUserInfo.setOnClickListener {
             val intent = Intent(binding.root.context, CheckUserInfoActivity::class.java)
 
-            try {
-                startActivity(intent)
-            } catch (e: Exception) {
-                Log.e("error", "이동실패", e)
-            }
+            startActivity(intent)
         }
     }
 
@@ -107,5 +97,11 @@ class MyPageFragment : Fragment() {
 
     companion object {
         fun newInstance() = MyPageFragment()
+        fun createChangeNameIntent(context: Context, userName: String): Intent {
+            val intent = Intent(context, ChangeNameActivity::class.java)
+            intent.putExtra("userName", userName)
+            return intent
+        }
+
     }
 }
