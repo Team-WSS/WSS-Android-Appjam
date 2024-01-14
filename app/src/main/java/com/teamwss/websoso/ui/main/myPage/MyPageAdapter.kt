@@ -8,12 +8,16 @@ class MyPageAdapter : RecyclerView.Adapter<MyPageViewHolder>() {
     internal var avatarItems: List<Avatar> = emptyList()
     internal var onItemClickListener: ((Avatar) -> Unit)? = null
 
-    fun setOnItemClickListener(listener: (Avatar) -> Unit) {
-        this.onItemClickListener = listener
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageViewHolder {
         return MyPageViewHolder.create(parent, adapter = MyPageAdapter())
+    }
+
+    override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
+        holder.onBind(avatarItems[position])
+
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.invoke(avatarItems[position])
+        }
     }
 
     override fun getItemCount() = avatarItems.size
@@ -23,12 +27,7 @@ class MyPageAdapter : RecyclerView.Adapter<MyPageViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
-        holder.onBind(avatarItems[position])
-
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(avatarItems[position])
-        }
-
+    fun setOnItemClickListener(listener: (Avatar) -> Unit) {
+        this.onItemClickListener = listener
     }
 }
