@@ -1,3 +1,5 @@
+package com.teamwss.websoso.util
+
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.load
