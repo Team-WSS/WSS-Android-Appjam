@@ -79,7 +79,6 @@ class LibraryFragment : Fragment() {
     private fun observeReadState() {
         viewModel.readState.observe(viewLifecycleOwner) { readState ->
             if (viewModel.lastReadState.value != readState) {
-                Toast.makeText(requireContext(), readState.toString() + viewModel.lastReadState.value.toString(), Toast.LENGTH_SHORT).show()
                 viewModel.setReadState(readState)
             }
         }
