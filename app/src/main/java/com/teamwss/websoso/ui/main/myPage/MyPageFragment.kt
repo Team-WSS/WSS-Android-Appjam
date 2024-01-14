@@ -22,7 +22,7 @@ class MyPageFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
         return binding.root

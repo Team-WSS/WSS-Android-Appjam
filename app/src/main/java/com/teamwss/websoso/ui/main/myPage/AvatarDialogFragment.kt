@@ -19,7 +19,7 @@ class AvatarDialogFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DialogAvatarBinding.inflate(inflater, container, false)
         return binding.root
     }
