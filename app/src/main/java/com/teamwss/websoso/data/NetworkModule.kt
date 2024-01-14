@@ -3,13 +3,12 @@ package com.teamwss.websoso.data
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.teamwss.websoso.BuildConfig
+import com.teamwss.websoso.data.authInterceptor.AuthInterceptor
 import com.teamwss.websoso.data.remote.service.AuthService
 import com.teamwss.websoso.data.remote.service.AvatarService
 import com.teamwss.websoso.data.remote.service.MemoService
 import com.teamwss.websoso.data.remote.service.NovelService
 import com.teamwss.websoso.data.remote.service.UserNovelService
-import com.teamwss.websoso.data.authInterceptor.AuthInterceptor
-import com.teamwss.websoso.data.remote.service.WssService
 import kotlinx.serialization.json.Json
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
@@ -32,7 +31,7 @@ object NetworkModule {
         return loggingInterceptor
     }
 
-    val okHttpClient = OkHttpClient.Builder()
+    private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor(getLogOkHttpClient())
         .addInterceptor(AuthInterceptor())
         .build()
