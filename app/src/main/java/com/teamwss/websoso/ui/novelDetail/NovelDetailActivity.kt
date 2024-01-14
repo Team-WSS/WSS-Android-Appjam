@@ -42,6 +42,7 @@ class NovelDetailActivity : AppCompatActivity() {
     private fun setupUI() {
         setTranslucentOnStatusBar()
         setupFragment()
+        viewPagerRegisterPageCallback()
         viewPagerPageChangeCallback()
         setItemVisibilityOnToolBar()
     }
@@ -60,12 +61,14 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun setupFragment() {
         val tabTitleItems = listOf(getText(R.string.novel_detail_memo), getText(R.string.novel_detail_info))
-        binding.vpNovelDetail.adapter = NovelDetailViewPagerAdapter(this)
+        binding.vpNovelDetail.adapter = novelDetailAdapter
 
         TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
             tab.text = tabTitleItems[position]
         }.attach()
+    }
 
+    private fun viewPagerRegisterPageCallback() {
         binding.vpNovelDetail.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
