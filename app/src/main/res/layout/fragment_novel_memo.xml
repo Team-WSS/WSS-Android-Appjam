@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="18dp"
-            android:text="새로운 메모를 작성해보세요"
+            android:text="@string/novel_detail_new_memo"
             android:textAppearance="@style/body2"
             android:textColor="@color/gray_200_AEADB3"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -71,6 +71,7 @@
     <!-- Novel Detail -->
     <string name="novel_detail_memo">메모</string>
     <string name="novel_detail_info">정보</string>
+    <string name="novel_detail_new_memo">새로운 메모를 작성해보세요</string>
 
     <!-- Novel Info -->
     <string name="novel_info_my_evaluation">내 평가</string>
