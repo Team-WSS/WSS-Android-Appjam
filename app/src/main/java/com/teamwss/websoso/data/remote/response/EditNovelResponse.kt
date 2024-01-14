@@ -1,6 +1,5 @@
 package com.teamwss.websoso.data.remote.response
 
-
 import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -30,7 +29,7 @@ data class EditNovelResponse(
     val userNovelReadStatus: String = "",
     @SerialName("userNovelTitle")
     val userNovelTitle: String = "",
-){
+) {
     fun toUI(): PostNovelInfoModel {
         return PostNovelInfoModel(
             author = userNovelAuthor,

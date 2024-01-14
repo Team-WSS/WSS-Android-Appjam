@@ -43,13 +43,13 @@ class ExitPopupDialog : DialogFragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
-    private fun setupExitDialogListener(){
+    private fun setupExitDialogListener() {
         binding.llPostDialogKeepButton.setOnClickListener {
             dismiss()
         }
     }
 
-    private fun setupExitActivityListener(){
+    private fun setupExitActivityListener() {
         binding.llPostDialogExitButton.setOnClickListener {
             val intent = Intent(activity, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
