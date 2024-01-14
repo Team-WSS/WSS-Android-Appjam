@@ -1,13 +1,14 @@
 package com.teamwss.websoso.ui.main.library.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.teamwss.websoso.data.model.LibraryUserNovel
+import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.databinding.ItemLibraryNovelBinding
 
 class LibraryItemAdapter :
-    ListAdapter<LibraryUserNovel, LibraryItemViewHolder>(FollowerDiffCallback) {
+    ListAdapter<LibraryUserNovelEntity, LibraryItemViewHolder>(FollowerDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryItemViewHolder {
         val binding =
@@ -21,17 +22,17 @@ class LibraryItemAdapter :
 
     companion object {
         private val FollowerDiffCallback = object :
-            DiffUtil.ItemCallback<LibraryUserNovel>() {
+            DiffUtil.ItemCallback<LibraryUserNovelEntity>() {
             override fun areItemsTheSame(
-                oldItem: LibraryUserNovel,
-                newItem: LibraryUserNovel
+                oldItem: LibraryUserNovelEntity,
+                newItem: LibraryUserNovelEntity
             ): Boolean {
                 return oldItem.userNovelId == newItem.userNovelId
             }
 
             override fun areContentsTheSame(
-                oldItem: LibraryUserNovel,
-                newItem: LibraryUserNovel
+                oldItem: LibraryUserNovelEntity,
+                newItem: LibraryUserNovelEntity
             ): Boolean {
                 return oldItem == newItem
             }

@@ -15,19 +15,19 @@ import com.teamwss.websoso.ui.main.library.adapter.LibraryViewPagerAdapter
 import com.teamwss.websoso.ui.main.library.model.ReadState
 
 class LibraryFragment : Fragment() {
-    private lateinit var _binding: FragmentLibraryBinding
-    private val binding: FragmentLibraryBinding get() = _binding
+    private var _binding: FragmentLibraryBinding? = null
+    private val binding: FragmentLibraryBinding get() = requireNotNull(_binding)
     private val viewPagerAdapter: LibraryViewPagerAdapter by lazy {
         LibraryViewPagerAdapter()
     }
-    private val viewModel: LibraryViewModel by viewModels{
+    private val viewModel: LibraryViewModel by viewModels {
         LibraryViewModel.Factory
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLibraryBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,7 +38,12 @@ class LibraryFragment : Fragment() {
         setupViewPagerAndTabs()
         observeReadState()
         observeCurrentNovels()
-        viewModel.getNovels()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        view?.requestLayout()
     }
 
     private fun setupViewPagerAndTabs() {
@@ -47,12 +52,12 @@ class LibraryFragment : Fragment() {
 
         TabLayoutMediator(binding.tbLibrary, viewPager) { tab, position ->
             tab.text = getTabTitle(position)
-          }.attach()
+        }.attach()
 
 
         binding.tbLibrary.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                val readState : ReadState = when (tab.position) {
+                val readState: ReadState = when (tab.position) {
                     0 -> ReadState.ALL
                     1 -> ReadState.FINISH
                     2 -> ReadState.READING
@@ -70,13 +75,14 @@ class LibraryFragment : Fragment() {
             }
         })
 
-        binding.tbLibrary
-
     }
 
     private fun observeReadState() {
         viewModel.readState.observe(viewLifecycleOwner) { readState ->
-            Toast.makeText(requireContext(), readState.toString(), Toast.LENGTH_SHORT).show()
+            if (viewModel.lastReadState.value != readState) {
+                Toast.makeText(requireContext(), readState.toString(), Toast.LENGTH_SHORT).show()
+                viewModel.setReadState(readState)
+            }
         }
     }
 
@@ -84,6 +90,7 @@ class LibraryFragment : Fragment() {
         viewModel.currentUserNovels.observe(viewLifecycleOwner) { currentUserNovels ->
             currentUserNovels?.let {
                 viewPagerAdapter.fetchUserNovels(it)
+                Toast.makeText(requireContext(), "hi", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -97,6 +104,18 @@ class LibraryFragment : Fragment() {
             4 -> getString(R.string.library_tb_item_wish)
             else -> ""
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Toast.makeText(requireContext(), "DESTOROY", Toast.LENGTH_SHORT).show()
+        viewModel.readState.removeObservers(viewLifecycleOwner)
+        viewModel.currentUserNovels.removeObservers(viewLifecycleOwner)
+    }
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
     }
 
     companion object {

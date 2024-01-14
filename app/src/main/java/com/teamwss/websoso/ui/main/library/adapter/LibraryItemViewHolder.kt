@@ -2,7 +2,7 @@ package com.teamwss.websoso.ui.main.library.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.teamwss.websoso.data.model.LibraryUserNovel
+import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.databinding.ItemLibraryNovelBinding
 import kotlin.properties.Delegates
 
@@ -17,13 +17,13 @@ class LibraryItemViewHolder(
         binding.root.setOnClickListener {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
+
             }
         }
     }
 
-    fun bind(userNovel: LibraryUserNovel) {
+    fun bind(userNovel: LibraryUserNovelEntity) {
         binding.libraryNovel = userNovel
-        binding.ivLibraryNovelCover.load(userNovel.userNovelCover)
         userNovelId = userNovel.userNovelId
     }
 }
