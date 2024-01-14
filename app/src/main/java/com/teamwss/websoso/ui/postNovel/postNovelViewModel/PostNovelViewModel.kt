@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
-import com.teamwss.websoso.data.mapper.toUI
 import com.teamwss.websoso.data.remote.request.PostNovelRequest
 import com.teamwss.websoso.data.remote.response.GetPlatformResponse
 import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel

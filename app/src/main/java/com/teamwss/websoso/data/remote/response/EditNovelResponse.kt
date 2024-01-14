@@ -1,6 +1,7 @@
 package com.teamwss.websoso.data.remote.response
 
 
+import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.time.LocalDate
@@ -29,4 +30,20 @@ data class EditNovelResponse(
     val userNovelReadStatus: String = "",
     @SerialName("userNovelTitle")
     val userNovelTitle: String = "",
-)
+){
+    fun toUI(): PostNovelInfoModel {
+        return PostNovelInfoModel(
+            author = userNovelAuthor,
+            description = userNovelDescription,
+            genre = userNovelGenre,
+            id = userNovelId,
+            image = userNovelImg,
+            title = userNovelTitle,
+            platforms = platforms,
+            rating = userNovelRating,
+            readStatus = userNovelReadStatus,
+            readStartDate = userNovelReadStartDate,
+            readEndDate = userNovelReadEndDate
+        )
+    }
+}

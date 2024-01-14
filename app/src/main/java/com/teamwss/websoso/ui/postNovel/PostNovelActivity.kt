@@ -85,30 +85,37 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun setupSaveButton() {
         binding.llPostButton.setOnClickListener {
-            checkIsDateNull()
             saveNovelInfo()
             showPostSuccessDialog()
         }
     }
 
-    private fun checkIsDateNull() {
-        if (!binding.scPostDateSwitch.isChecked) {
-            postNovelViewModel.updateReadDate(null, null)
+    private fun checkIsDateNull(): PostNovelRequest {
+        return if (!binding.scPostDateSwitch.isChecked) {
+            (PostNovelRequest(
+                postNovelViewModel.rating.value!!,
+                postNovelViewModel.readStatus.value!!,
+                null,
+                null
+            ))
+        } else {
+            (PostNovelRequest(
+                postNovelViewModel.rating.value!!,
+                postNovelViewModel.readStatus.value!!,
+                postNovelViewModel.startDate.value.toString(),
+                postNovelViewModel.endDate.value.toString()
+            ))
         }
     }
 
     private fun saveNovelInfo() {
         val id = postNovelViewModel.editNovelInfo.value!!.id
-        val request = PostNovelRequest(
-            postNovelViewModel.rating.value!!,
-            postNovelViewModel.readStatus.value!!,
-            postNovelViewModel.startDate.value,
-            postNovelViewModel.endDate.value
-        )
+        val request = checkIsDateNull()
 
-        postNovelViewModel.isNovelPosted.observe(this@PostNovelActivity) {
-            if (!it) postNovelViewModel.postNovelInfo(id, request)
-            else postNovelViewModel.patchNovelInfo(id, request)
+        if (!postNovelViewModel.isNovelPosted.value!!) {
+            postNovelViewModel.postNovelInfo(id, request)
+        } else {
+            postNovelViewModel.patchNovelInfo(id, request)
         }
     }
 
