@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.main.myPage.changeName
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityChangeNameBinding
-
 
 class ChangeNameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeNameBinding
@@ -33,34 +31,36 @@ class ChangeNameActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        launchBackToMyPageOnClick()
+        handelBackToMyPage()
         setupChangeNameEditText()
-        initChangeNameEditText()
         setDefaultNameAndTextWatcher(binding.etChangeName, binding.tvChangeNameCount, 10)
     }
 
-    private fun launchBackToMyPageOnClick() {
+    private fun handelBackToMyPage() {
         binding.ivChangeNameBack.setOnClickListener {
-            try {
-                finish()
-            } catch (e: Exception) {
-                Log.e("error", "이동실패", e)
-            }
+            finish()
         }
     }
 
     private fun setupChangeNameEditText() {
-        val etChangeName: EditText = binding.etChangeName
+        setupTextWatcher()
+        focusChangeListener()
+        setupClearButtonClickListener()
+    }
 
-        etChangeName.addTextChangedListener(
+    private fun setupTextWatcher() {
+        binding.etChangeName.addTextChangedListener(
             createTextWatcher(
-                etChangeName,
+                binding.etChangeName,
                 binding.tvChangeNameCount,
                 10
             )
         )
-        etChangeName.setOnFocusChangeListener { _, hasFocus ->
-            updateEditTextFocus(etChangeName, hasFocus)
+    }
+
+    private fun focusChangeListener() {
+        binding.etChangeName.setOnFocusChangeListener { _, hasFocus ->
+            updateEditTextFocus(binding.etChangeName, hasFocus)
         }
     }
 
@@ -69,14 +69,7 @@ class ChangeNameActivity : AppCompatActivity() {
         editText.background.setTint(ContextCompat.getColor(this, backgroundColor))
     }
 
-    private fun initChangeNameEditText() {
-        binding.etChangeName.addTextChangedListener(
-            createTextWatcher(
-                binding.etChangeName,
-                binding.tvChangeNameCount,
-                10
-            )
-        )
+    private fun setupClearButtonClickListener() {
         binding.ivChangeNameCancel.setOnClickListener {
             clearChangeNameEditText()
         }
