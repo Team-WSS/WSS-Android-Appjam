@@ -25,7 +25,7 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     private fun onClickMemoEditCancelBtn() {
-        binding.btnMemoEditCancel.setOnClickListener {
+        binding.ivMemoEditCancelBtn.setOnClickListener {
             showMemoCancelDialog()
         }
     }
