@@ -28,7 +28,6 @@ class NovelDetailActivity : AppCompatActivity() {
             this
         )
     }
-    private var isUserInteraction = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +51,6 @@ class NovelDetailActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-    }
-
-    override fun onUserInteraction() {
-        super.onUserInteraction()
-        isUserInteraction = true
     }
 
     private fun setupFragment() {
