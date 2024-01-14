@@ -8,10 +8,14 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ItemAvatarBinding
 import com.teamwss.websoso.ui.main.myPage.model.Avatar
 
-class MyPageViewHolder(private val binding: ItemAvatarBinding, adapter: MyPageAdapter) :
+class MyPageViewHolder(private val binding: ItemAvatarBinding, private val adapter: MyPageAdapter) :
     RecyclerView.ViewHolder(binding.root) {
 
     init {
+        setupClickListener()
+    }
+
+    private fun setupClickListener(){
         binding.root.setOnClickListener {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
