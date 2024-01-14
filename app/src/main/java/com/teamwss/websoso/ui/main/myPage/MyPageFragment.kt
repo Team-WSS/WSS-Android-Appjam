@@ -32,8 +32,8 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeUserName()
         setupAvatarRecyclerView()
-        setupAvatarDialog()
         launchOnClick()
+        setupAvatarDialog()
     }
 
     @SuppressLint("StringFormatMatches")
@@ -49,17 +49,6 @@ class MyPageFragment : Fragment() {
         setupAvatarList()
     }
 
-    private fun launchOnClick() {
-        launchChangeNameOnClick()
-        launchCheckUserNameOnClick()
-    }
-
-    private fun setupAvatarDialog() {
-        avatarAdapter.setOnItemClickListener { avatar ->
-            showAvatarDialog(avatar)
-        }
-    }
-
     private fun initRecyclerView() {
         avatarAdapter = MyPageAdapter()
         binding.rvMyPageSelected.adapter = avatarAdapter
@@ -71,9 +60,9 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    private fun showAvatarDialog(avatar: Avatar) {
-        val dialogFragment = AvatarDialogFragment.newInstance(avatar)
-        dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
+    private fun launchOnClick() {
+        launchChangeNameOnClick()
+        launchCheckUserNameOnClick()
     }
 
     private fun launchChangeNameOnClick() {
@@ -103,6 +92,17 @@ class MyPageFragment : Fragment() {
                 Log.e("error", "이동실패", e)
             }
         }
+    }
+
+    private fun setupAvatarDialog() {
+        avatarAdapter.onAvatarItemClickListener { avatar ->
+            showAvatarDialog(avatar)
+        }
+    }
+
+    private fun showAvatarDialog(avatar: Avatar) {
+        val dialogFragment = AvatarDialogFragment.newInstance(avatar)
+        dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
     }
 
     companion object {

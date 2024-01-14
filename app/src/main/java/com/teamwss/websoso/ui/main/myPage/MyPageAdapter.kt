@@ -27,7 +27,7 @@ class MyPageAdapter : RecyclerView.Adapter<MyPageViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun setOnItemClickListener(listener: (Avatar) -> Unit) {
+    fun onAvatarItemClickListener(listener: (Avatar) -> Unit) {
         this.onItemClickListener = listener
     }
 }
