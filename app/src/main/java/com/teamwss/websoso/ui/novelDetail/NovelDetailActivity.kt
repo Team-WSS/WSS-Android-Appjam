@@ -42,7 +42,6 @@ class NovelDetailActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupFragment()
         viewPagerRegisterPageCallback()
-        viewPagerPageChangeCallback()
         setItemVisibilityOnToolBar()
     }
 
@@ -75,22 +74,6 @@ class NovelDetailActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    private fun viewPagerPageChangeCallback() {
-        binding.vpNovelDetail.registerOnPageChangeCallback(object :
-            ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                reloadFragmentView()
-            }
-        })
-    }
-
-    private fun reloadFragmentView() {
-        novelDetailAdapter.fragments.forEach { fragment ->
-            fragment.view?.post { fragment.view?.requestLayout() }
-        }
     }
 
     private fun setItemVisibilityOnToolBar() {
