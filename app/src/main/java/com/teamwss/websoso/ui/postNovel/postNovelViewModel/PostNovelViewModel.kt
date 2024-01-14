@@ -60,10 +60,11 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.userNovelService.fetchEditNovelInfo(novelId)
             }.onSuccess {
-                _isNovelPosted.value = true
                 initUserNovelInfo(it.toUI())
+                _isServerError.value = false
+                _isNovelPosted.value = it.userNovelId != 0L
             }.onFailure {
-                _isNovelPosted.value = false
+                _isServerError.value = true
                 Log.e("fetchUserNovelInfo", "fetchUserNovelInfo() error: ${it.message}")
             }
         }

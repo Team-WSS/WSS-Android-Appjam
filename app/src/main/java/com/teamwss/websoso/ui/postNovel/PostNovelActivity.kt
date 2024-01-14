@@ -90,7 +90,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.llPostButton.setOnClickListener {
             saveNovelInfo()
             postNovelViewModel.isServerError.observe(this) {
-                if (!it){
+                if (!it) {
                     showPostSuccessDialog()
                 }
             }
@@ -154,8 +154,12 @@ class PostNovelActivity : AppCompatActivity() {
     private fun initUserNovelInfo() {
         val testNovelInfoId: Long = 1
         postNovelViewModel.fetchUserNovelInfo(testNovelInfoId)
+        Log.e("sdfawfqfzxvcz", "${postNovelViewModel.isNovelPosted.value}")
         postNovelViewModel.isNovelPosted.observe(this@PostNovelActivity) {
-            if (!it) postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
+            if (!it) {
+                postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
+                Log.e("faqwefawegwrgergeahgwr", "${postNovelViewModel.isNovelPosted.value}")
+            }
         }
     }
 
