@@ -56,7 +56,7 @@ class PostNovelViewModel : ViewModel() {
     fun fetchUserNovelInfo(novelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.postNovelService.fetchEditNovelInfo(novelId)
+                ServicePool.userNovelService.fetchEditNovelInfo(novelId)
             }.onSuccess {
                 _isNovelPosted.value = true
                 initUserNovelInfo(it.toUI())
@@ -70,7 +70,7 @@ class PostNovelViewModel : ViewModel() {
     fun fetchDefaultNovelInfo(novelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.postNovelService.fetchPostNovelInfo(novelId)
+                ServicePool.novelService.fetchPostNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
             }.onFailure {
@@ -83,7 +83,7 @@ class PostNovelViewModel : ViewModel() {
     fun postNovelInfo(novelId: Long, request: PostNovelRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.postNovelService.postPostNovelInfo(novelId, request)
+                ServicePool.userNovelService.postPostNovelInfo(novelId, request)
             }.onSuccess {
                 Log.d("postNovelInfo", "postNovelInfo() success: $it")
             }.onFailure {
@@ -95,7 +95,7 @@ class PostNovelViewModel : ViewModel() {
     fun patchNovelInfo(novelId: Long, request: PostNovelRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.postNovelService.editPostNovelInfo(novelId, request)
+                ServicePool.novelService.editPostNovelInfo(novelId, request)
             }.onSuccess {
                 Log.d("patchNovelInfo", "patchNovelInfo() success: $it")
             }.onFailure {
