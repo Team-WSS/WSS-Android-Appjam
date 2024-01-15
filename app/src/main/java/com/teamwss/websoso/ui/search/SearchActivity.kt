@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.search
 
 import android.content.Context
+import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,9 +10,10 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivitySearchBinding
-import com.teamwss.websoso.ui.search.model.SearchResult
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
 
 class SearchActivity : AppCompatActivity() {
@@ -31,6 +33,29 @@ class SearchActivity : AppCompatActivity() {
         setResultNovelList()
 
         isResultEmpty()
+
+        binding.rvSearchResult.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 4
+
+                if (lastVisibleItemPosition == itemTotalCount) {
+                    if (viewModel.isLoading.value != true) {
+                        val lastNovelId =
+                            viewModel.searchResult.value?.novels?.lastOrNull()?.novelId?.toLong()
+                                ?: return
+                        viewModel.searchNovels(
+                            lastNovelId,
+                            PAGE_SIZE,
+                            binding.etSearch.text.toString()
+                        )
+                    }
+                }
+            }
+        })
     }
 
     private fun showKeyboardOnEditTextFocus() {
@@ -92,7 +117,7 @@ class SearchActivity : AppCompatActivity() {
                 binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_radius_12dp)
                 isHandled = true
 
-                viewModel.searchNovels(999999, 40, binding.etSearch.text.toString())
+                viewModel.searchNovels(999999, 20, binding.etSearch.text.toString())
             } else {
                 binding.clSearchView.setBackgroundResource(R.color.transparent)
             }
@@ -109,59 +134,6 @@ class SearchActivity : AppCompatActivity() {
         viewModel.searchResult.observe(this) {
             searchAdapter.setResultNovelList(it.novels)
         }
-    }
-
-    companion object {
-        private val mockResultNovelList = listOf<SearchResult>(
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서라는 웹소설이있어요 이거는 겁나 긴 제목을 위한 것입니다 과연 이게 어떻게 나올까요 나도 궁금하네요",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-        )
     }
 
     private fun isResultEmpty() {
