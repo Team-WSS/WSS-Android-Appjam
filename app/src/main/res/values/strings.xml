@@ -88,8 +88,8 @@
     <string name="novel_info_naver_series">네이버시리즈</string>
     <string name="novel_info_kakao_page">카카오페이지</string>
 
-    <!-- Memo Write -->
-    <string name="memo_write_complete">완료</string>
+    <!-- Memo Plain -->
+    <string name="memo_plain_edit">수정</string>
 
     <!-- Edit Memo Cancel Dialog -->
     <string name="dialog_cancel_title">작성을 취소할까요?</string>
