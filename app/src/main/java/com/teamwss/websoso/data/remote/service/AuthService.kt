@@ -6,6 +6,6 @@ import retrofit2.http.POST
 interface AuthService {
 
     @POST("users/login")
-    suspend fun login(
+    suspend fun postLogin(
     ): UserNovelsResponse
 }
