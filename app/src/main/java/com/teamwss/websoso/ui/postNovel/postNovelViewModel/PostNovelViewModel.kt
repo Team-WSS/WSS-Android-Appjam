@@ -87,7 +87,6 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.novelService.postPostNovelInfo(novelId, request)
             }.onSuccess {
                 _isServerError.value = false
-                Log.d("patchNovelInfo2", "postNovelInfo() success: $it")
             }.onFailure {
                 _isServerError.value = true
             }
@@ -97,13 +96,9 @@ class PostNovelViewModel : ViewModel() {
     fun patchNovelInfo(novelId: Long, request: NovelPostRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
-                Log.d("patchNovelInfo1", novelId.toString())
-                Log.d("patchNovelInfo1", request.toString())
-
                 ServicePool.userNovelService.editPostNovelInfo(novelId, request)
             }.onSuccess {
                 _isServerError.value = false
-                Log.d("patchNovelInfo1", "patchNovelInfo() success: $it")
             }.onFailure {
                 _isServerError.value = true
             }
