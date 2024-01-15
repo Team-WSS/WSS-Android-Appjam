@@ -29,7 +29,7 @@ class LibraryViewModel(
         get() = _lastReadState
 
     private var _currentUserNovels: MutableLiveData<List<LibraryUserNovelEntity>> =
-        MutableLiveData()
+        MutableLiveData(emptyList())
     val currentUserNovels: LiveData<List<LibraryUserNovelEntity>>
         get() = _currentUserNovels
 

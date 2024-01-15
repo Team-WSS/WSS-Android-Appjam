@@ -105,9 +105,7 @@ class LibraryFragment : Fragment() {
 
     private fun observeCurrentNovels() {
         viewModel.currentUserNovels.observe(viewLifecycleOwner) { currentUserNovels ->
-            currentUserNovels?.let {
-                viewPagerAdapter?.fetchUserNovels(it)
-            }
+            viewPagerAdapter.fetchUserNovels(currentUserNovels)
         }
     }
 
