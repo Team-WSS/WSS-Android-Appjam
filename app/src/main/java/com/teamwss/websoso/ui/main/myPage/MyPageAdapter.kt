@@ -8,7 +8,8 @@ import com.teamwss.websoso.ui.main.myPage.model.Avatar
 
 class MyPageAdapter : RecyclerView.Adapter<MyPageViewHolder>() {
     var avatarItems: List<Avatar> = emptyList()
-    var onItemClickListener: ((Avatar) -> Unit)? = null
+    lateinit var onItemClickListener: ((Avatar) -> Unit)
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyPageViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -20,14 +21,14 @@ class MyPageAdapter : RecyclerView.Adapter<MyPageViewHolder>() {
         holder.onBind(avatarItems[position])
 
         holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(avatarItems[position])
+            onItemClickListener.invoke(avatarItems[position])
         }
     }
 
     override fun getItemCount() = avatarItems.size
 
-    fun setAvatarList(avatarList: List<Avatar>) {
-        this.avatarItems = avatarList.toList()
+    fun updateAvatarList(newAvatarList: List<Avatar>) {
+        this.avatarItems = newAvatarList.toList()
         notifyDataSetChanged()
     }
 
