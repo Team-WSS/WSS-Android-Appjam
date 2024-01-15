@@ -91,7 +91,7 @@
 
                         <ImageView
                             android:id="@+id/ivNovelDetailThumbnail"
-                            loadRoundedCoverImage="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
+                            loadCoverImageRounded6="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
                             android:layout_width="64dp"
                             android:layout_height="92dp"
                             android:layout_marginStart="4dp"
