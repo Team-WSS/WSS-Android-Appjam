@@ -18,7 +18,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
-import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 import com.teamwss.websoso.ui.novelDetail.fragment.DialogNovelDelete
@@ -32,7 +31,7 @@ class NovelDetailActivity : AppCompatActivity() {
         )
     }
     private val novelDetailViewModel: NovelDetailViewModel by viewModels()
-    private val userNovelId: Long by lazy { novelDetailViewModel.userNovelId.value!!.toLong() }
+    private var userNovelId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +41,14 @@ class NovelDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.novelDetailViewModel = novelDetailViewModel
 
+        getAndUpdateUserNovelId()
         setupUI()
+        observeUserNovelId()
         setupListener()
+    }
 
-        var userNovelId: Long = 56
+    private fun getAndUpdateUserNovelId() {
+        userNovelId = intent.getLongExtra("userNovelId", -1)
         novelDetailViewModel.getUserNovelId(userNovelId)
         novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }
@@ -65,7 +68,8 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun setupFragment() {
-        val tabTitleItems = listOf(getText(R.string.novel_detail_memo), getText(R.string.novel_detail_info))
+        val tabTitleItems =
+            listOf(getText(R.string.novel_detail_memo), getText(R.string.novel_detail_info))
         binding.vpNovelDetail.adapter = novelDetailAdapter
 
         TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
@@ -108,6 +112,12 @@ class NovelDetailActivity : AppCompatActivity() {
 
             tvNovelDetailTitleOnToolBar.visibility = if (isCollapsed) View.VISIBLE else View.GONE
             ivNovelDetailPopupMenuBtn.visibility = if (isCollapsed) View.GONE else View.VISIBLE
+        }
+    }
+
+    private fun observeUserNovelId() {
+        novelDetailViewModel.userNovelId.observe(this) {
+            userNovelId = novelDetailViewModel.userNovelId.value!!.toLong()
         }
     }
 
@@ -160,11 +170,21 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun createPopupWindow(listView: ListView): PopupWindow {
-        return PopupWindow(listView, POPUP_WIDTH.intDp, WindowManager.LayoutParams.WRAP_CONTENT, true).apply {
+        return PopupWindow(
+            listView,
+            POPUP_WIDTH.intDp,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply {
             isTouchable = true
             isOutsideTouchable = true
             isFocusable = true
-            setBackgroundDrawable(ContextCompat.getDrawable(this@NovelDetailActivity, R.drawable.bg_gray50_radius_12dp))
+            setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    this@NovelDetailActivity,
+                    R.drawable.bg_gray50_radius_12dp
+                )
+            )
         }
     }
 
@@ -177,7 +197,6 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun showNovelDeleteDialog() {
         val dialog = DialogNovelDelete(clickNovelDelete = {
-            // 서재 프레그먼트로 이동해야 함
             finish()
         })
         dialog.show((supportFragmentManager), "DeleteNovelDialog")
@@ -200,7 +219,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
         fun createIntent(context: Context, userNovelId: Long): Intent {
             return Intent(context, NovelDetailActivity::class.java).apply {
-                putExtra("memoId", userNovelId)
+                putExtra("userNovelId", userNovelId)
             }
         }
     }
