@@ -1,12 +1,11 @@
 package com.teamwss.websoso.data.remote.service
 
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
+import com.teamwss.websoso.data.remote.response.SosopickNovelHomeResponse
 import com.teamwss.websoso.data.remote.response.UserNovelPostResponse
-import com.teamwss.websoso.data.remote.response.UserNovelsResponse
+import com.teamwss.websoso.data.remote.response.UserNovelsLibraryResponse
 import retrofit2.Response
 import retrofit2.http.Body
-import com.teamwss.websoso.data.remote.response.SosopickNovelHomeResponse
-import com.teamwss.websoso.data.remote.response.UserNovelsLibraryResponse
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.Path
