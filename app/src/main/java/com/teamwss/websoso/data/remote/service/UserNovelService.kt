@@ -5,6 +5,8 @@ import com.teamwss.websoso.data.remote.response.UserNovelPostResponse
 import com.teamwss.websoso.data.remote.response.UserNovelsResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import com.teamwss.websoso.data.remote.response.SosopickNovelHomeResponse
+import com.teamwss.websoso.data.remote.response.UserNovelsLibraryResponse
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.Path
@@ -18,9 +20,12 @@ interface UserNovelService {
         @Query("lastUserNovelId") lastUserNovelId: Long,
         @Query("size") size: Int,
         @Query("sortType") sortType: String
-    ): UserNovelsResponse
+    ): UserNovelsLibraryResponse
 
-    @GET("novels/{novelId}")
+    @GET("user-novels/soso-picks")
+    suspend fun getSosoPickNovels(): SosopickNovelHomeResponse
+    
+    @GET("/novels/{novelId}")
     suspend fun getEditNovelInfo(
         @Path("novelId") novelId: Long
     ): UserNovelPostResponse
