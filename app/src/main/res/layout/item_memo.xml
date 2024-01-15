@@ -9,7 +9,7 @@
     <View
         android:id="@+id/viewMemoLongLine"
         android:layout_width="0dp"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_marginTop="5dp"
         android:background="@color/gray_70_DFDFE3"
         app:layout_constraintEnd_toStartOf="@id/tvMemoDate"
