@@ -9,7 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.teamwss.websoso.App
-import com.teamwss.websoso.data.mapper.toData
+import com.teamwss.websoso.data.mapper.UserNovelMapper.toData
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.data.repository.UserNovelsRepository
 import com.teamwss.websoso.ui.main.library.model.ReadState
