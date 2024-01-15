@@ -85,10 +85,11 @@
 
     <ImageView
         android:id="@+id/ivHomeAvatar"
-        android:layout_width="330dp"
-        android:layout_height="220dp"
+        android:layout_width="240dp"
+        android:layout_height="0dp"
         android:layout_marginTop="12dp"
         android:src="@drawable/img_home_test"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHomeAvatarComment"
@@ -99,19 +100,19 @@
         android:layout_width="7dp"
         android:layout_height="7dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/bg_selected_circle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivHomeAvatar" />
+        app:layout_constraintBottom_toTopOf="@+id/rvHomeSosoPick"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tvHomeSosoPick"
-        android:textColor="@color/black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
         android:text="@string/home_sosopick"
         android:textAppearance="@style/headline1"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/vHomeSubTitleDot"
         app:layout_constraintStart_toEndOf="@id/vHomeSubTitleDot"
         app:layout_constraintTop_toTopOf="@id/vHomeSubTitleDot" />
@@ -133,10 +134,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHomeSosoPick"
         tools:listitem="@layout/item_home" />
 </androidx.constraintlayout.widget.ConstraintLayout>
