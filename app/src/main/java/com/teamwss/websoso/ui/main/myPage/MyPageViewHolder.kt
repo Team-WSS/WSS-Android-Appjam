@@ -20,7 +20,7 @@ class MyPageViewHolder(private val binding: ItemAvatarBinding, private val adapt
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
                 val avatar = adapter.avatarItems[position]
-                adapter.onItemClickListener?.invoke(avatar)
+                adapter.onItemClickListener.invoke(avatar)
             }
         }
     }
@@ -29,7 +29,7 @@ class MyPageViewHolder(private val binding: ItemAvatarBinding, private val adapt
         binding.ivAvatar.load(avatar.avatarImg)
         {
             crossfade(true)
-            placeholder(R.drawable.img_avatar_test)
+            placeholder(R.drawable.img_cover_test)
             transformations()
         }
     }
