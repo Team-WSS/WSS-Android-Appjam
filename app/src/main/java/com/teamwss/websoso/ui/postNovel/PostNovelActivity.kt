@@ -16,7 +16,7 @@ import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
-import com.teamwss.websoso.ui.postNovel.postNovelModel.ReadStatus
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 import kotlin.math.pow
 

@@ -8,7 +8,7 @@ import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
 import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
-import com.teamwss.websoso.ui.postNovel.postNovelModel.ReadStatus
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 

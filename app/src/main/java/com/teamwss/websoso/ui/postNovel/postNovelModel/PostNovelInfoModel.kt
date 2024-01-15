@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.postNovel.postNovelModel
 
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import java.time.LocalDate
 
 data class PostNovelInfoModel(
