@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
+import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 import com.teamwss.websoso.ui.novelDetail.fragment.DialogNovelDelete
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
@@ -115,7 +116,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun onClickAddMemoButton() {
         binding.ivNovelDetailAddMemoBtn.setOnClickListener {
-            val intent = Intent(this, MemoPlainActivity::class.java)
+            val intent = MemoWriteActivity.createNewMemoIntent(this)
             startActivity(intent)
         }
     }
