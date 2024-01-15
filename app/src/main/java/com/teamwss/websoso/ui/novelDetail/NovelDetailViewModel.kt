@@ -21,7 +21,6 @@ class NovelDetailViewModel : ViewModel() {
     private val _memos: MutableLiveData<List<NovelMemoResponse>> = MutableLiveData()
     val memos : LiveData<List<NovelMemoResponse>> = _memos
 
-
     fun getUserNovelMemoInfo(userNovelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {

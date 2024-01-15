@@ -32,6 +32,7 @@ class NovelDetailActivity : AppCompatActivity() {
     }
     private val novelDetailViewModel: NovelDetailViewModel by viewModels()
     private var userNovelId: Long = 0
+    private var popupWindow: PopupWindow? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,11 +150,11 @@ class NovelDetailActivity : AppCompatActivity() {
     private fun showNovelDetailPopup() {
         val spinnerItems = listOf("작품을 서재에서 삭제", "작품 수정")
         val listView = createListView(spinnerItems)
-        val popupWindow = createPopupWindow(listView)
+        popupWindow = createPopupWindow(listView)
 
         val xOffset = POPUP_MARGIN_END.intDp
         val yOffset = POPUP_MARGIN_TOP.intDp
-        popupWindow.showAsDropDown(binding.ivNovelDetailPopupMenuBtn, xOffset, yOffset, Gravity.END)
+        popupWindow?.showAsDropDown(binding.ivNovelDetailPopupMenuBtn, xOffset, yOffset, Gravity.END)
     }
 
     private fun createListView(items: List<String>): ListView {
@@ -206,6 +207,20 @@ class NovelDetailActivity : AppCompatActivity() {
         val intent = PostNovelActivity.newIntent(this, 0)
         startActivity(intent)
         finish()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (popupWindow?.isShowing == true) {
+            popupWindow?.dismiss()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (popupWindow?.isShowing == true) {
+            popupWindow?.dismiss()
+        }
     }
 
     private val Int.intDp: Int get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()

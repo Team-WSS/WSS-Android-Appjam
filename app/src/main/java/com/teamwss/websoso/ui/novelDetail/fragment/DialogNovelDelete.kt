@@ -48,8 +48,8 @@ class DialogNovelDelete(private val clickNovelDelete: () -> Unit) : DialogFragme
     private fun clickNovelDeleteButton() {
         binding.tvDialogNovelDeleteDropBtn.setOnClickListener {
             novelDetailViewModel.deleteNovel(userNovelId)
-            clickNovelDelete()
             dismiss()
+            clickNovelDelete()
         }
     }
 
