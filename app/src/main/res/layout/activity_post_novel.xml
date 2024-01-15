@@ -526,7 +526,7 @@
                 android:textAppearance="@style/title1"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:shapeAppearanceOverlay="@style/post_button_corner_12" />
+                app:shapeAppearanceOverlay="@style/PostCompleteButtonRounded12" />
 
             <View
                 android:id="@+id/viewPostAppBar"

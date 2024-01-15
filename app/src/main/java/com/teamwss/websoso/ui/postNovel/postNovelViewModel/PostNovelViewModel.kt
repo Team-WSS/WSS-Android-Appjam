@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -81,7 +80,7 @@ class PostNovelViewModel : ViewModel() {
         }
     }
 
-    fun postNovelInfo(novelId: Long, request: NovelPostRequest) {
+    fun saveNovelInfo(novelId: Long, request: NovelPostRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
                 ServicePool.novelService.postPostNovelInfo(novelId, request)
@@ -93,7 +92,7 @@ class PostNovelViewModel : ViewModel() {
         }
     }
 
-    fun patchNovelInfo(novelId: Long, request: NovelPostRequest) {
+    fun saveUserNovelInfo(novelId: Long, request: NovelPostRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
                 ServicePool.userNovelService.editPostNovelInfo(novelId, request)
@@ -144,7 +143,7 @@ class PostNovelViewModel : ViewModel() {
         _isNumberPickerStartSelected.value = isSelected
     }
 
-    private fun splitDateToLocalDate(date: String): LocalDate {
+    private fun formatDateToLocalDate(date: String): LocalDate {
         return LocalDate.of(
             formatToYear(date),
             formatToMonth(date),
@@ -167,8 +166,8 @@ class PostNovelViewModel : ViewModel() {
     fun updateIsDateValid() {
         val currentDate = LocalDate.now()
 
-        val isStartDateValid: Boolean = !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(currentDate)
-        val isEndDateValid: Boolean = !splitDateToLocalDate(_selectedEndDate.value.toString()).isAfter(currentDate)
+        val isStartDateValid: Boolean = !formatDateToLocalDate(_selectedStartDate.value.toString()).isAfter(currentDate)
+        val isEndDateValid: Boolean = !formatDateToLocalDate(_selectedEndDate.value.toString()).isAfter(currentDate)
         when (_readStatus.value) {
             ReadStatus.READING.toString() -> {
                 _isNumberPickerDateValid.value = isStartDateValid
@@ -179,8 +178,8 @@ class PostNovelViewModel : ViewModel() {
             else -> {
                 _isNumberPickerDateValid.value =
                     isStartDateValid && isEndDateValid &&
-                            !splitDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
-                                splitDateToLocalDate(_selectedEndDate.value.toString())
+                            !formatDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
+                                formatDateToLocalDate(_selectedEndDate.value.toString())
                             )
             }
         }

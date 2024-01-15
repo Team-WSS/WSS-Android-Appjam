@@ -46,7 +46,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupReadStatusUI()
         setupRatingBar()
         setupUrlButton()
-        setupServerError()
+        setupIsServerError()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -119,9 +119,9 @@ class PostNovelActivity : AppCompatActivity() {
         val request = checkIsDateNull()
 
         if (postNovelViewModel.isNovelAlreadyPosted.value == false) {
-            postNovelViewModel.postNovelInfo(id, request)
+            postNovelViewModel.saveNovelInfo(id, request)
         } else {
-            postNovelViewModel.patchNovelInfo(id, request)
+            postNovelViewModel.saveUserNovelInfo(id, request)
         }
     }
 
@@ -215,7 +215,7 @@ class PostNovelActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun setupServerError() {
+    private fun setupIsServerError() {
         postNovelViewModel.isServerError.observe(this) {
             if (it) {
                 Snackbar.make(
