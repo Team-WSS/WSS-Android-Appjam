@@ -228,7 +228,7 @@ class PostNovelViewModel : ViewModel() {
         return "$formattedYear-$formattedMonth-$formattedDay"
     }
 
-    fun setPlatforms(list: List<NovelPlatformPostResponse>) {
+    private fun setPlatforms(list: List<NovelPlatformPostResponse>) {
         _platforms.value = list
         list.forEach { platform ->
             when (platform.platformName) {
