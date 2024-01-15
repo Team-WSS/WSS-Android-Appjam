@@ -14,8 +14,7 @@ class LibraryItemViewHolder(
 
     init {
         binding.root.setOnClickListener {
-            val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) {
+            if (adapterPosition != RecyclerView.NO_POSITION) {
                 onItemClick(userNovelId)
             }
         }
