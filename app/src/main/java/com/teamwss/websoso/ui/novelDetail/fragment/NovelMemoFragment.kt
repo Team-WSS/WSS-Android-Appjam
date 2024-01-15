@@ -6,9 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
-import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
+import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
 import com.teamwss.websoso.ui.novelDetail.NovelDetailViewModel
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailMemoAdapter
 
@@ -37,7 +36,7 @@ class NovelMemoFragment : Fragment() {
 
     private fun initRecyclerAdapter() {
         novelMemoAdapter = NovelDetailMemoAdapter {
-            val intent = MemoWriteActivity.createIntent(requireContext())
+            val intent = MemoPlainActivity.createIntent(requireContext())
             startActivity(intent)
         }
     }
@@ -56,7 +55,7 @@ class NovelMemoFragment : Fragment() {
     }
 
     private fun navigateMemoWrite() {
-        val intent = MemoWriteActivity.createIntent(requireActivity())
+        val intent = MemoPlainActivity.createIntent(requireActivity())
         startActivity(intent)
     }
 

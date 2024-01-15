@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.memoWrite
+package com.teamwss.websoso.ui.memoPlain
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

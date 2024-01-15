@@ -1,14 +1,14 @@
-package com.teamwss.websoso.ui.memoWrite
+package com.teamwss.websoso.ui.memoPlain
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.teamwss.websoso.databinding.ActivityMemoWriteBinding
+import com.teamwss.websoso.databinding.ActivityMemoPlainBinding
 
-class MemoWriteActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMemoWriteBinding
+class MemoPlainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMemoPlainBinding
 
     private val dialogMemoCancel: DialogMemoCancel by lazy {
         DialogMemoCancel(::finish)
@@ -16,7 +16,7 @@ class MemoWriteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMemoWriteBinding.inflate(layoutInflater)
+        binding = ActivityMemoPlainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setTranslucentOnStatusBar()
@@ -42,7 +42,7 @@ class MemoWriteActivity : AppCompatActivity() {
 
     companion object {
         fun createIntent(context: Context): Intent {
-            return Intent(context, MemoWriteActivity::class.java)
+            return Intent(context, MemoPlainActivity::class.java)
         }
     }
 }
