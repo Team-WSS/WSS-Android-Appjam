@@ -44,6 +44,7 @@ class RecordFragment : Fragment() {
             binding.tvRecordNovelCount.text = getString(R.string.record_novel_count,count)
             when (count == 0L) {
                 true -> {
+                    binding.viewHeaderUnderLine.visibility=View.VISIBLE
                     binding.lyNovelNoExist.visibility = View.VISIBLE
                     binding.lyNovelExist.visibility = View.INVISIBLE
                 }
@@ -53,6 +54,12 @@ class RecordFragment : Fragment() {
                     binding.lyNovelExist.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    private fun launchPostNovel(){
+        binding.btnRecordGoToPostNovel.setOnClickListener{
+            //TODO: 웹소설 일반등록으로 이동
         }
     }
 

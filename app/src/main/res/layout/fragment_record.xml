@@ -16,6 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/viewHeaderUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_50_F4F5F8"
+        app:layout_constraintTop_toBottomOf="@id/tvRecordTitle"
+        app:layout_constraintStart_toStartOf="parent"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lyNovelExist"
         android:layout_width="0dp"
