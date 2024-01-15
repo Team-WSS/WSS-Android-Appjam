@@ -42,8 +42,7 @@ class NovelDetailActivity : AppCompatActivity() {
         setupUI()
         setupListener()
 
-
-        var userNovelId: Long = 2
+        var userNovelId: Long = 56
         novelDetailViewModel.getUserNovelId(userNovelId)
         novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }

@@ -9,6 +9,6 @@ data class NovelMemoResponse(
     val memoId: Long,
     @SerialName("memoContent")
     val memoContent: String,
-    @SerialName("memoDate")
+    @SerialName("createdDate")
     val memoDate: String,
 )
