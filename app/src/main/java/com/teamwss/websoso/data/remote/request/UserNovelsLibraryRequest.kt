@@ -12,5 +12,5 @@ data class UserNovelsLibraryRequest (
     @SerialName("size")
     val size : Int,
     @SerialName("sortType")
-    val sortType: String
+    val sortType: String,
 )

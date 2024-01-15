@@ -22,5 +22,5 @@ data class UserNovel(
     @SerialName("userNovelAuthor")
     val userNovelAuthor: String,
     @SerialName("userNovelRating")
-    val userNovelRating: Float
+    val userNovelRating: Float,
 )
