@@ -53,18 +53,18 @@ class ChangeNameActivity : AppCompatActivity() {
             createTextWatcher(
                 binding.etChangeName,
                 binding.tvChangeNameCount,
-                10
+                maxLength
             )
         )
     }
 
     private fun focusChangeListener() {
         binding.etChangeName.setOnFocusChangeListener { _, hasFocus ->
-            updateEditTextFocus(binding.etChangeName, hasFocus)
+            setEditTextFocusColor(binding.etChangeName, hasFocus)
         }
     }
 
-    private fun updateEditTextFocus(editText: EditText, hasFocus: Boolean) {
+    private fun setEditTextFocusColor(editText: EditText, hasFocus: Boolean) {
         val backgroundColor = if (hasFocus) R.color.primary_100_6341F0 else R.color.gray_200_AEADB3
         editText.background.setTint(ContextCompat.getColor(this, backgroundColor))
     }
@@ -141,6 +141,10 @@ class ChangeNameActivity : AppCompatActivity() {
         editText.text = Editable.Factory.getInstance().newEditable(defaultName)
         val textWatcher = createTextWatcher(editText, countTextView, maxLength)
         editText.addTextChangedListener(textWatcher)
+    }
+
+    companion object {
+        private const val maxLength = 10
     }
 }
 
