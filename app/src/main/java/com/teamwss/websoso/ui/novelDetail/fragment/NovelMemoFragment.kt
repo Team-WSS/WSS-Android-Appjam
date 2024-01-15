@@ -37,7 +37,8 @@ class NovelMemoFragment : Fragment() {
 
     private fun initRecyclerAdapter() {
         novelMemoAdapter = NovelDetailMemoAdapter {
-            activity?.let { MemoWriteActivity.createIntent(it) }
+            val intent = MemoWriteActivity.createIntent(requireContext())
+            startActivity(intent)
         }
     }
 

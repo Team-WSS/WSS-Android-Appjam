@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.novelDetail
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
