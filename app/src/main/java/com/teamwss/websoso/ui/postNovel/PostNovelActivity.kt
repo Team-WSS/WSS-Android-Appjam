@@ -13,10 +13,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
-import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
 import kotlin.math.pow
 
@@ -154,7 +154,7 @@ class PostNovelActivity : AppCompatActivity() {
         val testNovelInfoId: Long = 1
         postNovelViewModel.fetchUserNovelInfo(testNovelInfoId)
         postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
-            if (!it) {
+            if (!it && postNovelViewModel.novelInfo.value == null) {
                 postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
             }
         }

@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,8 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
-import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import com.teamwss.websoso.ui.common.model.ReadStatus
+import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -58,9 +59,10 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.userNovelService.fetchEditNovelInfo(novelId)
             }.onSuccess {
-                initUserNovelInfo(it.toUI())
-                _isNovelAlreadyPosted.value = true
                 _isServerError.value = false
+                _isNovelAlreadyPosted.value = true
+                initUserNovelInfo(it.toUI())
+                Log.e("dsvdgfaesfgwea1", it.toString())
             }.onFailure {
                 _isNovelAlreadyPosted.value = false
             }
@@ -72,8 +74,10 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.novelService.fetchPostNovelInfo(novelId)
             }.onSuccess {
-                initUserNovelInfo(it.toUI())
                 _isServerError.value = false
+                _isNovelAlreadyPosted.value = false
+                initUserNovelInfo(it.toUI())
+                Log.e("dsvdgfaesfgwea2", it.toString())
             }.onFailure {
                 _isServerError.value = true
             }
