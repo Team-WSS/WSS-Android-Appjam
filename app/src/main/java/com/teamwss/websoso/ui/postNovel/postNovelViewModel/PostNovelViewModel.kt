@@ -57,14 +57,15 @@ class PostNovelViewModel : ViewModel() {
     fun fetchUserNovelInfo(novelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.userNovelService.fetchEditNovelInfo(novelId)
+                ServicePool.userNovelService.getEditNovelInfo(novelId)
             }.onSuccess {
+                initUserNovelInfo(it.toUI())
                 _isServerError.value = false
                 _isNovelAlreadyPosted.value = true
-                initUserNovelInfo(it.toUI())
                 Log.e("dsvdgfaesfgwea1", it.toString())
             }.onFailure {
                 _isNovelAlreadyPosted.value = false
+                Log.e("dsvdgfaesfgwea1", it.toString())
             }
         }
     }
@@ -72,14 +73,15 @@ class PostNovelViewModel : ViewModel() {
     fun fetchDefaultNovelInfo(novelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.novelService.fetchPostNovelInfo(novelId)
+                ServicePool.novelService.getPostNovelInfo(novelId)
             }.onSuccess {
+                initUserNovelInfo(it.toUI())
                 _isServerError.value = false
                 _isNovelAlreadyPosted.value = false
-                initUserNovelInfo(it.toUI())
                 Log.e("dsvdgfaesfgwea2", it.toString())
             }.onFailure {
                 _isServerError.value = true
+                Log.e("dsvdgfaesfgwea2", it.toString())
             }
         }
     }
@@ -99,7 +101,7 @@ class PostNovelViewModel : ViewModel() {
     fun saveUserNovelInfo(novelId: Long, request: NovelPostRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.userNovelService.editPostNovelInfo(novelId, request)
+                ServicePool.userNovelService.patchPostNovelInfo(novelId, request)
             }.onSuccess {
                 _isServerError.value = false
             }.onFailure {

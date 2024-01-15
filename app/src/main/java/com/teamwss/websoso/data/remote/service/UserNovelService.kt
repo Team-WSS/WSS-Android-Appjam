@@ -21,12 +21,12 @@ interface UserNovelService {
     ): UserNovelsResponse
 
     @GET("/novels/{novelId}")
-    suspend fun fetchEditNovelInfo(
+    suspend fun getEditNovelInfo(
         @Path("novelId") novelId: Long
     ): UserNovelPostResponse
 
     @PATCH("/user-novels/{userNovelId}")
-    suspend fun editPostNovelInfo(
+    suspend fun patchPostNovelInfo(
         @Path("userNovelId") userNovelId: Long,
         @Body request: NovelPostRequest,
     ): Response<Unit>

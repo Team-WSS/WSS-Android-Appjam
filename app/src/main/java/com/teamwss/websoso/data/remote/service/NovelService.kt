@@ -10,7 +10,7 @@ import retrofit2.http.Path
 
 interface NovelService {
     @GET("/novels/{novelId}")
-    suspend fun fetchPostNovelInfo(
+    suspend fun getPostNovelInfo(
         @Path("novelId") novelId: Long
     ): NovelPostResponse
 

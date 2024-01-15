@@ -88,10 +88,8 @@ class PostNovelActivity : AppCompatActivity() {
     private fun setupSaveButton() {
         binding.fbPostButton.setOnClickListener {
             saveNovelInfo()
-            postNovelViewModel.isServerError.observe(this) {
-                if (!it) {
-                    showPostSuccessDialog()
-                }
+            if (postNovelViewModel.isServerError.value == false && !binding.tvPostNovelTitle.text.isNullOrEmpty()) {
+                showPostSuccessDialog()
             }
         }
     }
