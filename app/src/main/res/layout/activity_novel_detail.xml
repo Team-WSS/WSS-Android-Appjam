@@ -20,6 +20,7 @@
             loadBlurredCoverImage="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
             android:layout_width="match_parent"
             android:layout_height="276dp"
+            android:foreground="@drawable/bg_gray_gradient"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -53,8 +54,8 @@
                         android:layout_marginTop="78dp">
 
                         <ImageView
-                            loadImageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenreBadgeImg}"
                             android:id="@+id/ivNovelDetailGenre"
+                            loadImageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenreBadgeImg}"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="20dp"
