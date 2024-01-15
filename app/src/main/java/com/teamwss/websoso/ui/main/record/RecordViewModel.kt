@@ -1,86 +1,61 @@
 package com.teamwss.websoso.ui.main.record
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.ui.main.record.model.Memo
+import kotlinx.coroutines.launch
 
 class RecordViewModel : ViewModel() {
-    private val _novelCount = MutableLiveData<String>()
-    val novelCount: LiveData<String> get() = _novelCount
+    private val _memoCount = MutableLiveData<Long>()
+    val memoCount: LiveData<Long> get() = _memoCount
 
-    private val _memoData = MutableLiveData<List<Memo>>()
-    val memoData: LiveData<List<Memo>> get() = _memoData
+    private val _memos = MutableLiveData<List<Memo>>()
+    val memos: LiveData<List<Memo>> get() = _memos
+
+    var memoId: Long = INITIAL_ID
+        private set
 
     init {
-        _novelCount.value = "0"
-        _memoData.value = getMockMemoList()
+        updateMemo()
     }
 
-    private fun getMockMemoList(): List<Memo> {
-        return listOf(
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-            Memo(
-                novelDate = "2023-12-23 오전 10:12",
-                novelTitle = "당신의 이해를 돕기 위해서",
-                novelContent = "깨달았다. 사람은 사람을 절대 이해할 수 없다. 공감할수는 있어도. 그렇기에 나는 절대로 사람을 이해하려 노력하지 않을 것이다. 왜냐하면 어차피 이해하지 못할 것이기 때문이다. 너무 속상하다. 왜 사람은 절대 사람을 이해하지 못한다고 한걸까?"
-            ),
-        )
+    private fun updateMemo() {
+        viewModelScope.launch {
+            runCatching {
+                ServicePool.memoService.getRecord(
+                    lastUserNovelId = memoId,
+                    size = SIZE,
+                    sortType = "NEWEST"
+                )
+            }.onSuccess { result ->
+                _memos.value = result.memos.map {
+                    Memo(
+                        novelId = it.memoId,
+                        novelDate = it.memoDate,
+                        novelTitle = it.novelTitle,
+                        novelContent = it.memoContent
+                    )
+                }
+                val lastMemo = result.memos.lastOrNull()
+                if (lastMemo != null) {
+                    memoId = lastMemo.memoId
+                } else {
+                }
+                _memoCount.value = result.memoCount
+            }.onFailure {
+                Log.d("123434578", it.toString())
+            }
+        }
     }
 
-
+    companion object {
+        private const val INITIAL_ID: Long = 99999
+        private const val SIZE: Int = 30
+    }
 }
+
+
