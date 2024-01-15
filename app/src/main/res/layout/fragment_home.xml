@@ -95,10 +95,12 @@
 
         <ImageView
             android:id="@+id/ivHomeAvatar"
-            android:layout_width="240dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:src="@drawable/img_home_test"
             android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@id/tvHomeSosoPick"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
