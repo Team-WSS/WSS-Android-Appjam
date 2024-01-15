@@ -522,7 +522,7 @@
                 android:layout_marginBottom="28dp"
                 android:backgroundTint="@color/primary_100_6341F0"
                 android:gravity="center"
-                android:text="@string/tv_post_complete_button"
+                android:text="@{postNovelViewModel.isNovelAlreadyPosted() ? @string/tv_post_edit_complete_button : @string/tv_post_post_complete_button}"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"

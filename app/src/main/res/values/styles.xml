@@ -4,5 +4,19 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10%</item> <!-- 원형을 위해 50%로 지정 -->
     </style>
+    <style name="CustomDateNumberPicker">
+        <item name="android:textAppearance">@style/body2</item>
+        <item name="android:textColor">@color/gray_300_52515F</item>
+        <item name="android:textAlignment">textEnd</item>
+    </style>
 
+    <style name="BottomSheetDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/modal_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/modal_slide_out_bottom</item>
+    </style>
+
+    <style name="post_button_corner_12" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
 </resources>

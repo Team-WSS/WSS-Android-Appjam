@@ -64,7 +64,8 @@
     <string name="tv_post_novel_site_title">작품 보러가기</string>
     <string name="tv_post_novel_site_naver">네이버시리즈</string>
     <string name="tv_post_novel_site_kakao">카카오페이지</string>
-    <string name="tv_post_complete_button">내 서재에 등록</string>
+    <string name="tv_post_post_complete_button">내 서재에 등록</string>
+    <string name="tv_post_edit_complete_button">수정 완료</string>
     <string name="iv_post_cover_description">표지 이미지</string>
     <string name="iv_post_navigate_left_description">뒤로가기</string>
 
