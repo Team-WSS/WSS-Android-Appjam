@@ -17,7 +17,7 @@
 
         <ImageView
             android:id="@+id/ivNovelDetailBackgroundImg"
-            loadBlurredCoverImage="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
+            loadCoverImageBlurred5="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
             android:layout_width="match_parent"
             android:layout_height="276dp"
             android:foreground="@drawable/bg_gray_gradient"
