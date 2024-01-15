@@ -9,12 +9,12 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface NovelService {
-    @GET("/novels/{novelId}")
+    @GET("novels/{novelId}")
     suspend fun getPostNovelInfo(
         @Path("novelId") novelId: Long
     ): NovelPostResponse
 
-    @POST("/user-novels/{novelId}")
+    @POST("user-novels/{novelId}")
     suspend fun postPostNovelInfo(
         @Path("novelId") novelId: Long,
         @Body request: NovelPostRequest,
