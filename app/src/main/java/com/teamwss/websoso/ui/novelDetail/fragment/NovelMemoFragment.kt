@@ -1,12 +1,12 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
 import com.teamwss.websoso.ui.novelDetail.NovelDetailViewModel
@@ -18,6 +18,10 @@ class NovelMemoFragment : Fragment() {
         get() = requireNotNull(_binding)
     private val novelMemoAdapter: NovelDetailMemoAdapter by lazy { NovelDetailMemoAdapter(::navigateToMemoPlain) }
     private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
+
+    private lateinit var userNovelTitle: String
+    private lateinit var userNovelAuthor: String
+    private lateinit var userNovelImage: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,6 +37,7 @@ class NovelMemoFragment : Fragment() {
         initRecyclerView()
 //        onClickAddingMemoBox()
         observeNovelMemoData()
+        observeUserNovelData()
     }
 
     private fun setupLifecycleOwner() {
@@ -49,20 +54,34 @@ class NovelMemoFragment : Fragment() {
         }
     }
 
+    private fun observeNovelMemoData() {
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) { usersResponse ->
+            novelMemoAdapter.updateUserNovelMemo(usersResponse.memos)
+        }
+    }
+
+    private fun observeUserNovelData() {
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) {
+            userNovelAuthor = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
+            userNovelTitle = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
+            userNovelImage = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelImg
+        }
+    }
+
     //    private fun onClickAddingMemoBox() {
 //        binding.clNovelMemoNavigateNewMemo.setOnClickListener {
 //            navigateMemoWrite()
 //        }
 //    }
     private fun navigateToMemoPlain(memoId: Long) {
-        val intent = MemoPlainActivity.createIntent(requireActivity(), memoId)
+        val intent = MemoPlainActivity.createIntent(
+            requireActivity(),
+            memoId,
+            userNovelTitle,
+            userNovelAuthor,
+            userNovelImage
+        )
         startActivity(intent)
-    }
-
-    private fun observeNovelMemoData() {
-        novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) { usersResponse ->
-            novelMemoAdapter.updateUserNovelMemo(usersResponse.memos)
-        }
     }
 
     override fun onDestroy() {

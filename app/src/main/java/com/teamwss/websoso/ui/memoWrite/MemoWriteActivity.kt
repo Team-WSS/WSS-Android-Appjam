@@ -19,8 +19,12 @@ class MemoWriteActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
 
         val memoId = intent.getLongExtra("memoId", -1)
+        val userNovelTitle = intent.getStringExtra("userNovelTitle")
+        Log.d("userData", userNovelTitle.toString())
+        val userNovelAuthor = intent.getStringExtra("userNovelAuthor")
+        Log.d("userData", userNovelAuthor.toString())
         val userNovelId = intent.getLongExtra("userNovelId", -1)
-        Log.d("userNovelId", userNovelId.toString())
+        Log.d("userData", userNovelId.toString())
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -31,15 +35,33 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun createIntent(context: Context, memoId: Long): Intent {
+        fun createIntent(
+            context: Context,
+            memoId: Long,
+            userNovelTitle: String,
+            userNovelAuthor: String,
+            userNovelImg: String
+        ): Intent {
             return Intent(context, MemoWriteActivity::class.java).apply {
                 putExtra("memoId", memoId)
+                putExtra("userNovelTitle", userNovelTitle)
+                putExtra("userNovelAuthor", userNovelAuthor)
+                putExtra("userNovelImg", userNovelImg)
             }
         }
 
-        fun createNewMemoIntent(context: Context, userNovelId: Long): Intent {
+        fun createNewMemoIntent(
+            context: Context,
+            userNovelId: Long,
+            userNovelTitle: String,
+            userNovelAuthor: String,
+            userNovelImg: String
+        ): Intent {
             return Intent(context, MemoWriteActivity::class.java).apply {
                 putExtra("userNovelId", userNovelId)
+                putExtra("userNovelTitle", userNovelTitle)
+                putExtra("userNovelAuthor", userNovelAuthor)
+                putExtra("userNovelImg", userNovelImg)
             }
         }
     }

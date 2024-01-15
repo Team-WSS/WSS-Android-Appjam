@@ -14,6 +14,9 @@ class MemoPlainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoPlainBinding
     private val memoPlainViewModel: MemoPlainViewModel by viewModels()
     private var memoId by Delegates.notNull<Long>()
+    private lateinit var userNovelTitle: String
+    private lateinit var userNovelAuthor: String
+    private lateinit var userNovelImage: String
     private val dialogMemoDelete: DialogMemoDelete by lazy {
         DialogMemoDelete(::finish)
     }
@@ -30,6 +33,7 @@ class MemoPlainActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupLifecycleOwner()
         setupDataBinding()
+        getUserNovelDataToIntent()
         observeMemoId()
         onClickMemoPlainCancelButton()
         onClickMemoDeleteButton()
@@ -49,6 +53,12 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun setupDataBinding() {
         binding.memoPlainViewModel = memoPlainViewModel
+    }
+
+    private fun getUserNovelDataToIntent() {
+        userNovelImage = intent.getStringExtra("userNovelImg").toString()
+        userNovelTitle = intent.getStringExtra("userNovelTitle").toString()
+        userNovelAuthor = intent.getStringExtra("userNovelAuthor").toString()
     }
 
     private fun observeMemoId() {
@@ -75,16 +85,31 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun onClickMemoEditButton() {
         binding.tvMemoPlainEditBtn.setOnClickListener {
-            val intent = MemoWriteActivity.createIntent(this, memoId)
+            val intent = MemoWriteActivity.createIntent(
+                this,
+                memoId,
+                userNovelTitle,
+                userNovelAuthor,
+                userNovelImage
+            )
             startActivity(intent)
             finish()
         }
     }
 
     companion object {
-        fun createIntent(context: Context, memoId: Long): Intent {
+        fun createIntent(
+            context: Context,
+            memoId: Long,
+            userNovelTitle: String,
+            userNovelAuthor: String,
+            userNovelImg: String
+        ): Intent {
             return Intent(context, MemoPlainActivity::class.java).apply {
                 putExtra("memoId", memoId)
+                putExtra("userNovelTitle", userNovelTitle)
+                putExtra("userNovelAuthor", userNovelAuthor)
+                putExtra("userNovelImg", userNovelImg)
             }
         }
     }

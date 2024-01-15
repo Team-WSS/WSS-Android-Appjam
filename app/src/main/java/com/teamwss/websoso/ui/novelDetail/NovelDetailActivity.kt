@@ -32,6 +32,9 @@ class NovelDetailActivity : AppCompatActivity() {
     }
     private val novelDetailViewModel: NovelDetailViewModel by viewModels()
     private var userNovelId: Long = 0
+    private lateinit var userNovelTitle: String
+    private lateinit var userNovelAuthor: String
+    private lateinit var userNovelImage: String
     private var popupWindow: PopupWindow? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +48,7 @@ class NovelDetailActivity : AppCompatActivity() {
         getAndUpdateUserNovelId()
         setupUI()
         observeUserNovelId()
+        observeUserNovelInfoData()
         setupListener()
     }
 
@@ -122,6 +126,14 @@ class NovelDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeUserNovelInfoData() {
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(this) {
+            userNovelAuthor = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
+            userNovelTitle = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
+            userNovelImage = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelImg
+        }
+    }
+
     private fun setupListener() {
         onClickBackButton()
         onClickAddMemoButton()
@@ -136,7 +148,13 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun onClickAddMemoButton() {
         binding.ivNovelDetailAddMemoBtn.setOnClickListener {
-            val intent = MemoWriteActivity.createNewMemoIntent(this, userNovelId)
+            val intent = MemoWriteActivity.createNewMemoIntent(
+                this,
+                userNovelId,
+                userNovelAuthor,
+                userNovelAuthor,
+                userNovelImage
+            )
             startActivity(intent)
         }
     }
@@ -154,7 +172,12 @@ class NovelDetailActivity : AppCompatActivity() {
 
         val xOffset = POPUP_MARGIN_END.intDp
         val yOffset = POPUP_MARGIN_TOP.intDp
-        popupWindow?.showAsDropDown(binding.ivNovelDetailPopupMenuBtn, xOffset, yOffset, Gravity.END)
+        popupWindow?.showAsDropDown(
+            binding.ivNovelDetailPopupMenuBtn,
+            xOffset,
+            yOffset,
+            Gravity.END
+        )
     }
 
     private fun createListView(items: List<String>): ListView {
