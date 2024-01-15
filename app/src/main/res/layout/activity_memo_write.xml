@@ -4,6 +4,143 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.memoWrite.MemoWriteActivity">
 
+    <ImageView
+        android:id="@+id/ivMemoEditCancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="10dp"
+        android:src="@drawable/ic_navigate_left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMemoWriteCompleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="8dp"
+        android:text="@string/memo_write_complete"
+        android:textAppearance="@style/title2"
+        android:textColor="@color/gray_200_AEADB3"
+        app:layout_constraintBottom_toBottomOf="@id/ivMemoEditCancelBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivMemoEditCancelBtn" />
+
+    <TextView
+        android:id="@+id/tvMemoWriteTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/title1"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivMemoEditCancelBtn"
+        tools:text="당신의 이해를 돕기 위하여" />
+
+    <TextView
+        android:id="@+id/tvMemoWriteAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:paddingBottom="16dp"
+        android:textAppearance="@style/body2"
+        android:textColor="@color/gray_200_AEADB3"
+        app:layout_constraintStart_toStartOf="@id/tvMemoWriteTitle"
+        app:layout_constraintTop_toBottomOf="@id/tvMemoWriteTitle"
+        tools:text="이보라" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/ivMemoWriteThumbnail"
+        android:layout_width="68dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvMemoWriteTitle"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Websoso.ShapeableImageView4"
+        tools:src="@drawable/img" />
+
+    <EditText
+        android:id="@+id/etMemoWriteContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/gray_50_F4F5F8"
+        android:gravity="start"
+        android:padding="20dp"
+        android:textAppearance="@style/body1"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvMemoWriteAuthor"
+        tools:text="dddddddffffff" />
+
+    <View
+        android:id="@+id/viewMemoWriteLine"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/gray_70_DFDFE3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivMemoWriteThumbnail" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMemoWriteContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewMemoWriteLine">
+
+        <TextView
+            android:id="@+id/tvMemoWriteContentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/label1"
+            android:textColor="@color/gray_200_AEADB3"
+            app:layout_constraintBottom_toBottomOf="@id/btnMemoWriteDelete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnMemoWriteDelete"
+            tools:text="2023-12-23 오전 10:12" />
+
+        <ImageView
+            android:id="@+id/btnMemoWriteDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="2dp"
+            android:src="@drawable/ic_delete_memo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvMemoWriteContentMemo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:textAppearance="@style/body1"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMemoWriteContentDate"
+            tools:text="가을이 지나가는 하늘에는 가을로 가득차 있습니다. 나는 아무 걱정도 없이 가을 속의 별들을 다 헬 듯합니다. 가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요, 내일 밤이 남은 까닭이요, 아직 나의 청춘이 다하지 않은 까닭입니다. 별 하나에 추억과 별하나의 사랑과 별 하나에 쓸쓸함과 별 하나에 존경과 별 하나에 시와 별 하나에 어머니, 어머니 어머님, 나는 별 하나에 아름다운 말 한마디씩 붙여봅니다. 소학교 때 책상을 같이 했던 아이들의 이름과, 폐, 경, 옥, 이런 이국 소녀들의 이름과" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvPopupSpinnerItem"
+    android:layout_width="192dp"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center"
+    android:padding="16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:text="작품을 서재에서 삭제"
+    android:textAppearance="@style/body2"
+    android:textColor="@color/black" />

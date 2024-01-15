@@ -48,7 +48,6 @@
     <string name="search_result_null">검색결과가 없어요ㅠ</string>
     <string name="search_title">검색</string>
 
-
     <!-- activity_post_novel -->
     <string name="tv_post_read_status">읽기 상태</string>
     <string name="tv_post_read_status_suffix">" "*</string>
@@ -69,4 +68,41 @@
     <string name="iv_post_cover_description">표지 이미지</string>
     <string name="iv_post_navigate_left_description">뒤로가기</string>
 
+    <!-- Novel Detail -->
+    <string name="novel_detail_memo">메모</string>
+    <string name="novel_detail_info">정보</string>
+    <string name="novel_detail_new_memo">새로운 메모를 작성해보세요</string>
+
+    <!-- Novel Info -->
+    <string name="novel_info_my_evaluation">내 평가</string>
+    <string name="novel_info_read_status">읽기 상태</string>
+    <string name="novel_info_read_date">읽은 날짜</string>
+    <string name="novel_info_tilde">~</string>
+    <string name="novel_info_key_word">키워드</string>
+    <string name="novel_info_intro">작품 소개</string>
+    <string name="novel_info_genre">장르</string>
+    <string name="novel_info_platform_title">작품 보러가기</string>
+    <string name="novel_info_naver_series">네이버시리즈</string>
+    <string name="novel_info_kakao_page">카카오페이지</string>
+
+    <!-- Memo Write -->
+    <string name="memo_write_complete">완료</string>
+
+    <!-- Edit Memo Cancel Dialog -->
+    <string name="dialog_cancel_title">작성을 취소할까요?</string>
+    <string name="dialog_cancel_content">작성 중인 내용이 모두 사라져요!</string>
+    <string name="dialog_cancel_exit">나가기</string>
+    <string name="dialog_cancel_keep_write">계속 진행하기</string>
+
+    <!-- Delete Memo Dialog -->
+    <string name="dialog_memo_delete_title">메모를 삭제하실 건가요?</string>
+    <string name="dialog_memo_delete_content">삭제한 메모는 다시 되돌릴 수 없어요!</string>
+    <string name="dialog_memo_delete_drop">삭제하기</string>
+    <string name="dialog_memo_delete_dismiss">취소</string>
+
+    <!-- Delete Novel Dialog -->
+    <string name="dialog_novel_delete_title">이 작품을 삭제하실 건가요?</string>
+    <string name="dialog_novel_delete_content">읽기 정보와 작성한 메모가 모두 사라져요!\n삭제한 내용은 절대 되돌릴 수 없어요ㅠ</string>
+    <string name="dialog_novel_delete_drop">삭제하기</string>
+    <string name="dialog_novel_delete_dismiss">취소</string>
 </resources>

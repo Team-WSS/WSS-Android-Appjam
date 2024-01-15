@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvNovelInfoMyEvaluation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="28dp"
+            android:text="@string/novel_info_my_evaluation"
+            android:textAppearance="@style/title1"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/rbNovelInfoRating"
+            style="@style/Widget.AppCompat.RatingBar.Indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/gray_70_DFDFE3"
+            android:progressTint="@color/secondary_100_FF675D"
+            android:rating="2"
+            android:secondaryProgressTint="@color/secondary_100_FF675D"
+            android:stepSize="0.5"
+            app:layout_constraintStart_toStartOf="@id/tvNovelInfoMyEvaluation"
+            app:layout_constraintTop_toBottomOf="@id/tvNovelInfoMyEvaluation" />
+
+        <View
+            android:id="@+id/viewNovelInfoLine"
+            android:layout_width="0dp"
+            android:layout_height="7dp"
+            android:layout_marginTop="36dp"
+            android:background="@color/gray_50_F4F5F8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rbNovelInfoRating" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:paddingBottom="84dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewNovelInfoLine"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/tvNovelInfoReadStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/novel_info_read_status"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNovelInfoReadStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_stroke_primary100_20"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoReadStatus">
+
+                <ImageView
+                    android:id="@+id/ivNovelInfoReadStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_status_finish"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="읽음"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/primary_100_6341F0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivNovelInfoReadStatus"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvNovelInfoReadDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/novel_info_read_date"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/primary_200_180A3F"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clNovelInfoReadStatus" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNovelInfoReadDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingVertical="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoReadDate">
+
+                <ImageView
+                    android:id="@+id/ivNovelInfoCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_calendar_black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNovelInfoReadStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_300_52515F"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivNovelInfoCalendar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2023-12-26" />
+
+                <TextView
+                    android:id="@+id/tvNovelInfoReadTilde"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:text="@string/novel_info_tilde"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_300_52515F"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvNovelInfoReadStartDate"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNovelInfoReadEndDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/gray_300_52515F"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvNovelInfoReadTilde"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2023-12-30" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvNoveInfoKeyWord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/novel_info_key_word"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clNovelInfoReadDate" />
+
+            <TextView
+                android:id="@+id/tvNovelInfoIntroTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/novel_info_intro"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clNovelInfoReadDate" />
+
+            <TextView
+                android:id="@+id/tvNovelInfoIntroContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textAppearance="@style/body2"
+                android:textColor="@color/gray_300_52515F"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoIntroTitle"
+                tools:text="왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해 왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다.  '태어나서 이렇게 멋있는 남자는 처음 봐…….' 왕실에는 막대한 빚이 있었고, 그들은 빚을 갚기 위해 왕녀인 바이올렛을 막대한 돈을 지녔지만 공작의 사생/아인 윈터에게 시집보낸다." />
+
+            <TextView
+                android:id="@+id/tvNovelInfoGenreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/novel_info_genre"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoIntroContent" />
+
+            <TextView
+                android:id="@+id/tvNovelInfoGenreContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:textAppearance="@style/body2"
+                android:textColor="@color/gray_300_52515F"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoGenreTitle"
+                tools:text="로판" />
+
+            <TextView
+                android:id="@+id/tvNovelInfoPlatformTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/novel_info_platform_title"
+                android:textAppearance="@style/title1"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoGenreContent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNovelInfoNaverSeries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_primary50_radius_20dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoPlatformTitle">
+
+                <TextView
+                    android:id="@+id/tvNovelInfoNaverSeriesTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/novel_info_naver_series"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/primary_100_6341F0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_link_platform"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoNaverSeriesTitle"
+                    app:layout_constraintStart_toEndOf="@id/tvNovelInfoNaverSeriesTitle"
+                    app:layout_constraintTop_toTopOf="@id/tvNovelInfoNaverSeriesTitle" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clNovelInfoKakaoPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_primary50_radius_20dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="8dp"
+                app:layout_constraintBottom_toBottomOf="@id/clNovelInfoNaverSeries"
+                app:layout_constraintStart_toEndOf="@id/clNovelInfoNaverSeries"
+                app:layout_constraintTop_toTopOf="@id/clNovelInfoNaverSeries">
+
+                <TextView
+                    android:id="@+id/tvNovelInfoKakaoPage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/novel_info_kakao_page"
+                    android:textAppearance="@style/body2"
+                    android:textColor="@color/primary_100_6341F0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_link_platform"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoKakaoPage"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvNovelInfoKakaoPage"
+                    app:layout_constraintTop_toTopOf="@id/tvNovelInfoKakaoPage" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

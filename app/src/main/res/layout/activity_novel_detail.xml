@@ -1,9 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".ui.novelDetail.NovelDetailActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+        <!-- 추가될 예정 -->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivNovelDetailBackgroundImg"
+            android:layout_width="match_parent"
+            android:layout_height="276dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/ablNovelDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="276dp"
+                    android:background="@color/transparent"
+                    app:collapsedTitleGravity="center"
+                    app:contentScrim="@color/white"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="78dp">
+
+                        <ImageView
+                            android:id="@+id/ivNovelDetailGenre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="16dp"
+                            android:paddingHorizontal="4dp"
+                            android:src="@drawable/ic_genre_romance_fantasy"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvNovelDetailTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:ellipsize="end"
+                            android:maxLines="3"
+                            android:textAppearance="@style/headline1"
+                            android:textColor="@color/white"
+                            app:layout_constraintEnd_toStartOf="@id/ivNovelDetailThumbnail"
+                            app:layout_constraintStart_toStartOf="@id/ivNovelDetailGenre"
+                            app:layout_constraintTop_toBottomOf="@id/ivNovelDetailGenre"
+                            tools:text="당신의 이해를 돕기 당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여당신의 이해를 돕기 위하여" />
+
+                        <TextView
+                            android:id="@+id/tvNovelDetailAuthor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textAppearance="@style/body2"
+                            android:textColor="@color/gray_200_AEADB3"
+                            app:layout_constraintStart_toStartOf="@id/tvNovelDetailTitle"
+                            app:layout_constraintTop_toBottomOf="@id/tvNovelDetailTitle"
+                            tools:text="이보라" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/ivNovelDetailThumbnail"
+                            android:layout_width="64dp"
+                            android:layout_height="92dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="20dp"
+                            android:src="@drawable/img"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/tvNovelDetailTitle"
+                            app:layout_constraintTop_toTopOf="@id/tvNovelDetailTitle"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Websoso.ShapeableImageView"
+                            tools:src="@drawable/img" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/tbNovelDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="?attr/actionBarSize"
+                        android:layout_marginTop="24dp"
+                        app:contentInsetStart="0dp"
+                        app:layout_collapseMode="pin">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/ivNovelDetailNavigateBackBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_navigate_left"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvNovelDetailTitleOnToolBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/title2"
+                                android:textColor="@color/black"
+                                android:visibility="gone"
+                                app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/ivNovelDetailNavigateBackBtn"
+                                tools:text="당신의 이해를 돕기 위하여" />
+
+                            <ImageView
+                                android:id="@+id/ivNovelDetailPopupMenuBtn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_meatball_memo"
+                                app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="@id/ivNovelDetailNavigateBackBtn" />
+
+                            <Spinner
+                                android:id="@+id/spNovelDetail"
+                                android:visibility="invisible"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintEnd_toEndOf="@id/ivNovelDetailPopupMenuBtn"
+                                app:layout_constraintTop_toBottomOf="@id/ivNovelDetailPopupMenuBtn" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.appcompat.widget.Toolbar>
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tlNovelDetailMemoInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:tabIndicatorColor="@color/black"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextAppearance="@style/title1"
+                    app:tabTextColor="@color/gray_200_AEADB3">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12dp"
+                        android:text="@string/novel_detail_memo" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="12dp"
+                        android:text="@string/novel_detail_info" />
+                </com.google.android.material.tabs.TabLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:clipChildren="false"
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipChildren="false">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/vpNovelDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:ignore="MissingConstraints" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <ImageView
+            android:id="@+id/ivNovelDetailAddMemoBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="40dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_add_memo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

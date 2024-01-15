@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <View
         android:id="@+id/viewMemoLongLine"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
         android:background="@color/gray_70_DFDFE3"
         app:layout_constraintEnd_toStartOf="@id/tvMemoDate"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,36 +20,36 @@
         android:id="@+id/tvMemoDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
-        android:paddingBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingHorizontal="8dp"
         android:textAppearance="@style/label2"
         android:textColor="@color/gray_200_AEADB3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/tvMemoContent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="2023-12-23 오전 10:12" />
 
     <View
         android:id="@+id/viewMemoShortLine"
         android:layout_width="0dp"
         android:layout_height="2dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
         android:background="@color/gray_70_DFDFE3"
+        app:layout_constraintBottom_toBottomOf="@id/viewMemoLongLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvMemoDate"
-        app:layout_constraintTop_toTopOf="parent"/>
-
+        app:layout_constraintTop_toTopOf="@id/viewMemoLongLine" />
 
     <TextView
         android:id="@+id/tvMemoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="16dp"
         android:paddingBottom="16dp"
         android:textAppearance="@style/body2"
         android:textColor="@color/gray_200_AEADB3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvMemoDate" />
-
+        app:layout_constraintTop_toBottomOf="@id/tvMemoDate"
+        tools:text="당신의 이해를 돕기 위하여" />
 
     <TextView
         android:id="@+id/tvMemoContent"
@@ -56,11 +57,13 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="48dp"
+        android:ellipsize="end"
+        android:maxLines="5"
         android:textAppearance="@style/body2"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvMemoTitle" />
-
-
+        app:layout_constraintTop_toBottomOf="@id/tvMemoTitle"
+        tools:text="일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠팔구일이삼사오육칠..." />
 </androidx.constraintlayout.widget.ConstraintLayout>
