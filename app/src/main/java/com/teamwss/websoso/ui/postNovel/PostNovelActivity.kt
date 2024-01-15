@@ -9,13 +9,15 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
+import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
 import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
-import java.time.LocalDate
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -35,15 +37,16 @@ class PostNovelActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupAppBar()
         setupDateToggle()
+        setupSaveButton()
 
         setupExitPopupDialog()
         setupDatePickerDialog()
-        setupPostSuccessDialog()
 
         initUserNovelInfo()
         setupReadStatusUI()
-        observeRatingBar()
+        setupRatingBar()
         setupUrlButton()
+        setupIsServerError()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -82,6 +85,44 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupSaveButton() {
+        binding.fbPostButton.setOnClickListener {
+            saveNovelInfo()
+            if (postNovelViewModel.isServerError.value == false && !binding.tvPostNovelTitle.text.isNullOrEmpty()) {
+                showPostSuccessDialog()
+            }
+        }
+    }
+
+    private fun checkIsDateNull(): NovelPostRequest {
+        return if (!binding.scPostDateSwitch.isChecked) {
+            (NovelPostRequest(
+                binding.rbPostRating.rating,
+                postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
+                null,
+                null
+            ))
+        } else {
+            (NovelPostRequest(
+                binding.rbPostRating.rating,
+                postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
+                binding.tvPostReadDateStart.text.toString(),
+                binding.tvPostReadDateEnd.text.toString()
+            ))
+        }
+    }
+
+    private fun saveNovelInfo() {
+        val id = postNovelViewModel.novelInfo.value?.id ?: 0
+        val request = checkIsDateNull()
+
+        if (postNovelViewModel.isNovelAlreadyPosted.value == false) {
+            postNovelViewModel.saveNovelInfo(id, request)
+        } else {
+            postNovelViewModel.saveUserNovelInfo(id, request)
+        }
+    }
+
     private fun setupExitPopupDialog() {
         binding.ivPostExitPopup.setOnClickListener {
             postNovelViewModel.updateIsDialogShown(true)
@@ -100,35 +141,21 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupPostSuccessDialog() {
-        binding.llPostButton.setOnClickListener {
-            postNovelViewModel.updateIsDialogShown(true)
+    private fun showPostSuccessDialog() {
+        postNovelViewModel.updateIsDialogShown(true)
 
-            val dialogFragment = PostSuccessDialog()
-            dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
-        }
+        val dialogFragment = PostSuccessDialog()
+        dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
     }
 
     private fun initUserNovelInfo() {
-        postNovelViewModel.getUserNovelInfo()
-        observeDummyData()
-    }
-
-    private fun observeDummyData() {
-        val readStatus = postNovelViewModel.editResponse.value?.userNovelReadStatus ?: "READING"
-        postNovelViewModel.updateReadStatus(readStatus)
-
-        val readStartDate =
-            postNovelViewModel.editResponse.value?.readStartDate ?: LocalDate.now().toString()
-        val readEndDate =
-            postNovelViewModel.editResponse.value?.readEndDate ?: LocalDate.now().toString()
-        postNovelViewModel.updateReadDate(readStartDate, readEndDate)
-
-        val novelRating = postNovelViewModel.editResponse.value?.userNovelRating ?: 0f
-        postNovelViewModel.updateRating(novelRating)
-
-        val platforms = postNovelViewModel.editResponse.value?.platforms ?: listOf()
-        postNovelViewModel.setPlatforms(platforms)
+        val testNovelInfoId: Long = 1
+        postNovelViewModel.fetchUserNovelInfo(testNovelInfoId)
+        postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
+            if (!it && postNovelViewModel.novelInfo.value == null) {
+                postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
+            }
+        }
     }
 
     private fun setupReadStatusUI() {
@@ -139,10 +166,10 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun handleReadStatus(readStatus: String) {
         when (readStatus) {
-            PostNovelViewModel.ReadStatus.FINISH.status -> updateUIForStatusFinish()
-            PostNovelViewModel.ReadStatus.READING.status -> updateUIForStatusReading()
-            PostNovelViewModel.ReadStatus.DROP.status -> updateUIForStatusDrop()
-            PostNovelViewModel.ReadStatus.WISH.status -> updateUIForStatusWish()
+            ReadStatus.FINISH.toString() -> updateUIForStatusFinish()
+            ReadStatus.READING.toString() -> updateUIForStatusReading()
+            ReadStatus.DROP.toString() -> updateUIForStatusDrop()
+            ReadStatus.WISH.toString() -> updateUIForStatusWish()
         }
     }
 
@@ -168,7 +195,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.clPostReadDate.visibility = View.GONE
     }
 
-    private fun observeRatingBar() {
+    private fun setupRatingBar() {
         binding.rbPostRating.setOnRatingBarChangeListener { _, rating, _ ->
             postNovelViewModel.updateRating(rating)
         }
@@ -184,6 +211,18 @@ class PostNovelActivity : AppCompatActivity() {
     private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
+    }
+
+    private fun setupIsServerError() {
+        postNovelViewModel.isServerError.observe(this) {
+            if (it) {
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.post_server_error),
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
     }
 
     companion object {

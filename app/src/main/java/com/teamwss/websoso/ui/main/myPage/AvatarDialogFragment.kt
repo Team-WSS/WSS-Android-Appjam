@@ -33,7 +33,7 @@ class AvatarDialogFragment : DialogFragment() {
         dialog?.window?.apply {
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            attributes?.windowAnimations = R.style.BottomSheetDialogAnimation
+            attributes?.windowAnimations = R.style.PostBottomSheetDialogAnimation
             setGravity(Gravity.BOTTOM)
         }
     }

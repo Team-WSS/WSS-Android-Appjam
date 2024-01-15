@@ -8,7 +8,7 @@ data class NovelMemoInfoResponse(
     @SerialName("memos")
     val memos: List<NovelMemoResponse>,
     @SerialName("platforms")
-    val platforms: List<PlatformGetResponse>,
+    val platforms: List<NovelPlatformPostResponse>,
     @SerialName("userNovelGenre")
     val userNovelGenre: String,
     @SerialName("userNovelRating")

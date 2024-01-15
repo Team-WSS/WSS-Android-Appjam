@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Websoso</string>
 
     <!-- main_bottomNavigation -->
@@ -21,6 +22,7 @@
     <string name="api_read_status_reading">READING</string>
     <string name="api_read_status_drop">DROP</string>
     <string name="api_read_status_wish">WISH</string>
+    <string name="post_server_error">서버와의 접속이 원활하지 않습니다</string>
 
     <!-- dialog_post_success -->
     <string name="tv_post_success_title">내 서재에 작품이\n성공적으로 등록되었어요!</string>
@@ -63,7 +65,8 @@
     <string name="tv_post_novel_site_title">작품 보러가기</string>
     <string name="tv_post_novel_site_naver">네이버시리즈</string>
     <string name="tv_post_novel_site_kakao">카카오페이지</string>
-    <string name="tv_post_complete_button">내 서재에 등록</string>
+    <string name="tv_post_post_complete_button">내 서재에 등록</string>
+    <string name="tv_post_edit_complete_button">수정 완료</string>
     <string name="iv_post_cover_description">표지 이미지</string>
     <string name="iv_post_navigate_left_description">뒤로가기</string>
 

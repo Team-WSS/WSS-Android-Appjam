@@ -31,10 +31,10 @@ class DatePickerDialog : DialogFragment() {
         binding.lifecycleOwner = this
         binding.postNovelViewModel = postNovelViewModel
 
-        setupDialogAI()
+        setupDialogAppearance()
         initDialogDateInfo()
         setupDatePicker()
-        setupPostButtonClickListener()
+        setupPostButton()
         setupDateTypeSelector()
     }
 
@@ -44,11 +44,11 @@ class DatePickerDialog : DialogFragment() {
         super.onDestroyView()
     }
 
-    private fun setupDialogAI() {
+    private fun setupDialogAppearance() {
         dialog?.window?.apply {
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            attributes?.windowAnimations = R.style.BottomSheetDialogAnimation
+            attributes?.windowAnimations = R.style.PostBottomSheetDialogAnimation
             setGravity(Gravity.BOTTOM)
         }
     }
@@ -89,7 +89,7 @@ class DatePickerDialog : DialogFragment() {
         }
     }
 
-    private fun setupPostButtonClickListener() {
+    private fun setupPostButton() {
         binding.llDatePostButton.setOnClickListener {
             postNovelViewModel.setupAnotherDateValid()
             postNovelViewModel.updateReadDate(

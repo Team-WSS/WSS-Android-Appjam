@@ -4,9 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PlatformGetResponse(
+data class NovelPlatformPostResponse(
     @SerialName("platformName")
-    val platformName: String = "",
+    val platformName: String,
     @SerialName("platformUrl")
-    val platformUrl: String = "",
+    val platformUrl: String,
 )

@@ -1,33 +1,22 @@
 package com.teamwss.websoso.data.remote.service
 
-import com.teamwss.websoso.data.remote.request.PostNovelRequest
-import com.teamwss.websoso.data.remote.response.EditNovelResponse
-import com.teamwss.websoso.data.remote.response.PostNovelResponse
+import com.teamwss.websoso.data.remote.request.NovelPostRequest
+import com.teamwss.websoso.data.remote.response.NovelPostResponse
+import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface NovelService {
-
     @GET("/novels/{novelId}")
     suspend fun getPostNovelInfo(
         @Path("novelId") novelId: Long
-    ): PostNovelResponse
-
-    @GET("/novels/{novelId}")
-    suspend fun getEditNovelInfo(
-        @Path("novelId") novelId: Long
-    ): EditNovelResponse
+    ): NovelPostResponse
 
     @POST("/user-novels/{novelId}")
     suspend fun postPostNovelInfo(
-        @Path("novelId") novelId: Long
-    ): PostNovelRequest
-
-    @PATCH("/user-novels/{userNovelId}")
-    suspend fun editPostNovelInfo(
-        @Path("userNovelId") userNovelId: Long
-    ): PostNovelRequest
-
+        @Path("novelId") novelId: Long,
+        @Body request: NovelPostRequest,
+    ): Response<Unit>
 }

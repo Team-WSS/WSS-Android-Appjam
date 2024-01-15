@@ -164,10 +164,9 @@
 
             <NumberPicker
                 android:id="@+id/npPostDatePickerYear"
-                style="@style/CustomDateNumberPicker"
+                style="@style/PostDateNumberPicker"
                 android:layout_width="90dp"
                 android:layout_height="111dp"
-
                 android:layout_marginStart="10dp"
                 android:selectionDividerHeight="0dp"
                 android:value="@{postNovelViewModel.isNumberPickerStartSelected() ? postNovelViewModel.formatToYear(postNovelViewModel.selectedStartDate) : postNovelViewModel.formatToYear(postNovelViewModel.selectedEndDate)}"
@@ -201,7 +200,7 @@
 
             <NumberPicker
                 android:id="@+id/npPostDatePickerMonth"
-                style="@style/CustomDateNumberPicker"
+                style="@style/PostDateNumberPicker"
                 android:layout_width="75dp"
                 android:layout_height="111dp"
                 android:layout_marginStart="55dp"
@@ -235,7 +234,7 @@
 
             <NumberPicker
                 android:id="@+id/npPostDatePickerDay"
-                style="@style/CustomDateNumberPicker"
+                style="@style/PostDateNumberPicker"
                 android:layout_width="75dp"
                 android:layout_height="111dp"
                 android:selectionDividerHeight="0dp"
@@ -253,8 +252,8 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="35dp"
             android:background="@drawable/shape_date_bottom_sheet_button"
-            android:backgroundTint="@{postNovelViewModel.readStatus.equals(@string/api_read_status_finish) ? postNovelViewModel.isNumberPickerDateValid() ? @color/primary_100_6341F0 : @color/gray_200_AEADB3 : @color/primary_100_6341F0}"
-            android:clickable="@{postNovelViewModel.readStatus.equals(@string/api_read_status_finish) ? postNovelViewModel.isNumberPickerDateValid() : true}"
+            android:backgroundTint="@{postNovelViewModel.isNumberPickerDateValid() ? @color/primary_100_6341F0 : @color/gray_200_AEADB3}"
+            android:clickable="@{postNovelViewModel.isNumberPickerDateValid()}"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/clPostDatePickerDatePicker">
 
