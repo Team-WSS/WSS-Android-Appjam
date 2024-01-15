@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            loadRoundedCoverImage="@{libraryNovel.userNovelCover}"
+            loadCoverImageRounded30="@{libraryNovel.userNovelCover}"
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
