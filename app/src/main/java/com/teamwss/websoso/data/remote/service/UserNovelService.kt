@@ -15,7 +15,7 @@ import retrofit2.http.Query
 interface UserNovelService {
 
     @GET("user-novels")
-    suspend fun getNovels(
+    suspend fun getUserNovels(
         @Query("readStatus") readStatus: String,
         @Query("lastUserNovelId") lastUserNovelId: Long,
         @Query("size") size: Int,

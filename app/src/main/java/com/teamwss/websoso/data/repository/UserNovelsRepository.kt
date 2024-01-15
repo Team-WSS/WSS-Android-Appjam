@@ -6,12 +6,14 @@ class UserNovelsRepository(
     private val userNovelService: UserNovelService
 ) {
 
-    suspend fun getNovels(readState: String, lastUserNovelId: Long, size: Int, sortType: String) =
-        userNovelService.getNovels(
+    suspend fun getUserNovels(readState: String, lastUserNovelId: Long, size: Int, sortType: String) =
+        userNovelService.getUserNovels(
             readStatus = readState,
             lastUserNovelId = lastUserNovelId,
             size = size,
             sortType = sortType
         )
+
+    suspend fun getSosoPickNovels() = userNovelService.getSosoPickNovels()
 
 }

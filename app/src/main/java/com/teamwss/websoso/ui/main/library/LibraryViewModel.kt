@@ -57,7 +57,7 @@ class LibraryViewModel(
     private fun getNovels(readState: ReadState) {
         viewModelScope.launch {
             runCatching {
-                userNovelsRepository.getNovels(
+                userNovelsRepository.getUserNovels(
                     readState.toString(),
                     setupLastUserId(),
                     USER_NOVEL_COUNT,
