@@ -1,6 +1,6 @@
 package com.teamwss.websoso.ui.postNovel.postNovelModel
 
-import com.teamwss.websoso.data.remote.response.GetPlatformResponse
+import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
 import java.time.LocalDate
 
 data class PostNovelInfoModel(
@@ -10,7 +10,7 @@ data class PostNovelInfoModel(
     val id: Long,
     val image: String,
     val title: String,
-    val platforms: List<GetPlatformResponse>,
+    val platforms: List<NovelPlatformPostResponse>,
     val rating: Float? = 0F,
     val readStatus: String = ReadStatus.FINISH.toString(),
     val readStartDate: String? = LocalDate.now().toString(),

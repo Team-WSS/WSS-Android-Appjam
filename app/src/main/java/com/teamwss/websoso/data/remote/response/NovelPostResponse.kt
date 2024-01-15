@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostNovelResponse(
+data class NovelPostResponse(
     @SerialName("novelAuthor")
     val novelAuthor: String,
     @SerialName("novelDescription")
@@ -19,7 +19,7 @@ data class PostNovelResponse(
     @SerialName("novelTitle")
     val novelTitle: String,
     @SerialName("platforms")
-    val platforms: List<GetPlatformResponse>,
+    val platforms: List<NovelPlatformPostResponse>,
 ) {
     fun toUI(): PostNovelInfoModel {
         return PostNovelInfoModel(

@@ -3,12 +3,11 @@ package com.teamwss.websoso.data.remote.response
 import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.time.LocalDate
 
 @Serializable
-data class EditNovelResponse(
+data class UserNovelPostResponse(
     @SerialName("platforms")
-    val platforms: List<GetPlatformResponse>,
+    val platforms: List<NovelPlatformPostResponse>,
     @SerialName("userNovelReadEndDate")
     val userNovelReadEndDate: String?,
     @SerialName("userNovelReadStartDate")

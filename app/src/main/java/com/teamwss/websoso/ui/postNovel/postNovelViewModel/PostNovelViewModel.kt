@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
-import com.teamwss.websoso.data.remote.request.PostNovelRequest
-import com.teamwss.websoso.data.remote.response.GetPlatformResponse
+import com.teamwss.websoso.data.remote.request.NovelPostRequest
+import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
 import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import com.teamwss.websoso.ui.postNovel.postNovelModel.ReadStatus
 import kotlinx.coroutines.launch
@@ -45,8 +45,8 @@ class PostNovelViewModel : ViewModel() {
     val isStartDateVisible: LiveData<Boolean> get() = _isStartDateVisible
     private val _isEndDateVisible = MutableLiveData<Boolean>()
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
-    private val _platforms = MutableLiveData<List<GetPlatformResponse>>()
-    val platforms: LiveData<List<GetPlatformResponse>> get() = _platforms
+    private val _platforms = MutableLiveData<List<NovelPlatformPostResponse>>()
+    val platforms: LiveData<List<NovelPlatformPostResponse>> get() = _platforms
     private val _naverUrl = MutableLiveData<String>()
     val naverUrl: LiveData<String> get() = _naverUrl
     private val _kakaoUrl = MutableLiveData<String>()
@@ -81,7 +81,7 @@ class PostNovelViewModel : ViewModel() {
         }
     }
 
-    fun postNovelInfo(novelId: Long, request: PostNovelRequest) {
+    fun postNovelInfo(novelId: Long, request: NovelPostRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
                 ServicePool.novelService.postPostNovelInfo(novelId, request)
@@ -94,7 +94,7 @@ class PostNovelViewModel : ViewModel() {
         }
     }
 
-    fun patchNovelInfo(novelId: Long, request: PostNovelRequest) {
+    fun patchNovelInfo(novelId: Long, request: NovelPostRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
                 Log.d("patchNovelInfo1", novelId.toString())
@@ -233,7 +233,7 @@ class PostNovelViewModel : ViewModel() {
         return "$formattedYear-$formattedMonth-$formattedDay"
     }
 
-    fun setPlatforms(list: List<GetPlatformResponse>) {
+    fun setPlatforms(list: List<NovelPlatformPostResponse>) {
         _platforms.value = list
         list.forEach { platform ->
             when (platform.platformName) {

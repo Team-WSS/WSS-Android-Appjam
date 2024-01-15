@@ -1,11 +1,10 @@
 package com.teamwss.websoso.data.remote.request
 
-import com.teamwss.websoso.ui.postNovel.postNovelModel.ReadStatus
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class PostNovelRequest(
+data class NovelPostRequest(
     @SerialName("userNovelRating")
     val userNovelRating: Float?,
     @SerialName("userNovelReadStatus")

@@ -5,14 +5,13 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
-import com.teamwss.websoso.data.remote.request.PostNovelRequest
+import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
@@ -97,16 +96,16 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkIsDateNull(): PostNovelRequest {
+    private fun checkIsDateNull(): NovelPostRequest {
         return if (!binding.scPostDateSwitch.isChecked) {
-            (PostNovelRequest(
+            (NovelPostRequest(
                 binding.rbPostRating.rating,
                 postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
                 null,
                 null
             ))
         } else {
-            (PostNovelRequest(
+            (NovelPostRequest(
                 binding.rbPostRating.rating,
                 postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
                 binding.tvPostReadDateStart.text.toString(),
