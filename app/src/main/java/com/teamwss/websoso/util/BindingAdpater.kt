@@ -13,9 +13,9 @@ fun loadCoverImageRounded30(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(30F))
 }
 
-@BindingAdapter("loadCoverImageBlurred25")
-fun loadCoverImageBlurred25(view: ImageView, imageUrl: String?) {
-    loadCustomImage(view, imageUrl, BlurTransformation(view.context, 25))
+@BindingAdapter("loadCoverImageBlurred5")
+fun loadCoverImageBlurred5(view: ImageView, imageUrl: String?) {
+    loadCustomImage(view, imageUrl, BlurTransformation(view.context, 5))
 }
 
 private fun loadCustomImage(view: ImageView, imageUrl: String?, transformation: Transformation) {
