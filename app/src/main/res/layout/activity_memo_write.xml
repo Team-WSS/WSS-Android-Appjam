@@ -35,9 +35,9 @@
             android:gravity="center"
             android:paddingHorizontal="4dp"
             android:paddingVertical="8dp"
-            android:text="@string/memo_plain_edit"
+            android:text="@string/memo_write_complete"
             android:textAppearance="@style/title2"
-            android:textColor="@color/primary_100_6341F0"
+            android:textColor="@color/gray_200_AEADB3"
             app:layout_constraintBottom_toBottomOf="@id/ivMemoWriteCancelBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivMemoWriteCancelBtn" />

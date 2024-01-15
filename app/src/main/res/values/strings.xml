@@ -153,4 +153,7 @@
     <!-- fragment_memo -->
     <string name="novel_memo_empty_message">아직 작성된 메모가 없어요</string>
     <string name="novel_memo_fill_message">새로운 메모를 작성해보세요</string>
+
+    <!-- memo_write -->
+    <string name="memo_write_complete">완료</string>
 </resources>
