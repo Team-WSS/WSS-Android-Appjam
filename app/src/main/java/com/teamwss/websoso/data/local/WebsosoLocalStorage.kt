@@ -2,18 +2,17 @@ package com.teamwss.websoso.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.provider.Settings.Global.putString
 import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.teamwss.websoso.BuildConfig
 
-class WebsosoLocalStorage(context: Context) {
+class WebsosoLocalStorage private constructor(context: Context) {
     private val masterKey = MasterKey.Builder(context)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
 
-    private val pref: SharedPreferences =
+    private val preferences: SharedPreferences =
         if (BuildConfig.DEBUG) {
             context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE)
         } else {
@@ -27,15 +26,15 @@ class WebsosoLocalStorage(context: Context) {
         }
 
     var accessToken: String?
-        get() = pref.getString(ACCESS_TOKEN, null)
-        set(value) = pref.edit{ putString(ACCESS_TOKEN, value) }
+        get() = preferences.getString(ACCESS_TOKEN, null)
+        set(value) = preferences.edit { putString(ACCESS_TOKEN, value) }
 
     var userName: String
-        get() = pref.getString(USER_NAME, "") ?: ""
-        set(value) = pref.edit { putString(USER_NAME, value) }
+        get() = preferences.getString(USER_NAME, "") ?: ""
+        set(value) = preferences.edit { putString(USER_NAME, value) }
 
     fun clear() {
-        pref.edit {
+        preferences.edit {
             remove(ACCESS_TOKEN)
             remove(USER_NAME)
         }
