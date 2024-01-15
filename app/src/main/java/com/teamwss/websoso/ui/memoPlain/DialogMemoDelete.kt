@@ -10,7 +10,7 @@ import android.view.Window
 import androidx.fragment.app.DialogFragment
 import com.teamwss.websoso.databinding.DialogMemoDeleteBinding
 
-class DialogMemoDelete : DialogFragment() {
+class DialogMemoDelete(private val clickMemoDelete: () -> Unit) : DialogFragment() {
     private var _binding: DialogMemoDeleteBinding? = null
     private val binding: DialogMemoDeleteBinding
         get() = requireNotNull(_binding)
@@ -35,7 +35,7 @@ class DialogMemoDelete : DialogFragment() {
 
     private fun onClickMemoDropButton() {
         binding.tvDialogMemoDeleteDropBtn.setOnClickListener {
-            // 뷰모델 @Delete /memos/{memoId}
+            clickMemoDelete()
         }
     }
 

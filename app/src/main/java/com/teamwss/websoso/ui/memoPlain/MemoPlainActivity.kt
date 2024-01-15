@@ -11,6 +11,9 @@ import com.teamwss.websoso.databinding.ActivityMemoPlainBinding
 class MemoPlainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoPlainBinding
     private val memoPlainViewModel: MemoPlainViewModel by viewModels()
+    private val dialogMemoDelete: DialogMemoDelete by lazy {
+        DialogMemoDelete(::finish)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +23,8 @@ class MemoPlainActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupLifecycleOwner()
         setupDataBinding()
-        onClickMemoEditCancelButton()
+        onClickMemoPlainCancelButton()
+        onClickMemoDeleteButton()
 
         val memoId: Long = 11
         memoPlainViewModel.getMemo(memoId)
@@ -41,10 +45,20 @@ class MemoPlainActivity : AppCompatActivity() {
         binding.memoPlainViewModel = memoPlainViewModel
     }
 
-    private fun onClickMemoEditCancelButton() {
-        binding.ivMemoEditCancelBtn.setOnClickListener {
+    private fun onClickMemoPlainCancelButton() {
+        binding.ivMemoPlainCancelBtn.setOnClickListener {
             finish()
         }
+    }
+
+    private fun onClickMemoDeleteButton() {
+        binding.ivMemoPlainDeleteBtn.setOnClickListener {
+            showMemoDeleteDialog()
+        }
+    }
+
+    private fun showMemoDeleteDialog() {
+        dialogMemoDelete.show((supportFragmentManager), "DeleteMemoDialog")
     }
 
     companion object {
