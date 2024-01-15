@@ -8,17 +8,25 @@ data class NovelMemoInfoResponse(
     @SerialName("memos")
     val memos: List<NovelMemoResponse>,
     @SerialName("platforms")
-    val platforms: List<NovelPlatformPostResponse>,
+    val platforms: List<NovelPlatformsInfoResponse>,
+    @SerialName("userNovelGenreBadgeImg")
+    val userNovelGenreBadgeImg: String,
     @SerialName("userNovelGenre")
     val userNovelGenre: String,
     @SerialName("userNovelRating")
     val userNovelRating: Float,
     @SerialName("userNovelReadEndDate")
-    val userNovelReadEndDate: String,
+    val userNovelReadEndDate: String?,
     @SerialName("userNovelReadStartDate")
-    val userNovelReadStartDate: String,
+    val userNovelReadStartDate: String?,
     @SerialName("userNovelReadStatus")
     val userNovelReadStatus: String,
     @SerialName("userNovelDescription")
     val userNovelDescription: String,
+    @SerialName("userNovelTitle")
+    val userNovelTitle: String,
+    @SerialName("userNovelImg")
+    val userNovelImg: String,
+    @SerialName("userNovelAuthor")
+    val userNovelAuthor: String,
 )
