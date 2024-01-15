@@ -7,11 +7,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PostNovelRequest(
     @SerialName("userNovelRating")
-    val userNovelRating: Float = 0f,
+    val userNovelRating: Float?,
     @SerialName("userNovelReadStatus")
-    val userNovelReadStatus: String = ReadStatus.READING.toString(),
+    val userNovelReadStatus: String,
     @SerialName("userNovelReadStartDate")
-    val userNovelReadStartDate: String? = null,
+    val userNovelReadStartDate: String?,
     @SerialName("userNovelReadEndDate")
-    val userNovelReadEndDate: String? = null,
+    val userNovelReadEndDate: String?,
 )

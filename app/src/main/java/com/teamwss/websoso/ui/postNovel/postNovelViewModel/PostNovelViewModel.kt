@@ -33,8 +33,8 @@ class PostNovelViewModel : ViewModel() {
     val selectedStartDate: LiveData<String> get() = _selectedStartDate
     private val _maxDayValue = MutableLiveData<Int>()
     val maxDayValue: LiveData<Int> get() = _maxDayValue
-    private val _rating = MutableLiveData<Float>()
-    val rating: LiveData<Float> get() = _rating
+    private val _rating: MutableLiveData<Float?> = MutableLiveData(0f)
+    val rating: LiveData<Float?> get() = _rating
     private val _isDialogShown = MutableLiveData<Int>()
     val isDialogShown: LiveData<Int> get() = _isDialogShown
     private val _isNumberPickerStartSelected = MutableLiveData<Boolean>()
@@ -60,11 +60,10 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.userNovelService.fetchEditNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
+                _isNovelAlreadyPosted.value = true
                 _isServerError.value = false
-                _isNovelAlreadyPosted.value = it.userNovelId != 0L
             }.onFailure {
-                _isServerError.value = true
-                Log.e("fetchUserNovelInfo", "fetchUserNovelInfo() error: ${it.message}")
+                _isNovelAlreadyPosted.value = false
             }
         }
     }
@@ -75,9 +74,9 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.novelService.fetchPostNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
+                _isServerError.value = false
             }.onFailure {
                 _isServerError.value = true
-                Log.e("fetchDefaultNovelInfo", "fetchDefaultNovelInfo() error: ${it.message}")
             }
         }
     }
@@ -85,13 +84,12 @@ class PostNovelViewModel : ViewModel() {
     fun postNovelInfo(novelId: Long, request: PostNovelRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.userNovelService.postPostNovelInfo(novelId, request)
+                ServicePool.novelService.postPostNovelInfo(novelId, request)
             }.onSuccess {
                 _isServerError.value = false
-                Log.d("postNovelInfo", "postNovelInfo() success: $it")
+                Log.d("patchNovelInfo2", "postNovelInfo() success: $it")
             }.onFailure {
                 _isServerError.value = true
-                Log.e("postNovelInfo", "postNovelInfo() error: ${it.message}")
             }
         }
     }
@@ -99,13 +97,15 @@ class PostNovelViewModel : ViewModel() {
     fun patchNovelInfo(novelId: Long, request: PostNovelRequest) {
         viewModelScope.launch {
             kotlin.runCatching {
-                ServicePool.novelService.editPostNovelInfo(novelId, request)
+                Log.d("patchNovelInfo1", novelId.toString())
+                Log.d("patchNovelInfo1", request.toString())
+
+                ServicePool.userNovelService.editPostNovelInfo(novelId, request)
             }.onSuccess {
                 _isServerError.value = false
-                Log.d("patchNovelInfo", "patchNovelInfo() success: $it")
+                Log.d("patchNovelInfo1", "patchNovelInfo() success: $it")
             }.onFailure {
                 _isServerError.value = true
-                Log.e("patchNovelInfo", "patchNovelInfo() error: ${it.message}")
             }
         }
     }
@@ -115,7 +115,8 @@ class PostNovelViewModel : ViewModel() {
         _readStatus.value = novelInfo.readStatus
         _startDate.value = novelInfo.readStartDate ?: LocalDate.now().toString()
         _endDate.value = novelInfo.readEndDate ?: LocalDate.now().toString()
-        _rating.value = novelInfo.rating
+        _rating.value = novelInfo.rating ?: 0f
+        setPlatforms(novelInfo.platforms)
     }
 
     fun updateReadStatus(readStatus: String) {

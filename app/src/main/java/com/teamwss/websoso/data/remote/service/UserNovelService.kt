@@ -3,6 +3,7 @@ package com.teamwss.websoso.data.remote.service
 import com.teamwss.websoso.data.remote.request.PostNovelRequest
 import com.teamwss.websoso.data.remote.response.EditNovelResponse
 import com.teamwss.websoso.data.remote.response.PostNovelResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -25,9 +26,9 @@ interface UserNovelService {
         @Path("novelId") novelId: Long
     ): EditNovelResponse
 
-    @POST("/user-novels/{novelId}")
-    suspend fun postPostNovelInfo(
-        @Path("novelId") novelId: Long,
+    @PATCH("/user-novels/{userNovelId}")
+    suspend fun editPostNovelInfo(
+        @Path("userNovelId") userNovelId: Long,
         @Body request: PostNovelRequest,
-    ): PostNovelRequest
+    ): Response<Unit>
 }

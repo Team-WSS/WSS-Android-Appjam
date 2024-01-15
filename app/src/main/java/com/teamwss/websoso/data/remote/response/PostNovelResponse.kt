@@ -7,19 +7,19 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class PostNovelResponse(
     @SerialName("novelAuthor")
-    val novelAuthor: String = "",
+    val novelAuthor: String,
     @SerialName("novelDescription")
-    val novelDescription: String = "",
+    val novelDescription: String,
     @SerialName("novelGenre")
-    val novelGenre: String = "",
+    val novelGenre: String,
     @SerialName("novelId")
-    val novelId: Long = 0,
+    val novelId: Long,
     @SerialName("novelImg")
-    val novelImg: String = "",
+    val novelImg: String,
     @SerialName("novelTitle")
-    val novelTitle: String = "",
+    val novelTitle: String,
     @SerialName("platforms")
-    val platforms: List<GetPlatformResponse> = listOf(),
+    val platforms: List<GetPlatformResponse>,
 ) {
     fun toUI(): PostNovelInfoModel {
         return PostNovelInfoModel(

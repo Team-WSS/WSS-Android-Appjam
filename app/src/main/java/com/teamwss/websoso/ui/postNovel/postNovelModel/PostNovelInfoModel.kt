@@ -11,7 +11,7 @@ data class PostNovelInfoModel(
     val image: String,
     val title: String,
     val platforms: List<GetPlatformResponse>,
-    val rating: Float = 0F,
+    val rating: Float? = 0F,
     val readStatus: String = ReadStatus.FINISH.toString(),
     val readStartDate: String? = LocalDate.now().toString(),
     val readEndDate: String? = LocalDate.now().toString(),

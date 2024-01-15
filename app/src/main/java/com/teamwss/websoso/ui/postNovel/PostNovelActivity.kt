@@ -154,11 +154,9 @@ class PostNovelActivity : AppCompatActivity() {
     private fun initUserNovelInfo() {
         val testNovelInfoId: Long = 1
         postNovelViewModel.fetchUserNovelInfo(testNovelInfoId)
-        Log.e("sdfawfqfzxvcz", "${postNovelViewModel.isNovelAlreadyPosted.value}")
         postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
             if (!it) {
                 postNovelViewModel.fetchDefaultNovelInfo(testNovelInfoId)
-                Log.e("faqwefawegwrgergeahgwr", "${postNovelViewModel.isNovelAlreadyPosted.value}")
             }
         }
     }

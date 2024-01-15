@@ -8,27 +8,27 @@ import java.time.LocalDate
 @Serializable
 data class EditNovelResponse(
     @SerialName("platforms")
-    val platforms: List<GetPlatformResponse> = listOf(),
+    val platforms: List<GetPlatformResponse>,
     @SerialName("userNovelReadEndDate")
-    val userNovelReadEndDate: String? = LocalDate.now().toString(),
+    val userNovelReadEndDate: String?,
     @SerialName("userNovelReadStartDate")
-    val userNovelReadStartDate: String? = LocalDate.now().toString(),
+    val userNovelReadStartDate: String?,
     @SerialName("userNovelAuthor")
-    val userNovelAuthor: String = "",
+    val userNovelAuthor: String,
     @SerialName("userNovelDescription")
-    val userNovelDescription: String = "",
+    val userNovelDescription: String,
     @SerialName("userNovelGenre")
-    val userNovelGenre: String = "",
+    val userNovelGenre: String,
     @SerialName("userNovelId")
-    val userNovelId: Long = 0L,
+    val userNovelId: Long,
     @SerialName("userNovelImg")
-    val userNovelImg: String = "",
+    val userNovelImg: String,
     @SerialName("userNovelRating")
-    val userNovelRating: Float = 0f,
+    val userNovelRating: Float?,
     @SerialName("userNovelReadStatus")
-    val userNovelReadStatus: String = "",
+    val userNovelReadStatus: String,
     @SerialName("userNovelTitle")
-    val userNovelTitle: String = "",
+    val userNovelTitle: String,
 ) {
     fun toUI(): PostNovelInfoModel {
         return PostNovelInfoModel(
