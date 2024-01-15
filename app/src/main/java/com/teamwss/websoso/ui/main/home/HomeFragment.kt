@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.main.home
 
 import android.os.Bundle
+import android.text.Editable.Factory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ import com.teamwss.websoso.ui.main.home.adapter.HomeAdapter
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = requireNotNull(_binding)
-    private val homeViewModel: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels{
+        HomeViewModel.Factory
+    }
     private val homeAdapter: HomeAdapter by lazy { HomeAdapter() }
 
     override fun onCreateView(
@@ -26,19 +29,30 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = homeViewModel
 
-        updateAdapter()
-        initRecyclerView()
+        setupRecyclerView()
+        setupSearchBarListener()
+        observeSosoPickNovels()
     }
 
-    private fun updateAdapter() {
-        homeAdapter.submitList(homeViewModel.mockSosoPickData)
-    }
-
-    private fun initRecyclerView() {
+    private fun setupRecyclerView() {
         with(binding.rvHomeSosoPick) {
             adapter = homeAdapter
             addItemDecoration(CustomItemDecoration(requireContext()))
+        }
+    }
+
+    private fun setupSearchBarListener() {
+        binding.clHomeSearch.setOnClickListener{
+            // TODO : SearchActivity로 이동
+        }
+    }
+
+    private fun observeSosoPickNovels() {
+        homeViewModel.sosopickNovels.observe(viewLifecycleOwner) { sosoPickNovels ->
+            homeAdapter.submitList(sosoPickNovels)
         }
     }
 

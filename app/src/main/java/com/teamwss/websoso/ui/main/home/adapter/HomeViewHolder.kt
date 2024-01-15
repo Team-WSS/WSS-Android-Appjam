@@ -4,18 +4,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.teamwss.websoso.data.model.HomeNovelEntity
+import com.teamwss.websoso.data.model.SosoPickNovelEntity
 import com.teamwss.websoso.databinding.ItemHomeBinding
 
 class HomeViewHolder(
     private val binding: ItemHomeBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(novel : HomeNovelEntity) {
+    fun onBind(novel: SosoPickNovelEntity) {
         with(binding) {
             tvHomeItemTitle.text = novel.novelTitle
             tvHomeItemAuthor.text = novel.novelAuthor
-            tvHomeItemRegisterCount.text = String.format(REGISTERED_COUNT_FORMAT, novel.novelRegisteredCount)
+            tvHomeItemRegisterCount.text =
+                String.format(REGISTERED_COUNT_FORMAT, novel.novelRegisteredCount)
             ivHomeItemCover.load(novel.novelImg)
         }
     }
