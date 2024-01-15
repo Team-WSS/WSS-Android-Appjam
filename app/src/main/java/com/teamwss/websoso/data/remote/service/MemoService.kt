@@ -16,7 +16,7 @@ interface MemoService {
         @Query("size") size: Int,
         @Query("sortType") sortType: String
     ): RecordResponse
-    
+
     @GET("/memos/{memoId}")
     suspend fun getMemo(
         @Path("memoId") memoId: Long

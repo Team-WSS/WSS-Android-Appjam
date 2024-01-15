@@ -8,7 +8,7 @@ data class NovelMemoInfoResponse(
     @SerialName("memos")
     val memos: List<NovelMemoResponse>,
     @SerialName("platforms")
-    val platforms: List<NovelPlatformsInfoResponse>,
+    val platforms: List<NovelPlatformInfoResponse>,
     @SerialName("userNovelGenreBadgeImg")
     val userNovelGenreBadgeImg: String,
     @SerialName("userNovelGenre")
