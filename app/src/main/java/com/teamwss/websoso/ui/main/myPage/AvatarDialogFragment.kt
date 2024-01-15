@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogAvatarBinding
-import com.teamwss.websoso.ui.main.myPage.model.Avatar
 
 class AvatarDialogFragment : DialogFragment() {
     private lateinit var binding: DialogAvatarBinding
@@ -42,7 +41,7 @@ class AvatarDialogFragment : DialogFragment() {
     companion object {
         const val TAG = "AvatarDialogFragment"
 
-        fun newInstance(avatar: Avatar): AvatarDialogFragment {
+        fun newInstance(): AvatarDialogFragment {
             return AvatarDialogFragment()
         }
     }
