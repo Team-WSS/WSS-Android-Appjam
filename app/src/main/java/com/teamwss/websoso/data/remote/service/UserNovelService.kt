@@ -7,6 +7,7 @@ import com.teamwss.websoso.data.remote.response.UserNovelsLibraryResponse
 import com.teamwss.websoso.data.remote.response.NovelMemoInfoResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.Path
@@ -40,4 +41,9 @@ interface UserNovelService {
     suspend fun getUserNovelMemoInfo(
         @Path("userNovelId") userNovelId: Long
     ): NovelMemoInfoResponse
+
+    @DELETE("/user-novels/{userNovelId}")
+    suspend fun deleteUserNovel(
+        @Path("userNovelId") userNovelId: Long
+    ): Response<Unit>
 }

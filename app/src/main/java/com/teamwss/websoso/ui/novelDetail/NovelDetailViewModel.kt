@@ -37,6 +37,18 @@ class NovelDetailViewModel : ViewModel() {
         }
     }
 
+    fun deleteNovel(userNovelId: Long) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ServicePool.userNovelService.deleteUserNovel(userNovelId)
+            }.onSuccess {
+                Log.d("tongsin", "success")
+            }.onFailure { throwable ->
+                Log.e("tongsin", throwable.toString())
+            }
+        }
+    }
+
     fun getUserNovelId(userNovelId: Long) {
         _userNovelId.value = userNovelId
     }
