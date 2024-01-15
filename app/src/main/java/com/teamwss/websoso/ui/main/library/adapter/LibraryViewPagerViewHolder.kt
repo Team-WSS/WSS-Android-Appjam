@@ -11,12 +11,15 @@ class LibraryViewPagerViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     private val libraryItemAdapter = LibraryItemAdapter(onItemClick)
 
+    init {
+        binding.rvLibraryViewPager.adapter = libraryItemAdapter
+    }
+
     fun bind(novels: List<LibraryUserNovelEntity>) {
         binding.clLibraryEmpty.apply {
             visibility = if (novels.isEmpty()) View.VISIBLE else View.GONE
         }
 
         libraryItemAdapter.submitList(novels)
-        binding.rvLibraryViewPager.adapter = libraryItemAdapter
     }
 }
