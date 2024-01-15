@@ -112,8 +112,15 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun setupListener() {
+        onClickBackButton()
         onClickAddMemoButton()
         onClickPopupButton()
+    }
+
+    private fun onClickBackButton() {
+        binding.ivNovelDetailNavigateBackBtn.setOnClickListener {
+            finish()
+        }
     }
 
     private fun onClickAddMemoButton() {
