@@ -28,15 +28,25 @@ class NovelMemoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupLifecycleOwner()
+        setupDataBinding()
         initRecyclerAdapter()
         initRecyclerView()
-        onClickAddingMemoBox()
+//        onClickAddingMemoBox()
         observeNovelMemoData()
     }
 
+    private fun setupLifecycleOwner() {
+        binding.lifecycleOwner = viewLifecycleOwner
+    }
+
+    private fun setupDataBinding() {
+        binding.novelDetailViewModel = novelDetailViewModel
+    }
+
     private fun initRecyclerAdapter() {
-        novelMemoAdapter = NovelDetailMemoAdapter {
-            val intent = MemoPlainActivity.createIntent(requireContext())
+        novelMemoAdapter = NovelDetailMemoAdapter { memoId ->
+            val intent = MemoPlainActivity.createIntent(requireContext(), memoId)
             startActivity(intent)
         }
     }
@@ -48,16 +58,15 @@ class NovelMemoFragment : Fragment() {
         }
     }
 
-    private fun onClickAddingMemoBox() {
-        binding.clNovelMemoNavigateNewMemo.setOnClickListener {
-            navigateMemoWrite()
-        }
-    }
-
-    private fun navigateMemoWrite() {
-        val intent = MemoPlainActivity.createIntent(requireActivity())
-        startActivity(intent)
-    }
+//    private fun onClickAddingMemoBox() {
+//        binding.clNovelMemoNavigateNewMemo.setOnClickListener {
+//            navigateMemoWrite()
+//        }
+//    }
+//    private fun navigateMemoWrite() {
+//        val intent = MemoPlainActivity.createIntent(requireActivity())
+//        startActivity(intent)
+//    } 추후 memoWrite로 수정
 
     private fun observeNovelMemoData() {
         novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) { usersResponse ->

@@ -26,7 +26,7 @@ class MemoPlainActivity : AppCompatActivity() {
         onClickMemoPlainCancelButton()
         onClickMemoDeleteButton()
 
-        val memoId: Long = 11
+        val memoId: Long = intent.getLongExtra("memoId", 0)
         memoPlainViewModel.getMemo(memoId)
     }
 
@@ -62,8 +62,10 @@ class MemoPlainActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun createIntent(context: Context): Intent {
-            return Intent(context, MemoPlainActivity::class.java)
+        fun createIntent(context: Context, memoId: Long): Intent {
+            return Intent(context, MemoPlainActivity::class.java).apply {
+                putExtra("memoId", memoId)
+            }
         }
     }
 }
