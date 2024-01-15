@@ -3,6 +3,7 @@ package com.teamwss.websoso.ui.novelDetail
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
@@ -10,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.PopupWindow
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -28,14 +30,23 @@ class NovelDetailActivity : AppCompatActivity() {
             this
         )
     }
+    private val novelDetailViewModel: NovelDetailViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.lifecycleOwner = this
+        binding.novelDetailViewModel = novelDetailViewModel
+
         setupUI()
         setupListener()
+
+
+        var userNovelId: Long = 2
+        novelDetailViewModel.getUserNovelId(userNovelId)
+        novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }
 
     private fun setupUI() {
@@ -175,7 +186,7 @@ class NovelDetailActivity : AppCompatActivity() {
     companion object {
         const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
         const val TOOLBAR_COLLAPSE_THRESHOLD = 0.1
-        const val POPUP_WIDTH = 196
+        const val POPUP_WIDTH = 198
         const val POPUP_MARGIN_END = -6
         const val POPUP_MARGIN_TOP = 4
     }

@@ -4,6 +4,7 @@ import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.data.remote.response.SosopickNovelHomeResponse
 import com.teamwss.websoso.data.remote.response.UserNovelPostResponse
 import com.teamwss.websoso.data.remote.response.UserNovelsLibraryResponse
+import com.teamwss.websoso.data.remote.response.NovelMemoInfoResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -34,4 +35,9 @@ interface UserNovelService {
         @Path("userNovelId") userNovelId: Long,
         @Body request: NovelPostRequest,
     ): Response<Unit>
+    
+    @GET("user-novels/{userNovelId}")
+    suspend fun getUserNovelMemoInfo(
+        @Path("userNovelId") userNovelId: Long
+    ): NovelMemoInfoResponse
 }

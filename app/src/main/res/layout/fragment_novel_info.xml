@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="novelDetailViewModel"
+            type="com.teamwss.websoso.ui.novelDetail.NovelDetailViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,7 +37,7 @@
             android:numStars="5"
             android:progressBackgroundTint="@color/gray_70_DFDFE3"
             android:progressTint="@color/secondary_100_FF675D"
-            android:rating="2"
+            android:rating="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelRating}"
             android:secondaryProgressTint="@color/secondary_100_FF675D"
             android:stepSize="0.5"
             app:layout_constraintStart_toStartOf="@id/tvNovelInfoMyEvaluation"
@@ -136,6 +143,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
+                    android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStartDate}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -159,6 +167,7 @@
                     android:id="@+id/tvNovelInfoReadEndDate"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
+                    android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadEndDate}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -195,6 +204,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelDescription}"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -218,6 +228,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenre}"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
                 app:layout_constraintStart_toStartOf="parent"

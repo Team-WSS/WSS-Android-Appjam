@@ -5,17 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
+import com.teamwss.websoso.ui.novelDetail.NovelDetailViewModel
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailMemoAdapter
 
 class NovelMemoFragment : Fragment() {
     private var _binding: FragmentNovelMemoBinding? = null
     private val binding: FragmentNovelMemoBinding
         get() = requireNotNull(_binding)
-
-    private val novelMemoAdapter by lazy { NovelDetailMemoAdapter() }
+    private lateinit var novelMemoAdapter: NovelDetailMemoAdapter
+    private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -27,13 +29,22 @@ class NovelMemoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initRecyclerAdapter()
         initRecyclerView()
         onClickAddingMemoBox()
+        observeNovelMemoData()
+    }
+
+    private fun initRecyclerAdapter() {
+        novelMemoAdapter = NovelDetailMemoAdapter {
+            activity?.let { MemoWriteActivity.createIntent(it) }
+        }
     }
 
     private fun initRecyclerView() {
-        with(binding.rvNovelMemo) {
-            layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvNovelMemo.apply {
+            adapter = novelMemoAdapter
+            setHasFixedSize(true)
         }
     }
 
@@ -46,6 +57,12 @@ class NovelMemoFragment : Fragment() {
     private fun navigateMemoWrite() {
         val intent = MemoWriteActivity.createIntent(requireActivity())
         startActivity(intent)
+    }
+
+    private fun observeNovelMemoData() {
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) { usersResponse ->
+            novelMemoAdapter.updateUserNovelMemo(usersResponse.memos)
+        }
     }
 
     override fun onResume() {
