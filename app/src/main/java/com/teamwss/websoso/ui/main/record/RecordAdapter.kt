@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.ui.main.record.model.Memo
 
 class RecordAdapter : RecyclerView.Adapter<RecordViewHolder>() {
-    private var memoItems: List<Memo> = emptyList()
+    private val memoItems: MutableList<Memo> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
         return RecordViewHolder.create(parent)
@@ -13,8 +13,8 @@ class RecordAdapter : RecyclerView.Adapter<RecordViewHolder>() {
 
     override fun getItemCount() = memoItems.size
 
-    fun setFriendList(memoList: List<Memo>) {
-        this.memoItems = memoList.toList()
+    fun updateMemoItems(memos: List<Memo>) {
+        memoItems.addAll(memos)
         notifyDataSetChanged()
     }
 
