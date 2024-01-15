@@ -9,9 +9,9 @@ data class UserNovelPostResponse(
     @SerialName("platforms")
     val platforms: List<NovelPlatformPostResponse>,
     @SerialName("userNovelReadEndDate")
-    val userNovelReadEndDate: String?,
+    val userNovelReadEndDate: String? = null,
     @SerialName("userNovelReadStartDate")
-    val userNovelReadStartDate: String?,
+    val userNovelReadStartDate: String? = null,
     @SerialName("userNovelAuthor")
     val userNovelAuthor: String,
     @SerialName("userNovelDescription")

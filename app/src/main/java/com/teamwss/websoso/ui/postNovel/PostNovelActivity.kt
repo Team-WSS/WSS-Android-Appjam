@@ -226,4 +226,10 @@ class PostNovelActivity : AppCompatActivity() {
             }
         }
     }
+
+    companion object {
+        fun createIntent(context: Context): Intent {
+            return Intent(context, PostNovelActivity::class.java)
+        }
+    }
 }
