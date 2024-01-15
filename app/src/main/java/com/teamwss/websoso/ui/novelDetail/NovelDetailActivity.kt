@@ -141,7 +141,7 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun createPopupWindow(listView: ListView): PopupWindow {
-        return PopupWindow(listView, POPUP_WIDTH, WindowManager.LayoutParams.WRAP_CONTENT, true).apply {
+        return PopupWindow(listView, POPUP_WIDTH.intDp, WindowManager.LayoutParams.WRAP_CONTENT, true).apply {
             isTouchable = true
             isOutsideTouchable = true
             isFocusable = true
