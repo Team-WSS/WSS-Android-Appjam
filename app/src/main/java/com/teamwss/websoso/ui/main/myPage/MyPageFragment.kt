@@ -8,23 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentMyPageBinding
 import com.teamwss.websoso.ui.main.myPage.changeName.ChangeNameActivity
 import com.teamwss.websoso.ui.main.myPage.checkUserInfo.CheckUserInfoActivity
-import com.teamwss.websoso.ui.main.myPage.model.Avatar
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
     private lateinit var avatarAdapter: MyPageAdapter
-    private lateinit var viewModel: MyPageViewModel
+    private val myPageViewModel: MyPageViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentMyPageBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
         return binding.root
     }
 
@@ -38,9 +36,8 @@ class MyPageFragment : Fragment() {
 
     @SuppressLint("StringFormatMatches")
     private fun observeUserName() {
-        viewModel.userName.observe(viewLifecycleOwner) { userName ->
-            val displayText = getString(R.string.my_page_user_name, userName)
-            binding.tvMyPageUserName.text = displayText
+        myPageViewModel.userName.observe(viewLifecycleOwner) { userName ->
+            binding.tvMyPageUserName.text = getString(R.string.my_page_user_name, userName)
         }
     }
 
@@ -55,17 +52,17 @@ class MyPageFragment : Fragment() {
     }
 
     private fun setupAvatarList() {
-        viewModel.avatarData.observe(viewLifecycleOwner) { avatarList ->
-            avatarAdapter.setAvatarList(avatarList)
+        myPageViewModel.avatars.observe(viewLifecycleOwner) { avatarList ->
+            avatarAdapter.updateAvatarList(avatarList)
         }
     }
 
     private fun launchOnClick() {
-        launchChangeNameOnClick()
-        launchCheckUserNameOnClick()
+        launchChangeName()
+        launchCheckUserName()
     }
 
-    private fun launchChangeNameOnClick() {
+    private fun launchChangeName() {
         binding.ivMyPageEditUserName.setOnClickListener {
             val defaultName = binding.tvMyPageUserName.text.toString()
 
@@ -76,7 +73,7 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    private fun launchCheckUserNameOnClick() {
+    private fun launchCheckUserName() {
         binding.tvMyPageCheckUserInfo.setOnClickListener {
             val intent = Intent(binding.root.context, CheckUserInfoActivity::class.java)
 
@@ -86,12 +83,12 @@ class MyPageFragment : Fragment() {
 
     private fun setupAvatarDialog() {
         avatarAdapter.onAvatarItemClickListener { avatar ->
-            showAvatarDialog(avatar)
+            showAvatarDialog()
         }
     }
 
-    private fun showAvatarDialog(avatar: Avatar) {
-        val dialogFragment = AvatarDialogFragment.newInstance(avatar)
+    private fun showAvatarDialog() {
+        val dialogFragment = AvatarDialogFragment.newInstance()
         dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
     }
 
@@ -102,6 +99,5 @@ class MyPageFragment : Fragment() {
             intent.putExtra("userName", userName)
             return intent
         }
-
     }
 }
