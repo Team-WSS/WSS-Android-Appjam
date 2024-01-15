@@ -20,14 +20,15 @@ class MemoPlainActivity : AppCompatActivity() {
         binding = ActivityMemoPlainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val memoId: Long = intent.getLongExtra("memoId", -1)
+        memoPlainViewModel.updateMemoId(memoId)
+        memoPlainViewModel.getMemo(memoId)
+
         setTranslucentOnStatusBar()
         setupLifecycleOwner()
         setupDataBinding()
         onClickMemoPlainCancelButton()
         onClickMemoDeleteButton()
-
-        val memoId: Long = intent.getLongExtra("memoId", 0)
-        memoPlainViewModel.getMemo(memoId)
     }
 
     private fun setTranslucentOnStatusBar() {

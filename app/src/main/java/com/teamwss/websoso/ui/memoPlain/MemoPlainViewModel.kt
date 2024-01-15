@@ -28,7 +28,19 @@ class MemoPlainViewModel : ViewModel() {
         }
     }
 
-    fun getMemoId(memoId: Long) {
+    fun deleteMemo(memoId: Long) {
+        viewModelScope.launch {
+            kotlin.runCatching {
+                ServicePool.memoService.deleteMemo(memoId)
+            }.onSuccess {
+                Log.d("tongsinMemoPlain", "success")
+            }.onFailure { throwable ->
+                Log.e("tongsinMemoPlain", throwable.toString())
+            }
+        }
+    }
+
+    fun updateMemoId(memoId: Long) {
         _memoId.value = memoId
     }
 }
