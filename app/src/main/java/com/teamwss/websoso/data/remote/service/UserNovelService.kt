@@ -35,7 +35,7 @@ interface UserNovelService {
         @Path("userNovelId") userNovelId: Long,
         @Body request: NovelPostRequest,
     ): Response<Unit>
-    
+
     @GET("user-novels/{userNovelId}")
     suspend fun getUserNovelMemoInfo(
         @Path("userNovelId") userNovelId: Long

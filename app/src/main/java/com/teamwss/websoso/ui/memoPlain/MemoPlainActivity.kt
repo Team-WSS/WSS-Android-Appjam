@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.teamwss.websoso.databinding.ActivityMemoPlainBinding
 
@@ -13,6 +14,7 @@ class MemoPlainActivity : AppCompatActivity() {
     private val dialogMemoCancel: DialogMemoCancel by lazy {
         DialogMemoCancel(::finish)
     }
+    private val memoPlainViewModel: MemoPlainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +22,12 @@ class MemoPlainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setTranslucentOnStatusBar()
+        setupLifecycleOwner()
+        setupDataBinding()
         onClickMemoEditCancelButton()
+
+        val memoId: Long = 11
+        memoPlainViewModel.getMemo(memoId)
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -28,6 +35,14 @@ class MemoPlainActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
+    }
+
+    private fun setupLifecycleOwner() {
+        binding.lifecycleOwner = this
+    }
+
+    private fun setupDataBinding() {
+        binding.memoPlainViewModel = memoPlainViewModel
     }
 
     private fun onClickMemoEditCancelButton() {
