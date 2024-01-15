@@ -75,7 +75,9 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun onClickMemoEditButton() {
         binding.tvMemoPlainEditBtn.setOnClickListener {
-            MemoWriteActivity.createIntent(this, memoId)
+            val intent = MemoWriteActivity.createIntent(this, memoId)
+            startActivity(intent)
+            finish()
         }
     }
 
