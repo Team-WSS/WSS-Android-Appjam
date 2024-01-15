@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.teamwss.websoso.databinding.DialogPostSuccessBinding
 import com.teamwss.websoso.ui.main.MainActivity
+import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 
 class PostSuccessDialog : DialogFragment() {
     private var _binding: DialogPostSuccessBinding? = null
@@ -37,6 +38,9 @@ class PostSuccessDialog : DialogFragment() {
 
     private fun setupNavigateMemoListener() {
         binding.llNavigateToMemo.setOnClickListener {
+            val intent = Intent(activity, MemoWriteActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
             dismiss()
         }
     }
