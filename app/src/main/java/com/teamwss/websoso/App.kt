@@ -15,8 +15,13 @@ class App : Application() {
 
         userPrefs = WebsosoLocalStorage.getInstance(this)
 
-        val userNovelService = NetworkModule.create<UserNovelService>()
-        userNovelsRepository = UserNovelsRepository(userNovelService)
+        userNovelsRepository = getUserNovelsRepository()
+    }
+
+    private fun getUserNovelsRepository(): UserNovelsRepository {
+        val userNovelService: UserNovelService = NetworkModule.create<UserNovelService>()
+
+        return UserNovelsRepository(userNovelService)
     }
 
     companion object {
