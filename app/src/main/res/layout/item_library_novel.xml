@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+            <variable
+                name="libraryNovel"
+                type="com.teamwss.websoso.data.model.LibraryUserNovelEntity" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivLibraryNovelCover"
+            android:layout_width="105dp"
+            android:layout_height="155dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            loadRoundedCoverImage="@{libraryNovel.userNovelCover}"
+            tools:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tvLibraryNovelTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:breakStrategy="simple"
+            android:ellipsize="end"
+            android:gravity="left"
+            android:lineSpacingExtra="5sp"
+            android:maxLines="2"
+            android:textAppearance="@style/body2"
+            android:textColor="@color/black"
+            android:text="@{libraryNovel.userNovelTitle}"
+            app:layout_constraintEnd_toEndOf="@id/ivLibraryNovelCover"
+            app:layout_constraintStart_toStartOf="@id/ivLibraryNovelCover"
+            app:layout_constraintTop_toBottomOf="@id/ivLibraryNovelCover"
+            tools:text="여자친구로 삼으려고 학생회라이브" />
+
+        <TextView
+            android:id="@+id/tvLibraryNovelAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/label1"
+            android:textColor="@color/gray_200_AEADB3"
+            android:text="@{libraryNovel.userNovelAuthor}"
+            app:layout_constraintStart_toStartOf="@+id/tvLibraryNovelTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvLibraryNovelTitle"
+            tools:text="이보라" />
+
+        <ImageView
+            android:id="@+id/ivLibraryStar"
+            android:layout_width="11dp"
+            android:layout_height="10dp"
+            android:layout_marginTop="6dp"
+            android:src="@drawable/ic_star_full"
+            app:layout_constraintStart_toStartOf="@+id/tvLibraryNovelTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvLibraryNovelAuthor" />
+
+        <TextView
+            android:id="@+id/tvLibraryNovelRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="@{Float.toString(libraryNovel.userNovelRating)}"
+            android:textAppearance="@style/label1"
+            app:layout_constraintBottom_toBottomOf="@id/ivLibraryStar"
+            app:layout_constraintStart_toEndOf="@id/ivLibraryStar"
+            app:layout_constraintTop_toTopOf="@id/ivLibraryStar"
+            tools:text="4.5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

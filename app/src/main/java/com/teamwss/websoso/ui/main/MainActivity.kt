@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavigation() {
         binding.bnvMain.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
-                R.id.menu_home -> HomeFragment.newInstance
+                R.id.menu_home -> HomeFragment.newInstance()
                 R.id.menu_library -> LibraryFragment.newInstance()
                 R.id.menu_record -> RecordFragment.newInstance()
                 R.id.menu_my_page -> MyPageFragment.newInstance()
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeDefaultFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
-            val homeFragment = HomeFragment.newInstance
+            val homeFragment = HomeFragment.newInstance()
             changeFragment(homeFragment)
         }
     }

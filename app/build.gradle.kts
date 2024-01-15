@@ -21,6 +21,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "BASE_URL", getApiKey("base.url"))
+        buildConfigField("String", "TEST_TOKEN", getApiKey("test.token"))
     }
 
     buildTypes {
@@ -85,6 +86,9 @@ dependencies {
 
     // lottie
     implementation ("com.airbnb.android:lottie:5.0.2")
+
+    // security-crypto
+    implementation ("androidx.security:security-crypto:1.1.0-alpha03")
 }
 
 fun getApiKey(propertyKey: String): String {

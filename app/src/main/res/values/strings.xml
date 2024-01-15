@@ -58,7 +58,6 @@
     <string name="tv_post_read_date_title">읽은 날짜</string>
     <string name="tv_post_read_date_tilde">~</string>
     <string name="tv_post_keyword_title">키워드</string>
-    <string name="tv_post_keyword">키워드 등록</string>
     <string name="tv_post_novel_detail_title">작품 소개</string>
     <string name="tv_post_novel_genre_title">장르</string>
     <string name="tv_post_novel_site_title">작품 보러가기</string>
@@ -133,4 +132,17 @@
     <string name="change_name_complete">완료</string>
     <string name="change_name_nickname">닉네임</string>
     <string name="change_name_text_count">%d/10\n</string>
+
+    <!-- fragment_library -->
+    <string name="library_title">내 서재</string>
+    <string name="library_tb_item_all">전체</string>
+    <string name="library_tb_item_finish">읽음</string>
+    <string name="library_tb_item_reading">읽는 중</string>
+    <string name="library_tb_item_drop">하차</string>
+    <string name="library_tb_item_wish">읽고싶음</string>
+    <string name="library_empty_comment">서재가 아직 비어있네요!</string>
+    <string name="library_novel_post">웹소설 등록하기</string>
+    <string name="tv_post_keyword">키워드 등록</string>
+    <string name="library_menu_newest">최신 순</string>
+    <string name="library_menu_oldest">오래된 순</string>
 </resources>

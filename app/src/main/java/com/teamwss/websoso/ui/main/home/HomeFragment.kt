@@ -48,6 +48,6 @@ class HomeFragment : Fragment() {
     }
 
     companion object {
-        val newInstance = HomeFragment()
+        fun newInstance() = HomeFragment()
     }
 }
