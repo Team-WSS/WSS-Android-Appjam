@@ -164,24 +164,23 @@ class PostNovelViewModel : ViewModel() {
     }
 
     fun updateIsDateValid() {
-        val currentDate = LocalDate.now()
+        fun isSelectedDateAfterToday(date: String): Boolean {
+            val parsedDate = formatDateToLocalDate(date)
+            return parsedDate.isAfter(LocalDate.now())
+        }
 
-        val isStartDateValid: Boolean = !formatDateToLocalDate(_selectedStartDate.value.toString()).isAfter(currentDate)
-        val isEndDateValid: Boolean = !formatDateToLocalDate(_selectedEndDate.value.toString()).isAfter(currentDate)
-        when (_readStatus.value) {
-            ReadStatus.READING.toString() -> {
-                _isNumberPickerDateValid.value = isStartDateValid
-            }
-            ReadStatus.DROP.toString() -> {
-                _isNumberPickerDateValid.value = isEndDateValid
-            }
-            else -> {
-                _isNumberPickerDateValid.value =
-                    isStartDateValid && isEndDateValid &&
-                            !formatDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
-                                formatDateToLocalDate(_selectedEndDate.value.toString())
-                            )
-            }
+        fun isStartDateAfterEndDate(): Boolean {
+            return formatDateToLocalDate(_selectedStartDate.value.toString()).isAfter(
+                formatDateToLocalDate(_selectedEndDate.value.toString())
+            )
+        }
+
+        _isNumberPickerDateValid.value = when (_readStatus.value) {
+            ReadStatus.READING.toString() -> !isSelectedDateAfterToday(_selectedStartDate.value.toString())
+            ReadStatus.DROP.toString() -> !isSelectedDateAfterToday(_selectedEndDate.value.toString())
+            else -> !isSelectedDateAfterToday(_selectedStartDate.value.toString()) &&
+                    !isSelectedDateAfterToday(_selectedEndDate.value.toString()) &&
+                    !isStartDateAfterEndDate()
         }
     }
 
