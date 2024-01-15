@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         android:textAppearance="@style/title2"
+        android:ellipsize="end"
+        android:maxLines="2"
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toEndOf="@id/ivSearchNovel"
         app:layout_constraintTop_toTopOf="@id/ivSearchNovel" />
@@ -31,6 +33,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/label1"
         android:textColor="@color/gray_200_AEADB3"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="@id/tvSearchNovelTitle"
         app:layout_constraintTop_toBottomOf="@id/tvSearchNovelTitle" />
