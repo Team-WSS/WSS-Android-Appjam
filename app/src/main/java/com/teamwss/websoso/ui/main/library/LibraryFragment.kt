@@ -40,41 +40,60 @@ class LibraryFragment : Fragment() {
         binding.viewModel = this.viewModel
 
 
-        setupViewPagerAndTabs()
+        setupViewPager()
+        setupTabLayoutWithViewPager()
+        setupTabSelectedListener()
         observeReadState()
         observeCurrentNovels()
     }
 
-    private fun setupViewPagerAndTabs() {
+    private fun setupViewPager() {
         val viewPager = binding.vpLibraryNovel
         viewPager.adapter = viewPagerAdapter
+    }
 
+    private fun setupTabLayoutWithViewPager() {
+        val viewPager = binding.vpLibraryNovel
         TabLayoutMediator(binding.tbLibrary, viewPager) { tab, position ->
             tab.text = getTabTitle(position)
         }.attach()
+    }
 
+    private fun getTabTitle(position: Int): String {
+        return when (position) {
+            0 -> getString(R.string.library_tb_item_all)
+            1 -> getString(R.string.library_tb_item_finish)
+            2 -> getString(R.string.library_tb_item_reading)
+            3 -> getString(R.string.library_tb_item_drop)
+            4 -> getString(R.string.library_tb_item_wish)
+            else -> ""
+        }
+    }
 
+    private fun setupTabSelectedListener() {
         binding.tbLibrary.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
-                val readState: ReadState = when (tab.position) {
-                    0 -> ReadState.ALL
-                    1 -> ReadState.FINISH
-                    2 -> ReadState.READING
-                    3 -> ReadState.DROP
-                    4 -> ReadState.WISH
-                    else -> ReadState.ALL
-                }
+                val readState = getReadStateFromTabPosition(tab.position)
                 viewModel.setReadState(readState)
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
 
-            override fun onTabReselected(tab: TabLayout.Tab) {
-            }
+            override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-
     }
+
+    private fun getReadStateFromTabPosition(position: Int): ReadState {
+        return when (position) {
+            0 -> ReadState.ALL
+            1 -> ReadState.FINISH
+            2 -> ReadState.READING
+            3 -> ReadState.DROP
+            4 -> ReadState.WISH
+            else -> ReadState.ALL
+        }
+    }
+
 
     private fun observeReadState() {
         viewModel.readState.observe(viewLifecycleOwner) { readState ->
@@ -96,17 +115,6 @@ class LibraryFragment : Fragment() {
         Toast.makeText(requireContext(), novelId.toString(), Toast.LENGTH_SHORT).show()
 
         // TODO : intent to novel detail activity
-    }
-
-    private fun getTabTitle(position: Int): String {
-        return when (position) {
-            0 -> getString(R.string.library_tb_item_all)
-            1 -> getString(R.string.library_tb_item_finish)
-            2 -> getString(R.string.library_tb_item_reading)
-            3 -> getString(R.string.library_tb_item_drop)
-            4 -> getString(R.string.library_tb_item_wish)
-            else -> ""
-        }
     }
 
     override fun onDestroy() {
