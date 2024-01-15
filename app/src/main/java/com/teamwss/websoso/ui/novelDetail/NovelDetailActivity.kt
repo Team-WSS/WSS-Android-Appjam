@@ -31,6 +31,7 @@ class NovelDetailActivity : AppCompatActivity() {
         )
     }
     private val novelDetailViewModel: NovelDetailViewModel by viewModels()
+    private val userNovelId: Long by lazy { novelDetailViewModel.userNovelId.value!!.toLong() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,7 +117,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun onClickAddMemoButton() {
         binding.ivNovelDetailAddMemoBtn.setOnClickListener {
-            val intent = MemoWriteActivity.createNewMemoIntent(this)
+            val intent = MemoWriteActivity.createNewMemoIntent(this, userNovelId)
             startActivity(intent)
         }
     }
