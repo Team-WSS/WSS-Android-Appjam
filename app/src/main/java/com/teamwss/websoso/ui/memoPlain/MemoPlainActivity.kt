@@ -10,10 +10,6 @@ import com.teamwss.websoso.databinding.ActivityMemoPlainBinding
 
 class MemoPlainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoPlainBinding
-
-    private val dialogMemoCancel: DialogMemoCancel by lazy {
-        DialogMemoCancel(::finish)
-    }
     private val memoPlainViewModel: MemoPlainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,12 +43,8 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun onClickMemoEditCancelButton() {
         binding.ivMemoEditCancelBtn.setOnClickListener {
-            showMemoCancelDialog()
+            finish()
         }
-    }
-
-    private fun showMemoCancelDialog() {
-        dialogMemoCancel.show((supportFragmentManager), "CancelEditMemoDialog")
     }
 
     companion object {
