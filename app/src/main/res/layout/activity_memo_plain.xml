@@ -17,7 +17,7 @@
         android:background="@color/white">
 
         <ImageView
-            android:id="@+id/ivMemoEditCancelBtn"
+            android:id="@+id/ivMemoPlainCancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvMemoWriteCompleteBtn"
+            android:id="@+id/tvMemoPlainCompleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -42,12 +42,12 @@
             android:text="@string/memo_write_complete"
             android:textAppearance="@style/title2"
             android:textColor="@color/gray_200_AEADB3"
-            app:layout_constraintBottom_toBottomOf="@id/ivMemoEditCancelBtn"
+            app:layout_constraintBottom_toBottomOf="@id/ivMemoPlainCancelBtn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivMemoEditCancelBtn" />
+            app:layout_constraintTop_toTopOf="@id/ivMemoPlainCancelBtn" />
 
         <TextView
-            android:id="@+id/tvMemoWriteTitle"
+            android:id="@+id/tvMemoPlainTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -56,11 +56,11 @@
             android:textAppearance="@style/title1"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivMemoEditCancelBtn"
+            app:layout_constraintTop_toBottomOf="@id/ivMemoPlainCancelBtn"
             tools:text="당신의 이해를 돕기 위하여" />
 
         <TextView
-            android:id="@+id/tvMemoWriteAuthor"
+            android:id="@+id/tvMemoPlainAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -68,24 +68,24 @@
             android:text="@{memoPlainViewModel.memo.userNovelAuthor}"
             android:textAppearance="@style/body2"
             android:textColor="@color/gray_200_AEADB3"
-            app:layout_constraintStart_toStartOf="@id/tvMemoWriteTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvMemoWriteTitle"
+            app:layout_constraintStart_toStartOf="@id/tvMemoPlainTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvMemoPlainTitle"
             tools:text="이보라" />
 
         <ImageView
-            android:id="@+id/ivMemoWriteThumbnail"
-            loadCoverImageRounded6="@{memoPlainViewModel.memo.userNovelImg}"
+            android:id="@+id/ivMemoPlainThumbnail"
+            loadCoverImageRounded4="@{memoPlainViewModel.memo.userNovelImg}"
             android:layout_width="68dp"
             android:layout_height="48dp"
             android:layout_marginEnd="20dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvMemoWriteTitle"
+            app:layout_constraintTop_toTopOf="@id/tvMemoPlainTitle"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Websoso.ShapeableImageView4"
             tools:src="@drawable/img" />
 
         <EditText
-            android:id="@+id/etMemoWriteContent"
+            android:id="@+id/etMemoPlainContent"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/gray_50_F4F5F8"
@@ -96,21 +96,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMemoWriteAuthor"
+            app:layout_constraintTop_toBottomOf="@id/tvMemoPlainAuthor"
             tools:text="dddddddffffff" />
 
         <View
-            android:id="@+id/viewMemoWriteLine"
+            android:id="@+id/viewMemoPlainLine"
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="16dp"
             android:background="@color/gray_70_DFDFE3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivMemoWriteThumbnail" />
+            app:layout_constraintTop_toBottomOf="@id/ivMemoPlainThumbnail" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clMemoWriteContent"
+            android:id="@+id/clMemoPlainContent"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
@@ -118,22 +118,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/viewMemoWriteLine">
+            app:layout_constraintTop_toBottomOf="@id/viewMemoPlainLine">
 
             <TextView
-                android:id="@+id/tvMemoWriteContentDate"
+                android:id="@+id/tvMemoPlainContentDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{memoPlainViewModel.memo.memoDate}"
                 android:textAppearance="@style/label1"
                 android:textColor="@color/gray_200_AEADB3"
-                app:layout_constraintBottom_toBottomOf="@id/btnMemoWriteDelete"
+                app:layout_constraintBottom_toBottomOf="@id/ivMemoPlainDeleteBtn"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/btnMemoWriteDelete"
+                app:layout_constraintTop_toTopOf="@id/ivMemoPlainDeleteBtn"
                 tools:text="2023-12-23 오전 10:12" />
 
             <ImageView
-                android:id="@+id/btnMemoWriteDelete"
+                android:id="@+id/ivMemoPlainDeleteBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -144,7 +144,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvMemoWriteContentMemo"
+                android:id="@+id/tvMemoPlainContentMemo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="26dp"
@@ -153,7 +153,7 @@
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMemoWriteContentDate"
+                app:layout_constraintTop_toBottomOf="@id/tvMemoPlainContentDate"
                 tools:text="가을이 지나가는 하늘에는 가을로 가득차 있습니다. 나는 아무 걱정도 없이 가을 속의 별들을 다 헬 듯합니다. 가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요, 내일 밤이 남은 까닭이요, 아직 나의 청춘이 다하지 않은 까닭입니다. 별 하나에 추억과 별하나의 사랑과 별 하나에 쓸쓸함과 별 하나에 존경과 별 하나에 시와 별 하나에 어머니, 어머니 어머님, 나는 별 하나에 아름다운 말 한마디씩 붙여봅니다. 소학교 때 책상을 같이 했던 아이들의 이름과, 폐, 경, 옥, 이런 이국 소녀들의 이름과" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

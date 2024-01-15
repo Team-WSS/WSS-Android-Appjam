@@ -80,6 +80,12 @@ fun loadImageUrl(view: ImageView, imageUrl: String?) {
 }
 
 @BindingAdapter("loadCoverImageRounded6")
-fun loadRoundedCoverImage6F(view: ImageView, imageUrl: String?) {
+fun loadRoundedCoverImage6(view: ImageView, imageUrl: String?) {
+    loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
+}
+
+
+@BindingAdapter("loadCoverImageRounded4")
+fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
 }
