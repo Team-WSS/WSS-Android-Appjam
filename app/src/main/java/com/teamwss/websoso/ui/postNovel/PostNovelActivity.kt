@@ -86,7 +86,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupSaveButton() {
-        binding.llPostButton.setOnClickListener {
+        binding.fbPostButton.setOnClickListener {
             saveNovelInfo()
             postNovelViewModel.isServerError.observe(this) {
                 if (!it) {

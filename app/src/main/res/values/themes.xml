@@ -19,4 +19,9 @@
         <item name="android:windowExitAnimation">@anim/modal_slide_out_bottom</item>
     </style>
 
+    <style name="post_button_corner_12" parent="ShapeAppearanceOverlay.Material3.FloatingActionButton">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+
 </resources>
