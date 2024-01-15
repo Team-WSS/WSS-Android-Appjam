@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.main.library
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentLibraryBinding
 import com.teamwss.websoso.ui.main.library.adapter.LibraryViewPagerAdapter
 import com.teamwss.websoso.ui.main.library.model.ReadState
+import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 
 class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
@@ -110,9 +109,8 @@ class LibraryFragment : Fragment() {
     }
 
     private fun clickNovelItem(novelId: Long) {
-        Toast.makeText(requireContext(), novelId.toString(), Toast.LENGTH_SHORT).show()
-
-        // TODO : intent to novel detail activity
+        val intent = NovelDetailActivity.createIntent(requireContext(), novelId)
+        startActivity(intent)
     }
 
     override fun onDestroy() {

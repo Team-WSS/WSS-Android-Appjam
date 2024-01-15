@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
@@ -189,5 +190,11 @@ class NovelDetailActivity : AppCompatActivity() {
         const val POPUP_WIDTH = 198
         const val POPUP_MARGIN_END = -6
         const val POPUP_MARGIN_TOP = 4
+
+        fun createIntent(context: Context, userNovelId: Long): Intent {
+            return Intent(context, NovelDetailActivity::class.java).apply {
+                putExtra("memoId", userNovelId)
+            }
+        }
     }
 }
