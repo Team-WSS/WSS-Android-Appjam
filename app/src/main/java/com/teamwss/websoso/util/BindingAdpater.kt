@@ -73,3 +73,8 @@ private fun loadDefaultImage(view: ImageView, transformation: Transformation) {
         transformations(transformation)
     }
 }
+
+@BindingAdapter("loadImageUrl")
+fun loadImageUrl(view: ImageView, imageUrl: String?) {
+    view.load(imageUrl)
+}
