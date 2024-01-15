@@ -5,63 +5,66 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
 
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
-    private lateinit var viewModel: RecordViewModel
-    private lateinit var memoAdapter: RecordAdapter
+    private val recordViewModel: RecordViewModel by viewModels()
+    private val memoAdapter: RecordAdapter by lazy { RecordAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRecordBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(RecordViewModel::class.java)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupRecyclerView()
-        handleNovelCountUIChanges()
-        setupMemoList()
+        setupMemos()
+        setupMemoCount()
     }
 
     private fun setupRecyclerView() {
-        memoAdapter = RecordAdapter()
         binding.rvMemoList.adapter = memoAdapter
     }
 
-    private fun setupMemoList(){
-        viewModel.memoData.observe(viewLifecycleOwner) { memoList ->
-            memoAdapter.setFriendList(memoList)
+    private fun setupMemos() {
+        recordViewModel.memos.observe(viewLifecycleOwner) { memos ->
+            memoAdapter.updateMemoItems(memos)
         }
     }
 
-    private fun handleNovelCountUIChanges() {
-        viewModel.novelCount.observe(viewLifecycleOwner) { novelCount ->
-            val displayText = getString(R.string.record_novel_count, novelCount.toIntOrNull())
-            binding.tvRecordNovelCount.text = displayText
-
-            when (novelCount.toIntOrNull()) {
-
-                0 -> {
+    private fun setupMemoCount() {
+        recordViewModel.memoCount.observe(viewLifecycleOwner) { count ->
+            binding.tvRecordNovelCount.text = getString(R.string.record_novel_count,count)
+            when (count == 0L) {
+                true -> {
+                    binding.viewHeaderUnderLine.visibility=View.VISIBLE
                     binding.lyNovelNoExist.visibility = View.VISIBLE
-                    binding.lyNovelExist.visibility = View.GONE
+                    binding.lyNovelExist.visibility = View.INVISIBLE
                 }
 
-                else -> {
+                false -> {
+                    binding.lyNovelNoExist.visibility = View.INVISIBLE
                     binding.lyNovelExist.visibility = View.VISIBLE
-                    binding.lyNovelNoExist.visibility = View.GONE
                 }
             }
         }
+    }
 
+    private fun launchPostNovel(){
+        binding.btnRecordGoToPostNovel.setOnClickListener{
+            //TODO: 웹소설 일반등록으로 이동
+        }
     }
 
     companion object {
         fun newInstance() = RecordFragment()
     }
 }
+
