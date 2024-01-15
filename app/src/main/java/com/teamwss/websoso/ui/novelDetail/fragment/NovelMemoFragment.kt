@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ class NovelMemoFragment : Fragment() {
     private var _binding: FragmentNovelMemoBinding? = null
     private val binding: FragmentNovelMemoBinding
         get() = requireNotNull(_binding)
-    private lateinit var novelMemoAdapter: NovelDetailMemoAdapter
+    private val novelMemoAdapter: NovelDetailMemoAdapter by lazy { NovelDetailMemoAdapter(::navigateToMemoPlain) }
     private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -27,10 +28,8 @@ class NovelMemoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupLifecycleOwner()
         setupDataBinding()
-        initRecyclerAdapter()
         initRecyclerView()
 //        onClickAddingMemoBox()
         observeNovelMemoData()
@@ -44,40 +43,26 @@ class NovelMemoFragment : Fragment() {
         binding.novelDetailViewModel = novelDetailViewModel
     }
 
-    private fun initRecyclerAdapter() {
-        novelMemoAdapter = NovelDetailMemoAdapter { memoId ->
-            val intent = MemoPlainActivity.createIntent(requireContext(), memoId)
-            startActivity(intent)
-        }
-    }
-
     private fun initRecyclerView() {
         binding.rvNovelMemo.apply {
             adapter = novelMemoAdapter
-            setHasFixedSize(true)
         }
     }
 
-//    private fun onClickAddingMemoBox() {
+    //    private fun onClickAddingMemoBox() {
 //        binding.clNovelMemoNavigateNewMemo.setOnClickListener {
 //            navigateMemoWrite()
 //        }
 //    }
-//    private fun navigateMemoWrite() {
-//        val intent = MemoPlainActivity.createIntent(requireActivity())
-//        startActivity(intent)
-//    } 추후 memoWrite로 수정
+    private fun navigateToMemoPlain(memoId: Long) {
+        val intent = MemoPlainActivity.createIntent(requireActivity(), memoId)
+        startActivity(intent)
+    }
 
     private fun observeNovelMemoData() {
         novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) { usersResponse ->
             novelMemoAdapter.updateUserNovelMemo(usersResponse.memos)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        view?.requestLayout()
     }
 
     override fun onDestroy() {
