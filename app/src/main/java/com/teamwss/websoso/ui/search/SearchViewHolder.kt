@@ -3,19 +3,19 @@ package com.teamwss.websoso.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.teamwss.websoso.data.remote.response.SearchNovelsResponse
 import com.teamwss.websoso.databinding.ItemSearchNovelBinding
-import com.teamwss.websoso.ui.search.model.SearchResult
+import com.teamwss.websoso.util.loadCoverImageRounded6
 
 class SearchViewHolder(private val binding: ItemSearchNovelBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(searchNovel: SearchResult) {
+    fun onBind(searchResult: SearchNovelsResponse.Novel) {
         with(binding) {
-            ivSearchNovel.load(searchNovel.resultNovelImage)
-            tvSearchNovelTitle.text = searchNovel.resultNovelTitle
-            tvSearchNovelAuthor.text = searchNovel.resultNovelAuthor
-            tvSearchNovelGenre.text = searchNovel.resultNovelGenre
+            loadCoverImageRounded6(ivSearchNovel, searchResult.novelImg)
+            tvSearchNovelTitle.text = searchResult.novelTitle
+            tvSearchNovelAuthor.text = searchResult.novelAuthor
+            tvSearchNovelGenre.text = searchResult.novelGenre
         }
     }
 

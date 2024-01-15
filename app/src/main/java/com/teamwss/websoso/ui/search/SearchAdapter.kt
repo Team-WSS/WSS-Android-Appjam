@@ -2,10 +2,10 @@ package com.teamwss.websoso.ui.search
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.teamwss.websoso.ui.search.model.SearchResult
+import com.teamwss.websoso.data.remote.response.SearchNovelsResponse
 
 class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
-    private var novelItems: List<SearchResult> = emptyList()
+    private var novelItems: List<SearchNovelsResponse.Novel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         return SearchViewHolder.create(parent)
@@ -17,7 +17,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchViewHolder>() {
         holder.onBind(novelItems[position])
     }
 
-    fun setResultNovelList(novelList: List<SearchResult>) {
+    fun setResultNovelList(novelList: List<SearchNovelsResponse.Novel>) {
         this.novelItems = novelList.toList()
         notifyDataSetChanged()
     }

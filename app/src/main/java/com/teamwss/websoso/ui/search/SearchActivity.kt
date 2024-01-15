@@ -7,12 +7,15 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivitySearchBinding
 import com.teamwss.websoso.ui.search.model.SearchResult
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
 
 class SearchActivity : AppCompatActivity() {
+    private val viewModel by viewModels<SearchViewModel>()
     private lateinit var binding: ActivitySearchBinding
     private lateinit var searchAdapter: SearchAdapter
 
@@ -20,11 +23,14 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         showKeyboardOnEditTextFocus()
         setupSearchEditText()
         handleSearchEditTextOnInputFinish()
         setupRecyclerView()
         setResultNovelList()
+
+        isResultEmpty()
     }
 
     private fun showKeyboardOnEditTextFocus() {
@@ -46,7 +52,6 @@ class SearchActivity : AppCompatActivity() {
     private fun getTextWatcher(): TextWatcher {
         return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
             }
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
@@ -78,7 +83,7 @@ class SearchActivity : AppCompatActivity() {
     private fun handleSearchEditTextOnInputFinish() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             binding.clSearchView.setBackgroundResource(R.color.transparent)
-            var isHandled: Boolean = false
+            var isHandled = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 val inputMethodManager =
@@ -86,6 +91,8 @@ class SearchActivity : AppCompatActivity() {
                 inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
                 binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_radius_12dp)
                 isHandled = true
+
+                viewModel.searchNovels(999999, 40, binding.etSearch.text.toString())
             } else {
                 binding.clSearchView.setBackgroundResource(R.color.transparent)
             }
@@ -99,8 +106,9 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setResultNovelList() {
-        val resultList = mockResultNovelList
-        searchAdapter.setResultNovelList(resultList)
+        viewModel.searchResult.observe(this) {
+            searchAdapter.setResultNovelList(it.novels)
+        }
     }
 
     companion object {
@@ -154,5 +162,15 @@ class SearchActivity : AppCompatActivity() {
                 resultNovelGenre = "로판",
             ),
         )
+    }
+
+    private fun isResultEmpty() {
+        viewModel.searchResult.observe(this) {
+            if (it.novels.isEmpty()) {
+                binding.clSearchResultNoExist.visibility = View.VISIBLE
+            } else {
+                binding.clSearchResultNoExist.visibility = View.GONE
+            }
+        }
     }
 }

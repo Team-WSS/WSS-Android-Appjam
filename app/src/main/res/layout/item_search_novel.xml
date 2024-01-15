@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="12dp">
+    android:layout_marginTop="12dp"
+    android:layout_marginHorizontal="20dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
+    <ImageView
         android:id="@+id/ivSearchNovel"
         android:layout_width="76dp"
         android:layout_height="104dp"
@@ -19,11 +20,11 @@
         android:id="@+id/tvSearchNovelTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textAppearance="@style/title2"
+        android:layout_marginStart="16dp"
         android:ellipsize="end"
         android:maxLines="2"
-        android:layout_marginStart="16dp"
+        android:textAppearance="@style/title2"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/ivSearchNovel"
         app:layout_constraintTop_toTopOf="@id/ivSearchNovel" />
 
@@ -31,11 +32,11 @@
         android:id="@+id/tvSearchNovelAuthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/label1"
-        android:textColor="@color/gray_200_AEADB3"
+        android:layout_marginTop="2dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:layout_marginTop="2dp"
+        android:textAppearance="@style/label1"
+        android:textColor="@color/gray_200_AEADB3"
         app:layout_constraintStart_toStartOf="@id/tvSearchNovelTitle"
         app:layout_constraintTop_toBottomOf="@id/tvSearchNovelTitle" />
 
@@ -43,9 +44,9 @@
         android:id="@+id/tvSearchNovelGenre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:textAppearance="@style/label1"
         android:textColor="@color/gray_200_AEADB3"
-        android:layout_marginTop="2dp"
         app:layout_constraintStart_toStartOf="@id/tvSearchNovelTitle"
         app:layout_constraintTop_toBottomOf="@id/tvSearchNovelAuthor" />
 
