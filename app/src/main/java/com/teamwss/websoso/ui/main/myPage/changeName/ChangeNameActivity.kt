@@ -1,12 +1,16 @@
 package com.teamwss.websoso.ui.main.myPage.changeName
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.teamwss.websoso.R
@@ -14,6 +18,7 @@ import com.teamwss.websoso.databinding.ActivityChangeNameBinding
 
 class ChangeNameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChangeNameBinding
+    private val changeNameViewModel: ChangeNameViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +26,7 @@ class ChangeNameActivity : AppCompatActivity() {
         setContentView(binding.root)
         setTranslucentOnStatusBar()
         setupUI()
+
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -30,10 +36,12 @@ class ChangeNameActivity : AppCompatActivity() {
         )
     }
 
+
     private fun setupUI() {
         handelBackToMyPage()
         setupChangeNameEditText()
         setDefaultNameAndTextWatcher(binding.etChangeName, binding.tvChangeNameCount, 10)
+        setupDoneButton()
     }
 
     private fun handelBackToMyPage() {
@@ -53,7 +61,7 @@ class ChangeNameActivity : AppCompatActivity() {
             createTextWatcher(
                 binding.etChangeName,
                 binding.tvChangeNameCount,
-                maxLength
+                MAX_LENGTH,
             )
         )
     }
@@ -143,8 +151,37 @@ class ChangeNameActivity : AppCompatActivity() {
         editText.addTextChangedListener(textWatcher)
     }
 
+    private fun setupDoneButton() {
+        binding.tvChangeNameComplete.setOnClickListener {
+            val updatedName = binding.etChangeName.text.toString()
+
+            changeNameViewModel.patchResult.observe(this) { result ->
+                when (result.isSuccess) {
+                    true -> {
+                        changeNameViewModel.patchUserNickName(updatedName)
+                        finish()
+                        showToast("닉네임을 저장했어요.", Toast.LENGTH_SHORT)
+                    }
+                    false -> {
+                    }
+                }
+            }
+        }
+    }
+    private fun showToast(message: String, duration: Int) {
+        val toast = Toast.makeText(this, message, duration)
+        val handler = Handler(Looper.getMainLooper())
+
+        handler.postDelayed({
+            toast.cancel()
+        }, 1000)
+
+        toast.show()
+    }
+
     companion object {
-        private const val maxLength = 10
+        private const val MAX_LENGTH = 10
+
     }
 }
 

@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
+import coil.load
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogAvatarBinding
 
 class AvatarDialogFragment : DialogFragment() {
     private lateinit var binding: DialogAvatarBinding
+    private val myPageViewModel: MyPageViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +30,13 @@ class AvatarDialogFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupDialogUI()
+
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = myPageViewModel
+
+        myPageViewModel.newAvatar.observe(viewLifecycleOwner) {
+            binding.ivDialogAvatarGenre.load(it.avatarGenreBadgeImg)
+        }
     }
 
     private fun setupDialogUI() {
@@ -40,11 +50,12 @@ class AvatarDialogFragment : DialogFragment() {
 
     companion object {
         const val TAG = "AvatarDialogFragment"
+        private const val ARG_AVATAR_ID = "avatar_id"
 
         fun newInstance(): AvatarDialogFragment {
             return AvatarDialogFragment()
         }
     }
-
 }
+
 

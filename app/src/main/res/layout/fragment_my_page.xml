@@ -209,12 +209,14 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMyPageSelected"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="28dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintStart_toStartOf="@id/tvMyPageSelectedAvatarTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvMyPageSelectedAvatarTitle"
                 tool:listitem="@layout/item_avatar" />
 

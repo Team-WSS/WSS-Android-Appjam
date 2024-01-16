@@ -3,9 +3,14 @@ package com.teamwss.websoso.data.remote.service
 import com.teamwss.websoso.data.remote.response.AvatarHomeResponse
 import retrofit2.http.GET
 
-interface AvatarService {
+import com.teamwss.websoso.data.remote.response.AvatarResponse
+import retrofit2.http.Path
 
-    @GET("rep-avatar")
+interface AvatarService {
     suspend fun getRepresentativeAvatar(): AvatarHomeResponse
+    @GET("/avatars/{avatarId}")
+    suspend fun getAvatarInfo(
+        @Path("avatarId") avatarId: Number
+    ): AvatarResponse
 
 }
