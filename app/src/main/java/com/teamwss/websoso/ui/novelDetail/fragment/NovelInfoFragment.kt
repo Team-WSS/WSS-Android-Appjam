@@ -16,6 +16,7 @@ class NovelInfoFragment : Fragment() {
     private val binding: FragmentNovelInfoBinding
         get() = requireNotNull(_binding)
     private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
