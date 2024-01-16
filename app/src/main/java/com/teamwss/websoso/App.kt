@@ -16,29 +16,22 @@ class App : Application() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         userPrefs = WebsosoLocalStorage.getInstance(this)
-
-        userNovelsRepository = getUserNovelsRepository()
-        avatarRepository = getAvatarRepository()
-    }
-
-    private fun getUserNovelsRepository(): UserNovelsRepository {
-        val userNovelService: UserNovelService = NetworkModule.create<UserNovelService>()
-
-        return UserNovelsRepository(userNovelService)
-    }
-
-    private fun getAvatarRepository(): AvatarRepository {
-        val avatarService: AvatarService = NetworkModule.create<AvatarService>()
-
-        return AvatarRepository(avatarService)
     }
 
     companion object {
-        lateinit var userNovelsRepository: UserNovelsRepository
-            private set
-        lateinit var avatarRepository: AvatarRepository
-            private set
         lateinit var userPrefs: WebsosoLocalStorage
             private set
+
+        fun getUserNovelsRepository(): UserNovelsRepository {
+            val userNovelService: UserNovelService = NetworkModule.create<UserNovelService>()
+
+            return UserNovelsRepository(userNovelService)
+        }
+
+        fun getAvatarRepository(): AvatarRepository {
+            val avatarService: AvatarService = NetworkModule.create<AvatarService>()
+
+            return AvatarRepository(avatarService)
+        }
     }
 }

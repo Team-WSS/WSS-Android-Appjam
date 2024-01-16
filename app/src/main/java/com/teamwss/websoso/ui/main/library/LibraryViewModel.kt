@@ -85,7 +85,7 @@ class LibraryViewModel(
 
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val userNovelsRepository = App.userNovelsRepository
+                val userNovelsRepository = App.getUserNovelsRepository()
                 LibraryViewModel(
                     userNovelsRepository = userNovelsRepository
                 )

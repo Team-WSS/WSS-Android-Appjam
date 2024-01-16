@@ -61,8 +61,8 @@ class HomeViewModel(
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val userNovelsRepository = App.userNovelsRepository
-                val avatarRepository = App.avatarRepository
+                val userNovelsRepository = App.getUserNovelsRepository()
+                val avatarRepository = App.getAvatarRepository()
                 HomeViewModel(
                     userNovelsRepository = userNovelsRepository,
                     avatarRepository = avatarRepository
