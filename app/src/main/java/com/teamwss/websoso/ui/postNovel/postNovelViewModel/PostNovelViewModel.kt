@@ -63,10 +63,8 @@ class PostNovelViewModel : ViewModel() {
                 initUserNovelInfo(it.toUI())
                 _isServerError.value = false
                 _isNovelAlreadyPosted.value = true
-                Log.e("dsvdgfaesfgwea1", it.toString())
             }.onFailure {
                 _isNovelAlreadyPosted.value = false
-                Log.e("dsvdgfaesfgwea1", it.toString())
             }
         }
     }
