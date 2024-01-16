@@ -19,6 +19,9 @@ class RecordViewModel : ViewModel() {
     var memoId: Long = INITIAL_ID
         private set
 
+    private val _userMemoId = MutableLiveData<Long>()
+    val userMemoId: LiveData<Long> get() = _userMemoId
+
     init {
         updateMemo()
     }

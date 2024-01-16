@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
@@ -27,6 +28,7 @@ class RecordFragment : Fragment() {
         setupRecyclerView()
         setupMemos()
         setupMemoCount()
+        setupMemoId()
     }
 
     private fun setupRecyclerView() {
@@ -54,6 +56,12 @@ class RecordFragment : Fragment() {
                     binding.lyNovelExist.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    private fun setupMemoId() {
+        memoAdapter.onMemoItemClickListener { clickedMemo ->
+            Toast.makeText(requireContext(), "Memo ID: ${clickedMemo.novelId}", Toast.LENGTH_SHORT).show()
         }
     }
 
