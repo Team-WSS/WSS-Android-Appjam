@@ -18,6 +18,11 @@ fun loadCoverImageRounded10(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(10F))
 }
 
+@BindingAdapter("loadCoverImageRounded14")
+fun loadCoverImageRounded14(view: ImageView, imageUrl: String?) {
+    loadCustomImage(view, imageUrl, RoundedCornersTransformation(14F))
+}
+
 @BindingAdapter("loadCoverImageRounded30")
 fun loadCoverImageRounded30(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(30F))
