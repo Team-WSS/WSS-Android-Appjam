@@ -1,11 +1,11 @@
 package com.teamwss.websoso.data.mapper
 
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
-import com.teamwss.websoso.data.remote.response.UserNovel
+import com.teamwss.websoso.data.remote.response.UserNovelResponse
 
 object UserNovelMapper {
 
-    fun List<UserNovel>.toData(): List<LibraryUserNovelEntity> {
+    fun List<UserNovelResponse>.toData(): List<LibraryUserNovelEntity> {
         return this.map {
             LibraryUserNovelEntity(
                 userNovelId = it.userNovelId,

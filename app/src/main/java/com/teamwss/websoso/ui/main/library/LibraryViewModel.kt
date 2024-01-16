@@ -64,7 +64,7 @@ class LibraryViewModel(
                     currentSortType.value.toString()
                 )
             }.onSuccess {
-                _currentUserNovels.value = it.userNovels.toData()
+                _currentUserNovels.value = it.userNovelResponses.toData()
                 _userNovelCount.value = it.userNovelCount
             }.onFailure {
                 Log.e("LibraryViewModel", it.message ?: "error")

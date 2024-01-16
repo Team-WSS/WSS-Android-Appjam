@@ -1,11 +1,11 @@
 package com.teamwss.websoso.data.mapper
 
 import com.teamwss.websoso.data.model.SosoPickNovelEntity
-import com.teamwss.websoso.data.remote.response.SosoPickNovel
+import com.teamwss.websoso.data.remote.response.SosoPickNovelResponse
 
-object SosoPickNovelMapper {
+object SosoPickNovelResponseMapper {
 
-    fun List<SosoPickNovel>.toData(): List<SosoPickNovelEntity> {
+    fun List<SosoPickNovelResponse>.toData(): List<SosoPickNovelEntity> {
         return this.map {
             SosoPickNovelEntity(
                 novelAuthor = it.novelAuthor,

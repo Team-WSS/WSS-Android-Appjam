@@ -6,11 +6,11 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SosopickNovelHomeResponse(
     @SerialName("sosoPickNovels")
-    val sosoPickNovels: List<SosoPickNovel>
+    val sosoPickNovelResponses: List<SosoPickNovelResponse>
 )
 
 @Serializable
-data class SosoPickNovel(
+data class SosoPickNovelResponse(
     @SerialName("novelAuthor")
     val novelAuthor: String,
     @SerialName("novelImg")
