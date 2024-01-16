@@ -30,8 +30,8 @@ class SearchViewModel : ViewModel() {
                 val oldNovels = _searchResult.value?.novels ?: emptyList()
                 val newNovels = it.novels
                 _searchResult.value = SearchNovelsResponse(oldNovels + newNovels)
-                _isLoading.value = false
                 _searchWord.value = word
+                _isLoading.value = false
             }.onFailure {
                 _isLoading.value = false
             }
