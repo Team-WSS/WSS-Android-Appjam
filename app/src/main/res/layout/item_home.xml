@@ -38,10 +38,11 @@
                     android:layout_width="64dp"
                     android:layout_height="94dp"
                     android:layout_marginTop="22dp"
-                    android:src="@drawable/img_cover_test"
+                    loadCoverImageRounded14="@{sosoPickNovel.novelImg}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/img_cover_test"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"

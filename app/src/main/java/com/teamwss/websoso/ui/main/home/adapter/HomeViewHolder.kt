@@ -13,10 +13,6 @@ class HomeViewHolder(
 
     fun onBind(sosoPickNovel: SosoPickNovelEntity) {
         binding.sosoPickNovel = sosoPickNovel
-
-        with(binding) {
-            ivHomeItemCover.load(sosoPickNovel.novelImg)
-        }
     }
 
     companion object {
