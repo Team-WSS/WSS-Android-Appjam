@@ -117,7 +117,7 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun createEditMemoIntent(
+        fun newIntentFromPlain(
             context: Context,
             memoId: Long,
             memoContent: String,
@@ -134,7 +134,7 @@ class MemoWriteActivity : AppCompatActivity() {
             }
         }
 
-        fun createNewMemoIntent(
+        fun newIntentFromDetail(
             context: Context,
             userNovelId: Long,
             userNovelTitle: String,

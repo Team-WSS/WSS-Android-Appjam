@@ -148,7 +148,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun onClickAddMemoButton() {
         binding.ivNovelDetailAddMemoBtn.setOnClickListener {
-            val intent = MemoWriteActivity.createNewMemoIntent(
+            val intent = MemoWriteActivity.newIntentFromDetail(
                 this,
                 userNovelId,
                 userNovelAuthor,

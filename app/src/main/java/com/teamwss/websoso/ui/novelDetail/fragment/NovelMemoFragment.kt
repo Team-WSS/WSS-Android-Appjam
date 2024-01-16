@@ -79,7 +79,7 @@ class NovelMemoFragment : Fragment() {
 
     private fun onClickAddingMemoBox() {
         binding.clNovelMemoNavigateNewMemo.setOnClickListener {
-            val intent = MemoWriteActivity.createNewMemoIntent(
+            val intent = MemoWriteActivity.newIntentFromDetail(
                 requireContext(),
                 userNovelId,
                 userNovelTitle,
@@ -91,7 +91,7 @@ class NovelMemoFragment : Fragment() {
     }
 
     private fun navigateToMemoPlain(memoId: Long) {
-        val intent = MemoPlainActivity.createIntent(
+        val intent = MemoPlainActivity.newIntent(
             requireActivity(),
             memoId,
             userNovelTitle,

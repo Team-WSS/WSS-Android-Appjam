@@ -94,7 +94,7 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun onClickMemoEditButton() {
         binding.tvMemoPlainEditBtn.setOnClickListener {
-            val intent = MemoWriteActivity.createEditMemoIntent(
+            val intent = MemoWriteActivity.newIntentFromPlain(
                 this, memoId, memoContent, userNovelTitle, userNovelAuthor, userNovelImage
             )
             startActivity(intent)
@@ -103,7 +103,7 @@ class MemoPlainActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun createIntent(
+        fun newIntent(
             context: Context,
             memoId: Long,
             userNovelTitle: String,
