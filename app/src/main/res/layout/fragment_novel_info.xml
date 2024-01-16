@@ -149,22 +149,23 @@
                     android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStartDate}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/ivNovelInfoCalendar"
                     app:layout_constraintStart_toEndOf="@id/ivNovelInfoCalendar"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivNovelInfoCalendar"
                     tools:text="2023-12-26" />
 
                 <TextView
                     android:id="@+id/tvNovelInfoReadTilde"
+                    setNovelInfoReadDateTilde="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
                     android:text="@string/novel_info_tilde"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoReadStartDate"
                     app:layout_constraintStart_toEndOf="@id/tvNovelInfoReadStartDate"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="@id/tvNovelInfoReadStartDate" />
 
                 <TextView
                     android:id="@+id/tvNovelInfoReadEndDate"
@@ -173,9 +174,9 @@
                     android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadEndDate}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoReadTilde"
                     app:layout_constraintStart_toEndOf="@id/tvNovelInfoReadTilde"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvNovelInfoReadTilde"
                     tools:text="2023-12-30" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 

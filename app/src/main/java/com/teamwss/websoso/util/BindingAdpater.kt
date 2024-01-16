@@ -151,16 +151,30 @@ fun setReadDateBox(layout: ConstraintLayout, status: String) {
         ReadStatus.FINISH.name ->
             layout.visibility = View.VISIBLE
 
-
         ReadStatus.READING.name ->
             layout.visibility = View.VISIBLE
-
 
         ReadStatus.DROP.name ->
             layout.visibility = View.VISIBLE
 
-
         ReadStatus.WISH.name ->
             layout.visibility = View.GONE
+    }
+}
+
+@BindingAdapter("setNovelInfoReadDateTilde")
+fun setReadDateTilde(textView: TextView, status: String) {
+    when (status) {
+        ReadStatus.FINISH.name ->
+            textView.visibility = View.VISIBLE
+
+        ReadStatus.READING.name ->
+            textView.visibility = View.GONE
+
+        ReadStatus.DROP.name ->
+            textView.visibility = View.GONE
+
+        ReadStatus.WISH.name ->
+            textView.visibility = View.GONE
     }
 }
