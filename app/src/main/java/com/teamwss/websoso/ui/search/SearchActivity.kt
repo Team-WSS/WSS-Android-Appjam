@@ -115,7 +115,7 @@ class SearchActivity : AppCompatActivity() {
     private fun handleSearchEditTextOnInputFinish() {
         binding.etSearch.setOnEditorActionListener { _, action, _ ->
             binding.clSearchView.setBackgroundResource(R.color.transparent)
-            var isHandled = false
+            var isHandled: Boolean = false
 
             if (action == EditorInfo.IME_ACTION_DONE) {
                 val inputMethodManager =
