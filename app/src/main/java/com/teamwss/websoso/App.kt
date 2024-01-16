@@ -1,6 +1,7 @@
 package com.teamwss.websoso
 
 import android.app.Application
+import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.teamwss.websoso.data.NetworkModule
 import com.teamwss.websoso.data.local.WebsosoLocalStorage
@@ -14,13 +15,15 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-
-        userPrefs = WebsosoLocalStorage.getInstance(this)
     }
 
     companion object {
-        lateinit var userPrefs: WebsosoLocalStorage
+        lateinit var applicationContext: Context
             private set
+
+        fun getWebsosoLocalStorage(): WebsosoLocalStorage {
+            return WebsosoLocalStorage.getInstance(applicationContext)
+        }
 
         fun getUserNovelsRepository(): UserNovelsRepository {
             val userNovelService: UserNovelService = NetworkModule.create<UserNovelService>()

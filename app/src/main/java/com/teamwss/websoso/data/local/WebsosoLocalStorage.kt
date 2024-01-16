@@ -45,15 +45,8 @@ class WebsosoLocalStorage private constructor(context: Context) {
         const val USER_NAME = "UserName"
         const val ACCESS_TOKEN = "AccessToken"
 
-        @Volatile
-        private var INSTANCE: WebsosoLocalStorage? = null
-
         fun getInstance(context: Context): WebsosoLocalStorage {
-            return INSTANCE ?: synchronized(this) {
-                INSTANCE ?: WebsosoLocalStorage(context).also {
-                    INSTANCE = it
-                }
-            }
+            return WebsosoLocalStorage(context)
         }
     }
 }
