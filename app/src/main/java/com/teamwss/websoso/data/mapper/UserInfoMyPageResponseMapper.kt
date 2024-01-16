@@ -5,19 +5,17 @@ import com.teamwss.websoso.data.remote.response.UserInfoMyPageResponse
 
 object UserInfoMyPageResponseMapper {
 
-    fun List<UserInfoMyPageResponse>.toData(): List<UserInfoMyPageEntity> {
-        return this.map {
-            UserInfoMyPageEntity(
-                memoCount = it.memoCount,
-                representativeAvatarGenreBadge = it.representativeAvatarGenreBadge,
-                representativeAvatarId = it.representativeAvatarId,
-                representativeAvatarLineContent = it.representativeAvatarLineContent,
-                representativeAvatarTag = it.representativeAvatarTag,
-                representativeAvatarImg = it.representativeAvatarImg,
-                userAvatars = it.userAvatars,
-                userNickName = it.userNickName,
-                userNovelCount = it.userNovelCount
-            )
-        }
+    fun UserInfoMyPageResponse.toData(): UserInfoMyPageEntity {
+        return UserInfoMyPageEntity(
+            memoCount = memoCount,
+            representativeAvatarGenreBadge = representativeAvatarGenreBadge,
+            representativeAvatarId = representativeAvatarId,
+            representativeAvatarLineContent = representativeAvatarLineContent,
+            representativeAvatarTag = representativeAvatarTag,
+            representativeAvatarImg = representativeAvatarImg,
+            userAvatars = userAvatars,
+            userNickName = userNickName,
+            userNovelCount = userNovelCount,
+        )
     }
 }
