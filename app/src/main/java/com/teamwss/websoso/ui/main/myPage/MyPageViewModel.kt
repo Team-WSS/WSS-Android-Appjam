@@ -4,63 +4,53 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.teamwss.websoso.data.ServicePool
-import com.teamwss.websoso.data.remote.response.AvatarResponse
-import com.teamwss.websoso.data.remote.response.UserAvatarResponse
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.teamwss.websoso.App
+import com.teamwss.websoso.data.model.AvatarEntity
+import com.teamwss.websoso.data.model.UserInfoMyPageEntity
+import com.teamwss.websoso.data.repository.AuthRepository
+import com.teamwss.websoso.data.repository.AvatarRepository
 import com.teamwss.websoso.ui.main.myPage.model.Avatar
 import kotlinx.coroutines.launch
 
-class MyPageViewModel : ViewModel() {
-    private val _avatars = MutableLiveData<List<Avatar>>()
+class MyPageViewModel(
+    private val authRepository: AuthRepository,
+    private val avatarRepository: AvatarRepository
+) : ViewModel() {
+    private var _avatars = MutableLiveData<List<Avatar>>()
     val avatars: MutableLiveData<List<Avatar>> get() = _avatars
 
-    private val _userName = MutableLiveData<String>()
-    val userName: LiveData<String> get() = _userName
-    private val _userNovelCount = MutableLiveData<Long>()
-    val userNovelCount: LiveData<Long> get() = _userNovelCount
-    private val _memoCount = MutableLiveData<Long>()
-    val memoCount: LiveData<Long> get() = _memoCount
-    private val _representativeAvatarTag = MutableLiveData<String>()
-    val representativeAvatarTag: LiveData<String> get() = _representativeAvatarTag
-    private val _representativeAvatarLineContent = MutableLiveData<String>()
-    val representativeAvatarLineContent: LiveData<String> get() = _representativeAvatarLineContent
-    private val _representativeAvatarImg = MutableLiveData<String>()
-    val representativeAvatarImg: LiveData<String> get() = _representativeAvatarImg
-    private val _representativeAvatarGenreBadge = MutableLiveData<String>()
-    val representativeAvatarGenreBadge: LiveData<String> get() = _representativeAvatarGenreBadge
+    private var _userInfo = MutableLiveData<UserInfoMyPageEntity>()
+    val userInfo: LiveData<UserInfoMyPageEntity> get() = _userInfo
 
-    private val _newAvatar = MutableLiveData<AvatarResponse>()
-    val newAvatar: LiveData<AvatarResponse> get() = _newAvatar
+    private var _selectedAvatar = MutableLiveData<AvatarEntity>()
+    val selectedAvatar: LiveData<AvatarEntity> get() = _selectedAvatar
 
-    private val _representativeAvatarId = MutableLiveData<Long>()
-    val representativeAvatarId: LiveData<Long> get() = _representativeAvatarId
-
+    private var _selectedAvatarId = MutableLiveData<Long>()
+    val selectedAvatarId: LiveData<Long> get() = _selectedAvatarId
 
     init {
-        updateUserInfo()
+        getMyPageUserInfo()
     }
 
-    private fun updateUserInfo() {
+    fun getMyPageUserInfo() {
         viewModelScope.launch {
             runCatching {
-                ServicePool.authService.getMyPageUserInfo()
+                authRepository.getMyPageUserInfo()
             }.onSuccess { result ->
-                _avatars.value = result.userAvatars.map {
+                val newAvatars = result.userAvatars.map {
                     Avatar(
                         avatarId = it.avatarId,
                         avatarImg = it.avatarImg,
                         hasAvatar = it.hasAvatar,
                     )
                 }
-                _userName.value = result.userNickName
-                _userNovelCount.value = result.userNovelCount
-                _memoCount.value = result.memoCount
-                _representativeAvatarLineContent.value = result.representativeAvatarLineContent
-                _representativeAvatarTag.value = result.representativeAvatarTag
-                _representativeAvatarGenreBadge.value = result.representativeAvatarGenreBadge
-                _representativeAvatarImg.value = result.representativeAvatarImg
-                _representativeAvatarId.value = result.representativeAvatarId
+                _avatars.value = newAvatars
+                _userInfo.value = result
+
             }.onFailure {
                 Log.d("error", it.toString())
             }
@@ -70,11 +60,26 @@ class MyPageViewModel : ViewModel() {
     fun getAvatar(id: Long) {
         viewModelScope.launch {
             runCatching {
-                ServicePool.avatarService.getAvatarInfo(id)
-            }.onSuccess { result ->
-                _newAvatar.value = result
+                avatarRepository.getAvatarInfo(id)
+            }.onSuccess {
+                _selectedAvatar.value = it
+                _selectedAvatarId.value = id
+                Log.e("getAvatar", "getAvatar: ${_selectedAvatar.value}")
             }.onFailure {
                 Log.d("error", it.toString())
+            }
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val authRepository: AuthRepository = App.getAuthRepository()
+                val avatarRepository: AvatarRepository = App.getAvatarRepository()
+                MyPageViewModel(
+                    authRepository = authRepository,
+                    avatarRepository = avatarRepository
+                )
             }
         }
     }
