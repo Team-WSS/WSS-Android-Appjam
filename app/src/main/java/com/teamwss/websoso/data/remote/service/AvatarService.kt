@@ -7,8 +7,11 @@ import com.teamwss.websoso.data.remote.response.AvatarResponse
 import retrofit2.http.Path
 
 interface AvatarService {
+
+    @GET("rep-avatar")
     suspend fun getRepresentativeAvatar(): AvatarHomeResponse
-    @GET("/avatars/{avatarId}")
+
+    @GET("avatars/{avatarId}")
     suspend fun getAvatarInfo(
         @Path("avatarId") avatarId: Number
     ): AvatarResponse
