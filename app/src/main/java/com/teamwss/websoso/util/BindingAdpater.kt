@@ -2,12 +2,14 @@ package com.teamwss.websoso.util
 
 import android.util.Log
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import coil.transform.Transformation
 import com.airbnb.lottie.LottieAnimationView
 import com.teamwss.websoso.R
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import jp.wasabeef.transformers.coil.BlurTransformation
 
 @BindingAdapter("loadCoverImageRounded6")
@@ -84,8 +86,18 @@ fun loadRoundedCoverImage6(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
 }
 
-
 @BindingAdapter("loadCoverImageRounded4")
 fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
+}
+
+@BindingAdapter("setNovelInfoReadStatusText")
+fun setReadStatus(textView: TextView, status: String) {
+    textView.text = when (status) {
+        ReadStatus.FINISH.name -> "완료"
+        ReadStatus.READING.name -> "읽는 중"
+        ReadStatus.DROP.name -> "하차"
+        ReadStatus.WISH.name -> "읽고 싶음"
+        else -> "에러"
+    }
 }
