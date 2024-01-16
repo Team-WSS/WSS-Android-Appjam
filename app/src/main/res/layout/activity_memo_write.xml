@@ -91,6 +91,8 @@
             android:background="@color/gray_50_F4F5F8"
             android:gravity="start"
             android:padding="20dp"
+            android:onTextChanged="@{(text, start, before, count) -> memoWriteViewModel.updateMemoContent(text.toString())}"
+            android:text="@={memoWriteViewModel.memoContent}"
             android:textAppearance="@style/body1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -19,9 +19,12 @@ class MemoWriteActivity : AppCompatActivity() {
     private lateinit var userNovelAuthor: String
     private lateinit var userNovelImage: String
 
+    private var memoContent: String? = null
+
     private val dialogMemoCancel: DialogMemoCancel by lazy {
         DialogMemoCancel(::finish)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoWriteBinding.inflate(layoutInflater)
@@ -30,7 +33,9 @@ class MemoWriteActivity : AppCompatActivity() {
         initUI()
         getUserNovelDataFromBeforeView()
         updateUserNovelToViewModel()
+        observeMemoContent()
         onClickBackButton()
+
         if (userNovelId != -1L) {
             clickListener(userNovelId)
         }
@@ -40,7 +45,7 @@ class MemoWriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun initUI(){
+    private fun initUI() {
         setTranslucentOnStatusBar()
         binding.lifecycleOwner = this
         binding.memoWriteViewModel = memoWriteViewModel
@@ -71,11 +76,23 @@ class MemoWriteActivity : AppCompatActivity() {
         )
     }
 
-    private fun onClickBackButton() {
-        binding.ivMemoWriteCancelBtn.setOnClickListener {
-            dialogMemoCancel.show((supportFragmentManager), "CancelMemoDialog")
+    private fun observeMemoContent() {
+        memoWriteViewModel.memoContent.observe(this) {
+            memoContent = memoWriteViewModel.memoContent.value
         }
     }
+
+    private fun onClickBackButton() {
+        binding.ivMemoWriteCancelBtn.setOnClickListener {
+            if (validateMemoContent(memoContent)) {
+                dialogMemoCancel.show((supportFragmentManager), "memoCancelDialog")
+            } else {
+                finish()
+            }
+        }
+    }
+
+    private fun validateMemoContent(memoContent: String?): Boolean = memoContent?.isBlank() != true
 
     private fun clickListener(userNovelId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {

@@ -10,8 +10,8 @@ import com.teamwss.websoso.data.remote.request.MemoWriteRequest
 import kotlinx.coroutines.launch
 
 class MemoWriteViewModel : ViewModel() {
-    private var _memoContent: MutableLiveData<String> = MutableLiveData()
-    val memoContent: MutableLiveData<String> = _memoContent
+    private var _memoContent: MutableLiveData<String?> = MutableLiveData()
+    val memoContent: MutableLiveData<String?> = _memoContent
 
     private var _isAvatarUnlocked: MutableLiveData<Boolean> = MutableLiveData()
     val isAvatarUnlocked: LiveData<Boolean> = _isAvatarUnlocked
@@ -30,6 +30,10 @@ class MemoWriteViewModel : ViewModel() {
 
     private var _userNovelImage: MutableLiveData<String> = MutableLiveData()
     val userNovelImage: LiveData<String> = _userNovelImage
+
+    init {
+        _memoContent.value = ""
+    }
 
     fun postMemo(userNovelId: Long) {
         viewModelScope.launch {
@@ -72,5 +76,9 @@ class MemoWriteViewModel : ViewModel() {
         _userNovelTitle.value = userNovelTitle
         _userNovelAuthor.value = userNovelAuthor
         _userNovelImage.value = userNovelImage
+    }
+
+    fun updateMemoContent(memoContent: String) {
+        _memoContent.value = memoContent
     }
 }
