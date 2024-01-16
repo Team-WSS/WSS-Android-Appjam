@@ -7,10 +7,10 @@ object AvatarHomeResponseMapper {
 
     fun AvatarHomeResponse.toData(): RepresentiveAvatarEntity {
         return RepresentiveAvatarEntity(
-            avatarId = this.avatarId,
-            avatarLine = this.avatarLine,
-            avatarTag = this.avatarTag,
-            userNickname = this.userNickname
+            avatarId = avatarId,
+            avatarLine = avatarLine,
+            avatarTag = avatarTag,
+            userNickname = userNickname
         )
     }
 }
