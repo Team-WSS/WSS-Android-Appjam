@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivitySearchBinding
+import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.EXTRA_PAGE_SIZE
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.INPUT_DELAY
@@ -132,9 +133,15 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        searchAdapter = SearchAdapter()
+        searchAdapter = SearchAdapter { novelId ->
+            val intent = PostNovelActivity.createIntent(this, novelId).apply {
+                putExtra("NOVEL_ID", novelId)
+            }
+            startActivity(intent)
+        }
         binding.rvSearchResult.adapter = searchAdapter
     }
+
 
     private fun setResultNovelList() {
         viewModel.searchResult.observe(this) {

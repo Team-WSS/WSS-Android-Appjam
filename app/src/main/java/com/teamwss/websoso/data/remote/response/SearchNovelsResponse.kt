@@ -12,7 +12,7 @@ data class SearchNovelsResponse(
     @Serializable
     data class Novel(
         @SerialName("novelId")
-        val novelId: Int,
+        val novelId: Long,
         @SerialName("novelImg")
         val novelImg: String,
         @SerialName("novelTitle")

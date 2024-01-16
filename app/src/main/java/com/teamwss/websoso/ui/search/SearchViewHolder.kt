@@ -7,7 +7,7 @@ import com.teamwss.websoso.data.remote.response.SearchNovelsResponse
 import com.teamwss.websoso.databinding.ItemSearchNovelBinding
 import com.teamwss.websoso.util.loadCoverImageRounded6
 
-class SearchViewHolder(private val binding: ItemSearchNovelBinding) :
+class SearchViewHolder(private val binding: ItemSearchNovelBinding, private val onItemClick: (Long) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun onBind(searchResult: SearchNovelsResponse.Novel) {
@@ -16,14 +16,16 @@ class SearchViewHolder(private val binding: ItemSearchNovelBinding) :
             tvSearchNovelTitle.text = searchResult.novelTitle
             tvSearchNovelAuthor.text = searchResult.novelAuthor
             tvSearchNovelGenre.text = searchResult.novelGenre
+
+            root.setOnClickListener { onItemClick(searchResult.novelId) }
         }
     }
 
     companion object {
-        fun create(parent: ViewGroup): SearchViewHolder {
+        fun create(parent: ViewGroup, onItemClick: (Long) -> Unit): SearchViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemSearchNovelBinding.inflate(inflater, parent, false)
-            return SearchViewHolder(binding)
+            return SearchViewHolder(binding, onItemClick)
         }
     }
 }
