@@ -47,9 +47,9 @@ class PostNovelViewModel : ViewModel() {
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
     private val _platforms = MutableLiveData<List<NovelPlatformPostResponse>>()
     val platforms: LiveData<List<NovelPlatformPostResponse>> get() = _platforms
-    private val _naverUrl = MutableLiveData<String>()
+    private val _naverUrl = MutableLiveData<String>("")
     val naverUrl: LiveData<String> get() = _naverUrl
-    private val _kakaoUrl = MutableLiveData<String>()
+    private val _kakaoUrl = MutableLiveData<String>("")
     val kakaoUrl: LiveData<String> get() = _kakaoUrl
     private val _isServerError = MutableLiveData<Boolean>()
     val isServerError: LiveData<Boolean> get() = _isServerError
@@ -234,12 +234,13 @@ class PostNovelViewModel : ViewModel() {
 
     private fun setPlatforms(list: List<NovelPlatformPostResponse>) {
         _platforms.value = list
-        list.forEach { platform ->
-            when (platform.platformName) {
-                NAVER_SERIES -> _naverUrl.value = platform.platformUrl
-                KAKAO_PAGE -> _kakaoUrl.value = platform.platformUrl
+        list.forEach {
+            when (it.platformName) {
+                NAVER_SERIES -> _naverUrl.value = it.platformUrl
+                KAKAO_PAGE -> _kakaoUrl.value = it.platformUrl
             }
         }
+        Log.e("dsvdgfaesfgwea3", list.toString() + _naverUrl.value.toString() + _kakaoUrl.value.toString())
     }
 
     companion object {

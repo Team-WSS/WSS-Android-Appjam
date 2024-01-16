@@ -85,9 +85,10 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                val autoSearchDelay: Long = 1000L
                 searchJob?.cancel()
                 searchJob = lifecycleScope.launch {
-                    delay(2000L)
+                    delay(autoSearchDelay)
                     viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, text.toString())
                 }
             }
