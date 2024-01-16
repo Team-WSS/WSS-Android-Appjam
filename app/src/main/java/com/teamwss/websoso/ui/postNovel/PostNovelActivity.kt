@@ -205,12 +205,12 @@ class PostNovelActivity : AppCompatActivity() {
     private fun setupUrlButton() {
         postNovelViewModel.naverUrl.observe(this) {naverUrl ->
             binding.llPostNovelLinkNaver.setOnClickListener { openUrl(naverUrl) }
-            if (!naverUrl.isEmpty()) binding.llPostNovelLinkNaver.visibility = View.VISIBLE
+            if (naverUrl.isNotEmpty()) binding.llPostNovelLinkNaver.visibility = View.VISIBLE
         }
 
         postNovelViewModel.kakaoUrl.observe(this) {kakaoUrl ->
             binding.llPostNovelLinkKakao.setOnClickListener { openUrl(kakaoUrl) }
-            if (!kakaoUrl.isEmpty()) binding.llPostNovelLinkKakao.visibility = View.VISIBLE
+            if (kakaoUrl.isNotEmpty()) binding.llPostNovelLinkKakao.visibility = View.VISIBLE
         }
     }
 
