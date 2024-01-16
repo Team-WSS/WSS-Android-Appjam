@@ -226,7 +226,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun createIntent(context: Context, novelId: Long): Intent {
+        fun newIntent(context: Context, novelId: Long): Intent {
             return Intent(context, PostNovelActivity::class.java).apply {
                 putExtra("NOVEL_ID", novelId)
             }

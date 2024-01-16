@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.search
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -134,7 +135,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         searchAdapter = SearchAdapter { novelId ->
-            val intent = PostNovelActivity.createIntent(this, novelId).apply {
+            val intent = PostNovelActivity.newIntent(this, novelId).apply {
                 putExtra("NOVEL_ID", novelId)
             }
             startActivity(intent)
@@ -173,6 +174,13 @@ class SearchActivity : AppCompatActivity() {
                 binding.clSearchResultNoExist.visibility = View.VISIBLE
             } else {
                 binding.clSearchResultNoExist.visibility = View.GONE
+            }
+        }
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, PostNovelActivity::class.java).apply {
             }
         }
     }
