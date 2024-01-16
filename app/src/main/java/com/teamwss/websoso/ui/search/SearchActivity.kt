@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.R
@@ -23,11 +24,16 @@ import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.E
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.INPUT_DELAY
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.LAST_NOVEL_ID
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.PAGE_SIZE
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
     private val viewModel by viewModels<SearchViewModel>()
     private lateinit var binding: ActivitySearchBinding
     private lateinit var searchAdapter: SearchAdapter
+
+    private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,20 +76,20 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupTextWatcher() {
-        val handler = Handler(Looper.getMainLooper())
-        val delaySearchRunnable = Runnable {
-            viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, binding.etSearch.text.toString())
-        }
         binding.etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                handleTextChange(handler, delaySearchRunnable)
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(2000L)
+                    viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, s.toString())
+                }
             }
 
-            override fun afterTextChanged(text: Editable?) {
-                toggleCancelVisibility(text)
+            override fun afterTextChanged(s: Editable?) {
+                toggleCancelVisibility(s)
             }
         })
     }
