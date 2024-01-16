@@ -4,15 +4,15 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserNovelsResponse(
+data class UserNovelsLibraryResponse(
     @SerialName("userNovelCount")
     val userNovelCount: Long,
     @SerialName("userNovels")
-    val userNovels: List<UserNovel>
+    val userNovelResponses: List<UserNovelResponse>
 )
 
 @Serializable
-data class UserNovel(
+data class UserNovelResponse(
     @SerialName("userNovelId")
     val userNovelId: Long,
     @SerialName("userNovelTitle")

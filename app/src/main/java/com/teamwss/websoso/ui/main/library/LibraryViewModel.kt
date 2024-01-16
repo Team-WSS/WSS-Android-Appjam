@@ -57,15 +57,15 @@ class LibraryViewModel(
     private fun getNovels(readState: ReadState) {
         viewModelScope.launch {
             runCatching {
-                userNovelsRepository.getNovels(
+                userNovelsRepository.getUserNovels(
                     readState.toString(),
                     setupLastUserId(),
                     USER_NOVEL_COUNT,
                     currentSortType.value.toString()
                 )
-            }.onSuccess {
-                _currentUserNovels.value = it.userNovels.toData()
-                _userNovelCount.value = it.userNovelCount
+            }.onSuccess {(userNovels, userNovelCount) ->
+                _currentUserNovels.value = userNovels
+                _userNovelCount.value = userNovelCount
             }.onFailure {
                 Log.e("LibraryViewModel", it.message ?: "error")
             }
@@ -85,7 +85,7 @@ class LibraryViewModel(
 
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val userNovelsRepository = App.userNovelsRepository
+                val userNovelsRepository = App.getUserNovelsRepository()
                 LibraryViewModel(
                     userNovelsRepository = userNovelsRepository
                 )

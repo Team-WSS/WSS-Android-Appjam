@@ -3,12 +3,12 @@ package com.teamwss.websoso.ui.main.home.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.teamwss.websoso.data.model.HomeNovelEntity
+import com.teamwss.websoso.data.model.SosoPickNovelEntity
 
-class HomeAdapter : ListAdapter<HomeNovelEntity, HomeViewHolder>(HomeDiffCallback) {
+class HomeAdapter : ListAdapter<SosoPickNovelEntity, HomeViewHolder>(HomeDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder.create(parent)
+        return HomeViewHolder.newInstance(parent)
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
@@ -18,17 +18,17 @@ class HomeAdapter : ListAdapter<HomeNovelEntity, HomeViewHolder>(HomeDiffCallbac
 
     companion object {
         private val HomeDiffCallback = object :
-            DiffUtil.ItemCallback<HomeNovelEntity>() {
+            DiffUtil.ItemCallback<SosoPickNovelEntity>() {
             override fun areItemsTheSame(
-                oldItem: HomeNovelEntity,
-                newItem: HomeNovelEntity
+                oldItem: SosoPickNovelEntity,
+                newItem: SosoPickNovelEntity
             ): Boolean {
-                return oldItem.novelId == newItem.novelId
+                return oldItem.novelImg == newItem.novelImg
             }
 
             override fun areContentsTheSame(
-                oldItem: HomeNovelEntity,
-                newItem: HomeNovelEntity
+                oldItem: SosoPickNovelEntity,
+                newItem: SosoPickNovelEntity
             ): Boolean {
                 return oldItem == newItem
             }

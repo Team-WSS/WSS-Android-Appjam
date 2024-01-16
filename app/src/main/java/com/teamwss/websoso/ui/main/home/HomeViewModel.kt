@@ -1,58 +1,71 @@
 package com.teamwss.websoso.ui.main.home
 
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.teamwss.websoso.data.model.HomeNovelEntity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.teamwss.websoso.App
+import com.teamwss.websoso.data.model.RepresentiveAvatarEntity
+import com.teamwss.websoso.data.model.SosoPickNovelEntity
+import com.teamwss.websoso.data.repository.AvatarRepository
+import com.teamwss.websoso.data.repository.UserNovelsRepository
+import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
-    val mockSosoPickData = listOf<HomeNovelEntity>(
-        HomeNovelEntity(
-            novelId = 1,
-            novelTitle = "소설 제목",
-            novelAuthor = "작가 이름",
-            novelRegisteredCount = 100,
-            novelImg = "https://github.com/Team-WSS/WSS-Android/assets/52442547/e2fd89cf-b81f-4e2c-8b75-aa4f5dd78b86"
-        ),
-        HomeNovelEntity(
-            novelId = 1,
-            novelTitle = "소설 제목 적당히 긴거",
-            novelAuthor = "작가 이름",
-            novelRegisteredCount = 50,
-            novelImg = "https://github.com/Team-WSS/WSS-Android/assets/52442547/e2fd89cf-b81f-4e2c-8b75-aa4f5dd78b86"
-        ),
-        HomeNovelEntity(
-            novelId = 1,
-            novelTitle = "소설 제목 엄엄엄엄엄청~~~~~~~~!~~~~~~~~~~긴거",
-            novelAuthor = "작가 이름",
-            novelRegisteredCount = 30,
-            novelImg = "https://github.com/Team-WSS/WSS-Android/assets/52442547/e2fd89cf-b81f-4e2c-8b75-aa4f5dd78b86"
-        ),
-        HomeNovelEntity(
-            novelId = 1,
-            novelTitle = "소설 제목",
-            novelAuthor = "작가 이름",
-            novelRegisteredCount = 100,
-            novelImg = "https://github.com/Team-WSS/WSS-Android/assets/52442547/e2fd89cf-b81f-4e2c-8b75-aa4f5dd78b86"
-        ),
-        HomeNovelEntity(
-            novelId = 1,
-            novelTitle = "소설 제목",
-            novelAuthor = "작가 이름",
-            novelRegisteredCount = 100,
-            novelImg = "https://github.com/Team-WSS/WSS-Android/assets/52442547/e2fd89cf-b81f-4e2c-8b75-aa4f5dd78b86"
-        ),
-        HomeNovelEntity(
-            novelId = 1,
-            novelTitle = "소설 제목",
-            novelAuthor = "작가 이름",
-            novelRegisteredCount = 100,
-            novelImg = "https://github.com/Team-WSS/WSS-Android/assets/52442547/e2fd89cf-b81f-4e2c-8b75-aa4f5dd78b86"
-        ),
-        HomeNovelEntity(
-            novelId = 1,
-            novelTitle = "소설 제목",
-            novelAuthor = "작가 이름",
-            novelRegisteredCount = 100,
-            novelImg = "https://github.com/Team-WSS/WSS-Android/assets/52442547/e2fd89cf-b81f-4e2c-8b75-aa4f5dd78b86"
-        ),
-    )
+class HomeViewModel(
+    private val userNovelsRepository: UserNovelsRepository,
+    private val avatarRepository: AvatarRepository
+) : ViewModel() {
+    private var _sosopickNovels: MutableLiveData<List<SosoPickNovelEntity>> = MutableLiveData()
+    val sosopickNovels: LiveData<List<SosoPickNovelEntity>>
+        get() = _sosopickNovels
+
+    private var _representativeAvatar: MutableLiveData<RepresentiveAvatarEntity> = MutableLiveData()
+    val representativeAvatar: LiveData<RepresentiveAvatarEntity>
+        get() = _representativeAvatar
+
+    init {
+        getSosoPickNovels()
+        getRepresentativeAvatar()
+    }
+
+    private fun getSosoPickNovels() {
+        viewModelScope.launch {
+            runCatching {
+                userNovelsRepository.getSosoPickNovels()
+            }.onSuccess {
+                _sosopickNovels.value = it
+            }.onFailure {
+                Log.e("HomeViewModel", it.message ?: "error")
+            }
+        }
+    }
+
+    private fun getRepresentativeAvatar() {
+        viewModelScope.launch {
+            runCatching {
+                avatarRepository.getRepresentativeAvatar()
+            }.onSuccess {
+                _representativeAvatar.value = it
+            }.onFailure {
+                Log.e("HomeViewModel", it.message ?: "error")
+            }
+        }
+    }
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val userNovelsRepository = App.getUserNovelsRepository()
+                val avatarRepository = App.getAvatarRepository()
+                HomeViewModel(
+                    userNovelsRepository = userNovelsRepository,
+                    avatarRepository = avatarRepository
+                )
+            }
+        }
+    }
 }

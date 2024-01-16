@@ -1,6 +1,5 @@
 package com.teamwss.websoso.data.model
 
-
 data class LibraryUserNovelEntity(
     val userNovelId: Long,
     val userNovelTitle: String,
