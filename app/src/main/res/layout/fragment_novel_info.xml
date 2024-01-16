@@ -174,9 +174,9 @@
                     android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadEndDate}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
-                    app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoReadTilde"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoReadStartDate"
                     app:layout_constraintStart_toEndOf="@id/tvNovelInfoReadTilde"
-                    app:layout_constraintTop_toTopOf="@id/tvNovelInfoReadTilde"
+                    app:layout_constraintTop_toTopOf="@id/tvNovelInfoReadStartDate"
                     tools:text="2023-12-30" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
