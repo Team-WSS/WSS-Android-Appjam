@@ -145,14 +145,15 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         searchAdapter = SearchAdapter { novelId ->
-            val intent = PostNovelActivity.newIntent(this, novelId).apply {
-                putExtra("NOVEL_ID", novelId)
-            }
-            startActivity(intent)
+            navigateToPostNovelActivity(novelId)
         }
         binding.rvSearchResult.adapter = searchAdapter
     }
 
+    private fun navigateToPostNovelActivity(novelId: Long) {
+        val intent = PostNovelActivity.newIntent(this, novelId)
+        startActivity(intent)
+    }
 
     private fun setResultNovelList() {
         viewModel.searchResult.observe(this) {

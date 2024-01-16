@@ -149,7 +149,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun initUserNovelInfo() {
-        val novelId = intent.getLongExtra("NOVEL_ID", 0)
+        val novelId = intent.getLongExtra(NOVEL_ID, 0)
         postNovelViewModel.fetchUserNovelInfo(novelId)
         postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
             if (!it && postNovelViewModel.novelInfo.value == null) {
@@ -226,9 +226,10 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val NOVEL_ID = "NOVEL_ID"
         fun newIntent(context: Context, novelId: Long): Intent {
             return Intent(context, PostNovelActivity::class.java).apply {
-                putExtra("NOVEL_ID", novelId)
+                putExtra(NOVEL_ID, novelId)
             }
         }
     }
