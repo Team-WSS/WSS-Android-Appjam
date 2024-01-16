@@ -7,36 +7,63 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.teamwss.websoso.databinding.ActivityMemoWriteBinding
+import kotlin.properties.Delegates
 
 class MemoWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoWriteBinding
     private val memoWriteViewModel: MemoWriteViewModel by viewModels()
+
+    private var memoId by Delegates.notNull<Long>()
+    private var userNovelId by Delegates.notNull<Long>()
+    private lateinit var userNovelTitle: String
+    private lateinit var userNovelAuthor: String
+    private lateinit var userNovelImage: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setTranslucentOnStatusBar()
-
-        val memoId = intent.getLongExtra("memoId", -1)
-        val userNovelTitle = intent.getStringExtra("userNovelTitle")
-        val userNovelAuthor = intent.getStringExtra("userNovelAuthor")
-        val userNovelId = intent.getLongExtra("userNovelId", -1)
-
+        initUI()
+        getUserNovelDataFromBeforeView()
+        updateUserNovelToViewModel()
         if (userNovelId != -1L) {
             clickListener(userNovelId)
         }
 
-        if(memoId != -1L) {
+        if (memoId != -1L) {
             clickListenerPatch(memoId)
         }
+    }
+
+    private fun initUI(){
+        setTranslucentOnStatusBar()
+        binding.lifecycleOwner = this
+        binding.memoWriteViewModel = memoWriteViewModel
     }
 
     private fun setTranslucentOnStatusBar() {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
+    }
+
+    private fun getUserNovelDataFromBeforeView() {
+        memoId = intent.getLongExtra("memoId", -1)
+        userNovelId = intent.getLongExtra("userNovelId", -1)
+        userNovelTitle = intent.getStringExtra("userNovelTitle").toString()
+        userNovelAuthor = intent.getStringExtra("userNovelAuthor").toString()
+        userNovelImage = intent.getStringExtra("userNovelImage").toString()
+    }
+
+    private fun updateUserNovelToViewModel() {
+        memoWriteViewModel.updateUserNovelData(
+            memoId,
+            userNovelId,
+            userNovelTitle,
+            userNovelAuthor,
+            userNovelImage
         )
     }
 
@@ -73,13 +100,13 @@ class MemoWriteActivity : AppCompatActivity() {
             userNovelId: Long,
             userNovelTitle: String,
             userNovelAuthor: String,
-            userNovelImg: String
+            userNovelImage: String
         ): Intent {
             return Intent(context, MemoWriteActivity::class.java).apply {
                 putExtra("userNovelId", userNovelId)
                 putExtra("userNovelTitle", userNovelTitle)
                 putExtra("userNovelAuthor", userNovelAuthor)
-                putExtra("userNovelImg", userNovelImg)
+                putExtra("userNovelImage", userNovelImage)
             }
         }
     }
