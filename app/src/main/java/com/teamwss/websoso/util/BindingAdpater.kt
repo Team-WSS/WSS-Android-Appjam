@@ -3,6 +3,7 @@ package com.teamwss.websoso.util
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
@@ -141,6 +142,25 @@ fun setReadDateText(textView: TextView, status: String) {
         ReadStatus.WISH.name -> {
             textView.visibility = View.GONE
         }
-        else -> "에러"
+    }
+}
+
+@BindingAdapter("setNovelInfoReadDateBox")
+fun setReadDateBox(layout: ConstraintLayout, status: String) {
+    when (status) {
+        ReadStatus.FINISH.name ->
+            layout.visibility = View.VISIBLE
+
+
+        ReadStatus.READING.name ->
+            layout.visibility = View.VISIBLE
+
+
+        ReadStatus.DROP.name ->
+            layout.visibility = View.VISIBLE
+
+
+        ReadStatus.WISH.name ->
+            layout.visibility = View.GONE
     }
 }

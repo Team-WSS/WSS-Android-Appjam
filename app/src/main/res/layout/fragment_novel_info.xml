@@ -124,6 +124,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoReadDate"
+                setNovelInfoReadDateBox="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
