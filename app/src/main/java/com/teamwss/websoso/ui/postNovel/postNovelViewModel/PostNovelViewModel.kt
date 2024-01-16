@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
+import com.teamwss.websoso.ui.common.model.Platforms
 import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
 import kotlinx.coroutines.launch
@@ -234,16 +235,13 @@ class PostNovelViewModel : ViewModel() {
         _platforms.value = list
         list.forEach {
             when (it.platformName) {
-                NAVER_SERIES -> _naverUrl.value = it.platformUrl
-                KAKAO_PAGE -> _kakaoUrl.value = it.platformUrl
+                Platforms.NAVER_SERIES.platformName -> _naverUrl.value = it.platformUrl
+                Platforms.KAKAO_PAGE.platformName -> _kakaoUrl.value = it.platformUrl
             }
         }
     }
 
     companion object {
-        private const val NAVER_SERIES = "네이버시리즈"
-        private const val KAKAO_PAGE = "카카오페이지"
-
         private const val FEBRUARY = 2
         private const val APRIL = 4
         private const val JUNE = 6

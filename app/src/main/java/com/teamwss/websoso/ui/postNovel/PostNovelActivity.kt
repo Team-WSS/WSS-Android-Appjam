@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -202,9 +203,14 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupUrlButton() {
-        postNovelViewModel.platforms.observe(this) {
-            binding.llPostNovelLinkNaver.setOnClickListener { openUrl(postNovelViewModel.naverUrl.value.toString()) }
-            binding.llPostNovelLinkKakao.setOnClickListener { openUrl(postNovelViewModel.kakaoUrl.value.toString()) }
+        postNovelViewModel.naverUrl.observe(this) {naverUrl ->
+            binding.llPostNovelLinkNaver.setOnClickListener { openUrl(naverUrl) }
+            if (!naverUrl.isEmpty()) binding.llPostNovelLinkNaver.visibility = View.VISIBLE
+        }
+
+        postNovelViewModel.kakaoUrl.observe(this) {kakaoUrl ->
+            binding.llPostNovelLinkKakao.setOnClickListener { openUrl(kakaoUrl) }
+            if (!kakaoUrl.isEmpty()) binding.llPostNovelLinkKakao.visibility = View.VISIBLE
         }
     }
 

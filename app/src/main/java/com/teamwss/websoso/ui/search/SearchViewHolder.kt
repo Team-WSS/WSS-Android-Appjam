@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.data.remote.response.SearchNovelsResponse
 import com.teamwss.websoso.databinding.ItemSearchNovelBinding
-import com.teamwss.websoso.util.loadCoverImageRounded6
+import com.teamwss.websoso.util.loadCoverImageRounded14
 import kotlin.properties.Delegates
 
 class SearchViewHolder(
@@ -22,7 +22,7 @@ class SearchViewHolder(
 
     fun onBind(searchResult: SearchNovelsResponse.Novel) {
         with(binding) {
-            loadCoverImageRounded6(ivSearchNovel, searchResult.novelImg)
+            loadCoverImageRounded14(ivSearchNovel, searchResult.novelImg)
             tvSearchNovelTitle.text = searchResult.novelTitle
             tvSearchNovelAuthor.text = searchResult.novelAuthor
             tvSearchNovelGenre.text = searchResult.novelGenre

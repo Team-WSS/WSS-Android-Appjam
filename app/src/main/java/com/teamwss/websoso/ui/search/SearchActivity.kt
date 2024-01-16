@@ -181,7 +181,7 @@ class SearchActivity : AppCompatActivity() {
 
     companion object {
         fun newIntent(context: Context): Intent {
-            return Intent(context, PostNovelActivity::class.java).apply {
+            return Intent(context, SearchActivity::class.java).apply {
             }
         }
     }

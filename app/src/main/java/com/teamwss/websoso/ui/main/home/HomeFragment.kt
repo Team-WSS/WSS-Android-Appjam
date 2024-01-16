@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.databinding.FragmentHomeBinding
 import com.teamwss.websoso.ui.main.home.adapter.HomeAdapter
+import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.SearchActivity
 
@@ -49,7 +50,8 @@ class HomeFragment : Fragment() {
 
     private fun setupSearchBarListener() {
         binding.clHomeSearch.setOnClickListener{
-            // TODO : SearchActivity로 이동
+            val intent = SearchActivity.newIntent(requireContext())
+            startActivity(intent)
         }
     }
 
