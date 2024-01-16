@@ -19,7 +19,7 @@ class NovelDetailViewModel : ViewModel() {
     val userNovelId: LiveData<Long> = _userNovelId
 
     private val _memos: MutableLiveData<List<NovelMemoResponse>> = MutableLiveData()
-    val memos : LiveData<List<NovelMemoResponse>> = _memos
+    val memos: LiveData<List<NovelMemoResponse>> = _memos
 
     fun getUserNovelMemoInfo(userNovelId: Long) {
         viewModelScope.launch {
@@ -27,11 +27,10 @@ class NovelDetailViewModel : ViewModel() {
                 ServicePool.userNovelService.getUserNovelMemoInfo(userNovelId)
             }.onSuccess { response ->
                 _userNovelMemoInfoResponse.value = response
-                Log.d("tongsin", response.toString())
+                Log.d("tongsinDetail", response.toString())
                 Log.d("tongsin", "success")
             }.onFailure { throwable ->
                 Log.e("tongsin", throwable.toString())
-                Log.d("tongsin", userNovelId.toString())
             }
         }
     }

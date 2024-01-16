@@ -5,6 +5,9 @@
     tools:context=".ui.memoWrite.MemoWriteActivity">
 
     <data>
+        <variable
+            name="memoWriteViewModel"
+            type="com.teamwss.websoso.ui.memoWrite.MemoWriteViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

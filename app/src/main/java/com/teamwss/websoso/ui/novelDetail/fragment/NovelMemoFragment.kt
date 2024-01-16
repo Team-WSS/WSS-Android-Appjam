@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
+import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.NovelDetailViewModel
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailMemoAdapter
+import kotlin.properties.Delegates
 
 class NovelMemoFragment : Fragment() {
     private var _binding: FragmentNovelMemoBinding? = null
@@ -19,6 +20,7 @@ class NovelMemoFragment : Fragment() {
     private val novelMemoAdapter: NovelDetailMemoAdapter by lazy { NovelDetailMemoAdapter(::navigateToMemoPlain) }
     private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
 
+    private var userNovelId by Delegates.notNull<Long>()
     private lateinit var userNovelTitle: String
     private lateinit var userNovelAuthor: String
     private lateinit var userNovelImage: String
@@ -35,8 +37,9 @@ class NovelMemoFragment : Fragment() {
         setupLifecycleOwner()
         setupDataBinding()
         initRecyclerView()
-//        onClickAddingMemoBox()
+        onClickAddingMemoBox()
         observeNovelMemoData()
+        observeUserNovelId()
         observeUserNovelData()
     }
 
@@ -60,6 +63,12 @@ class NovelMemoFragment : Fragment() {
         }
     }
 
+    private fun observeUserNovelId() {
+        novelDetailViewModel.userNovelId.observe(viewLifecycleOwner) {
+            userNovelId = novelDetailViewModel.userNovelId.value!!.toLong()
+        }
+    }
+
     private fun observeUserNovelData() {
         novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) {
             userNovelAuthor = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
@@ -68,11 +77,19 @@ class NovelMemoFragment : Fragment() {
         }
     }
 
-    //    private fun onClickAddingMemoBox() {
-//        binding.clNovelMemoNavigateNewMemo.setOnClickListener {
-//            navigateMemoWrite()
-//        }
-//    }
+    private fun onClickAddingMemoBox() {
+        binding.clNovelMemoNavigateNewMemo.setOnClickListener {
+            val intent = MemoWriteActivity.createNewMemoIntent(
+                requireContext(),
+                userNovelId,
+                userNovelTitle,
+                userNovelAuthor,
+                userNovelImage
+            )
+            startActivity(intent)
+        }
+    }
+
     private fun navigateToMemoPlain(memoId: Long) {
         val intent = MemoPlainActivity.createIntent(
             requireActivity(),
