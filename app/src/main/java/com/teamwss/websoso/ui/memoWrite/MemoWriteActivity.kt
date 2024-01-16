@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.memoWrite
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +33,7 @@ class MemoWriteActivity : AppCompatActivity() {
         setupUI()
         getUserNovelDataFromBeforeView()
         updateUserNovelToViewModel()
+        updateMemoContentToViewModel()
         observeMemoContent()
         onClickBackButton()
 
@@ -66,12 +66,6 @@ class MemoWriteActivity : AppCompatActivity() {
         userNovelTitle = intent.getStringExtra("userNovelTitle").toString()
         userNovelAuthor = intent.getStringExtra("userNovelAuthor").toString()
         userNovelImage = intent.getStringExtra("userNovelImage").toString()
-
-        Log.d("memodata", memoId.toString())
-        Log.d("memodata", memoContent.toString())
-        Log.d("memodata", userNovelTitle)
-        Log.d("memodata", userNovelAuthor)
-        Log.d("memodata", userNovelImage)
     }
 
     private fun updateUserNovelToViewModel() {
@@ -82,6 +76,12 @@ class MemoWriteActivity : AppCompatActivity() {
             userNovelAuthor,
             userNovelImage
         )
+    }
+
+    private fun updateMemoContentToViewModel() {
+        if(memoContent != null) {
+            memoWriteViewModel.getMemoContent(memoContent!!)
+        }
     }
 
     private fun observeMemoContent() {

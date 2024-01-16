@@ -78,6 +78,10 @@ class MemoWriteViewModel : ViewModel() {
         _userNovelImage.value = userNovelImage
     }
 
+    fun getMemoContent(memoContent: String) {
+        _memoContent.value = memoContent
+    }
+
     fun updateMemoContent(memoContent: String) {
         _memoContent.value = memoContent
     }
