@@ -1,8 +1,9 @@
 package com.teamwss.websoso.data.repository
 
+import com.teamwss.websoso.data.mapper.SosoPickNovelResponseMapper.toData
 import com.teamwss.websoso.data.mapper.UserNovelMapper.toData
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
-import com.teamwss.websoso.data.remote.response.SosopickNovelHomeResponse
+import com.teamwss.websoso.data.model.SosoPickNovelEntity
 import com.teamwss.websoso.data.remote.service.UserNovelService
 
 class UserNovelsRepository(
@@ -25,7 +26,7 @@ class UserNovelsRepository(
         return Pair(novels, response.userNovelCount)
     }
 
-    suspend fun getSosoPickNovels(): SosopickNovelHomeResponse =
-        userNovelService.getSosoPickNovels()
+    suspend fun getSosoPickNovels(): List<SosoPickNovelEntity> =
+        userNovelService.getSosoPickNovels().sosoPickNovelResponses.toData()
 
 }

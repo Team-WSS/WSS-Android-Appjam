@@ -9,8 +9,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.teamwss.websoso.App
-import com.teamwss.websoso.data.mapper.AvatarHomeResponseMapper.toData
-import com.teamwss.websoso.data.mapper.SosoPickNovelResponseMapper.toData
 import com.teamwss.websoso.data.model.RepresentiveAvatarEntity
 import com.teamwss.websoso.data.model.SosoPickNovelEntity
 import com.teamwss.websoso.data.repository.AvatarRepository
@@ -39,7 +37,7 @@ class HomeViewModel(
             runCatching {
                 userNovelsRepository.getSosoPickNovels()
             }.onSuccess {
-                _sosopickNovels.value = it.sosoPickNovelResponses.toData()
+                _sosopickNovels.value = it
             }.onFailure {
                 Log.e("HomeViewModel", it.message ?: "error")
             }
@@ -51,7 +49,7 @@ class HomeViewModel(
             runCatching {
                 avatarRepository.getRepresentativeAvatar()
             }.onSuccess {
-                _representativeAvatar.value = it.toData()
+                _representativeAvatar.value = it
             }.onFailure {
                 Log.e("HomeViewModel", it.message ?: "error")
             }
