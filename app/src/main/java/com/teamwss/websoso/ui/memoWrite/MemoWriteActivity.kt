@@ -79,7 +79,7 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     private fun updateMemoContentToViewModel() {
-        if(memoContent != null) {
+        if(memoId != -1L) {
             memoWriteViewModel.getMemoContent(memoContent!!)
         }
     }
@@ -105,12 +105,14 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun clickListenerPostMemo(userNovelId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.postMemo(userNovelId)
+            finish()
         }
     }
 
     private fun clickListenerPatchMemo(memoId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.patchMemo(memoId)
+            finish()
         }
     }
 
