@@ -25,6 +25,10 @@ class PostNovelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostNovelBinding
     private val postNovelViewModel by viewModels<PostNovelViewModel>()
 
+    private var exitPopupDialog: ExitPopupDialog? = null
+    private var datePickerDialog: DatePickerDialog? = null
+    private var postSuccessDialog: PostSuccessDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPostNovelBinding.inflate(layoutInflater)
@@ -144,27 +148,33 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun setupExitPopupDialog() {
         binding.ivPostExitPopup.setOnClickListener {
-            postNovelViewModel.updateIsDialogShown(true)
+            if (exitPopupDialog == null || !exitPopupDialog!!.isAdded) {
+                postNovelViewModel.updateIsDialogShown(true)
 
-            val dialogFragment = ExitPopupDialog()
-            dialogFragment.show(supportFragmentManager, "ExitPopupDialog")
+                exitPopupDialog = ExitPopupDialog()
+                exitPopupDialog!!.show(supportFragmentManager, "ExitPopupDialog")
+            }
         }
     }
 
     private fun setupDatePickerDialog() {
         binding.llPostReadDate.setOnClickListener {
-            postNovelViewModel.updateIsDialogShown(true)
+            if (datePickerDialog == null || !datePickerDialog!!.isAdded) {
+                postNovelViewModel.updateIsDialogShown(true)
 
-            val dialogFragment = DatePickerDialog()
-            dialogFragment.show(supportFragmentManager, "DatePickerDialog")
+                datePickerDialog = DatePickerDialog()
+                datePickerDialog!!.show(supportFragmentManager, "DatePickerDialog")
+            }
         }
     }
 
     private fun showPostSuccessDialog() {
-        postNovelViewModel.updateIsDialogShown(true)
+        if (postSuccessDialog == null || !postSuccessDialog!!.isAdded) {
+            postNovelViewModel.updateIsDialogShown(true)
 
-        val dialogFragment = PostSuccessDialog()
-        dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
+            postSuccessDialog = PostSuccessDialog()
+            postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
+        }
     }
 
     private fun initUserNovelInfo() {
