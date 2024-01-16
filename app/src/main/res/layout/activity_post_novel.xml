@@ -247,6 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="16dp"
                                 android:checked="@{postNovelViewModel.novelInfo.readStartDate != null}"
+                                android:enabled="@{postNovelViewModel.novelInfo.readStartDate != null}"
                                 android:thumb="@drawable/shape_date_switch_thumb"
                                 app:layout_constraintBottom_toBottomOf="@id/tvPostReadDateTitle"
                                 app:layout_constraintStart_toEndOf="@id/tvPostReadDateTitle"

@@ -94,7 +94,7 @@ class PostNovelActivity : AppCompatActivity() {
         binding.fbPostButton.setOnClickListener {
             saveNovelInfo()
 
-            val isServerError = postNovelViewModel.isServerError.value == false
+            val isServerError = postNovelViewModel.isServerError.value ?: true
             val isNovelAlreadyPosted = postNovelViewModel.isNovelAlreadyPosted.value
             val isTitleNotEmpty = !binding.tvPostNovelTitle.text.isNullOrEmpty()
 
@@ -136,7 +136,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun saveNovelInfo() {
-        val id = postNovelViewModel.novelInfo.value?.id ?: 0
+        val id = postNovelViewModel.novelInfo.value?.id ?: -1
         val request = checkIsDateNull()
 
         if (postNovelViewModel.isNovelAlreadyPosted.value == false) {
@@ -232,14 +232,17 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun setupUrlButton() {
         postNovelViewModel.naverUrl.observe(this) { naverUrl ->
-            binding.llPostNovelLinkNaver.setOnClickListener { openUrl(naverUrl) }
-            if (naverUrl.isNotEmpty()) binding.llPostNovelLinkNaver.visibility = View.VISIBLE
+            bindUrlClickListener(binding.llPostNovelLinkNaver, naverUrl)
         }
 
         postNovelViewModel.kakaoUrl.observe(this) { kakaoUrl ->
-            binding.llPostNovelLinkKakao.setOnClickListener { openUrl(kakaoUrl) }
-            if (kakaoUrl.isNotEmpty()) binding.llPostNovelLinkKakao.visibility = View.VISIBLE
+            bindUrlClickListener(binding.llPostNovelLinkKakao, kakaoUrl)
         }
+    }
+
+    private fun bindUrlClickListener(view: View, url: String) {
+        view.setOnClickListener { openUrl(url) }
+        view.visibility = if (url.isNotEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun openUrl(url: String) {
