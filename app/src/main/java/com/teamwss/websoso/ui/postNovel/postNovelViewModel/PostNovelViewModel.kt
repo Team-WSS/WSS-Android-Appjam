@@ -78,10 +78,8 @@ class PostNovelViewModel : ViewModel() {
                 initUserNovelInfo(it.toUI())
                 _isServerError.value = false
                 _isNovelAlreadyPosted.value = false
-                Log.e("dsvdgfaesfgwea2", it.toString())
             }.onFailure {
                 _isServerError.value = true
-                Log.e("dsvdgfaesfgwea2", it.toString())
             }
         }
     }
@@ -240,7 +238,6 @@ class PostNovelViewModel : ViewModel() {
                 KAKAO_PAGE -> _kakaoUrl.value = it.platformUrl
             }
         }
-        Log.e("dsvdgfaesfgwea3", list.toString() + _naverUrl.value.toString() + _kakaoUrl.value.toString())
     }
 
     companion object {

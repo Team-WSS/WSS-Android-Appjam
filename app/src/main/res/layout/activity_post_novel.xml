@@ -465,7 +465,7 @@
                             android:background="@drawable/shape_link_button"
                             android:gravity="center"
                             android:paddingHorizontal="13dp"
-                            android:visibility="@{!postNovelViewModel.naverUrl.toString().isEmpty() ? 0: 8}">
+                            android:visibility="@{!postNovelViewModel.naverUrl.isEmpty() ? 0: 8}">
 
                             <TextView
                                 android:id="@+id/tvPostNovelSiteNaver"
@@ -492,7 +492,7 @@
                             android:background="@drawable/shape_link_button"
                             android:gravity="center"
                             android:paddingHorizontal="13dp"
-                            android:visibility="@{!postNovelViewModel.kakaoUrl.toString().isEmpty() ? 0: 8}">
+                            android:visibility="@{!postNovelViewModel.kakaoUrl.isEmpty() ? 0: 8}">
 
                             <TextView
                                 android:id="@+id/tvPostNovelSiteKakao"
