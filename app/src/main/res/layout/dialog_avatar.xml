@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="vm"
+            name="viewModel"
             type="com.teamwss.websoso.ui.main.myPage.MyPageViewModel" />
 
     </data>
@@ -29,61 +31,71 @@
 
             <ImageView
                 android:id="@+id/ivDialogAvatarGenre"
+                loadImageUrl="@{viewModel.selectedAvatar.avatarGenreBadgeImg}"
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_foreground" />
 
             <TextView
                 android:id="@+id/tvDialogAvatarTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="@{vm.newAvatar.avatarTag}"
+                android:text="@{viewModel.selectedAvatar.avatarTag}"
                 android:textAppearance="@style/headline1"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivDialogAvatarGenre"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="회귀자" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/ivDialogAvatar"
-            android:layout_width="0dp"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/avMyPageDialogAvatar"
+            loadLottieRawRes="@{viewModel.selectedAvatarId}"
+            android:layout_width="220dp"
             android:layout_height="0dp"
-            android:layout_marginTop="28dp"
-            android:padding="56dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="32dp"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="@id/clDialogHeader"
             app:layout_constraintStart_toStartOf="@id/clDialogHeader"
-            app:layout_constraintTop_toBottomOf="@id/clDialogHeader" />
+            app:layout_constraintTop_toBottomOf="@id/clDialogHeader"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
 
         <TextView
-            android:id="@+id/tvDialogAvatarName"
+            android:id="@+id/tvDialogAvatarMent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@{vm.newAvatar.avatarMent}"
+            android:text="@{viewModel.selectedAvatar.avatarTag}"
             android:textAppearance="@style/headline1"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivDialogAvatar" />
+            app:layout_constraintTop_toBottomOf="@id/avMyPageDialogAvatar"
+            tools:text="아쉽지만 아직은 만날 때가 아니야" />
 
         <TextView
-            android:id="@+id/tvDialogAvatarSentence"
+            android:id="@+id/tvDialogAvatarCondition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{vm.newAvatar.avatarCondition}"
+            android:text="@{viewModel.selectedAvatar.avatarMent}"
             android:textAppearance="@style/title1"
             android:textColor="@color/gray_200_AEADB3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarName" />
+            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarMent"
+            tools:text="메모를 1개 작성하면 잠금해제 돼요" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDialogAvatarRepresent"
@@ -97,8 +109,7 @@
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarSentence" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tvDialogAvatarMaintain"
@@ -128,7 +139,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarSentence" />
+            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarCondition" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
