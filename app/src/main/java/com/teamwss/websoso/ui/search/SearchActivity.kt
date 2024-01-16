@@ -99,17 +99,6 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
-    private fun handleTextChange(
-        handler: Handler,
-        delaySearchRunnable: Runnable
-    ) {
-        if (binding.etSearch.text.isNotEmpty()) {
-            handler.removeCallbacks(delaySearchRunnable)
-            handler.postDelayed(delaySearchRunnable, INPUT_DELAY)
-            binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
-        }
-    }
-
     private fun setupTextRemover() {
         binding.ivSearchCancel.setOnClickListener {
             binding.etSearch.text.clear()
