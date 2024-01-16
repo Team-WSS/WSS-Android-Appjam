@@ -101,6 +101,12 @@ class NovelMemoFragment : Fragment() {
         startActivity(intent)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        view?.requestLayout()
+    }
+
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
