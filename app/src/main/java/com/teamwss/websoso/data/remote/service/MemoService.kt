@@ -16,30 +16,30 @@ import retrofit2.http.Path
 
 interface MemoService {
 
-    @GET("/memos")
+    @GET("memos")
     suspend fun getRecord(
         @Query("lastMemoId") lastUserNovelId: Long,
         @Query("size") size: Int,
         @Query("sortType") sortType: String
     ): RecordResponse
 
-    @GET("/memos/{memoId}")
+    @GET("memos/{memoId}")
     suspend fun getMemo(
         @Path("memoId") memoId: Long
     ): MemoPlainResponse
 
-    @DELETE("/memos/{memoId}")
+    @DELETE("memos/{memoId}")
     suspend fun deleteMemo(
         @Path("memoId") memoId: Long
     ): Response<Unit>
 
-    @POST("/user-novels/{userNovelId}/memo")
+    @POST("user-novels/{userNovelId}/memo")
     suspend fun postMemo(
         @Path("userNovelId") userNovelId: Long,
         @Body request: MemoWriteRequest
     ): MemoWriteResponse
 
-    @PATCH("/memos/{memoId}")
+    @PATCH("memos/{memoId}")
     suspend fun patchNovel(
         @Path("memoId") memoId: Long,
         @Body request: MemoWriteRequest

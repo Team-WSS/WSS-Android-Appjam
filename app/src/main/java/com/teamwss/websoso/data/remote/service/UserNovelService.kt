@@ -26,7 +26,7 @@ interface UserNovelService {
     @GET("user-novels/soso-picks")
     suspend fun getSosoPickNovels(): SosopickNovelHomeResponse
     
-    @GET("/novels/{novelId}")
+    @GET("novels/{novelId}")
     suspend fun getEditNovelInfo(
         @Path("novelId") novelId: Long
     ): UserNovelPostResponse
@@ -42,7 +42,7 @@ interface UserNovelService {
         @Path("userNovelId") userNovelId: Long
     ): NovelMemoInfoResponse
 
-    @DELETE("/user-novels/{userNovelId}")
+    @DELETE("user-novels/{userNovelId}")
     suspend fun deleteUserNovel(
         @Path("userNovelId") userNovelId: Long
     ): Response<Unit>
