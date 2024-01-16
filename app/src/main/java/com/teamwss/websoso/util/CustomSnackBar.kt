@@ -11,11 +11,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.CustomSnackBarBinding
 
-class SampleSnackBar(view: View, private val message: String, private val drawable: Drawable) {
+class CustomSnackBar(view: View, private val message: String, private val drawable: Drawable) {
 
     companion object {
         fun make(view: View, message: String, drawable: Drawable) =
-            SampleSnackBar(view, message, drawable)
+            CustomSnackBar(view, message, drawable)
     }
 
     private val context = view.context
