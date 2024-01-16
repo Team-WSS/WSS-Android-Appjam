@@ -86,6 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:textColor="@color/black"
             android:text="@{viewModel.representativeAvatar.avatarLine}"
             android:textAppearance="@style/title1"
             app:layout_constraintEnd_toEndOf="parent"
