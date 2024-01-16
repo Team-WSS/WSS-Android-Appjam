@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.search.searchViewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +16,12 @@ class SearchViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    private val _searchWord = MutableLiveData<String>()
+    val searchWord: LiveData<String> get() = _searchWord
+
     fun searchNovels(lastNovelId: Long, size: Int, word: String) {
+        if (word != _searchWord.value) _searchResult.value = SearchNovelsResponse(emptyList())
+
         _isLoading.value = true
         viewModelScope.launch {
             kotlin.runCatching {
@@ -27,11 +31,17 @@ class SearchViewModel : ViewModel() {
                 val newNovels = it.novels
                 _searchResult.value = SearchNovelsResponse(oldNovels + newNovels)
                 _isLoading.value = false
-                Log.e("SearchViewModelSuccess", "searchNovels: ")
+                _searchWord.value = word
             }.onFailure {
                 _isLoading.value = false
-                Log.e("SearchViewModelFail", "searchNovels: ", it)
             }
         }
+    }
+
+    companion object {
+        const val LAST_NOVEL_ID = 99999999L
+        const val PAGE_SIZE = 40
+        const val EXTRA_PAGE_SIZE = 20
+        const val INPUT_DELAY = 1000L
     }
 }
