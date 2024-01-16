@@ -27,6 +27,7 @@ class NovelDetailViewModel : ViewModel() {
                 ServicePool.userNovelService.getUserNovelMemoInfo(userNovelId)
             }.onSuccess { response ->
                 _userNovelMemoInfoResponse.value = response
+                _memos.value = response.memos
                 Log.d("tongsinDetail", response.toString())
                 Log.d("tongsin", "success")
             }.onFailure { throwable ->
