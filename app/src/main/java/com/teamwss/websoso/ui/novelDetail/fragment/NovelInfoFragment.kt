@@ -1,5 +1,7 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +30,7 @@ class NovelInfoFragment : Fragment() {
 
         setupLifecycleOwner()
         setupDataBinding()
+        clickListener()
     }
 
     private fun setupLifecycleOwner() {
@@ -36,6 +39,24 @@ class NovelInfoFragment : Fragment() {
 
     private fun setupDataBinding() {
         binding.novelDetailViewModel = novelDetailViewModel
+    }
+
+    private fun clickListener() {
+        val platformUlrs: MutableMap<String, String> = mutableMapOf()
+        novelDetailViewModel.platforms.value!!.forEach {
+            when (it.platformName) {
+                "네이버시리즈" -> platformUlrs[it.platformName] = it.platformUrl
+                "카카오페이지" -> platformUlrs[it.platformName] = it.platformUrl
+            }
+        }
+        binding.clNovelInfoNaverSeries.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(platformUlrs["네이버시리즈"]))
+            startActivity(intent)
+        }
+        binding.clNovelInfoKakaoPage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(platformUlrs["카카오페이지"]))
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {

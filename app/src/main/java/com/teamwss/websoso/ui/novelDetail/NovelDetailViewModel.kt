@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.remote.response.NovelMemoInfoResponse
 import com.teamwss.websoso.data.remote.response.NovelMemoResponse
+import com.teamwss.websoso.data.remote.response.NovelPlatformInfoResponse
 import kotlinx.coroutines.launch
 
 class NovelDetailViewModel : ViewModel() {
@@ -21,6 +22,9 @@ class NovelDetailViewModel : ViewModel() {
     private val _memos: MutableLiveData<List<NovelMemoResponse>> = MutableLiveData()
     val memos: LiveData<List<NovelMemoResponse>> = _memos
 
+    private val _platforms: MutableLiveData<List<NovelPlatformInfoResponse>> = MutableLiveData()
+    val platforms: LiveData<List<NovelPlatformInfoResponse>> = _platforms
+
     fun getUserNovelMemoInfo(userNovelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -28,6 +32,7 @@ class NovelDetailViewModel : ViewModel() {
             }.onSuccess { response ->
                 _userNovelMemoInfoResponse.value = response
                 _memos.value = response.memos
+                _platforms.value = response.platforms
                 Log.d("tongsinDetail", response.toString())
                 Log.d("tongsin", "success")
             }.onFailure { throwable ->

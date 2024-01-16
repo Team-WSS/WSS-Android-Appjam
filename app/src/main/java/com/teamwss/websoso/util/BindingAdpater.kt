@@ -11,6 +11,7 @@ import coil.transform.RoundedCornersTransformation
 import coil.transform.Transformation
 import com.airbnb.lottie.LottieAnimationView
 import com.teamwss.websoso.R
+import com.teamwss.websoso.data.remote.response.NovelPlatformInfoResponse
 import com.teamwss.websoso.ui.common.model.ReadStatus
 import jp.wasabeef.transformers.coil.BlurTransformation
 
@@ -176,5 +177,16 @@ fun setReadDateTilde(textView: TextView, status: String) {
 
         ReadStatus.WISH.name ->
             textView.visibility = View.GONE
+    }
+}
+
+@BindingAdapter("observePlatformsUrl")
+fun setPlatformInfo(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
+    platformInfo.forEach {
+        when (it.platformName) {
+            "네이버시리즈" -> layout.visibility = View.VISIBLE
+            "카카오페이지" -> layout.visibility = View.VISIBLE
+            else -> layout.visibility = View.GONE
+        }
     }
 }
