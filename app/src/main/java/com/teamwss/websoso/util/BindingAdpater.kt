@@ -8,14 +8,19 @@ import coil.transform.Transformation
 import com.teamwss.websoso.R
 import jp.wasabeef.transformers.coil.BlurTransformation
 
-@BindingAdapter("loadCoverImageRounded30")
-fun loadCoverImageRounded30(view: ImageView, imageUrl: String?) {
-    loadCustomImage(view, imageUrl, RoundedCornersTransformation(30F))
-}
-
 @BindingAdapter("loadCoverImageRounded6")
 fun loadCoverImageRounded6(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
+}
+
+@BindingAdapter("loadCoverImageRounded10")
+fun loadCoverImageRounded10(view: ImageView, imageUrl: String?) {
+    loadCustomImage(view, imageUrl, RoundedCornersTransformation(10F))
+}
+
+@BindingAdapter("loadCoverImageRounded30")
+fun loadCoverImageRounded30(view: ImageView, imageUrl: String?) {
+    loadCustomImage(view, imageUrl, RoundedCornersTransformation(30F))
 }
 
 @BindingAdapter("loadCoverImageBlurred5")
