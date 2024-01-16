@@ -88,8 +88,8 @@
     <string name="novel_info_naver_series">네이버시리즈</string>
     <string name="novel_info_kakao_page">카카오페이지</string>
 
-    <!-- Memo Write -->
-    <string name="memo_write_complete">완료</string>
+    <!-- Memo Plain -->
+    <string name="memo_plain_edit">수정</string>
 
     <!-- Edit Memo Cancel Dialog -->
     <string name="dialog_cancel_title">작성을 취소할까요?</string>
@@ -149,4 +149,11 @@
     <string name="tv_post_keyword">키워드 등록</string>
     <string name="library_menu_newest">최신 순</string>
     <string name="library_menu_oldest">오래된 순</string>
+
+    <!-- fragment_memo -->
+    <string name="novel_memo_empty_message">아직 작성된 메모가 없어요</string>
+    <string name="novel_memo_fill_message">새로운 메모를 작성해보세요</string>
+
+    <!-- memo_write -->
+    <string name="memo_write_complete">완료</string>
 </resources>

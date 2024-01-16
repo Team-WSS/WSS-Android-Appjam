@@ -5,7 +5,10 @@
     tools:context=".ui.novelDetail.NovelDetailActivity">
 
     <data>
-        <!-- 추가될 예정 -->
+
+        <variable
+            name="novelDetailViewModel"
+            type="com.teamwss.websoso.ui.novelDetail.NovelDetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,10 +17,11 @@
 
         <ImageView
             android:id="@+id/ivNovelDetailBackgroundImg"
+            loadCoverImageBlurred5="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
             android:layout_width="match_parent"
             android:layout_height="276dp"
+            android:foreground="@drawable/bg_gray_gradient"
             android:scaleType="centerCrop"
-            android:src="@drawable/img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -51,12 +55,11 @@
 
                         <ImageView
                             android:id="@+id/ivNovelDetailGenre"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            loadImageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenreBadgeImg}"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="20dp"
                             android:layout_marginTop="16dp"
-                            android:paddingHorizontal="4dp"
-                            android:src="@drawable/ic_genre_romance_fantasy"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +70,7 @@
                             android:layout_marginTop="10dp"
                             android:ellipsize="end"
                             android:maxLines="3"
+                            android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelTitle}"
                             android:textAppearance="@style/headline1"
                             android:textColor="@color/white"
                             app:layout_constraintEnd_toStartOf="@id/ivNovelDetailThumbnail"
@@ -79,24 +83,24 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
+                            android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelAuthor}"
                             android:textAppearance="@style/body2"
                             android:textColor="@color/gray_200_AEADB3"
                             app:layout_constraintStart_toStartOf="@id/tvNovelDetailTitle"
                             app:layout_constraintTop_toBottomOf="@id/tvNovelDetailTitle"
                             tools:text="이보라" />
 
-                        <com.google.android.material.imageview.ShapeableImageView
+                        <ImageView
                             android:id="@+id/ivNovelDetailThumbnail"
+                            loadCoverImageRounded6="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
                             android:layout_width="64dp"
                             android:layout_height="92dp"
                             android:layout_marginStart="4dp"
                             android:layout_marginEnd="20dp"
-                            android:src="@drawable/img"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/tvNovelDetailTitle"
                             app:layout_constraintTop_toTopOf="@id/tvNovelDetailTitle"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Websoso.ShapeableImageView"
-                            tools:src="@drawable/img" />
+                            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Websoso.ShapeableImageView" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,7 +108,7 @@
                         android:id="@+id/tbNovelDetail"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="40dp"
                         app:contentInsetStart="0dp"
                         app:layout_collapseMode="pin">
 
@@ -128,6 +132,7 @@
                                 android:id="@+id/tvNovelDetailTitleOnToolBar"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelTitle}"
                                 android:textAppearance="@style/title2"
                                 android:textColor="@color/black"
                                 android:visibility="gone"
@@ -152,9 +157,9 @@
 
                             <Spinner
                                 android:id="@+id/spNovelDetail"
-                                android:visibility="invisible"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:visibility="invisible"
                                 app:layout_constraintEnd_toEndOf="@id/ivNovelDetailPopupMenuBtn"
                                 app:layout_constraintTop_toBottomOf="@id/ivNovelDetailPopupMenuBtn" />
 

@@ -4,8 +4,10 @@ import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.data.remote.response.SosopickNovelHomeResponse
 import com.teamwss.websoso.data.remote.response.UserNovelPostResponse
 import com.teamwss.websoso.data.remote.response.UserNovelsLibraryResponse
+import com.teamwss.websoso.data.remote.response.NovelMemoInfoResponse
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.Path
@@ -24,7 +26,7 @@ interface UserNovelService {
     @GET("user-novels/soso-picks")
     suspend fun getSosoPickNovels(): SosopickNovelHomeResponse
     
-    @GET("/novels/{novelId}")
+    @GET("novels/{novelId}")
     suspend fun getEditNovelInfo(
         @Path("novelId") novelId: Long
     ): UserNovelPostResponse
@@ -33,5 +35,15 @@ interface UserNovelService {
     suspend fun patchPostNovelInfo(
         @Path("userNovelId") userNovelId: Long,
         @Body request: NovelPostRequest,
+    ): Response<Unit>
+
+    @GET("user-novels/{userNovelId}")
+    suspend fun getUserNovelMemoInfo(
+        @Path("userNovelId") userNovelId: Long
+    ): NovelMemoInfoResponse
+
+    @DELETE("user-novels/{userNovelId}")
+    suspend fun deleteUserNovel(
+        @Path("userNovelId") userNovelId: Long
     ): Response<Unit>
 }

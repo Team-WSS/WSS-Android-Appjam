@@ -17,11 +17,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.memoWrite.MemoWriteActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.keyword.KeywordActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.memoWrite.MemoWriteActivity"
+            android:name=".ui.memoPlain.MemoPlainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -35,8 +39,8 @@
         <activity
             android:name=".ui.search.SearchActivity"
             android:exported="false"
-            android:windowSoftInputMode="stateAlwaysVisible"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
             android:name=".ui.main.myPage.changeName.ChangeNameActivity"
             android:exported="false"

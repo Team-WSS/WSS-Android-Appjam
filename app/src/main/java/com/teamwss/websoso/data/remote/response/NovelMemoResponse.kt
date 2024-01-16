@@ -6,9 +6,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class NovelMemoResponse(
     @SerialName("memoId")
-    val memoId: Long = 0,
+    val memoId: Long,
     @SerialName("memoContent")
-    val memoContent: String = "",
-    @SerialName("memoDate")
-    val memoDate: String = "",
+    val memoContent: String,
+    @SerialName("createdDate")
+    val memoDate: String,
 )

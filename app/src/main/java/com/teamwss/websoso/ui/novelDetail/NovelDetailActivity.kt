@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.PopupWindow
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
@@ -28,14 +30,32 @@ class NovelDetailActivity : AppCompatActivity() {
             this
         )
     }
+    private val novelDetailViewModel: NovelDetailViewModel by viewModels()
+    private var userNovelId: Long = 0
+    private lateinit var userNovelTitle: String
+    private lateinit var userNovelAuthor: String
+    private lateinit var userNovelImage: String
+    private var popupWindow: PopupWindow? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.lifecycleOwner = this
+        binding.novelDetailViewModel = novelDetailViewModel
+
+        getAndUpdateUserNovelId()
         setupUI()
+        observeUserNovelId()
+        observeUserNovelInfoData()
         setupListener()
+    }
+
+    private fun getAndUpdateUserNovelId() {
+        userNovelId = intent.getLongExtra("userNovelId", -1)
+        novelDetailViewModel.getUserNovelId(userNovelId)
+        novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }
 
     private fun setupUI() {
@@ -53,7 +73,8 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun setupFragment() {
-        val tabTitleItems = listOf(getText(R.string.novel_detail_memo), getText(R.string.novel_detail_info))
+        val tabTitleItems =
+            listOf(getText(R.string.novel_detail_memo), getText(R.string.novel_detail_info))
         binding.vpNovelDetail.adapter = novelDetailAdapter
 
         TabLayoutMediator(binding.tlNovelDetailMemoInfo, binding.vpNovelDetail) { tab, position ->
@@ -99,14 +120,41 @@ class NovelDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun observeUserNovelId() {
+        novelDetailViewModel.userNovelId.observe(this) {
+            userNovelId = novelDetailViewModel.userNovelId.value!!.toLong()
+        }
+    }
+
+    private fun observeUserNovelInfoData() {
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(this) {
+            userNovelAuthor = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
+            userNovelTitle = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
+            userNovelImage = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelImg
+        }
+    }
+
     private fun setupListener() {
+        onClickBackButton()
         onClickAddMemoButton()
         onClickPopupButton()
     }
 
+    private fun onClickBackButton() {
+        binding.ivNovelDetailNavigateBackBtn.setOnClickListener {
+            finish()
+        }
+    }
+
     private fun onClickAddMemoButton() {
         binding.ivNovelDetailAddMemoBtn.setOnClickListener {
-            val intent = Intent(this, MemoWriteActivity::class.java)
+            val intent = MemoWriteActivity.newIntentFromDetail(
+                this,
+                userNovelId,
+                userNovelAuthor,
+                userNovelAuthor,
+                userNovelImage
+            )
             startActivity(intent)
         }
     }
@@ -120,11 +168,16 @@ class NovelDetailActivity : AppCompatActivity() {
     private fun showNovelDetailPopup() {
         val spinnerItems = listOf("작품을 서재에서 삭제", "작품 수정")
         val listView = createListView(spinnerItems)
-        val popupWindow = createPopupWindow(listView)
+        popupWindow = createPopupWindow(listView)
 
         val xOffset = POPUP_MARGIN_END.intDp
         val yOffset = POPUP_MARGIN_TOP.intDp
-        popupWindow.showAsDropDown(binding.ivNovelDetailPopupMenuBtn, xOffset, yOffset, Gravity.END)
+        popupWindow?.showAsDropDown(
+            binding.ivNovelDetailPopupMenuBtn,
+            xOffset,
+            yOffset,
+            Gravity.END
+        )
     }
 
     private fun createListView(items: List<String>): ListView {
@@ -141,11 +194,21 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun createPopupWindow(listView: ListView): PopupWindow {
-        return PopupWindow(listView, POPUP_WIDTH.intDp, WindowManager.LayoutParams.WRAP_CONTENT, true).apply {
+        return PopupWindow(
+            listView,
+            POPUP_WIDTH.intDp,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            true
+        ).apply {
             isTouchable = true
             isOutsideTouchable = true
             isFocusable = true
-            setBackgroundDrawable(ContextCompat.getDrawable(this@NovelDetailActivity, R.drawable.bg_gray50_radius_12dp))
+            setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    this@NovelDetailActivity,
+                    R.drawable.bg_gray50_radius_12dp
+                )
+            )
         }
     }
 
@@ -158,7 +221,6 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun showNovelDeleteDialog() {
         val dialog = DialogNovelDelete(clickNovelDelete = {
-            // 서재 프레그먼트로 이동해야 함
             finish()
         })
         dialog.show((supportFragmentManager), "DeleteNovelDialog")
@@ -170,13 +232,33 @@ class NovelDetailActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (popupWindow?.isShowing == true) {
+            popupWindow?.dismiss()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (popupWindow?.isShowing == true) {
+            popupWindow?.dismiss()
+        }
+    }
+
     private val Int.intDp: Int get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()
 
     companion object {
         const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
         const val TOOLBAR_COLLAPSE_THRESHOLD = 0.1
-        const val POPUP_WIDTH = 196
+        const val POPUP_WIDTH = 198
         const val POPUP_MARGIN_END = -6
         const val POPUP_MARGIN_TOP = 4
+
+        fun createIntent(context: Context, userNovelId: Long): Intent {
+            return Intent(context, NovelDetailActivity::class.java).apply {
+                putExtra("userNovelId", userNovelId)
+            }
+        }
     }
 }
