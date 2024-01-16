@@ -16,6 +16,9 @@ class MemoPlainViewModel : ViewModel() {
     private var _memoId: MutableLiveData<Long> = MutableLiveData()
     val memoId: LiveData<Long> = _memoId
 
+    private var _isMemoDelete: MutableLiveData<Boolean> = MutableLiveData()
+    val isMemoDelete: LiveData<Boolean> = _isMemoDelete
+
     fun getMemo(memoId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -33,9 +36,10 @@ class MemoPlainViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.memoService.deleteMemo(memoId)
             }.onSuccess {
-                Log.d("tongsinMemoPlain", "success")
-            }.onFailure { throwable ->
-                Log.e("tongsinMemoPlain", throwable.toString())
+                _isMemoDelete.value = true
+            }.onFailure {thorwable ->
+                _isMemoDelete.value = false
+                Log.e("deleteMemo", thorwable.toString())
             }
         }
     }

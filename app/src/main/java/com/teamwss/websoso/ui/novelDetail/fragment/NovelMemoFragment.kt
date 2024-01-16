@@ -1,11 +1,16 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
@@ -19,6 +24,8 @@ class NovelMemoFragment : Fragment() {
         get() = requireNotNull(_binding)
     private val novelMemoAdapter: NovelDetailMemoAdapter by lazy { NovelDetailMemoAdapter(::navigateToMemoPlain) }
     private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
+
+    private lateinit var deleteMemoLauncher: ActivityResultLauncher<Intent>
 
     private var userNovelId by Delegates.notNull<Long>()
     private lateinit var userNovelTitle: String
@@ -34,6 +41,14 @@ class NovelMemoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        deleteMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    Snackbar.make(binding.root, "메모 삭제 성공", Snackbar.LENGTH_SHORT).show()
+                }
+            }
+
         setupLifecycleOwner()
         setupDataBinding()
         initRecyclerView()
@@ -98,7 +113,7 @@ class NovelMemoFragment : Fragment() {
             userNovelAuthor,
             userNovelImage
         )
-        startActivity(intent)
+        deleteMemoLauncher.launch(intent)
     }
 
     override fun onResume() {

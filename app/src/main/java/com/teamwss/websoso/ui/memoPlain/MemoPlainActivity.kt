@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.memoPlain
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -90,6 +91,7 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun showMemoDeleteDialog() {
         dialogMemoDelete.show((supportFragmentManager), "DeleteMemoDialog")
+        setResult(Activity.RESULT_OK)
     }
 
     private fun onClickMemoEditButton() {

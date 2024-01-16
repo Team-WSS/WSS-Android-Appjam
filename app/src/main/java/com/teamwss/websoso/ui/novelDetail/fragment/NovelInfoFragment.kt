@@ -30,7 +30,7 @@ class NovelInfoFragment : Fragment() {
 
         setupLifecycleOwner()
         setupDataBinding()
-        clickListener()
+        observeNovelData()
     }
 
     private fun setupLifecycleOwner() {
@@ -39,6 +39,12 @@ class NovelInfoFragment : Fragment() {
 
     private fun setupDataBinding() {
         binding.novelDetailViewModel = novelDetailViewModel
+    }
+
+    private fun observeNovelData() {
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) {
+            clickListener()
+        }
     }
 
     private fun clickListener() {
