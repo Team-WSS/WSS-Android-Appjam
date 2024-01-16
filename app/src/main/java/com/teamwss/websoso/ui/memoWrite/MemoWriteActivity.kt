@@ -19,6 +19,9 @@ class MemoWriteActivity : AppCompatActivity() {
     private lateinit var userNovelAuthor: String
     private lateinit var userNovelImage: String
 
+    private val dialogMemoCancel: DialogMemoCancel by lazy {
+        DialogMemoCancel(::finish)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoWriteBinding.inflate(layoutInflater)
@@ -27,6 +30,7 @@ class MemoWriteActivity : AppCompatActivity() {
         initUI()
         getUserNovelDataFromBeforeView()
         updateUserNovelToViewModel()
+        onClickBackButton()
         if (userNovelId != -1L) {
             clickListener(userNovelId)
         }
@@ -65,6 +69,12 @@ class MemoWriteActivity : AppCompatActivity() {
             userNovelAuthor,
             userNovelImage
         )
+    }
+
+    private fun onClickBackButton() {
+        binding.ivMemoWriteCancelBtn.setOnClickListener {
+            dialogMemoCancel.show((supportFragmentManager), "CancelMemoDialog")
+        }
     }
 
     private fun clickListener(userNovelId: Long) {
