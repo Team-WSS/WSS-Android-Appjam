@@ -1,27 +1,29 @@
 package com.teamwss.websoso.ui.main.myPage
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import coil.load
-import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentMyPageBinding
-import com.teamwss.websoso.ui.main.myPage.changeName.ChangeNameActivity
+import com.teamwss.websoso.ui.main.myPage.changeNickName.ChangeNicknameActivity
 import com.teamwss.websoso.ui.main.myPage.checkUserInfo.CheckUserInfoActivity
-import jp.wasabeef.transformers.coil.CenterCropTransformation
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
-    private val myPageViewModel: MyPageViewModel by viewModels()
-    private val avatarAdapter: MyPageAdapter by lazy {
-        MyPageAdapter(::showAvatarDialog())
+    private val myPageViewModel: MyPageViewModel by viewModels {
+        MyPageViewModel.Factory
     }
+    private val avatarAdapter: MyPageAdapter by lazy {
+        MyPageAdapter(::showAvatarDialog, myPageViewModel.userInfo.value?.representativeAvatarId ?: 1)
+    }
+    private lateinit var changeNicknameActivityResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,52 +34,56 @@ class MyPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeUserInfo()
-        observeRepresentiveAvatar()
-        observeUserAvatar()
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = myPageViewModel
+
+        setupChangeNicknameActivityResultLauncher()
         initRecyclerView()
-        launchOnClick()
+        setupEditButtonClickListener()
+        setupCheckUserInfoButtonClickListener()
+        observeUserAvatar()
     }
 
-    @SuppressLint("StringFormatMatches")
-    private fun observeUserInfo() {
-        myPageViewModel.userName.observe(viewLifecycleOwner) { userName ->
-            binding.tvMyPageUserName.text = getString(R.string.my_page_user_name, userName)
-        }
-
-        myPageViewModel.userNovelCount.observe(viewLifecycleOwner) { userNovelCount ->
-            binding.tvMyPageRegistrationCount.text = userNovelCount.toString()
-        }
-
-        myPageViewModel.memoCount.observe(viewLifecycleOwner) { memoCount ->
-            binding.tvMyPageMemoCount.text = memoCount.toString()
-        }
+    private fun setupChangeNicknameActivityResultLauncher() {
+        changeNicknameActivityResultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                    myPageViewModel.getMyPageUserInfo()
+                }
+            }
     }
 
-    private fun observeRepresentiveAvatar() {
-        myPageViewModel.representativeAvatarTag.observe(viewLifecycleOwner) { representativeAvatarTag ->
-            binding.tvMyPageAvatarName.text = representativeAvatarTag.toString()
-        }
+    private fun initRecyclerView() {
+        binding.rvMyPageSelected.adapter = avatarAdapter
+    }
 
-        myPageViewModel.representativeAvatarImg.observe(viewLifecycleOwner) { representativeAvatarImg ->
-            binding.ivMyPageAvatar.load(representativeAvatarImg)
-        }
-
-        myPageViewModel.representativeAvatarLineContent.observe(viewLifecycleOwner) { representativeAvatarLineContent ->
-            binding.tvMyPageAvatarTagline.text = representativeAvatarLineContent.toString()
-        }
-
-        binding.ivMyPageAvatar.load(myPageViewModel.representativeAvatarImg) {
-            crossfade(true)
-            transformations(CenterCropTransformation())
-        }
-
-        binding.ivMyPageGenreMark.load(myPageViewModel.representativeAvatarGenreBadge) {
-            crossfade(true)
-            transformations(CenterCropTransformation())
+    private fun setupEditButtonClickListener() {
+        binding.ivMyPageEditUserName.setOnClickListener {
+            navigateToChangeNameActivity()
         }
     }
 
+    private fun navigateToChangeNameActivity() {
+        val intent = ChangeNicknameActivity.createIntent(
+            requireContext(),
+            myPageViewModel.userInfo.value?.userNickName ?: ""
+        )
+        changeNicknameActivityResultLauncher.launch(intent)
+    }
+
+    private fun setupCheckUserInfoButtonClickListener() {
+        binding.tvMyPageCheckUserInfo.setOnClickListener {
+            navigateToCheckUserInfoActivity()
+        }
+    }
+
+    private fun navigateToCheckUserInfoActivity() {
+        val intent = CheckUserInfoActivity.createIntent(
+            requireContext(),
+            myPageViewModel.userInfo.value?.userNickName ?: ""
+        )
+        startActivity(intent)
+    }
 
     private fun observeUserAvatar() {
         myPageViewModel.avatars.observe(viewLifecycleOwner) { avatars ->
@@ -85,48 +91,14 @@ class MyPageFragment : Fragment() {
         }
     }
 
-
-    private fun initRecyclerView() {
-        binding.rvMyPageSelected.adapter = avatarAdapter
-    }
-
-    private fun launchOnClick() {
-        launchChangeName()
-        launchCheckUserName()
-    }
-
-    private fun launchChangeName() {
-        binding.ivMyPageEditUserName.setOnClickListener {
-            val defaultName = binding.tvMyPageUserName.text.toString()
-
-            val userNameWithoutSuffix = defaultName.removeSuffix("님")
-
-            val intent = newChangeNameIntent(binding.root.context, userNameWithoutSuffix)
-            startActivity(intent)
-        }
-    }
-
-    private fun launchCheckUserName() {
-        binding.tvMyPageCheckUserInfo.setOnClickListener {
-            val intent = Intent(binding.root.context, CheckUserInfoActivity::class.java)
-
-            startActivity(intent)
-        }
-    }
-
     private fun showAvatarDialog(id: Long) {
+        Toast.makeText(requireContext(), "id: $id", Toast.LENGTH_SHORT).show()
         myPageViewModel.getAvatar(id)
         val dialogFragment = AvatarDialogFragment.newInstance()
         dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
     }
 
-
     companion object {
         fun newInstance() = MyPageFragment()
-        fun newChangeNameIntent(context: Context, userName: String): Intent {
-            val intent = Intent(context, ChangeNameActivity::class.java)
-            intent.putExtra("userName", userName)
-            return intent
-        }
     }
 }
