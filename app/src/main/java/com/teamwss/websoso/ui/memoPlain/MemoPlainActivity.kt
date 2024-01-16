@@ -3,6 +3,7 @@ package com.teamwss.websoso.ui.memoPlain
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,8 @@ class MemoPlainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoPlainBinding
     private val memoPlainViewModel: MemoPlainViewModel by viewModels()
     private var memoId by Delegates.notNull<Long>()
+
+    private lateinit var memoContent: String
     private lateinit var userNovelTitle: String
     private lateinit var userNovelAuthor: String
     private lateinit var userNovelImage: String
@@ -35,6 +38,7 @@ class MemoPlainActivity : AppCompatActivity() {
         setupDataBinding()
         getUserNovelDataToIntent()
         observeMemoId()
+        observeMemoContent()
         onClickMemoPlainCancelButton()
         onClickMemoDeleteButton()
         onClickMemoEditButton()
@@ -56,7 +60,7 @@ class MemoPlainActivity : AppCompatActivity() {
     }
 
     private fun getUserNovelDataToIntent() {
-        userNovelImage = intent.getStringExtra("userNovelImg").toString()
+        userNovelImage = intent.getStringExtra("userNovelImage").toString()
         userNovelTitle = intent.getStringExtra("userNovelTitle").toString()
         userNovelAuthor = intent.getStringExtra("userNovelAuthor").toString()
     }
@@ -64,6 +68,12 @@ class MemoPlainActivity : AppCompatActivity() {
     private fun observeMemoId() {
         memoPlainViewModel.memoId.observe(this) {
             memoId = memoPlainViewModel.memoId.value!!
+        }
+    }
+
+    private fun observeMemoContent() {
+        memoPlainViewModel.memo.observe(this) { response ->
+            memoContent = response.memoContent
         }
     }
 
@@ -85,12 +95,8 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun onClickMemoEditButton() {
         binding.tvMemoPlainEditBtn.setOnClickListener {
-            val intent = MemoWriteActivity.createIntent(
-                this,
-                memoId,
-                userNovelTitle,
-                userNovelAuthor,
-                userNovelImage
+            val intent = MemoWriteActivity.createEditMemoIntent(
+                this, memoId, memoContent, userNovelTitle, userNovelAuthor, userNovelImage
             )
             startActivity(intent)
             finish()
@@ -109,7 +115,7 @@ class MemoPlainActivity : AppCompatActivity() {
                 putExtra("memoId", memoId)
                 putExtra("userNovelTitle", userNovelTitle)
                 putExtra("userNovelAuthor", userNovelAuthor)
-                putExtra("userNovelImg", userNovelImg)
+                putExtra("userNovelImage", userNovelImg)
             }
         }
     }

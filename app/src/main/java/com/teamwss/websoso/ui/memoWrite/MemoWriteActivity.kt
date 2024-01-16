@@ -3,6 +3,7 @@ package com.teamwss.websoso.ui.memoWrite
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,11 +38,11 @@ class MemoWriteActivity : AppCompatActivity() {
         onClickBackButton()
 
         if (userNovelId != -1L) {
-            clickListener(userNovelId)
+            clickListenerPostMemo(userNovelId)
         }
 
         if (memoId != -1L) {
-            clickListenerPatch(memoId)
+            clickListenerPatchMemo(memoId)
         }
     }
 
@@ -61,9 +62,16 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun getUserNovelDataFromBeforeView() {
         memoId = intent.getLongExtra("memoId", -1)
         userNovelId = intent.getLongExtra("userNovelId", -1)
+        memoContent = intent.getStringExtra("memoContent").toString()
         userNovelTitle = intent.getStringExtra("userNovelTitle").toString()
         userNovelAuthor = intent.getStringExtra("userNovelAuthor").toString()
         userNovelImage = intent.getStringExtra("userNovelImage").toString()
+
+        Log.d("memodata", memoId.toString())
+        Log.d("memodata", memoContent.toString())
+        Log.d("memodata", userNovelTitle)
+        Log.d("memodata", userNovelAuthor)
+        Log.d("memodata", userNovelImage)
     }
 
     private fun updateUserNovelToViewModel() {
@@ -94,31 +102,33 @@ class MemoWriteActivity : AppCompatActivity() {
 
     private fun validateMemoContent(memoContent: String?): Boolean = memoContent?.isBlank() != true
 
-    private fun clickListener(userNovelId: Long) {
+    private fun clickListenerPostMemo(userNovelId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.postMemo(userNovelId)
         }
     }
 
-    private fun clickListenerPatch(memoId: Long) {
+    private fun clickListenerPatchMemo(memoId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.patchMemo(memoId)
         }
     }
 
     companion object {
-        fun createIntent(
+        fun createEditMemoIntent(
             context: Context,
             memoId: Long,
+            memoContent: String,
             userNovelTitle: String,
             userNovelAuthor: String,
-            userNovelImg: String
+            userNovelImage: String
         ): Intent {
             return Intent(context, MemoWriteActivity::class.java).apply {
                 putExtra("memoId", memoId)
+                putExtra("memoContent", memoContent)
                 putExtra("userNovelTitle", userNovelTitle)
                 putExtra("userNovelAuthor", userNovelAuthor)
-                putExtra("userNovelImg", userNovelImg)
+                putExtra("userNovelImage", userNovelImage)
             }
         }
 
