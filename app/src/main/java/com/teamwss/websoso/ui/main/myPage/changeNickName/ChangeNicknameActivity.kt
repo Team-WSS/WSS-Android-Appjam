@@ -1,5 +1,7 @@
-package com.teamwss.websoso.ui.main.myPage.changeName
+package com.teamwss.websoso.ui.main.myPage.changeNickName
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,19 +16,20 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.teamwss.websoso.R
-import com.teamwss.websoso.databinding.ActivityChangeNameBinding
+import com.teamwss.websoso.databinding.ActivityChangeNicknameBinding
 
-class ChangeNameActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityChangeNameBinding
-    private val changeNameViewModel: ChangeNameViewModel by viewModels()
+class ChangeNicknameActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityChangeNicknameBinding
+    private val changeNicknameViewModel: ChangeNicknameViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChangeNameBinding.inflate(layoutInflater)
+        binding = ActivityChangeNicknameBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         setTranslucentOnStatusBar()
         setupUI()
-
+        observePatchSucess()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -36,16 +39,15 @@ class ChangeNameActivity : AppCompatActivity() {
         )
     }
 
-
     private fun setupUI() {
         handelBackToMyPage()
         setupChangeNameEditText()
-        setDefaultNameAndTextWatcher(binding.etChangeName, binding.tvChangeNameCount, 10)
-        setupDoneButton()
+        setDefaultNameAndTextWatcher(binding.etChangeNickname, binding.tvChangeNicknameCount, 10)
+        setupCompleteTextClickListener()
     }
 
     private fun handelBackToMyPage() {
-        binding.ivChangeNameBack.setOnClickListener {
+        binding.ivChangeNicknameBack.setOnClickListener {
             finish()
         }
     }
@@ -57,18 +59,18 @@ class ChangeNameActivity : AppCompatActivity() {
     }
 
     private fun setupTextWatcher() {
-        binding.etChangeName.addTextChangedListener(
+        binding.etChangeNickname.addTextChangedListener(
             createTextWatcher(
-                binding.etChangeName,
-                binding.tvChangeNameCount,
+                binding.etChangeNickname,
+                binding.tvChangeNicknameCount,
                 MAX_LENGTH,
             )
         )
     }
 
     private fun focusChangeListener() {
-        binding.etChangeName.setOnFocusChangeListener { _, hasFocus ->
-            setEditTextFocusColor(binding.etChangeName, hasFocus)
+        binding.etChangeNickname.setOnFocusChangeListener { _, hasFocus ->
+            setEditTextFocusColor(binding.etChangeNickname, hasFocus)
         }
     }
 
@@ -78,13 +80,13 @@ class ChangeNameActivity : AppCompatActivity() {
     }
 
     private fun setupClearButtonClickListener() {
-        binding.ivChangeNameCancel.setOnClickListener {
+        binding.ivChangeNicknameCancel.setOnClickListener {
             clearChangeNameEditText()
         }
     }
 
     private fun clearChangeNameEditText() {
-        binding.etChangeName.text.clear()
+        binding.etChangeNickname.text.clear()
     }
 
     private fun createTextWatcher(
@@ -126,7 +128,7 @@ class ChangeNameActivity : AppCompatActivity() {
         val currentLength = charSequence?.length ?: 0
 
         if (currentLength > maxLength) {
-            binding.etChangeName.text?.delete(start + count - 1, start + count)
+            binding.etChangeNickname.text?.delete(start + count - 1, start + count)
         }
     }
 
@@ -136,7 +138,7 @@ class ChangeNameActivity : AppCompatActivity() {
     }
 
     private fun toggleCancelIconVisibility(text: Editable?) {
-        binding.ivChangeNameCancel.visibility =
+        binding.ivChangeNicknameCancel.visibility =
             if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
 
@@ -151,23 +153,29 @@ class ChangeNameActivity : AppCompatActivity() {
         editText.addTextChangedListener(textWatcher)
     }
 
-    private fun setupDoneButton() {
-        binding.tvChangeNameComplete.setOnClickListener {
-            val updatedName = binding.etChangeName.text.toString()
+    private fun setupCompleteTextClickListener() {
+        binding.tvChangeNicknameComplete.setOnClickListener {
+            val userNickname = binding.etChangeNickname.text.toString()
+            changeNicknameViewModel.patchUserNickName(userNickname)
+        }
+    }
 
-            changeNameViewModel.patchResult.observe(this) { result ->
-                when (result.isSuccess) {
-                    true -> {
-                        changeNameViewModel.patchUserNickName(updatedName)
-                        finish()
-                        showToast("닉네임을 저장했어요.", Toast.LENGTH_SHORT)
-                    }
-                    false -> {
-                    }
+    private fun observePatchSucess() {
+        changeNicknameViewModel.patchSuccess.observe(this) { result ->
+            when (result) {
+                true -> {
+                    showToast("닉네임을 저장했어요.", Toast.LENGTH_SHORT)
+                    setResult(AppCompatActivity.RESULT_OK) // 결과 설정
+                    finish()
+                }
+
+                false -> {
+                    showToast("닉네임을 저장에 실패했어요.", Toast.LENGTH_SHORT)
                 }
             }
         }
     }
+
     private fun showToast(message: String, duration: Int) {
         val toast = Toast.makeText(this, message, duration)
         val handler = Handler(Looper.getMainLooper())
@@ -182,6 +190,11 @@ class ChangeNameActivity : AppCompatActivity() {
     companion object {
         private const val MAX_LENGTH = 10
 
+        fun createIntent(context: Context, userName: String): Intent {
+            return Intent(context, ChangeNicknameActivity::class.java).apply {
+                putExtra("userName", userName)
+            }
+        }
     }
 }
 
