@@ -6,9 +6,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.data.remote.response.SearchNovelsResponse
 import com.teamwss.websoso.databinding.ItemSearchNovelBinding
 import com.teamwss.websoso.util.loadCoverImageRounded6
+import kotlin.properties.Delegates
 
-class SearchViewHolder(private val binding: ItemSearchNovelBinding, private val onItemClick: (Long) -> Unit) :
+class SearchViewHolder(
+    private val binding: ItemSearchNovelBinding,
+    private val onItemClick: (Long) -> Unit
+) :
     RecyclerView.ViewHolder(binding.root) {
+
+    var novelId by Delegates.notNull<Long>()
+
+    init {
+        binding.root.setOnClickListener { onItemClick(novelId) }
+    }
 
     fun onBind(searchResult: SearchNovelsResponse.Novel) {
         with(binding) {
@@ -16,8 +26,7 @@ class SearchViewHolder(private val binding: ItemSearchNovelBinding, private val 
             tvSearchNovelTitle.text = searchResult.novelTitle
             tvSearchNovelAuthor.text = searchResult.novelAuthor
             tvSearchNovelGenre.text = searchResult.novelGenre
-
-            root.setOnClickListener { onItemClick(searchResult.novelId) }
+            novelId = searchResult.novelId
         }
     }
 
