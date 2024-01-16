@@ -11,13 +11,11 @@ class HomeViewHolder(
     private val binding: ItemHomeBinding,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(novel: SosoPickNovelEntity) {
+    fun onBind(sosoPickNovel: SosoPickNovelEntity) {
+        binding.sosoPickNovel = sosoPickNovel
+
         with(binding) {
-            tvHomeItemTitle.text = novel.novelTitle
-            tvHomeItemAuthor.text = novel.novelAuthor
-            tvHomeItemRegisterCount.text =
-                String.format(REGISTERED_COUNT_FORMAT, novel.novelRegisteredCount)
-            ivHomeItemCover.load(novel.novelImg)
+            ivHomeItemCover.load(sosoPickNovel.novelImg)
         }
     }
 
