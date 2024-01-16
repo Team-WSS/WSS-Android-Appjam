@@ -1,10 +1,12 @@
 package com.teamwss.websoso.util
 
+import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import coil.transform.Transformation
+import com.airbnb.lottie.LottieAnimationView
 import com.teamwss.websoso.R
 import jp.wasabeef.transformers.coil.BlurTransformation
 
@@ -31,6 +33,19 @@ fun loadCoverImageRounded30(view: ImageView, imageUrl: String?) {
 @BindingAdapter("loadCoverImageBlurred5")
 fun loadCoverImageBlurred5(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, BlurTransformation(view.context, 5))
+}
+
+@BindingAdapter("loadLottieRawRes")
+fun loadLottieAnimation(view: LottieAnimationView, avatarId: Int) {
+    val resId = avatarId.toLottieImage()
+    try {
+        if (resId != 0) {
+            view.setAnimation(resId)
+            view.playAnimation()
+        }
+    } catch (e: IllegalArgumentException) {
+        e.printStackTrace()
+    }
 }
 
 private fun loadCustomImage(view: ImageView, imageUrl: String?, transformation: Transformation) {
