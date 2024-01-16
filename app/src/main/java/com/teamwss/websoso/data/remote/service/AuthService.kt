@@ -2,7 +2,7 @@ package com.teamwss.websoso.data.remote.service
 
 import com.teamwss.websoso.data.remote.request.NicknamePatchRequest
 import com.teamwss.websoso.data.remote.response.LoginResponse
-import com.teamwss.websoso.data.remote.response.MyPageUserInfoResponse
+import com.teamwss.websoso.data.remote.response.UserInfoMyPageResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,7 +17,7 @@ interface AuthService {
 
     @GET("users/info")
     suspend fun getMyPageUserInfo(
-    ): MyPageUserInfoResponse
+    ): UserInfoMyPageResponse
 
     @PATCH("users/nickname")
     suspend fun patchNickname(

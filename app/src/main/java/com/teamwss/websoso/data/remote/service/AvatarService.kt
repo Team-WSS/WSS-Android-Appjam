@@ -13,7 +13,7 @@ interface AvatarService {
 
     @GET("avatars/{avatarId}")
     suspend fun getAvatarInfo(
-        @Path("avatarId") avatarId: Number
+        @Path("avatarId") avatarId: Long
     ): AvatarResponse
 
 }
