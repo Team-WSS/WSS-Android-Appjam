@@ -39,7 +39,7 @@ class MemoWriteViewModel : ViewModel() {
         viewModelScope.launch {
             kotlin.runCatching {
                 ServicePool.memoService.postMemo(
-                    userNovelId, MemoWriteRequest(_memoContent.toString())
+                    userNovelId, MemoWriteRequest(_memoContent.value.toString())
                 )
             }.onSuccess { response ->
                 Log.d("postmemo", response.toString())
@@ -54,7 +54,7 @@ class MemoWriteViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.memoService.patchNovel(
                     memoId,
-                    MemoWriteRequest(_memoContent.toString())
+                    MemoWriteRequest(_memoContent.value.toString())
                 )
             }.onSuccess {
                 Log.d("fatchMemo", "성공")
