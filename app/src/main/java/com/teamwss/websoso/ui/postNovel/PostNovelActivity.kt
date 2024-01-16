@@ -100,14 +100,17 @@ class PostNovelActivity : AppCompatActivity() {
                 }
 
                 isServerError && isNovelAlreadyPosted == true && isTitleNotEmpty -> {
-                    val intent = NovelDetailActivity.createIntent(
-                        this,
-                        postNovelViewModel.novelInfo.value?.id ?: 0
-                    )
-                    startActivity(intent)
+                    navigateToNovelDetail()
                 }
             }
         }
+    }
+
+    private fun navigateToNovelDetail() {
+        val intent =
+            NovelDetailActivity.createIntent(this, postNovelViewModel.novelInfo.value?.id ?: 0)
+        startActivity(intent)
+        finish()
     }
 
     private fun checkIsDateNull(): NovelPostRequest {

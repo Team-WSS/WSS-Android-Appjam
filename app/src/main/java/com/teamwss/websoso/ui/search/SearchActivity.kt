@@ -143,6 +143,7 @@ class SearchActivity : AppCompatActivity() {
     private fun navigateToPostNovelActivity(novelId: Long) {
         val intent = PostNovelActivity.newIntent(this, novelId)
         startActivity(intent)
+        finish()
     }
 
     private fun setResultNovelList() {
