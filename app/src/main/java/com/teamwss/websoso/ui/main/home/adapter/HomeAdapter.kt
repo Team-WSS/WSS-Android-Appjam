@@ -8,7 +8,7 @@ import com.teamwss.websoso.data.model.SosoPickNovelEntity
 class HomeAdapter : ListAdapter<SosoPickNovelEntity, HomeViewHolder>(HomeDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder.create(parent)
+        return HomeViewHolder.newInstance(parent)
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {

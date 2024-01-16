@@ -23,7 +23,7 @@ class HomeViewHolder(
 
     companion object {
         private const val REGISTERED_COUNT_FORMAT = "%d명이 등록"
-        fun create(parent: ViewGroup): HomeViewHolder {
+        fun newInstance(parent: ViewGroup): HomeViewHolder {
             val binding =
                 ItemHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return HomeViewHolder(binding)
