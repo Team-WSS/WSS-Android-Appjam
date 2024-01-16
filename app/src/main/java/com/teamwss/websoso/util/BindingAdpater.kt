@@ -1,8 +1,9 @@
 package com.teamwss.websoso.util
 
-import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -63,7 +64,11 @@ private fun loadCustomImage(view: ImageView, imageUrl: String?, transformation: 
     }
 }
 
-private fun applyImageTransformations(view: ImageView, imageUrl: String, transformation: Transformation) {
+private fun applyImageTransformations(
+    view: ImageView,
+    imageUrl: String,
+    transformation: Transformation
+) {
     view.load(imageUrl) {
         crossfade(true)
         transformations(transformation)
@@ -92,12 +97,50 @@ fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
 }
 
 @BindingAdapter("setNovelInfoReadStatusText")
-fun setReadStatus(textView: TextView, status: String) {
+fun setReadStatusText(textView: TextView, status: String) {
     textView.text = when (status) {
         ReadStatus.FINISH.name -> "완료"
         ReadStatus.READING.name -> "읽는 중"
         ReadStatus.DROP.name -> "하차"
         ReadStatus.WISH.name -> "읽고 싶음"
+        else -> "에러"
+    }
+}
+
+@BindingAdapter("setNovelInfoReadStatusImage")
+fun setReadStatusImage(imageView: ImageView, status: String) {
+    val context = imageView.context
+    val drawableId = when (status) {
+        ReadStatus.FINISH.name -> R.drawable.ic_status_finish
+        ReadStatus.READING.name -> R.drawable.ic_status_reading
+        ReadStatus.DROP.name -> R.drawable.ic_status_drop
+        ReadStatus.WISH.name -> R.drawable.ic_status_wish
+        else -> R.drawable.ic_alert_warning
+    }
+    imageView.setImageDrawable(ContextCompat.getDrawable(context, drawableId))
+}
+
+@BindingAdapter("setNovelInfoReadDateText")
+fun setReadDateText(textView: TextView, status: String) {
+    when (status) {
+        ReadStatus.FINISH.name -> {
+            textView.text = "읽은 날짜"
+            textView.visibility = View.VISIBLE
+        }
+
+        ReadStatus.READING.name -> {
+            textView.text = "시작 날짜"
+            textView.visibility = View.VISIBLE
+        }
+
+        ReadStatus.DROP.name -> {
+            textView.text = "종료 날짜"
+            textView.visibility = View.VISIBLE
+        }
+
+        ReadStatus.WISH.name -> {
+            textView.visibility = View.GONE
+        }
         else -> "에러"
     }
 }
