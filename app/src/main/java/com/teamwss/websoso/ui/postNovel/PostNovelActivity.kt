@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -15,6 +14,7 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.common.model.ReadStatus
+import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
@@ -89,8 +89,23 @@ class PostNovelActivity : AppCompatActivity() {
     private fun setupSaveButton() {
         binding.fbPostButton.setOnClickListener {
             saveNovelInfo()
-            if (postNovelViewModel.isServerError.value == false && !binding.tvPostNovelTitle.text.isNullOrEmpty()) {
-                showPostSuccessDialog()
+
+            val isServerError = postNovelViewModel.isServerError.value == false
+            val isNovelAlreadyPosted = postNovelViewModel.isNovelAlreadyPosted.value
+            val isTitleNotEmpty = !binding.tvPostNovelTitle.text.isNullOrEmpty()
+
+            when {
+                isServerError && isNovelAlreadyPosted == false && isTitleNotEmpty -> {
+                    showPostSuccessDialog()
+                }
+
+                isServerError && isNovelAlreadyPosted == true && isTitleNotEmpty -> {
+                    val intent = NovelDetailActivity.createIntent(
+                        this,
+                        postNovelViewModel.novelInfo.value?.id ?: 0
+                    )
+                    startActivity(intent)
+                }
             }
         }
     }
@@ -203,12 +218,12 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupUrlButton() {
-        postNovelViewModel.naverUrl.observe(this) {naverUrl ->
+        postNovelViewModel.naverUrl.observe(this) { naverUrl ->
             binding.llPostNovelLinkNaver.setOnClickListener { openUrl(naverUrl) }
             if (naverUrl.isNotEmpty()) binding.llPostNovelLinkNaver.visibility = View.VISIBLE
         }
 
-        postNovelViewModel.kakaoUrl.observe(this) {kakaoUrl ->
+        postNovelViewModel.kakaoUrl.observe(this) { kakaoUrl ->
             binding.llPostNovelLinkKakao.setOnClickListener { openUrl(kakaoUrl) }
             if (kakaoUrl.isNotEmpty()) binding.llPostNovelLinkKakao.visibility = View.VISIBLE
         }
