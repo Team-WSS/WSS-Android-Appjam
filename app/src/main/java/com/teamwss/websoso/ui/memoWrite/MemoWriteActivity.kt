@@ -31,7 +31,7 @@ class MemoWriteActivity : AppCompatActivity() {
         binding = ActivityMemoWriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initUI()
+        setupUI()
         getUserNovelDataFromBeforeView()
         updateUserNovelToViewModel()
         observeMemoContent()
@@ -46,7 +46,7 @@ class MemoWriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun initUI() {
+    private fun setupUI() {
         setTranslucentOnStatusBar()
         binding.lifecycleOwner = this
         binding.memoWriteViewModel = memoWriteViewModel

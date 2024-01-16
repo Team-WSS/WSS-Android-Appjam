@@ -41,7 +41,7 @@
             android:paddingVertical="8dp"
             android:text="@string/memo_write_complete"
             android:textAppearance="@style/title2"
-            android:textColor="@color/gray_200_AEADB3"
+            android:textColor="@{memoWriteViewModel.memoContent.isBlank() ? @color/gray_200_AEADB3 : @color/primary_100_6341F0}"
             app:layout_constraintBottom_toBottomOf="@id/ivMemoWriteCancelBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivMemoWriteCancelBtn" />
