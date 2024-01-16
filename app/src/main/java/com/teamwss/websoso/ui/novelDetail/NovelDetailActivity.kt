@@ -165,7 +165,7 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelEdit() {
-        val intent = PostNovelActivity.createIntent(this)
+        val intent = PostNovelActivity.newIntent(this, 0)
         startActivity(intent)
         finish()
     }

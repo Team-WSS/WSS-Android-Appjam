@@ -3,27 +3,38 @@ package com.teamwss.websoso.ui.search
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
+import com.teamwss.websoso.data.remote.response.SearchNovelsResponse
 import com.teamwss.websoso.databinding.ItemSearchNovelBinding
-import com.teamwss.websoso.ui.search.model.SearchResult
+import com.teamwss.websoso.util.loadCoverImageRounded6
+import kotlin.properties.Delegates
 
-class SearchViewHolder(private val binding: ItemSearchNovelBinding) :
+class SearchViewHolder(
+    private val binding: ItemSearchNovelBinding,
+    private val onItemClick: (Long) -> Unit
+) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(searchNovel: SearchResult) {
+    var novelId by Delegates.notNull<Long>()
+
+    init {
+        binding.root.setOnClickListener { onItemClick(novelId) }
+    }
+
+    fun onBind(searchResult: SearchNovelsResponse.Novel) {
         with(binding) {
-            ivSearchNovel.load(searchNovel.resultNovelImage)
-            tvSearchNovelTitle.text = searchNovel.resultNovelTitle
-            tvSearchNovelAuthor.text = searchNovel.resultNovelAuthor
-            tvSearchNovelGenre.text = searchNovel.resultNovelGenre
+            loadCoverImageRounded6(ivSearchNovel, searchResult.novelImg)
+            tvSearchNovelTitle.text = searchResult.novelTitle
+            tvSearchNovelAuthor.text = searchResult.novelAuthor
+            tvSearchNovelGenre.text = searchResult.novelGenre
+            novelId = searchResult.novelId
         }
     }
 
     companion object {
-        fun create(parent: ViewGroup): SearchViewHolder {
+        fun create(parent: ViewGroup, onItemClick: (Long) -> Unit): SearchViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = ItemSearchNovelBinding.inflate(inflater, parent, false)
-            return SearchViewHolder(binding)
+            return SearchViewHolder(binding, onItemClick)
         }
     }
 }

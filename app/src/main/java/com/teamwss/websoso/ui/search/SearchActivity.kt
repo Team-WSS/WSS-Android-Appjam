@@ -1,30 +1,63 @@
 package com.teamwss.websoso.ui.search
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivitySearchBinding
-import com.teamwss.websoso.ui.search.model.SearchResult
+import com.teamwss.websoso.ui.postNovel.PostNovelActivity
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.EXTRA_PAGE_SIZE
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.INPUT_DELAY
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.LAST_NOVEL_ID
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.PAGE_SIZE
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SearchActivity : AppCompatActivity() {
+    private val viewModel by viewModels<SearchViewModel>()
     private lateinit var binding: ActivitySearchBinding
     private lateinit var searchAdapter: SearchAdapter
+
+    private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.ivSearchBack.setOnClickListener {
+            finish()
+        }
+
+        setTranslucentOnStatusBar()
         showKeyboardOnEditTextFocus()
         setupSearchEditText()
         handleSearchEditTextOnInputFinish()
         setupRecyclerView()
         setResultNovelList()
+        setupInfinityScroll()
+        isResultEmpty()
+    }
+
+    private fun setTranslucentOnStatusBar() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
     }
 
     private fun showKeyboardOnEditTextFocus() {
@@ -37,30 +70,49 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupSearchEditText() {
-        binding.etSearch.addTextChangedListener(getTextWatcher())
-        binding.ivSearchCancel.setOnClickListener {
-            clearSearchEditText()
-        }
+        setupTextWatcher()
+        setupTextRemover()
     }
 
-    private fun getTextWatcher(): TextWatcher {
-        return object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
+    private fun setupTextWatcher() {
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                text: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
             }
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                updateSearchViewBackground()
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(2000L)
+                    viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, text.toString())
+                }
             }
 
-            override fun afterTextChanged(text: Editable?) {
-                toggleCancelVisibility(text)
+            override fun afterTextChanged(test: Editable?) {
+                toggleCancelVisibility(test)
             }
+        })
+    }
+
+    private fun handleTextChange(
+        handler: Handler,
+        delaySearchRunnable: Runnable
+    ) {
+        if (binding.etSearch.text.isNotEmpty()) {
+            handler.removeCallbacks(delaySearchRunnable)
+            handler.postDelayed(delaySearchRunnable, INPUT_DELAY)
+            binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
         }
     }
 
-    private fun updateSearchViewBackground() {
-        binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
+    private fun setupTextRemover() {
+        binding.ivSearchCancel.setOnClickListener {
+            binding.etSearch.text.clear()
+        }
     }
 
     private fun toggleCancelVisibility(text: Editable?) {
@@ -69,10 +121,6 @@ class SearchActivity : AppCompatActivity() {
         } else {
             binding.ivSearchCancel.visibility = View.VISIBLE
         }
-    }
-
-    private fun clearSearchEditText() {
-        binding.etSearch.text.clear()
     }
 
     private fun handleSearchEditTextOnInputFinish() {
@@ -86,6 +134,8 @@ class SearchActivity : AppCompatActivity() {
                 inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
                 binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_radius_12dp)
                 isHandled = true
+
+                viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, binding.etSearch.text.toString())
             } else {
                 binding.clSearchView.setBackgroundResource(R.color.transparent)
             }
@@ -94,65 +144,55 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        searchAdapter = SearchAdapter()
+        searchAdapter = SearchAdapter { novelId ->
+            navigateToPostNovelActivity(novelId)
+        }
         binding.rvSearchResult.adapter = searchAdapter
     }
 
+    private fun navigateToPostNovelActivity(novelId: Long) {
+        val intent = PostNovelActivity.newIntent(this, novelId)
+        startActivity(intent)
+    }
+
     private fun setResultNovelList() {
-        val resultList = mockResultNovelList
-        searchAdapter.setResultNovelList(resultList)
+        viewModel.searchResult.observe(this) {
+            searchAdapter.setResultNovelList(it.novels)
+        }
+    }
+
+    private fun setupInfinityScroll() {
+        binding.rvSearchResult.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount - EXTRA_PAGE_SIZE
+
+                if (lastVisibleItemPosition == itemTotalCount && viewModel.isLoading.value != true) {
+                    viewModel.searchNovels(
+                        LAST_NOVEL_ID, PAGE_SIZE, viewModel.searchWord.value.toString()
+                    )
+                }
+            }
+        })
+    }
+
+    private fun isResultEmpty() {
+        viewModel.searchResult.observe(this) {
+            if (it.novels.isEmpty()) {
+                binding.clSearchResultNoExist.visibility = View.VISIBLE
+            } else {
+                binding.clSearchResultNoExist.visibility = View.GONE
+            }
+        }
     }
 
     companion object {
-        private val mockResultNovelList = listOf<SearchResult>(
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서라는 웹소설이있어요 이거는 겁나 긴 제목을 위한 것입니다 과연 이게 어떻게 나올까요 나도 궁금하네요",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-            SearchResult(
-                resultNovelImage = R.drawable.img_cover_test,
-                resultNovelTitle = "당신의 이해를 돕기 위해서",
-                resultNovelAuthor = "이보라",
-                resultNovelGenre = "로판",
-            ),
-        )
+        fun newIntent(context: Context): Intent {
+            return Intent(context, PostNovelActivity::class.java).apply {
+            }
+        }
     }
 }

@@ -20,12 +20,12 @@ interface UserNovelService {
         @Query("sortType") sortType: String
     ): UserNovelsResponse
 
-    @GET("/novels/{novelId}")
+    @GET("novels/{novelId}")
     suspend fun getEditNovelInfo(
         @Path("novelId") novelId: Long
     ): UserNovelPostResponse
 
-    @PATCH("/user-novels/{userNovelId}")
+    @PATCH("user-novels/{userNovelId}")
     suspend fun patchPostNovelInfo(
         @Path("userNovelId") userNovelId: Long,
         @Body request: NovelPostRequest,
