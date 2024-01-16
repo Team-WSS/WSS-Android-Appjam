@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.ui.main.record.model.Memo
 
 class RecordAdapter : RecyclerView.Adapter<RecordViewHolder>() {
-    private val memoItems: MutableList<Memo> = mutableListOf()
+    private var memoItems: MutableList<Memo> = mutableListOf()
     lateinit var onItemClickListener: ((Memo) -> Unit)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecordViewHolder {
@@ -23,7 +23,7 @@ class RecordAdapter : RecyclerView.Adapter<RecordViewHolder>() {
     override fun getItemCount() = memoItems.size
 
     fun updateMemoItems(memos: List<Memo>) {
-        memoItems.addAll(memos)
+        this.memoItems = memos.toList().toMutableList()
         notifyDataSetChanged()
     }
 
