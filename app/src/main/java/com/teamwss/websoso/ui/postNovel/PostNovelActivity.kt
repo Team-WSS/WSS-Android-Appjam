@@ -18,7 +18,6 @@ import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.dialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
-import com.teamwss.websoso.ui.postNovel.model.PostNovelInfoModel
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -181,16 +180,11 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun initUserNovelInfo() {
-        if (intent.hasExtra(USER_NOVEL_INFO)) {
-            val userNovelInfo = intent.getParcelableExtra<PostNovelInfoModel>(USER_NOVEL_INFO)!!
-            postNovelViewModel.initUserNovelInfo(userNovelInfo)
-        } else {
-            val novelId = intent.getLongExtra(NOVEL_ID, 0)
-            postNovelViewModel.fetchUserNovelInfo(novelId)
-            postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
-                if (!it && postNovelViewModel.novelInfo.value == null) {
-                    postNovelViewModel.fetchDefaultNovelInfo(novelId)
-                }
+        val novelId = intent.getLongExtra(NOVEL_ID, 0)
+        postNovelViewModel.fetchUserNovelInfo(novelId)
+        postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
+            if (!it && postNovelViewModel.novelInfo.value == null) {
+                postNovelViewModel.fetchDefaultNovelInfo(novelId)
             }
         }
     }
@@ -277,13 +271,6 @@ class PostNovelActivity : AppCompatActivity() {
         fun newIntent(context: Context, novelId: Long): Intent {
             return Intent(context, PostNovelActivity::class.java).apply {
                 putExtra(NOVEL_ID, novelId)
-            }
-        }
-
-        const val USER_NOVEL_INFO = "USER_NOVEL_INFO"
-        fun newIntentFromNovelDetail(context: Context, userNovelInfo: PostNovelInfoModel): Intent {
-            return Intent(context, PostNovelActivity::class.java).apply {
-                putExtra(USER_NOVEL_INFO, userNovelInfo)
             }
         }
     }
