@@ -180,13 +180,14 @@ fun setReadDateTilde(textView: TextView, status: String) {
     }
 }
 
-@BindingAdapter("observePlatformsUrl")
-fun setPlatformInfo(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
-    platformInfo.forEach {
-        when (it.platformName) {
-            "네이버시리즈" -> layout.visibility = View.VISIBLE
-            "카카오페이지" -> layout.visibility = View.VISIBLE
-            else -> layout.visibility = View.GONE
-        }
-    }
+@BindingAdapter("observeNaverSeriesPlatformUrl")
+fun observeNaverSeriesPlatform(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
+    val isNaverSeriesVisible = platformInfo.any { it.platformName == "네이버시리즈" }
+    layout.visibility = if (isNaverSeriesVisible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("observeKakaoPagePlatformUrl")
+fun observeKakaoPagePlatform(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
+    val isKakaoPageViesible = platformInfo.any {it.platformName == "카카오페이지"}
+    layout.visibility = if (isKakaoPageViesible) View.VISIBLE else View.GONE
 }

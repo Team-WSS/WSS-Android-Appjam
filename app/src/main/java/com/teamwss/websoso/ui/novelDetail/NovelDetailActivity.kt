@@ -130,8 +130,6 @@ class NovelDetailActivity : AppCompatActivity() {
                         }
                     })
                 }.show()
-            } else {
-                Snackbar.make(binding.root, "메모 저장에 실패했어요", Snackbar.LENGTH_SHORT).show()
             }
         }
     }

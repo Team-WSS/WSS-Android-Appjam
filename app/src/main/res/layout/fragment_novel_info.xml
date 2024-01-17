@@ -252,7 +252,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoNaverSeries"
-                observePlatformsUrl="@{novelDetailViewModel.platforms}"
+                observeNaverSeriesPlatformUrl="@{novelDetailViewModel.platforms}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -285,16 +285,17 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoKakaoPage"
-                observePlatformsUrl="@{novelDetailViewModel.platforms}"
+                observeKakaoPagePlatformUrl="@{novelDetailViewModel.platforms}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
                 android:background="@drawable/bg_primary50_radius_20dp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
-                app:layout_constraintBottom_toBottomOf="@id/clNovelInfoNaverSeries"
+                app:layout_goneMarginStart="0dp"
                 app:layout_constraintStart_toEndOf="@id/clNovelInfoNaverSeries"
-                app:layout_constraintTop_toTopOf="@id/clNovelInfoNaverSeries">
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoPlatformTitle">
 
                 <TextView
                     android:id="@+id/tvNovelInfoKakaoPage"
@@ -304,8 +305,7 @@
                     android:textAppearance="@style/body2"
                     android:textColor="@color/primary_100_6341F0"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <ImageView
                     android:layout_width="wrap_content"
