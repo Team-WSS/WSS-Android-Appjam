@@ -119,20 +119,16 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun checkIsDateNull(): NovelPostRequest {
-        return if (!binding.scPostDateSwitch.isChecked) {
-            (NovelPostRequest(
-                binding.rbPostRating.rating,
-                postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
-                null,
-                null
-            ))
-        } else {
-            (NovelPostRequest(
-                binding.rbPostRating.rating,
-                postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString(),
-                binding.tvPostReadDateStart.text.toString(),
-                binding.tvPostReadDateEnd.text.toString()
-            ))
+        val rating = binding.rbPostRating.rating
+        val readStatus = postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString()
+        val startDate = binding.tvPostReadDateStart.text.toString()
+        val endDate = binding.tvPostReadDateEnd.text.toString()
+
+        return when (readStatus) {
+            ReadStatus.FINISH.toString() -> NovelPostRequest(rating, readStatus, startDate, endDate)
+            ReadStatus.READING.toString() -> NovelPostRequest(rating, readStatus, startDate, null)
+            ReadStatus.DROP.toString() -> NovelPostRequest(rating, readStatus, null, endDate)
+            else -> NovelPostRequest(rating, readStatus, null, null)
         }
     }
 
