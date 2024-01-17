@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail
 
+import CustomSnackBar
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -19,7 +20,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
@@ -117,21 +117,23 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun registerForPostMemoLauncher() {
-        postedMemoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                val isAvatarUnlocked = result.data?.getBooleanExtra("isAvatarUnlocked", false) ?: false
-                Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).apply {
-                    addCallback(object : Snackbar.Callback() {
-                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                            super.onDismissed(transientBottomBar, event)
-                            if (isAvatarUnlocked) {
-                                Snackbar.make(binding.root, "아바타를 해금했어요", Snackbar.LENGTH_SHORT).show()
-                            }
-                        }
-                    })
-                }.show()
+        postedMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val isAvatarUnlocked =
+                        result.data?.getBooleanExtra("isAvatarUnlocked", false) ?: false
+                    val drawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
+                    CustomSnackBar.make(binding.root)
+                        .setText("메모를 저장했어요")
+                        .setIcon(
+                            drawable ?: ContextCompat.getDrawable(
+                                this,
+                                R.drawable.ic_alert_default
+                            )!!
+                        )
+                        .show()
+                }
             }
-        }
     }
 
     private fun updateToolbarAppearance(isCollapsed: Boolean) {
@@ -180,7 +182,7 @@ class NovelDetailActivity : AppCompatActivity() {
             val intent = MemoWriteActivity.newIntentFromDetail(
                 this,
                 userNovelId,
-                userNovelAuthor,
+                userNovelTitle,
                 userNovelAuthor,
                 userNovelImage
             )

@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
+import CustomSnackBar
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
@@ -53,7 +56,17 @@ class NovelMemoFragment : Fragment() {
         postMemoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).show()
+                    val drawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_alert_default)
+                    CustomSnackBar.make(binding.root)
+                        .setText("메모를 저장했어요")
+                        .setIcon(
+                            drawable ?: ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_alert_default
+                            )!!
+                        )
+                        .show()
                 }
             }
 
@@ -94,8 +107,10 @@ class NovelMemoFragment : Fragment() {
 
     private fun observeUserNovelData() {
         novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) {
-            userNovelAuthor = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
-            userNovelTitle = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
+            userNovelAuthor =
+                novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
+            userNovelTitle =
+                novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
             userNovelImage = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelImg
         }
     }
