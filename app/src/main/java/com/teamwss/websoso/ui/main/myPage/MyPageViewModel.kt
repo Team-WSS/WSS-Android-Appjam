@@ -66,7 +66,19 @@ class MyPageViewModel(
                 _selectedAvatarId.value = id
                 Log.e("getAvatar", "getAvatar: ${_selectedAvatar.value}")
             }.onFailure {
-                Log.d("error", it.toString())
+                Log.e("error", it.toString())
+            }
+        }
+    }
+
+    fun patchRepresentativeAvatar() {
+        viewModelScope.launch {
+            runCatching {
+                selectedAvatarId.value?.let { avatarRepository.patchRepresentativeAvatar(it) }
+            }.onSuccess {
+                Log.e("patchAvatar", "patchAvatar: $it")
+            }.onFailure {
+                Log.e("error", it.toString())
             }
         }
     }

@@ -92,10 +92,9 @@ class MyPageFragment : Fragment() {
     }
 
     private fun showAvatarDialog(id: Long) {
-        Toast.makeText(requireContext(), "id: $id", Toast.LENGTH_SHORT).show()
         myPageViewModel.getAvatar(id)
         val dialogFragment = AvatarDialogFragment.newInstance()
-        dialogFragment.show(parentFragmentManager, AvatarDialogFragment.TAG)
+        dialogFragment.show(childFragmentManager, AvatarDialogFragment.TAG)
     }
 
     companion object {
