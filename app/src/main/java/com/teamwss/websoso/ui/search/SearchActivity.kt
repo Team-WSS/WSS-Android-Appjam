@@ -7,21 +7,19 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivitySearchBinding
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.EXTRA_PAGE_SIZE
-import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.SEARCH_DELAY
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.LAST_NOVEL_ID
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.PAGE_SIZE
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.SEARCH_DELAY
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,7 +43,6 @@ class SearchActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         showKeyboardOnEditTextFocus()
         setupSearchEditText()
-        handleSearchEditTextOnInputFinish()
         setupRecyclerView()
         setResultNovelList()
         setupInfinityScroll()
@@ -109,26 +106,6 @@ class SearchActivity : AppCompatActivity() {
             binding.ivSearchCancel.visibility = View.GONE
         } else {
             binding.ivSearchCancel.visibility = View.VISIBLE
-        }
-    }
-
-    private fun handleSearchEditTextOnInputFinish() {
-        binding.etSearch.setOnEditorActionListener { _, action, _ ->
-            binding.clSearchView.setBackgroundResource(R.color.transparent)
-            var isHandled: Boolean = false
-
-            if (action == EditorInfo.IME_ACTION_DONE) {
-                val inputMethodManager =
-                    this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
-                binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_radius_12dp)
-                isHandled = true
-
-                viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, binding.etSearch.text.toString())
-            } else {
-                binding.clSearchView.setBackgroundResource(R.color.transparent)
-            }
-            isHandled
         }
     }
 
