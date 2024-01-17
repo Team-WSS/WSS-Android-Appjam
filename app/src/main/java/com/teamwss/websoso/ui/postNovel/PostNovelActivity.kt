@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -116,7 +115,6 @@ class PostNovelActivity : AppCompatActivity() {
     private fun navigateToNovelDetail() {
         val intent =
             NovelDetailActivity.createIntent(this, postNovelViewModel.novelInfo.value?.id ?: 0)
-        Log.e("test123", postNovelViewModel.newUserNovelId.value.toString())
         startActivity(intent)
         finish()
     }
