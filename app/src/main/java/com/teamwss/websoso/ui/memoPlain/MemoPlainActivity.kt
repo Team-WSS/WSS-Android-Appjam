@@ -5,8 +5,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.databinding.ActivityMemoPlainBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import kotlin.properties.Delegates
@@ -24,6 +27,8 @@ class MemoPlainActivity : AppCompatActivity() {
         DialogMemoDelete(::finish)
     }
 
+    private lateinit var patchedMemoLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoPlainBinding.inflate(layoutInflater)
@@ -32,6 +37,13 @@ class MemoPlainActivity : AppCompatActivity() {
         memoId = intent.getLongExtra("memoId", -1)
         memoPlainViewModel.updateMemoId(memoId)
         memoPlainViewModel.getMemo(memoId)
+
+        patchedMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    Snackbar.make(binding.root, "메모를 수정했어요", Snackbar.LENGTH_SHORT).show()
+                }
+            }
 
         setTranslucentOnStatusBar()
         setupLifecycleOwner()
@@ -99,8 +111,7 @@ class MemoPlainActivity : AppCompatActivity() {
             val intent = MemoWriteActivity.newIntentFromPlain(
                 this, memoId, memoContent, userNovelTitle, userNovelAuthor, userNovelImage
             )
-            startActivity(intent)
-            finish()
+            patchedMemoLauncher.launch(intent)
         }
     }
 

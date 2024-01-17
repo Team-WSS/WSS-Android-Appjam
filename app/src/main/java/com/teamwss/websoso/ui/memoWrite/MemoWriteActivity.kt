@@ -39,6 +39,7 @@ class MemoWriteActivity : AppCompatActivity() {
         observeMemoContent()
         onClickBackButton()
         observePostMemoSuccess()
+        observePatchedMemoSuccess()
 
         if (userNovelId != -1L) {
             clickListenerPostMemo(userNovelId)
@@ -126,10 +127,24 @@ class MemoWriteActivity : AppCompatActivity() {
         }
     }
 
+    private fun observePatchedMemoSuccess() {
+        memoWriteViewModel.isMemoPatched.observe(this) { isPatched ->
+            if (isPatched) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    "메모 저장에 실패했어요",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
     private fun clickListenerPatchMemo(memoId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.patchMemo(memoId)
-            finish()
         }
     }
 

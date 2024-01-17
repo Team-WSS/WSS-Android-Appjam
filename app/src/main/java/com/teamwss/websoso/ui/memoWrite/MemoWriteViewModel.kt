@@ -34,6 +34,9 @@ class MemoWriteViewModel : ViewModel() {
     private var _isMemoPosted: MutableLiveData<Boolean> = MutableLiveData()
     val isMemoPosted: LiveData<Boolean> = _isMemoPosted
 
+    private var _isMemoPatched: MutableLiveData<Boolean> = MutableLiveData()
+    val isMemoPatched: LiveData<Boolean> = _isMemoPatched
+
     fun postMemo(userNovelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -56,9 +59,9 @@ class MemoWriteViewModel : ViewModel() {
                     MemoWriteRequest(_memoContent.value.toString())
                 )
             }.onSuccess {
-                Log.d("fatchMemo", "성공")
+                _isMemoPatched.value = true
             }.onFailure {
-                Log.d("fatchMemo", "실패")
+                _isMemoPatched.value = false
             }
         }
     }
