@@ -6,7 +6,6 @@ import com.teamwss.websoso.ui.main.myPage.model.Avatar
 
 class MyPageAdapter(
     private val onClick: (Long) -> Unit,
-    private val representativeAvatarId: Long
 ) : RecyclerView.Adapter<MyPageViewHolder>() {
     private val avatarItems: MutableList<Avatar> = mutableListOf()
 
@@ -16,7 +15,7 @@ class MyPageAdapter(
     }
 
     override fun onBindViewHolder(holder: MyPageViewHolder, position: Int) {
-        holder.onBind(avatarItems[position], representativeAvatarId)
+        holder.onBind(avatarItems[position])
     }
 
     override fun getItemCount() = avatarItems.size

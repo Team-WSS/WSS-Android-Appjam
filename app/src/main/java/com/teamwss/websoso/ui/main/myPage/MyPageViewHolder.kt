@@ -18,10 +18,10 @@ class MyPageViewHolder(
         }
     }
 
-    fun onBind(avatar: Avatar, representativeAvatarId: Long) {
+    fun onBind(avatar: Avatar) {
         binding.avatar = avatar
 
-        if (avatar.avatarId == representativeAvatarId) {
+        if (avatar.isRepresentativeAvatar) {
             binding.ivAvatar.setBackgroundResource(R.drawable.bg_stroke_primary100_20)
         } else {
             binding.ivAvatar.setBackgroundResource(0)

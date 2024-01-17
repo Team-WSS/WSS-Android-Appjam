@@ -2,6 +2,7 @@ package com.teamwss.websoso.ui.main.myPage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ class MyPageFragment : Fragment() {
         MyPageViewModel.Factory
     }
     private val avatarAdapter: MyPageAdapter by lazy {
-        MyPageAdapter(::showAvatarDialog, myPageViewModel.userInfo.value?.representativeAvatarId ?: 1)
+        MyPageAdapter(::showAvatarDialog)
     }
     private lateinit var changeNicknameActivityResultLauncher: ActivityResultLauncher<Intent>
 
@@ -42,6 +43,11 @@ class MyPageFragment : Fragment() {
         setupEditButtonClickListener()
         setupCheckUserInfoButtonClickListener()
         observeUserAvatar()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        myPageViewModel.getMyPageUserInfo()
     }
 
     private fun setupChangeNicknameActivityResultLauncher() {

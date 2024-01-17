@@ -4,4 +4,5 @@ data class Avatar(
     val avatarId:Long,
     val avatarImg: String,
     val hasAvatar:Boolean,
+    val isRepresentativeAvatar : Boolean = false,
 )

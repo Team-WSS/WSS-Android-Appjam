@@ -46,11 +46,11 @@ class MyPageViewModel(
                         avatarId = it.avatarId,
                         avatarImg = it.avatarImg,
                         hasAvatar = it.hasAvatar,
+                        isRepresentativeAvatar = result.representativeAvatarId == it.avatarId
                     )
                 }
-                _avatars.value = newAvatars
                 _userInfo.value = result
-
+                _avatars.value = newAvatars
             }.onFailure {
                 Log.d("error", it.toString())
             }
