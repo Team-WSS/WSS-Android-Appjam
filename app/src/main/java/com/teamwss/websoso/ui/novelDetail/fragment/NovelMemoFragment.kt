@@ -49,7 +49,17 @@ class NovelMemoFragment : Fragment() {
         deleteMemoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    Snackbar.make(binding.root, "메모 삭제 성공", Snackbar.LENGTH_SHORT).show()
+                    val drawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_alert_warning)
+                    CustomSnackBar.make(binding.root)
+                        .setText("메모를 삭제했어요")
+                        .setIcon(
+                            drawable ?: ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_alert_warning
+                            )!!
+                        )
+                        .show()
                 }
             }
 

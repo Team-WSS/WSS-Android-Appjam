@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogMemoDeleteBinding
 
 class DialogMemoDelete(private val memoDeleteSuccess: () -> Unit) : DialogFragment() {
@@ -64,11 +66,17 @@ class DialogMemoDelete(private val memoDeleteSuccess: () -> Unit) : DialogFragme
                 memoDeleteSuccess()
                 dismiss()
             } else {
-                Snackbar.make(
-                    requireActivity().findViewById(android.R.id.content),
-                    "메모 삭제 실패",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                val drawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_alert_warning)
+                CustomSnackBar.make(binding.root)
+                    .setText("메모를 저장에 실패했어요")
+                    .setIcon(
+                        drawable ?: ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_alert_warning
+                        )!!
+                    )
+                    .show()
             }
         }
     }
