@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.memoWrite
 
+import CustomSnackBar
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -39,6 +40,7 @@ class MemoWriteActivity : AppCompatActivity() {
         updateUserNovelToViewModel()
         updateMemoContentToViewModel()
         observeMemoContent()
+        observeMemoContentIsChanged()
         onClickBackButton()
         observePostMemoSuccess()
         observePatchedMemoSuccess()
@@ -96,17 +98,31 @@ class MemoWriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickBackButton() {
-        binding.ivMemoWriteCancelBtn.setOnClickListener {
-            if (validateMemoContent(memoContent)) {
-                dialogMemoCancel.show((supportFragmentManager), "memoCancelDialog")
-            } else {
-                finish()
+    private fun observeMemoContentIsChanged() {
+        memoWriteViewModel.isChanged.observe(this) { isChanged ->
+            if (isChanged) {
+                binding.tvMemoWriteCompleteBtn.isEnabled = true
+                binding.tvMemoWriteCompleteBtn.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.primary_100_6341F0
+                    )
+                )
             }
         }
     }
 
-    private fun validateMemoContent(memoContent: String?): Boolean = memoContent?.isBlank() != true
+    private fun onClickBackButton() {
+        binding.ivMemoWriteCancelBtn.setOnClickListener {
+            memoWriteViewModel.isChanged.observe(this) { isChanged ->
+                if (isChanged) {
+                    dialogMemoCancel.show((supportFragmentManager), "memoCancelDialog")
+                } else {
+                    finish()
+                }
+            }
+        }
+    }
 
     private fun clickListenerPostMemo(userNovelId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {

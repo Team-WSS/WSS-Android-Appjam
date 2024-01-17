@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.memoWrite
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,6 +11,11 @@ import kotlinx.coroutines.launch
 class MemoWriteViewModel : ViewModel() {
     private var _memoContent: MutableLiveData<String?> = MutableLiveData("")
     val memoContent: MutableLiveData<String?> = _memoContent
+
+    private var initialMemoContent: String? = null
+
+    private var _isChanged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isChanged: LiveData<Boolean> = _isChanged
 
     private var _isAvatarUnlocked: MutableLiveData<Boolean> = MutableLiveData()
     val isAvatarUnlocked: LiveData<Boolean> = _isAvatarUnlocked
@@ -43,7 +47,7 @@ class MemoWriteViewModel : ViewModel() {
                 ServicePool.memoService.postMemo(
                     userNovelId, MemoWriteRequest(_memoContent.value.toString())
                 )
-            }.onSuccess {response ->
+            }.onSuccess { response ->
                 _isMemoPosted.value = true
                 _isAvatarUnlocked.value = response.isAvatarUnlocked
             }.onFailure {
@@ -82,10 +86,20 @@ class MemoWriteViewModel : ViewModel() {
     }
 
     fun getMemoContent(memoContent: String) {
+        if (initialMemoContent == null) {
+            initialMemoContent = memoContent
+        }
         _memoContent.value = memoContent
+        checkIfContentChanged()
     }
 
     fun updateMemoContent(memoContent: String) {
         _memoContent.value = memoContent
+        checkIfContentChanged()
+    }
+
+    private fun checkIfContentChanged() {
+        val currentContent = _memoContent.value.orEmpty()
+        _isChanged.value = currentContent != initialMemoContent || currentContent.isEmpty()
     }
 }
