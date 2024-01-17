@@ -64,9 +64,8 @@ class MyPageViewModel(
             }.onSuccess {
                 _selectedAvatar.value = it
                 _selectedAvatarId.value = id
-                Log.e("getAvatar", "getAvatar: ${_selectedAvatar.value}")
             }.onFailure {
-                Log.e("error", it.toString())
+                Log.e("getAvatar error", it.toString())
             }
         }
     }
@@ -76,9 +75,9 @@ class MyPageViewModel(
             runCatching {
                 selectedAvatarId.value?.let { avatarRepository.patchRepresentativeAvatar(it) }
             }.onSuccess {
-                Log.e("patchAvatar", "patchAvatar: $it")
+                Log.e("patchAvatar", "patchAvatar: Success $it")
             }.onFailure {
-                Log.e("error", it.toString())
+                Log.e("patchAvatar error", it.toString())
             }
         }
     }

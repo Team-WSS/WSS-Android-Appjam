@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.main.myPage
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ItemAvatarBinding
 import com.teamwss.websoso.ui.main.myPage.model.Avatar
@@ -19,7 +18,7 @@ class MyPageViewHolder(
         }
     }
 
-    fun onBind(avatar: Avatar,representativeAvatarId: Long) {
+    fun onBind(avatar: Avatar, representativeAvatarId: Long) {
         binding.avatar = avatar
 
         if (avatar.avatarId == representativeAvatarId) {

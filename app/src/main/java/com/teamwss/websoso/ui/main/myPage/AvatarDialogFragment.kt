@@ -31,11 +31,9 @@ class AvatarDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         myPageViewModel = ViewModelProvider(requireParentFragment()).get(MyPageViewModel::class.java)
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = myPageViewModel
 
-
-        Toast.makeText(requireContext(), myPageViewModel.selectedAvatarId.value.toString(), Toast.LENGTH_SHORT).show()
         setupDialogUI()
         setupRepresentativeAvatarButtonClickListener()
     }
@@ -58,7 +56,6 @@ class AvatarDialogFragment : DialogFragment() {
 
     companion object {
         const val TAG = "AvatarDialogFragment"
-        private const val ARG_AVATAR_ID = "avatar_id"
 
         fun newInstance() = AvatarDialogFragment()
     }
