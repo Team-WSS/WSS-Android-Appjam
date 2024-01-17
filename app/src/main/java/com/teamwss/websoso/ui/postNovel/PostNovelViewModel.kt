@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.postNovel.postNovelViewModel
+package com.teamwss.websoso.ui.postNovel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +9,7 @@ import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
 import com.teamwss.websoso.ui.common.model.Platforms
 import com.teamwss.websoso.ui.common.model.ReadStatus
-import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
+import com.teamwss.websoso.ui.postNovel.model.PostNovelInfoModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 

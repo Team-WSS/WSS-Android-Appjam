@@ -7,7 +7,7 @@
 
         <variable
             name="postNovelViewModel"
-            type="com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel" />
+            type="com.teamwss.websoso.ui.postNovel.PostNovelViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

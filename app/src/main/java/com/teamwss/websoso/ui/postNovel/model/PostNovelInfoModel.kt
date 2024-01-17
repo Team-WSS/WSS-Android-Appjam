@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.postNovel.postNovelModel
+package com.teamwss.websoso.ui.postNovel.model
 
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
 import com.teamwss.websoso.ui.common.model.ReadStatus

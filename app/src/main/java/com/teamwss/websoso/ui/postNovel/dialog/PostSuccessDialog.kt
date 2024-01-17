@@ -1,10 +1,9 @@
-package com.teamwss.websoso.ui.postNovel.postNovelDialog
+package com.teamwss.websoso.ui.postNovel.dialog
 
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.databinding.DialogPostSuccessBinding
 import com.teamwss.websoso.ui.main.MainActivity
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
-import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
+import com.teamwss.websoso.ui.postNovel.PostNovelViewModel
 
 class PostSuccessDialog(private val clickNavigateToMemo: () -> Unit) : DialogFragment() {
 
