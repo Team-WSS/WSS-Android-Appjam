@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -94,17 +95,19 @@ class PostNovelActivity : AppCompatActivity() {
         binding.fbPostButton.setOnClickListener {
             saveNovelInfo()
 
-            val isServerError = postNovelViewModel.isServerError.value ?: true
-            val isNovelAlreadyPosted = postNovelViewModel.isNovelAlreadyPosted.value
+            val isSaveError = postNovelViewModel.isSaveError.value ?: true
+            val isNovelAlreadyPosted: Boolean =
+                postNovelViewModel.isNovelAlreadyPosted.value ?: true
             val isTitleNotEmpty = !binding.tvPostNovelTitle.text.isNullOrEmpty()
 
             when {
-                isServerError && isNovelAlreadyPosted == false && isTitleNotEmpty -> {
+                !isSaveError && !isNovelAlreadyPosted && isTitleNotEmpty -> {
                     showPostSuccessDialog()
                 }
 
-                isServerError && isNovelAlreadyPosted == true && isTitleNotEmpty -> {
+                !isSaveError && isNovelAlreadyPosted && isTitleNotEmpty -> {
                     navigateToNovelDetail()
+                    finish()
                 }
             }
         }
@@ -113,6 +116,7 @@ class PostNovelActivity : AppCompatActivity() {
     private fun navigateToNovelDetail() {
         val intent =
             NovelDetailActivity.createIntent(this, postNovelViewModel.novelInfo.value?.id ?: 0)
+        Log.e("test123", postNovelViewModel.newUserNovelId.value.toString())
         startActivity(intent)
         finish()
     }
@@ -136,7 +140,8 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun saveNovelInfo() {
-        val id = postNovelViewModel.novelInfo.value?.id ?: -1
+        val errorId: Long = 0
+        val id = postNovelViewModel.novelInfo.value?.id ?: errorId
         val request = checkIsDateNull()
 
         if (postNovelViewModel.isNovelAlreadyPosted.value == false) {
@@ -172,7 +177,7 @@ class PostNovelActivity : AppCompatActivity() {
         if (postSuccessDialog == null || !postSuccessDialog!!.isAdded) {
             postNovelViewModel.updateIsDialogShown(true)
 
-            postSuccessDialog = PostSuccessDialog()
+            postSuccessDialog = PostSuccessDialog(::finish)
             postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
         }
     }
@@ -251,7 +256,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupIsServerError() {
-        postNovelViewModel.isServerError.observe(this) {
+        val showErrorSnackbar: (Boolean) -> Unit = {
             if (it) {
                 Snackbar.make(
                     binding.root,
@@ -260,11 +265,19 @@ class PostNovelActivity : AppCompatActivity() {
                 ).show()
             }
         }
+        postNovelViewModel.isFetchError.observe(this, showErrorSnackbar)
+        postNovelViewModel.isSaveError.observe(this, showErrorSnackbar)
     }
 
     companion object {
         const val NOVEL_ID = "NOVEL_ID"
         fun newIntent(context: Context, novelId: Long): Intent {
+            return Intent(context, PostNovelActivity::class.java).apply {
+                putExtra(NOVEL_ID, novelId)
+            }
+        }
+
+        fun newIntentFromNovelDetail(context: Context, novelId: Long): Intent {
             return Intent(context, PostNovelActivity::class.java).apply {
                 putExtra(NOVEL_ID, novelId)
             }

@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.postNovel.postNovelViewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -52,8 +51,12 @@ class PostNovelViewModel : ViewModel() {
     val naverUrl: LiveData<String> get() = _naverUrl
     private val _kakaoUrl = MutableLiveData<String>("")
     val kakaoUrl: LiveData<String> get() = _kakaoUrl
-    private val _isServerError = MutableLiveData<Boolean>()
-    val isServerError: LiveData<Boolean> get() = _isServerError
+    private val _isFetchError = MutableLiveData<Boolean>()
+    val isFetchError: LiveData<Boolean> get() = _isFetchError
+    private val _isSaveError = MutableLiveData<Boolean>()
+    val isSaveError: LiveData<Boolean> get() = _isSaveError
+    private val _newUserNovelId = MutableLiveData<Long>()
+    val newUserNovelId: LiveData<Long> get() = _newUserNovelId
 
     fun fetchUserNovelInfo(novelId: Long) {
         viewModelScope.launch {
@@ -61,7 +64,7 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.userNovelService.getEditNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
-                _isServerError.value = false
+                _isFetchError.value = false
                 _isNovelAlreadyPosted.value = true
             }.onFailure {
                 _isNovelAlreadyPosted.value = false
@@ -75,10 +78,10 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.novelService.getPostNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
-                _isServerError.value = false
+                _isFetchError.value = false
                 _isNovelAlreadyPosted.value = false
             }.onFailure {
-                _isServerError.value = true
+                _isFetchError.value = true
             }
         }
     }
@@ -88,9 +91,10 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.novelService.postPostNovelInfo(novelId, request)
             }.onSuccess {
-                _isServerError.value = false
+                _newUserNovelId.value = it.userNovelId
+                _isSaveError.value = false
             }.onFailure {
-                _isServerError.value = true
+                _isSaveError.value = true
             }
         }
     }
@@ -100,9 +104,9 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.userNovelService.patchPostNovelInfo(novelId, request)
             }.onSuccess {
-                _isServerError.value = false
+                _isSaveError.value = false
             }.onFailure {
-                _isServerError.value = true
+                _isSaveError.value = true
             }
         }
     }

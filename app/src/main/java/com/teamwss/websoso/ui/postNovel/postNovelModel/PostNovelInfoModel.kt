@@ -5,15 +5,15 @@ import com.teamwss.websoso.ui.common.model.ReadStatus
 import java.time.LocalDate
 
 data class PostNovelInfoModel(
-    val author: String,
-    val description: String,
-    val genre: String,
-    val id: Long,
-    val image: String,
+    var id: Long,
     val title: String,
-    val platforms: List<NovelPlatformPostResponse>,
+    val author: String,
+    val genre: String,
+    val image: String,
+    val description: String,
     val rating: Float? = 0F,
     val readStatus: String = ReadStatus.FINISH.toString(),
     val readStartDate: String? = LocalDate.now().toString(),
     val readEndDate: String? = LocalDate.now().toString(),
+    val platforms: List<NovelPlatformPostResponse>,
 )
