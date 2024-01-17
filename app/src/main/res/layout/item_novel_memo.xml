@@ -54,6 +54,7 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="48dp"
+            android:breakStrategy="simple"
             android:ellipsize="end"
             android:maxLines="5"
             android:text="@{novelMemos.memoContent}"

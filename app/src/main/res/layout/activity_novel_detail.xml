@@ -68,6 +68,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
+                            android:breakStrategy="simple"
                             android:ellipsize="end"
                             android:maxLines="3"
                             android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelTitle}"

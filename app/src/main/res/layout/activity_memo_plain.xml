@@ -145,6 +145,7 @@
                     android:id="@+id/tvMemoPlainContentMemo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:breakStrategy="simple"
                     android:text="@{memoPlainViewModel.memo.memoContent}"
                     android:textAppearance="@style/body1"
                     android:textColor="@color/black"

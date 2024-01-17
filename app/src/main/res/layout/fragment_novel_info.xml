@@ -208,6 +208,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
+                android:breakStrategy="simple"
                 android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelDescription}"
                 android:textAppearance="@style/body2"
                 android:textColor="@color/gray_300_52515F"
@@ -293,9 +294,9 @@
                 android:background="@drawable/bg_primary50_radius_20dp"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="8dp"
-                app:layout_goneMarginStart="0dp"
                 app:layout_constraintStart_toEndOf="@id/clNovelInfoNaverSeries"
-                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoPlatformTitle">
+                app:layout_constraintTop_toBottomOf="@id/tvNovelInfoPlatformTitle"
+                app:layout_goneMarginStart="0dp">
 
                 <TextView
                     android:id="@+id/tvNovelInfoKakaoPage"
