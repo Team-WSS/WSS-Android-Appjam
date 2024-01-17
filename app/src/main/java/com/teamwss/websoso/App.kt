@@ -5,8 +5,10 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import com.teamwss.websoso.data.NetworkModule
 import com.teamwss.websoso.data.local.WebsosoLocalStorage
+import com.teamwss.websoso.data.remote.service.AuthService
 import com.teamwss.websoso.data.remote.service.AvatarService
 import com.teamwss.websoso.data.remote.service.UserNovelService
+import com.teamwss.websoso.data.repository.AuthRepository
 import com.teamwss.websoso.data.repository.AvatarRepository
 import com.teamwss.websoso.data.repository.UserNovelsRepository
 
@@ -35,6 +37,12 @@ class App : Application() {
             val avatarService: AvatarService = NetworkModule.create<AvatarService>()
 
             return AvatarRepository(avatarService)
+        }
+
+        fun getAuthRepository(): AuthRepository {
+            val authService: AuthService = NetworkModule.create<AuthService>()
+
+            return AuthRepository(authService)
         }
     }
 }

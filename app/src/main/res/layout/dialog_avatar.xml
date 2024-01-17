@@ -1,123 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/clAvatarDialog"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_bottom_nav"
-    android:padding="30dp">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.teamwss.websoso.ui.main.myPage.MyPageViewModel" />
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clDialogHeader"
-        android:layout_width="wrap_content"
+        android:id="@+id/clAvatarDialog"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_gray100_radius_999dp"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@drawable/shape_bottom_nav"
+        android:padding="30dp">
 
-        <ImageView
-            android:id="@+id/ivDialogAvatarGenre"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clDialogHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_genre_romance_fantasy"
+            android:background="@drawable/bg_gray100_radius_999dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivDialogAvatarGenre"
+                loadImageUrl="@{viewModel.selectedAvatar.avatarGenreBadgeImg}"
+                android:layout_width="30dp"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_foreground" />
+
+            <TextView
+                android:id="@+id/tvDialogAvatarTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@{viewModel.selectedAvatar.avatarTag}"
+                android:textAppearance="@style/headline1"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivDialogAvatarGenre"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="회귀자" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/avMyPageDialogAvatar"
+            loadLottieRawRes="@{viewModel.selectedAvatarId}"
+            android:layout_width="220dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="32dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="@id/clDialogHeader"
+            app:layout_constraintStart_toStartOf="@id/clDialogHeader"
+            app:layout_constraintTop_toBottomOf="@id/clDialogHeader"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
 
         <TextView
-            android:id="@+id/tvDialogAvatarTag"
+            android:id="@+id/tvDialogAvatarMent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
+            android:layout_marginTop="20dp"
+            android:text="@{viewModel.selectedAvatar.avatarMent}"
             android:textAppearance="@style/headline1"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/avMyPageDialogAvatar"
+            tools:text="아쉽지만 아직은 만날 때가 아니야" />
+
+        <TextView
+            android:id="@+id/tvDialogAvatarCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{viewModel.selectedAvatar.avatarCondition}"
+            android:textAppearance="@style/title1"
+            android:textColor="@color/gray_200_AEADB3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarMent"
+            tools:text="메모를 1개 작성하면 잠금해제 돼요" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDialogAvatarRepresent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_primary100_radius_12dp"
+            android:paddingHorizontal="44dp"
+            android:paddingVertical="16dp"
+            android:text="@string/dialog_avatar_represent"
+            android:textAppearance="@style/body1"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ivDialogAvatarGenre"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarCondition" />
+
+        <TextView
+            android:id="@+id/tvDialogAvatarMaintain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/dialog_avatar_maintain"
+            android:textAppearance="@style/body2"
+            android:textColor="@color/gray_300_52515F"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnDialogAvatarRepresent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDialogAvatarReturn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_primary100_radius_12dp"
+            android:paddingHorizontal="44dp"
+            android:paddingVertical="16dp"
+            android:text="@string/dialog_avatar_return"
+            android:textAppearance="@style/body1"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarCondition" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/ivDialogAvatar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="28dp"
-        android:padding="56dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="@id/clDialogHeader"
-        app:layout_constraintStart_toStartOf="@id/clDialogHeader"
-        app:layout_constraintTop_toBottomOf="@id/clDialogHeader" />
-
-    <TextView
-        android:id="@+id/tvDialogAvatarName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textAppearance="@style/headline1"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivDialogAvatar" />
-
-    <TextView
-        android:id="@+id/tvDialogAvatarSentence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textAppearance="@style/title1"
-        android:textColor="@color/gray_200_AEADB3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarName" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnDialogAvatarRepresent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_primary100_radius_12dp"
-        android:paddingHorizontal="44dp"
-        android:paddingVertical="16dp"
-        android:text="@string/dialog_avatar_represent"
-        android:textAppearance="@style/body1"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarSentence" />
-
-    <TextView
-        android:id="@+id/tvDialogAvatarMaintain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/dialog_avatar_maintain"
-        android:textAppearance="@style/body2"
-        android:textColor="@color/gray_300_52515F"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnDialogAvatarRepresent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnDialogAvatarReturn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_primary100_radius_12dp"
-        android:paddingHorizontal="44dp"
-        android:paddingVertical="16dp"
-        android:text="@string/dialog_avatar_return"
-        android:textAppearance="@style/body1"
-        android:textColor="@color/white"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarSentence" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

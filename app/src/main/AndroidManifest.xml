@@ -43,7 +43,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysVisible" />
         <activity
-            android:name=".ui.main.myPage.changeName.ChangeNameActivity"
+            android:name=".ui.main.myPage.changeNickName.ChangeNicknameActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

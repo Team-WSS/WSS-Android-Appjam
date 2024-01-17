@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class AvatarHomeResponse(
     @SerialName("avatarId")
-    val avatarId: Int,
+    val avatarId: Long,
     @SerialName("avatarLine")
     val avatarLine: String,
     @SerialName("avatarTag")

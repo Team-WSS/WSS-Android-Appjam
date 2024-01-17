@@ -13,7 +13,7 @@ import com.teamwss.websoso.databinding.FragmentRecordBinding
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
     private val recordViewModel: RecordViewModel by viewModels()
-    private val memoAdapter: RecordAdapter by lazy { RecordAdapter() }
+    private val memoAdapter: RecordAdapter by lazy { RecordAdapter(::navigateToMemoPlainActivity) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -28,7 +28,6 @@ class RecordFragment : Fragment() {
         setupRecyclerView()
         setupMemos()
         setupMemoCount()
-        setupMemoId()
     }
 
     private fun setupRecyclerView() {
@@ -43,10 +42,10 @@ class RecordFragment : Fragment() {
 
     private fun setupMemoCount() {
         recordViewModel.memoCount.observe(viewLifecycleOwner) { count ->
-            binding.tvRecordNovelCount.text = getString(R.string.record_novel_count,count)
+            binding.tvRecordNovelCount.text = getString(R.string.record_novel_count, count)
             when (count == 0L) {
                 true -> {
-                    binding.viewHeaderUnderLine.visibility=View.VISIBLE
+                    binding.viewHeaderUnderLine.visibility = View.VISIBLE
                     binding.lyNovelNoExist.visibility = View.VISIBLE
                     binding.lyNovelExist.visibility = View.INVISIBLE
                 }
@@ -59,15 +58,14 @@ class RecordFragment : Fragment() {
         }
     }
 
-    private fun setupMemoId() {
-        memoAdapter.onMemoItemClickListener { clickedMemo ->
-            Toast.makeText(requireContext(), "Memo ID: ${clickedMemo.novelId}", Toast.LENGTH_SHORT).show()
-        }
+    private fun navigateToMemoPlainActivity(memoId: Long) {
+        Toast.makeText(requireContext(), "Memo ID: ${memoId}", Toast.LENGTH_SHORT).show()
+        // TODO: 메모 상세보기로 이동
     }
 
-    private fun launchPostNovel(){
-        binding.btnRecordGoToPostNovel.setOnClickListener{
-            //TODO: 웹소설 일반등록으로 이동
+    private fun setupButtonRecordClickListener() {
+        binding.btnRecordGoToPostNovel.setOnClickListener {
+            // TODO: 웹소설 일반등록으로 이동
         }
     }
 

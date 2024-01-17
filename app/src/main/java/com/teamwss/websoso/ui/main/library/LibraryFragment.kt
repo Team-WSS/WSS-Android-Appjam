@@ -46,6 +46,11 @@ class LibraryFragment : Fragment() {
         observeCurrentNovels()
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getNovels(viewModel.readState.value ?: ReadState.ALL)
+    }
+
     private fun setupViewPager() {
         val viewPager = binding.vpLibraryNovel
         viewPager.adapter = viewPagerAdapter
@@ -92,7 +97,6 @@ class LibraryFragment : Fragment() {
             else -> ReadState.ALL
         }
     }
-
 
     private fun observeReadState() {
         viewModel.readState.observe(viewLifecycleOwner) { readState ->

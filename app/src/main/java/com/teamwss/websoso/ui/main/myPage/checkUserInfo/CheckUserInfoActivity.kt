@@ -1,12 +1,12 @@
 package com.teamwss.websoso.ui.main.myPage.checkUserInfo
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.teamwss.websoso.databinding.ActivityCheckUserInfoBinding
-import com.teamwss.websoso.ui.main.myPage.MyPageFragment
 
 class CheckUserInfoActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheckUserInfoBinding
@@ -15,8 +15,10 @@ class CheckUserInfoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCheckUserInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         setTranslucentOnStatusBar()
-        launchBackMyPageOnClick()
+        setupUI()
+        navigateToMainActivity()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -26,17 +28,24 @@ class CheckUserInfoActivity : AppCompatActivity() {
         )
     }
 
-    private fun launchBackMyPageOnClick() {
+    private fun setupUI() {
+        val userName = intent.getStringExtra(USER_NAME)
+        binding.tvCheckUserInfoNickName.text = userName
+    }
+
+    private fun navigateToMainActivity() {
         binding.ivCheckUserInfoBack.setOnClickListener {
-            try {
-                Intent(binding.root.context, MyPageFragment::class.java)
-                finish()
-            } catch (e: Exception) {
+            finish()
+        }
+    }
 
-                Log.e("error", "이동실패", e)
+    companion object {
+        const val USER_NAME = "userName"
 
+        fun createIntent(context: Context, userName: String): Intent {
+            return Intent(context, CheckUserInfoActivity::class.java).apply {
+                putExtra(USER_NAME, userName)
             }
         }
-
     }
 }

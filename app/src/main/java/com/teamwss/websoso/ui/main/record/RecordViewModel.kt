@@ -16,12 +16,6 @@ class RecordViewModel : ViewModel() {
     private val _memos = MutableLiveData<List<Memo>>()
     val memos: LiveData<List<Memo>> get() = _memos
 
-    var memoId: Long = INITIAL_ID
-        private set
-
-    private val _userMemoId = MutableLiveData<Long>()
-    val userMemoId: LiveData<Long> get() = _userMemoId
-
     init {
         updateMemo()
     }
@@ -30,30 +24,29 @@ class RecordViewModel : ViewModel() {
         viewModelScope.launch {
             runCatching {
                 ServicePool.memoService.getRecord(
-                    lastUserNovelId = memoId,
+                    INITIAL_ID,
                     size = SIZE,
                     sortType = "NEWEST"
                 )
             }.onSuccess { result ->
                 _memos.value = result.memos.map {
                     Memo(
-                        novelId = it.memoId,
-                        novelDate = it.memoDate,
+                        memoId = it.memoId,
+                        memoDate = it.memoDate,
                         novelTitle = it.novelTitle,
-                        novelContent = it.memoContent
+                        memoContent = it.memoContent
                     )
                 }
-                val lastMemo = result.memos.lastOrNull()
-                memoId = lastMemo?.memoId ?: 0
                 _memoCount.value = result.memoCount
             }.onFailure {
+                Log.d("RecordViewModel Error", it.toString())
             }
         }
     }
 
     companion object {
         private const val INITIAL_ID: Long = 99999
-        private const val SIZE: Int = 30
+        private const val SIZE: Int = 100
     }
 }
 

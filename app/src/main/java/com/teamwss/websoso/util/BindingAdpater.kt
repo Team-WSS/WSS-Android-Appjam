@@ -41,7 +41,7 @@ fun loadCoverImageBlurred5(view: ImageView, imageUrl: String?) {
 }
 
 @BindingAdapter("loadLottieRawRes")
-fun loadLottieAnimation(view: LottieAnimationView, avatarId: Int) {
+fun loadLottieAnimation(view: LottieAnimationView, avatarId: Long) {
     val resId = avatarId.toLottieImage()
     try {
         if (resId != 0) {
