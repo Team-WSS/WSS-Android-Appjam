@@ -85,7 +85,7 @@ class SearchActivity : AppCompatActivity() {
                 searchJob?.cancel()
                 searchJob = lifecycleScope.launch {
                     delay(autoSearchDelay)
-                    viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, text.toString())
+                    handleSearchTextChange(text)
                 }
             }
 
@@ -93,6 +93,14 @@ class SearchActivity : AppCompatActivity() {
                 toggleCancelVisibility(test)
             }
         })
+    }
+
+    private fun handleSearchTextChange(text: CharSequence?) {
+        if (text.isNullOrEmpty()) {
+            viewModel.removeSearchResult()
+            binding.clSearchResultNoExist.visibility = View.GONE
+        }
+        viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, text.toString())
     }
 
     private fun setupTextRemover() {

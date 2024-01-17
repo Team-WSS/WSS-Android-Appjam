@@ -20,8 +20,8 @@ class SearchViewModel : ViewModel() {
     val searchWord: LiveData<String> get() = _searchWord
 
     fun searchNovels(lastNovelId: Long, size: Int, word: String) {
+        if (word.isEmpty()) return
         if (word != _searchWord.value) _searchResult.value = SearchNovelsResponse(emptyList())
-
         _isLoading.value = true
         viewModelScope.launch {
             kotlin.runCatching {
@@ -36,6 +36,10 @@ class SearchViewModel : ViewModel() {
                 _isLoading.value = false
             }
         }
+    }
+
+    fun removeSearchResult() {
+        _searchResult.value = SearchNovelsResponse(emptyList())
     }
 
     companion object {
