@@ -36,6 +36,7 @@ class AvatarDialogFragment : DialogFragment() {
 
         setupDialogUI()
         setupRepresentativeAvatarButtonClickListener()
+        setupTextViewMaintainClickListener()
     }
 
     private fun setupDialogUI() {
@@ -44,6 +45,12 @@ class AvatarDialogFragment : DialogFragment() {
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             attributes?.windowAnimations = R.style.PostBottomSheetDialogAnimation
             setGravity(Gravity.BOTTOM)
+        }
+    }
+
+    private fun setupTextViewMaintainClickListener() {
+        binding.tvDialogAvatarMaintain.setOnClickListener {
+            dismiss()
         }
     }
 
