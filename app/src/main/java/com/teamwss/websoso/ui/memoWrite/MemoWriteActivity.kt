@@ -1,11 +1,13 @@
 package com.teamwss.websoso.ui.memoWrite
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.databinding.ActivityMemoWriteBinding
 import kotlin.properties.Delegates
 
@@ -36,6 +38,7 @@ class MemoWriteActivity : AppCompatActivity() {
         updateMemoContentToViewModel()
         observeMemoContent()
         onClickBackButton()
+        observePostMemoSuccess()
 
         if (userNovelId != -1L) {
             clickListenerPostMemo(userNovelId)
@@ -79,7 +82,7 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     private fun updateMemoContentToViewModel() {
-        if(memoId != -1L) {
+        if (memoId != -1L) {
             memoWriteViewModel.getMemoContent(memoContent!!)
         }
     }
@@ -105,7 +108,21 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun clickListenerPostMemo(userNovelId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.postMemo(userNovelId)
-            finish()
+        }
+    }
+
+    private fun observePostMemoSuccess() {
+        memoWriteViewModel.isMemoPosted.observe(this) { isPosted ->
+            if (isPosted) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            } else {
+                Snackbar.make(
+                    binding.root,
+                    "메모 저장 실패",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 

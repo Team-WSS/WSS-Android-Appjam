@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
@@ -12,10 +13,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.PopupWindow
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
@@ -38,6 +42,8 @@ class NovelDetailActivity : AppCompatActivity() {
     private lateinit var userNovelImage: String
     private var popupWindow: PopupWindow? = null
 
+    private lateinit var postedMemoLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
@@ -46,11 +52,18 @@ class NovelDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.novelDetailViewModel = novelDetailViewModel
 
+        postedMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    Snackbar.make(binding.root, "메모를 저장했어", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         getAndUpdateUserNovelId()
         setupUI()
         observeUserNovelId()
         observeUserNovelInfoData()
         setupListener()
+        Log.d("oncreate", "실행")
     }
 
     private fun getAndUpdateUserNovelId() {
@@ -158,7 +171,7 @@ class NovelDetailActivity : AppCompatActivity() {
                 userNovelAuthor,
                 userNovelImage
             )
-            startActivity(intent)
+            postedMemoLauncher.launch(intent)
         }
     }
 

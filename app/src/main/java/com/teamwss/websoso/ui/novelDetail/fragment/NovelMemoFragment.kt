@@ -26,6 +26,7 @@ class NovelMemoFragment : Fragment() {
     private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
 
     private lateinit var deleteMemoLauncher: ActivityResultLauncher<Intent>
+    private lateinit var postMemoLauncher: ActivityResultLauncher<Intent>
 
     private var userNovelId by Delegates.notNull<Long>()
     private lateinit var userNovelTitle: String
@@ -46,6 +47,13 @@ class NovelMemoFragment : Fragment() {
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
                     Snackbar.make(binding.root, "메모 삭제 성공", Snackbar.LENGTH_SHORT).show()
+                }
+            }
+
+        postMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).show()
                 }
             }
 
@@ -101,7 +109,7 @@ class NovelMemoFragment : Fragment() {
                 userNovelAuthor,
                 userNovelImage
             )
-            startActivity(intent)
+            postMemoLauncher.launch(intent)
         }
     }
 
