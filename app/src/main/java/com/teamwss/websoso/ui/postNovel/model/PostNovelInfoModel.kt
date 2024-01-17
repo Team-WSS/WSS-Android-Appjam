@@ -1,9 +1,13 @@
 package com.teamwss.websoso.ui.postNovel.model
 
+import android.os.Parcelable
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
 import com.teamwss.websoso.ui.common.model.ReadStatus
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
 import java.time.LocalDate
 
+@Parcelize
 data class PostNovelInfoModel(
     var id: Long,
     val title: String,
@@ -15,5 +19,5 @@ data class PostNovelInfoModel(
     val readStatus: String = ReadStatus.FINISH.toString(),
     val readStartDate: String? = LocalDate.now().toString(),
     val readEndDate: String? = LocalDate.now().toString(),
-    val platforms: List<NovelPlatformPostResponse>,
-)
+    val platforms: List<@RawValue NovelPlatformPostResponse>
+) : Parcelable

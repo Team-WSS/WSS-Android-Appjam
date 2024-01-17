@@ -111,7 +111,7 @@ class PostNovelViewModel : ViewModel() {
         }
     }
 
-    private fun initUserNovelInfo(novelInfo: PostNovelInfoModel) {
+    fun initUserNovelInfo(novelInfo: PostNovelInfoModel) {
         _novelInfo.value = novelInfo
         _readStatus.value = novelInfo.readStatus
         _startDate.value = novelInfo.readStartDate ?: LocalDate.now().toString()

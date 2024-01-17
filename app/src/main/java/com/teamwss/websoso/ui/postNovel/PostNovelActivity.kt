@@ -19,6 +19,7 @@ import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.dialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
+import com.teamwss.websoso.ui.postNovel.model.PostNovelInfoModel
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -182,11 +183,16 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun initUserNovelInfo() {
-        val novelId = intent.getLongExtra(NOVEL_ID, 0)
-        postNovelViewModel.fetchUserNovelInfo(novelId)
-        postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
-            if (!it && postNovelViewModel.novelInfo.value == null) {
-                postNovelViewModel.fetchDefaultNovelInfo(novelId)
+        if (intent.hasExtra(USER_NOVEL_INFO)) {
+            val userNovelInfo = intent.getParcelableExtra<PostNovelInfoModel>(USER_NOVEL_INFO)!!
+            postNovelViewModel.initUserNovelInfo(userNovelInfo)
+        } else {
+            val novelId = intent.getLongExtra(NOVEL_ID, 0)
+            postNovelViewModel.fetchUserNovelInfo(novelId)
+            postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
+                if (!it && postNovelViewModel.novelInfo.value == null) {
+                    postNovelViewModel.fetchDefaultNovelInfo(novelId)
+                }
             }
         }
     }
@@ -276,11 +282,10 @@ class PostNovelActivity : AppCompatActivity() {
             }
         }
 
-        const val USER_NOVEL_ID = "USER_NOVEL_ID"
-        const val USER_NOVEL_DESCRIPTION = "USER_NOVEL_DESCRIPTION"
-        fun newIntentFromNovelDetail(context: Context, novelId: Long): Intent {
+        const val USER_NOVEL_INFO = "USER_NOVEL_INFO"
+        fun newIntentFromNovelDetail(context: Context, userNovelInfo: PostNovelInfoModel): Intent {
             return Intent(context, PostNovelActivity::class.java).apply {
-                putExtra(NOVEL_ID, novelId)
+                putExtra(USER_NOVEL_INFO, userNovelInfo)
             }
         }
     }
