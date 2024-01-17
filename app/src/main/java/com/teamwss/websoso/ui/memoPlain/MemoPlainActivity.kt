@@ -55,7 +55,7 @@ class MemoPlainActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupLifecycleOwner()
         setupDataBinding()
-        getUserNovelDataToIntent()
+        getUserNovelData()
         observeMemoId()
         observeMemoContent()
         onClickMemoPlainCancelButton()
@@ -78,10 +78,12 @@ class MemoPlainActivity : AppCompatActivity() {
         binding.memoPlainViewModel = memoPlainViewModel
     }
 
-    private fun getUserNovelDataToIntent() {
-        userNovelImage = intent.getStringExtra("userNovelImage").toString()
-        userNovelTitle = intent.getStringExtra("userNovelTitle").toString()
-        userNovelAuthor = intent.getStringExtra("userNovelAuthor").toString()
+    private fun getUserNovelData() {
+        memoPlainViewModel.memo.observe(this) {response ->
+            userNovelImage = response.userNovelImg
+            userNovelTitle = response.userNovelTitle
+            userNovelAuthor = response.userNovelAuthor
+        }
     }
 
     private fun observeMemoId() {
@@ -131,15 +133,9 @@ class MemoPlainActivity : AppCompatActivity() {
         fun newIntent(
             context: Context,
             memoId: Long,
-            userNovelTitle: String,
-            userNovelAuthor: String,
-            userNovelImg: String
         ): Intent {
             return Intent(context, MemoPlainActivity::class.java).apply {
                 putExtra("memoId", memoId)
-                putExtra("userNovelTitle", userNovelTitle)
-                putExtra("userNovelAuthor", userNovelAuthor)
-                putExtra("userNovelImage", userNovelImg)
             }
         }
     }

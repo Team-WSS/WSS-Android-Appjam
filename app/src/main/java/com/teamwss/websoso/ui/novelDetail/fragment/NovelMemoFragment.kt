@@ -141,10 +141,7 @@ class NovelMemoFragment : Fragment() {
     private fun navigateToMemoPlain(memoId: Long) {
         val intent = MemoPlainActivity.newIntent(
             requireActivity(),
-            memoId,
-            userNovelTitle,
-            userNovelAuthor,
-            userNovelImage
+            memoId
         )
         deleteMemoLauncher.launch(intent)
     }
