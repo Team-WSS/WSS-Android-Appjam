@@ -41,7 +41,8 @@ class PostNovelActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         setupAppBar()
         setupDateToggle()
-        setupSaveButton()
+        setupSaveStatusObserver()
+        setupIsServerError()
 
         setupExitPopupDialog()
         setupDatePickerDialog()
@@ -50,7 +51,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupReadStatusUI()
         setupRatingBar()
         setupUrlButton()
-        setupIsServerError()
+        setupSaveButton()
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -92,7 +93,11 @@ class PostNovelActivity : AppCompatActivity() {
     private fun setupSaveButton() {
         binding.fbPostButton.setOnClickListener {
             saveNovelInfo()
+        }
+    }
 
+    private fun setupSaveStatusObserver() {
+        postNovelViewModel.isSaveError.observe(this@PostNovelActivity) {
             val isSaveError = postNovelViewModel.isSaveError.value ?: true
             val isNovelAlreadyPosted: Boolean =
                 postNovelViewModel.isNovelAlreadyPosted.value ?: true
