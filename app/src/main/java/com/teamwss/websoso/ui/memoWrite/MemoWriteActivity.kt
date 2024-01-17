@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -36,6 +37,7 @@ class MemoWriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupUI()
+        showKeyboardOnEditTextFocus()
         getUserNovelDataFromBeforeView()
         updateUserNovelToViewModel()
         updateMemoContentToViewModel()
@@ -65,6 +67,15 @@ class MemoWriteActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
+    }
+
+    private fun showKeyboardOnEditTextFocus() {
+        val searchKeyboard = binding.etMemoWriteContent
+        searchKeyboard.requestFocus()
+
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.etMemoWriteContent, 0)
     }
 
     private fun getUserNovelDataFromBeforeView() {
