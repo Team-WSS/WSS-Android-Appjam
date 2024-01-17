@@ -3,17 +3,18 @@ package com.teamwss.websoso.ui.memoPlain
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import com.google.android.material.snackbar.Snackbar
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogMemoDeleteBinding
 
-class DialogMemoDelete(private val clickMemoDelete: () -> Unit) : DialogFragment() {
+class DialogMemoDelete(private val memoDeleteSuccess: () -> Unit) : DialogFragment() {
     private var _binding: DialogMemoDeleteBinding? = null
     private val binding: DialogMemoDeleteBinding
         get() = requireNotNull(_binding)
@@ -38,6 +39,7 @@ class DialogMemoDelete(private val clickMemoDelete: () -> Unit) : DialogFragment
         observeMemoId()
         onClickMemoDropButton()
         onClickMemoKeepButton()
+        observeDeleteMemoSuccess()
     }
 
     private fun observeMemoId() {
@@ -48,15 +50,34 @@ class DialogMemoDelete(private val clickMemoDelete: () -> Unit) : DialogFragment
 
     private fun onClickMemoDropButton() {
         binding.tvDialogMemoDeleteDropBtn.setOnClickListener {
-            Log.d("memoId", memoId.toString())
             memoPlainViewModel.deleteMemo(memoId)
-            clickMemoDelete()
         }
     }
 
     private fun onClickMemoKeepButton() {
         binding.tvDialogMemoDeleteKeepBtn.setOnClickListener {
             dismiss()
+        }
+    }
+
+    private fun observeDeleteMemoSuccess() {
+        memoPlainViewModel.isMemoDelete.observe(viewLifecycleOwner) { isDeleted ->
+            if (isDeleted) {
+                memoDeleteSuccess()
+                dismiss()
+            } else {
+                val drawable =
+                    ContextCompat.getDrawable(requireContext(), R.drawable.ic_alert_warning)
+                CustomSnackBar.make(binding.root)
+                    .setText("메모를 저장에 실패했어요")
+                    .setIcon(
+                        drawable ?: ContextCompat.getDrawable(
+                            requireContext(),
+                            R.drawable.ic_alert_warning
+                        )!!
+                    )
+                    .show()
+            }
         }
     }
 

@@ -47,7 +47,6 @@ class RecordViewModel : ViewModel() {
                 memoId = lastMemo?.memoId ?: 0
                 _memoCount.value = result.memoCount
             }.onFailure {
-                Log.d("123434578", it.toString())
             }
         }
     }

@@ -1,9 +1,13 @@
 package com.teamwss.websoso.ui.novelDetail
 
+import CustomSnackBar
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -12,6 +16,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.PopupWindow
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -38,6 +44,8 @@ class NovelDetailActivity : AppCompatActivity() {
     private lateinit var userNovelImage: String
     private var popupWindow: PopupWindow? = null
 
+    private lateinit var postedMemoLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
@@ -48,6 +56,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
         getAndUpdateUserNovelId()
         setupUI()
+        registerForPostMemoLauncher()
         observeUserNovelId()
         observeUserNovelInfoData()
         setupListener()
@@ -108,6 +117,34 @@ class NovelDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun registerForPostMemoLauncher() {
+        postedMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val isAvatarUnlocked =
+                        result.data?.getBooleanExtra("isAvatarUnlocked", false) ?: false
+                    val memoSavedDrawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
+
+                    CustomSnackBar.make(binding.root)
+                        .setText("메모를 저장했어요")
+                        .setIcon(memoSavedDrawable ?: ContextCompat.getDrawable(this, R.drawable.ic_alert_default)!!)
+                        .show()
+
+                    if(isAvatarUnlocked) {
+                        val handler = Handler(Looper.getMainLooper())
+                        handler.postDelayed({
+                            val avatarUnlockedDrawable = ContextCompat.getDrawable(this, R.drawable.ic_avatar_unlocked)
+                            CustomSnackBar.make(binding.root)
+                                .setText("새 캐릭터가 열렸어요!")
+                                .setIcon(avatarUnlockedDrawable ?: ContextCompat.getDrawable(this, R.drawable.ic_avatar_unlocked)!!)
+                                .show()
+                        }, 4000)
+                    }
+                }
+            }
+    }
+
+
     private fun updateToolbarAppearance(isCollapsed: Boolean) {
         with(binding) {
             val color = if (isCollapsed) R.color.white else R.color.transparent
@@ -154,11 +191,11 @@ class NovelDetailActivity : AppCompatActivity() {
             val intent = MemoWriteActivity.newIntentFromDetail(
                 this,
                 userNovelId,
-                userNovelAuthor,
+                userNovelTitle,
                 userNovelAuthor,
                 userNovelImage
             )
-            startActivity(intent)
+            postedMemoLauncher.launch(intent)
         }
     }
 
@@ -230,9 +267,16 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelEdit() {
-        val intent = PostNovelActivity.newIntent(this, 0)
-        startActivity(intent)
-        finish()
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(this) {response->
+            val intent = PostNovelActivity.newIntent(this, response.novelId)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }
 
     override fun onPause() {

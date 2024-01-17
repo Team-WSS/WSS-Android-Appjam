@@ -1,11 +1,17 @@
 package com.teamwss.websoso.ui.memoPlain
 
+import CustomSnackBar
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityMemoPlainBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import kotlin.properties.Delegates
@@ -23,6 +29,8 @@ class MemoPlainActivity : AppCompatActivity() {
         DialogMemoDelete(::finish)
     }
 
+    private lateinit var patchedMemoLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoPlainBinding.inflate(layoutInflater)
@@ -32,10 +40,22 @@ class MemoPlainActivity : AppCompatActivity() {
         memoPlainViewModel.updateMemoId(memoId)
         memoPlainViewModel.getMemo(memoId)
 
+        patchedMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val drawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
+                    CustomSnackBar.make(binding.root).setText("메모를 수정했어요").setIcon(
+                            drawable ?: ContextCompat.getDrawable(
+                                this, R.drawable.ic_alert_default
+                            )!!
+                        ).show()
+                }
+            }
+
         setTranslucentOnStatusBar()
         setupLifecycleOwner()
         setupDataBinding()
-        getUserNovelDataToIntent()
+        getUserNovelData()
         observeMemoId()
         observeMemoContent()
         onClickMemoPlainCancelButton()
@@ -58,10 +78,12 @@ class MemoPlainActivity : AppCompatActivity() {
         binding.memoPlainViewModel = memoPlainViewModel
     }
 
-    private fun getUserNovelDataToIntent() {
-        userNovelImage = intent.getStringExtra("userNovelImage").toString()
-        userNovelTitle = intent.getStringExtra("userNovelTitle").toString()
-        userNovelAuthor = intent.getStringExtra("userNovelAuthor").toString()
+    private fun getUserNovelData() {
+        memoPlainViewModel.memo.observe(this) {response ->
+            userNovelImage = response.userNovelImg
+            userNovelTitle = response.userNovelTitle
+            userNovelAuthor = response.userNovelAuthor
+        }
     }
 
     private fun observeMemoId() {
@@ -90,6 +112,7 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun showMemoDeleteDialog() {
         dialogMemoDelete.show((supportFragmentManager), "DeleteMemoDialog")
+        setResult(Activity.RESULT_OK)
     }
 
     private fun onClickMemoEditButton() {
@@ -97,24 +120,22 @@ class MemoPlainActivity : AppCompatActivity() {
             val intent = MemoWriteActivity.newIntentFromPlain(
                 this, memoId, memoContent, userNovelTitle, userNovelAuthor, userNovelImage
             )
-            startActivity(intent)
-            finish()
+            patchedMemoLauncher.launch(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        memoPlainViewModel.getMemo(memoId)
     }
 
     companion object {
         fun newIntent(
             context: Context,
             memoId: Long,
-            userNovelTitle: String,
-            userNovelAuthor: String,
-            userNovelImg: String
         ): Intent {
             return Intent(context, MemoPlainActivity::class.java).apply {
                 putExtra("memoId", memoId)
-                putExtra("userNovelTitle", userNovelTitle)
-                putExtra("userNovelAuthor", userNovelAuthor)
-                putExtra("userNovelImage", userNovelImg)
             }
         }
     }

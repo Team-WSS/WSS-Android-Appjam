@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.memoWrite
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,8 +9,13 @@ import com.teamwss.websoso.data.remote.request.MemoWriteRequest
 import kotlinx.coroutines.launch
 
 class MemoWriteViewModel : ViewModel() {
-    private var _memoContent: MutableLiveData<String?> = MutableLiveData()
+    private var _memoContent: MutableLiveData<String?> = MutableLiveData("")
     val memoContent: MutableLiveData<String?> = _memoContent
+
+    private var initialMemoContent: String? = null
+
+    private var _isChanged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isChanged: LiveData<Boolean> = _isChanged
 
     private var _isAvatarUnlocked: MutableLiveData<Boolean> = MutableLiveData()
     val isAvatarUnlocked: LiveData<Boolean> = _isAvatarUnlocked
@@ -31,9 +35,11 @@ class MemoWriteViewModel : ViewModel() {
     private var _userNovelImage: MutableLiveData<String> = MutableLiveData()
     val userNovelImage: LiveData<String> = _userNovelImage
 
-    init {
-        _memoContent.value = ""
-    }
+    private var _isMemoPosted: MutableLiveData<Boolean> = MutableLiveData()
+    val isMemoPosted: LiveData<Boolean> = _isMemoPosted
+
+    private var _isMemoPatched: MutableLiveData<Boolean> = MutableLiveData()
+    val isMemoPatched: LiveData<Boolean> = _isMemoPatched
 
     fun postMemo(userNovelId: Long) {
         viewModelScope.launch {
@@ -42,9 +48,10 @@ class MemoWriteViewModel : ViewModel() {
                     userNovelId, MemoWriteRequest(_memoContent.value.toString())
                 )
             }.onSuccess { response ->
-                Log.d("postmemo", response.toString())
+                _isMemoPosted.value = true
+                _isAvatarUnlocked.value = response.isAvatarUnlocked
             }.onFailure {
-                Log.d("postmemo", "fail")
+                _isMemoPosted.value = false
             }
         }
     }
@@ -57,9 +64,9 @@ class MemoWriteViewModel : ViewModel() {
                     MemoWriteRequest(_memoContent.value.toString())
                 )
             }.onSuccess {
-                Log.d("fatchMemo", "성공")
+                _isMemoPatched.value = true
             }.onFailure {
-                Log.d("fatchMemo", "실패")
+                _isMemoPatched.value = false
             }
         }
     }
@@ -79,10 +86,20 @@ class MemoWriteViewModel : ViewModel() {
     }
 
     fun getMemoContent(memoContent: String) {
+        if (initialMemoContent == null) {
+            initialMemoContent = memoContent
+        }
         _memoContent.value = memoContent
+        checkIfContentChanged()
     }
 
     fun updateMemoContent(memoContent: String) {
         _memoContent.value = memoContent
+        checkIfContentChanged()
+    }
+
+    private fun checkIfContentChanged() {
+        val currentContent = _memoContent.value.orEmpty()
+        _isChanged.value = currentContent != initialMemoContent || currentContent.isEmpty()
     }
 }

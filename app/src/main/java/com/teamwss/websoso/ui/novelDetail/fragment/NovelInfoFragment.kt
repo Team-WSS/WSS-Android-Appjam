@@ -16,6 +16,7 @@ class NovelInfoFragment : Fragment() {
     private val binding: FragmentNovelInfoBinding
         get() = requireNotNull(_binding)
     private val novelDetailViewModel: NovelDetailViewModel by activityViewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,7 +31,7 @@ class NovelInfoFragment : Fragment() {
 
         setupLifecycleOwner()
         setupDataBinding()
-        clickListener()
+        observeNovelData()
     }
 
     private fun setupLifecycleOwner() {
@@ -39,6 +40,12 @@ class NovelInfoFragment : Fragment() {
 
     private fun setupDataBinding() {
         binding.novelDetailViewModel = novelDetailViewModel
+    }
+
+    private fun observeNovelData() {
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(viewLifecycleOwner) {
+            clickListener()
+        }
     }
 
     private fun clickListener() {

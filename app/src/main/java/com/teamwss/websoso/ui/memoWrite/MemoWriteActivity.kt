@@ -1,11 +1,17 @@
 package com.teamwss.websoso.ui.memoWrite
 
+import CustomSnackBar
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityMemoWriteBinding
 import kotlin.properties.Delegates
 
@@ -31,11 +37,15 @@ class MemoWriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupUI()
+        showKeyboardOnEditTextFocus()
         getUserNovelDataFromBeforeView()
         updateUserNovelToViewModel()
         updateMemoContentToViewModel()
         observeMemoContent()
+        observeMemoContentIsChanged()
         onClickBackButton()
+        observePostMemoSuccess()
+        observePatchedMemoSuccess()
 
         if (userNovelId != -1L) {
             clickListenerPostMemo(userNovelId)
@@ -59,6 +69,21 @@ class MemoWriteActivity : AppCompatActivity() {
         )
     }
 
+    private fun showKeyboardOnEditTextFocus() {
+        val searchKeyboard = binding.etMemoWriteContent
+        searchKeyboard.requestFocus()
+
+        binding.etMemoWriteContent.post {
+            binding.etMemoWriteContent.setSelection(binding.etMemoWriteContent.text.length)
+        }
+
+        val inputMethodManager =
+            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(binding.etMemoWriteContent, 0)
+
+
+    }
+
     private fun getUserNovelDataFromBeforeView() {
         memoId = intent.getLongExtra("memoId", -1)
         userNovelId = intent.getLongExtra("userNovelId", -1)
@@ -79,7 +104,7 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     private fun updateMemoContentToViewModel() {
-        if(memoId != -1L) {
+        if (memoId != -1L) {
             memoWriteViewModel.getMemoContent(memoContent!!)
         }
     }
@@ -90,29 +115,89 @@ class MemoWriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickBackButton() {
-        binding.ivMemoWriteCancelBtn.setOnClickListener {
-            if (validateMemoContent(memoContent)) {
-                dialogMemoCancel.show((supportFragmentManager), "memoCancelDialog")
-            } else {
-                finish()
+    private fun observeMemoContentIsChanged() {
+        memoWriteViewModel.isChanged.observe(this) { isChanged ->
+            if (isChanged) {
+                binding.tvMemoWriteCompleteBtn.isEnabled = true
+                binding.tvMemoWriteCompleteBtn.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.primary_100_6341F0
+                    )
+                )
             }
         }
     }
 
-    private fun validateMemoContent(memoContent: String?): Boolean = memoContent?.isBlank() != true
+    private fun onClickBackButton() {
+        binding.ivMemoWriteCancelBtn.setOnClickListener {
+            memoWriteViewModel.isChanged.observe(this) { isChanged ->
+                if (isChanged) {
+                    dialogMemoCancel.show((supportFragmentManager), "memoCancelDialog")
+                } else {
+                    finish()
+                }
+            }
+        }
+    }
 
     private fun clickListenerPostMemo(userNovelId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.postMemo(userNovelId)
-            finish()
+        }
+    }
+
+    private fun observePostMemoSuccess() {
+        memoWriteViewModel.isMemoPosted.observe(this) { isPosted ->
+            if (isPosted) {
+                memoWriteViewModel.isAvatarUnlocked.observe(this) { isAvatarUnlocked ->
+                    val resultIntent = Intent().apply {
+                        putExtra("isAvatarUnlocked", isAvatarUnlocked)
+                        Log.d("unlocked", isAvatarUnlocked.toString())
+                    }
+                    setResult(Activity.RESULT_OK, resultIntent)
+                    finish()
+                }
+            } else {
+                val drawable =
+                    ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
+                CustomSnackBar.make(binding.root)
+                    .setText("메모 저장에 실패했어요")
+                    .setIcon(
+                        drawable ?: ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_alert_warning
+                        )!!
+                    )
+                    .show()
+            }
+        }
+    }
+
+    private fun observePatchedMemoSuccess() {
+        memoWriteViewModel.isMemoPatched.observe(this) { isPatched ->
+            if (isPatched) {
+                setResult(Activity.RESULT_OK)
+                finish()
+            } else {
+                val drawable =
+                    ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
+                CustomSnackBar.make(binding.root)
+                    .setText("메모 저장에 실패했어요")
+                    .setIcon(
+                        drawable ?: ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_alert_warning
+                        )!!
+                    )
+                    .show()
+            }
         }
     }
 
     private fun clickListenerPatchMemo(memoId: Long) {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.patchMemo(memoId)
-            finish()
         }
     }
 

@@ -33,8 +33,6 @@ class NovelDetailViewModel : ViewModel() {
                 _userNovelMemoInfoResponse.value = response
                 _memos.value = response.memos
                 _platforms.value = response.platforms
-                Log.d("tongsinDetail", response.toString())
-                Log.d("tongsin", "success")
             }.onFailure { throwable ->
                 Log.e("tongsin", throwable.toString())
             }
