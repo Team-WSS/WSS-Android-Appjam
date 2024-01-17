@@ -115,12 +115,14 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun observePostMemoSuccess() {
         memoWriteViewModel.isMemoPosted.observe(this) { isPosted ->
             if (isPosted) {
-                setResult(Activity.RESULT_OK)
+                val resultIntent = Intent()
+                resultIntent.putExtra("isAvatarUnlocked", memoWriteViewModel.isAvatarUnlocked.value ?: false)
+                setResult(Activity.RESULT_OK, resultIntent)
                 finish()
             } else {
                 Snackbar.make(
                     binding.root,
-                    "메모 저장 실패",
+                    "메모 저장에 실패했어요",
                     Snackbar.LENGTH_SHORT
                 ).show()
             }

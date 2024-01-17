@@ -52,14 +52,9 @@ class NovelDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.novelDetailViewModel = novelDetailViewModel
 
-        postedMemoLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    Snackbar.make(binding.root, "메모를 저장했어", Snackbar.LENGTH_SHORT).show()
-                }
-            }
         getAndUpdateUserNovelId()
         setupUI()
+        registerForPostMemoLauncher()
         observeUserNovelId()
         observeUserNovelInfoData()
         setupListener()
@@ -118,6 +113,20 @@ class NovelDetailActivity : AppCompatActivity() {
             val totalScrollRange = appBarLayout.totalScrollRange
             val percentage = (totalScrollRange.toFloat() + verticalOffset) / totalScrollRange
             updateToolbarAppearance(percentage <= TOOLBAR_COLLAPSE_THRESHOLD)
+        }
+    }
+
+    private fun registerForPostMemoLauncher() {
+        postedMemoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val isAvatarUnlocked = result.data?.getBooleanExtra("isAvatarUnlocked", false) ?: false
+                if (isAvatarUnlocked) {
+                    Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root, "아바타를 해금했어요", Snackbar.LENGTH_SHORT).show()
+                } else {
+                    Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

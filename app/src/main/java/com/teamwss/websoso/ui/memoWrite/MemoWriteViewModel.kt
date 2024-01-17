@@ -43,8 +43,9 @@ class MemoWriteViewModel : ViewModel() {
                 ServicePool.memoService.postMemo(
                     userNovelId, MemoWriteRequest(_memoContent.value.toString())
                 )
-            }.onSuccess {
+            }.onSuccess {response ->
                 _isMemoPosted.value = true
+                _isAvatarUnlocked.value = response.isAvatarUnlocked
             }.onFailure {
                 _isMemoPosted.value = false
             }
