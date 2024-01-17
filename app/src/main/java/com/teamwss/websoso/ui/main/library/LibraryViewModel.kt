@@ -54,7 +54,7 @@ class LibraryViewModel(
         }
     }
 
-    private fun getNovels(readState: ReadState) {
+    fun getNovels(readState: ReadState) {
         viewModelScope.launch {
             runCatching {
                 userNovelsRepository.getUserNovels(
