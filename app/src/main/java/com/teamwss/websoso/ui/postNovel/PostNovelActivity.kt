@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
@@ -17,6 +18,7 @@ import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
+import com.teamwss.websoso.ui.search.SearchActivity
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -145,6 +147,8 @@ class PostNovelActivity : AppCompatActivity() {
         } else {
             postNovelViewModel.saveUserNovelInfo(id, request)
         }
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(Intent("FINISH_SEARCH_ACTIVITY"))
     }
 
     private fun setupExitPopupDialog() {
