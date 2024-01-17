@@ -115,6 +115,11 @@ class MemoPlainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        memoPlainViewModel.getMemo(memoId)
+    }
+
     companion object {
         fun newIntent(
             context: Context,

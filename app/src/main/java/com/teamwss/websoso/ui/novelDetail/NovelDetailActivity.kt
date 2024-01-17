@@ -257,6 +257,11 @@ class NovelDetailActivity : AppCompatActivity() {
         finish()
     }
 
+    override fun onResume() {
+        super.onResume()
+        novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
+    }
+
     override fun onPause() {
         super.onPause()
         if (popupWindow?.isShowing == true) {
