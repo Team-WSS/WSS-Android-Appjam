@@ -73,9 +73,15 @@ class MemoWriteActivity : AppCompatActivity() {
         val searchKeyboard = binding.etMemoWriteContent
         searchKeyboard.requestFocus()
 
+        binding.etMemoWriteContent.post {
+            binding.etMemoWriteContent.setSelection(binding.etMemoWriteContent.text.length)
+        }
+
         val inputMethodManager =
             this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.etMemoWriteContent, 0)
+
+
     }
 
     private fun getUserNovelDataFromBeforeView() {
