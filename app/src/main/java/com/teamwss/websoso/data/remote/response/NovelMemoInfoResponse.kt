@@ -29,4 +29,6 @@ data class NovelMemoInfoResponse(
     val userNovelImg: String,
     @SerialName("userNovelAuthor")
     val userNovelAuthor: String,
+    @SerialName("novelId")
+    val novelId: Long,
 )

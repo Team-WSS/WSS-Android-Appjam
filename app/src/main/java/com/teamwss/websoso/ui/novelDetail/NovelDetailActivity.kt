@@ -267,9 +267,11 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelEdit() {
-        val intent = PostNovelActivity.newIntent(this, 0)
-        startActivity(intent)
-        finish()
+        novelDetailViewModel.userNovelMemoInfoResponse.observe(this) {response->
+            val intent = PostNovelActivity.newIntent(this, response.novelId)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onResume() {
