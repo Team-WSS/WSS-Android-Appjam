@@ -7,12 +7,16 @@ import com.teamwss.websoso.databinding.ItemLibraryViewPagerBinding
 
 class LibraryViewPagerViewHolder(
     private val binding: ItemLibraryViewPagerBinding,
-    private val onItemClick: (Long) -> Unit
+    private val onItemClick: (Long) -> Unit,
+    private val onPostClick: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
     private val libraryItemAdapter = LibraryItemAdapter(onItemClick)
 
     init {
         binding.rvLibraryViewPager.adapter = libraryItemAdapter
+        binding.btnRecordGoToPostNovel.setOnClickListener {
+            //onPostClick()
+        }
     }
 
     fun bind(novels: List<LibraryUserNovelEntity>) {

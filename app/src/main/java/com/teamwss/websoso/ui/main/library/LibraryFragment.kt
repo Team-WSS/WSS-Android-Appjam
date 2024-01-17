@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayout
@@ -14,12 +13,14 @@ import com.teamwss.websoso.databinding.FragmentLibraryBinding
 import com.teamwss.websoso.ui.main.library.adapter.LibraryViewPagerAdapter
 import com.teamwss.websoso.ui.main.library.model.ReadState
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
+import com.teamwss.websoso.ui.postNovel.PostNovelActivity
+import com.teamwss.websoso.ui.search.SearchActivity
 
 class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
     private val binding: FragmentLibraryBinding get() = requireNotNull(_binding)
     private val viewPagerAdapter: LibraryViewPagerAdapter by lazy {
-        LibraryViewPagerAdapter(::clickNovelItem)
+        LibraryViewPagerAdapter(::clickNovelItem,::setupPostNovelButtonClickListener)
     }
     private val viewModel: LibraryViewModel by viewModels {
         LibraryViewModel.Factory
@@ -38,10 +39,10 @@ class LibraryFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = this.viewModel
 
-
         setupViewPager()
         setupTabLayoutWithViewPager()
         setupTabSelectedListener()
+        setupPostNovelButtonClickListener()
         observeReadState()
         observeCurrentNovels()
     }
@@ -85,6 +86,15 @@ class LibraryFragment : Fragment() {
 
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+    }
+
+    private fun setupPostNovelButtonClickListener() {
+        navigateToSearchActivity()
+    }
+
+    private fun navigateToSearchActivity() {
+        val intent = SearchActivity.newIntent(requireContext())
+        startActivity(intent)
     }
 
     private fun getReadStateFromTabPosition(position: Int): ReadState {
