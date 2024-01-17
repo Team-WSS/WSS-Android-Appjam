@@ -8,7 +8,9 @@ import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityMemoWriteBinding
 import kotlin.properties.Delegates
 
@@ -125,11 +127,17 @@ class MemoWriteActivity : AppCompatActivity() {
                     finish()
                 }
             } else {
-                Snackbar.make(
-                    binding.root,
-                    "메모 저장에 실패했어요",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                val drawable =
+                    ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
+                CustomSnackBar.make(binding.root)
+                    .setText("메모 저장에 실패했어요")
+                    .setIcon(
+                        drawable ?: ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_alert_warning
+                        )!!
+                    )
+                    .show()
             }
         }
     }
@@ -140,11 +148,17 @@ class MemoWriteActivity : AppCompatActivity() {
                 setResult(Activity.RESULT_OK)
                 finish()
             } else {
-                Snackbar.make(
-                    binding.root,
-                    "메모 저장에 실패했어요",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                val drawable =
+                    ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
+                CustomSnackBar.make(binding.root)
+                    .setText("메모 저장에 실패했어요")
+                    .setIcon(
+                        drawable ?: ContextCompat.getDrawable(
+                            this,
+                            R.drawable.ic_alert_warning
+                        )!!
+                    )
+                    .show()
             }
         }
     }
