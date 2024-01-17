@@ -19,6 +19,7 @@ import com.teamwss.websoso.databinding.ActivitySearchBinding
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.EXTRA_PAGE_SIZE
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.SEARCH_DELAY
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.LAST_NOVEL_ID
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.PAGE_SIZE
 import kotlinx.coroutines.Job
@@ -83,7 +84,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                val autoSearchDelay: Long = 1000L
+                val autoSearchDelay: Long = SEARCH_DELAY
                 searchJob?.cancel()
                 searchJob = lifecycleScope.launch {
                     delay(autoSearchDelay)
