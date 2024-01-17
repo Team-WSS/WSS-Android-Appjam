@@ -45,7 +45,6 @@ class SearchActivity : AppCompatActivity() {
         setTranslucentOnStatusBar()
         showKeyboardOnEditTextFocus()
         setupSearchEditText()
-        handleSearchEditTextOnInputFinish()
         setupRecyclerView()
         setResultNovelList()
         setupInfinityScroll()
@@ -109,26 +108,6 @@ class SearchActivity : AppCompatActivity() {
             binding.ivSearchCancel.visibility = View.GONE
         } else {
             binding.ivSearchCancel.visibility = View.VISIBLE
-        }
-    }
-
-    private fun handleSearchEditTextOnInputFinish() {
-        binding.etSearch.setOnEditorActionListener { _, action, _ ->
-            binding.clSearchView.setBackgroundResource(R.color.transparent)
-            var isHandled: Boolean = false
-
-            if (action == EditorInfo.IME_ACTION_DONE) {
-                val inputMethodManager =
-                    this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
-                binding.clSearchView.setBackgroundResource(R.drawable.bg_gray50_radius_12dp)
-                isHandled = true
-
-                viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, binding.etSearch.text.toString())
-            } else {
-                binding.clSearchView.setBackgroundResource(R.color.transparent)
-            }
-            isHandled
         }
     }
 

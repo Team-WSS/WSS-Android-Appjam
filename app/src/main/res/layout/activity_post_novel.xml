@@ -246,6 +246,7 @@
                                 android:id="@+id/scPostDateSwitch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="16dp"
+                                android:paddingHorizontal="8dp"
                                 android:checked="@{postNovelViewModel.novelInfo.readStatus != @string/api_read_status_wish}"
                                 android:enabled="@{postNovelViewModel.novelInfo.title != null}"
                                 android:thumb="@drawable/shape_date_switch_thumb"
