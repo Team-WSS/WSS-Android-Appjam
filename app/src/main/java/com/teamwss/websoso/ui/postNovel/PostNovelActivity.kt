@@ -156,7 +156,7 @@ class PostNovelActivity : AppCompatActivity() {
             if (exitPopupDialog == null || !exitPopupDialog!!.isAdded) {
                 postNovelViewModel.updateIsDialogShown(true)
 
-                exitPopupDialog = ExitPopupDialog()
+                exitPopupDialog = ExitPopupDialog(::finish)
                 exitPopupDialog!!.show(supportFragmentManager, "ExitPopupDialog")
             }
         }
@@ -277,6 +277,8 @@ class PostNovelActivity : AppCompatActivity() {
             }
         }
 
+        const val USER_NOVEL_ID = "USER_NOVEL_ID"
+        const val USER_NOVEL_DESCRIPTION = "USER_NOVEL_DESCRIPTION"
         fun newIntentFromNovelDetail(context: Context, novelId: Long): Intent {
             return Intent(context, PostNovelActivity::class.java).apply {
                 putExtra(NOVEL_ID, novelId)

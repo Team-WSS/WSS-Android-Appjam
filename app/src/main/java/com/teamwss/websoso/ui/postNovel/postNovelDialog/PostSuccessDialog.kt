@@ -51,7 +51,6 @@ class PostSuccessDialog(private val clickNavigateToMemo: () -> Unit) : DialogFra
             startActivity(intent)
             clickNavigateToMemo()
             dismiss()
-            Log.e("test123", "$it.toString()")
         }
     }
 
