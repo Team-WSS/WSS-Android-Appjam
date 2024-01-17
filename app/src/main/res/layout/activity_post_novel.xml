@@ -7,7 +7,7 @@
 
         <variable
             name="postNovelViewModel"
-            type="com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel" />
+            type="com.teamwss.websoso.ui.postNovel.PostNovelViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -247,6 +247,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="16dp"
                                 android:checked="@{postNovelViewModel.novelInfo.readStartDate != null}"
+                                android:enabled="@{postNovelViewModel.novelInfo.readStartDate != null}"
                                 android:thumb="@drawable/shape_date_switch_thumb"
                                 app:layout_constraintBottom_toBottomOf="@id/tvPostReadDateTitle"
                                 app:layout_constraintStart_toEndOf="@id/tvPostReadDateTitle"
@@ -465,7 +466,7 @@
                             android:background="@drawable/shape_link_button"
                             android:gravity="center"
                             android:paddingHorizontal="13dp"
-                            android:visibility="@{postNovelViewModel.naverUrl.isEmpty() ? 0: 8}">
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/tvPostNovelSiteNaver"
@@ -492,7 +493,7 @@
                             android:background="@drawable/shape_link_button"
                             android:gravity="center"
                             android:paddingHorizontal="13dp"
-                            android:visibility="@{postNovelViewModel.kakaoUrl.isEmpty() ? 0: 8}">
+                            android:visibility="gone">
 
                             <TextView
                                 android:id="@+id/tvPostNovelSiteKakao"

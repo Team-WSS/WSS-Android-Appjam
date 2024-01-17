@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
@@ -53,7 +54,9 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun getAndUpdateUserNovelId() {
-        userNovelId = intent.getLongExtra("userNovelId", -1)
+        val errorUserId: Long = 0
+        userNovelId = intent.getLongExtra("userNovelId", errorUserId)
+        Log.e("test123", userNovelId.toString())
         novelDetailViewModel.getUserNovelId(userNovelId)
         novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }

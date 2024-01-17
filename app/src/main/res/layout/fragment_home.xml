@@ -65,51 +65,51 @@
                 app:layout_constraintStart_toStartOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/btnHomeAvatarTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_primary50_radius_876dp"
-            android:paddingHorizontal="14dp"
-            android:paddingVertical="8dp"
-            android:text="@{viewModel.representativeAvatar.avatarTag}"
-            android:textAppearance="@style/title3"
-            android:textColor="@color/primary_100_6341F0"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/clHomeSearch"
-            tools:text="지나친 악덕영애" />
+<!--        <TextView-->
+<!--            android:id="@+id/btnHomeAvatarTag"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:background="@drawable/bg_primary50_radius_876dp"-->
+<!--            android:paddingHorizontal="14dp"-->
+<!--            android:paddingVertical="8dp"-->
+<!--            android:text="@{viewModel.representativeAvatar.avatarTag}"-->
+<!--            android:textAppearance="@style/title3"-->
+<!--            android:textColor="@color/primary_100_6341F0"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/clHomeSearch"-->
+<!--            tools:text="지나친 악덕영애" />-->
 
-        <TextView
-            android:id="@+id/tvHomeAvatarComment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@{viewModel.representativeAvatar.avatarLine}"
-            android:textAppearance="@style/title1"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnHomeAvatarTag"
-            tools:text="명진 영애, 오랜만입니다" />
+<!--        <TextView-->
+<!--            android:id="@+id/tvHomeAvatarComment"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:text="@{viewModel.representativeAvatar.avatarLine}"-->
+<!--            android:textAppearance="@style/title1"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/btnHomeAvatarTag"-->
+<!--            tools:text="명진 영애, 오랜만입니다" />-->
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/avHomeAvatar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="32dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/tvHomeSosoPick"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvHomeAvatarComment"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            loadLottieRawRes="@{viewModel.representativeAvatar.avatarId}" />
+<!--        <com.airbnb.lottie.LottieAnimationView-->
+<!--            android:id="@+id/avHomeAvatar"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:layout_marginHorizontal="32dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:layout_marginBottom="32dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/tvHomeSosoPick"-->
+<!--            app:layout_constraintDimensionRatio="1"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/tvHomeAvatarComment"-->
+<!--            app:lottie_autoPlay="true"-->
+<!--            app:lottie_loop="true"-->
+<!--            loadLottieRawRes="@{viewModel.representativeAvatar.avatarId}" />-->
 
         <View
             android:id="@+id/vHomeSubTitleDot"

@@ -22,7 +22,7 @@
     <string name="api_read_status_reading">READING</string>
     <string name="api_read_status_drop">DROP</string>
     <string name="api_read_status_wish">WISH</string>
-    <string name="post_server_error">서버와의 접속이 원활하지 않습니다</string>
+    <string name="post_server_error">서비스 접속이 원활하지 않습니다</string>
 
     <!-- dialog_post_success -->
     <string name="tv_post_success_title">내 서재에 작품이\n성공적으로 등록되었어요!</string>

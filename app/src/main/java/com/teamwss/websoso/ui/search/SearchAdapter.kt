@@ -4,7 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.data.remote.response.SearchNovelsResponse
 
-class SearchAdapter(private val onItemClick: (Long) -> Unit) : RecyclerView.Adapter<SearchViewHolder>() {
+class SearchAdapter(private val onItemClick: (Long) -> Unit) :
+    RecyclerView.Adapter<SearchViewHolder>() {
     private var novelItems: List<SearchNovelsResponse.Novel> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {

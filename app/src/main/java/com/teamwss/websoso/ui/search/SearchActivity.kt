@@ -3,7 +3,6 @@ package com.teamwss.websoso.ui.search
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -20,7 +19,7 @@ import com.teamwss.websoso.databinding.ActivitySearchBinding
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.EXTRA_PAGE_SIZE
-import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.INPUT_DELAY
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.SEARCH_DELAY
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.LAST_NOVEL_ID
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.PAGE_SIZE
 import kotlinx.coroutines.Job
@@ -85,9 +84,10 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
+                val autoSearchDelay: Long = SEARCH_DELAY
                 searchJob?.cancel()
                 searchJob = lifecycleScope.launch {
-                    delay(2000L)
+                    delay(autoSearchDelay)
                     viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, text.toString())
                 }
             }
@@ -96,17 +96,6 @@ class SearchActivity : AppCompatActivity() {
                 toggleCancelVisibility(test)
             }
         })
-    }
-
-    private fun handleTextChange(
-        handler: Handler,
-        delaySearchRunnable: Runnable
-    ) {
-        if (binding.etSearch.text.isNotEmpty()) {
-            handler.removeCallbacks(delaySearchRunnable)
-            handler.postDelayed(delaySearchRunnable, INPUT_DELAY)
-            binding.clSearchView.setBackgroundResource(R.drawable.bg_stroke_gray70_2dp_radius_12dp)
-        }
     }
 
     private fun setupTextRemover() {
@@ -153,6 +142,7 @@ class SearchActivity : AppCompatActivity() {
     private fun navigateToPostNovelActivity(novelId: Long) {
         val intent = PostNovelActivity.newIntent(this, novelId)
         startActivity(intent)
+        finish()
     }
 
     private fun setResultNovelList() {
@@ -191,7 +181,7 @@ class SearchActivity : AppCompatActivity() {
 
     companion object {
         fun newIntent(context: Context): Intent {
-            return Intent(context, PostNovelActivity::class.java).apply {
+            return Intent(context, SearchActivity::class.java).apply {
             }
         }
     }

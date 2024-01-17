@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.postNovel.postNovelDialog
+package com.teamwss.websoso.ui.postNovel.dialog
 
 import android.content.Intent
 import android.graphics.Color
@@ -8,13 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.databinding.DialogPostSuccessBinding
 import com.teamwss.websoso.ui.main.MainActivity
-import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
+import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
+import com.teamwss.websoso.ui.postNovel.PostNovelViewModel
 
-class PostSuccessDialog : DialogFragment() {
+class PostSuccessDialog(private val clickNavigateToMemo: () -> Unit) : DialogFragment() {
+
     private var _binding: DialogPostSuccessBinding? = null
     private val binding: DialogPostSuccessBinding get() = requireNotNull(_binding)
+    private val viewModel: PostNovelViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,9 +42,13 @@ class PostSuccessDialog : DialogFragment() {
 
     private fun setupNavigateMemoListener() {
         binding.llNavigateToMemo.setOnClickListener {
-            val intent = Intent(activity, MemoWriteActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            val intent =
+                NovelDetailActivity.createIntent(
+                    requireActivity(),
+                    viewModel.newUserNovelId.value ?: 0
+                )
             startActivity(intent)
+            clickNavigateToMemo()
             dismiss()
         }
     }

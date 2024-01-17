@@ -1,6 +1,5 @@
-package com.teamwss.websoso.ui.postNovel.postNovelViewModel
+package com.teamwss.websoso.ui.postNovel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,8 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.data.remote.response.NovelPlatformPostResponse
+import com.teamwss.websoso.ui.common.model.Platforms
 import com.teamwss.websoso.ui.common.model.ReadStatus
-import com.teamwss.websoso.ui.postNovel.postNovelModel.PostNovelInfoModel
+import com.teamwss.websoso.ui.postNovel.model.PostNovelInfoModel
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
@@ -47,12 +47,16 @@ class PostNovelViewModel : ViewModel() {
     val isEndDateVisible: LiveData<Boolean> get() = _isEndDateVisible
     private val _platforms = MutableLiveData<List<NovelPlatformPostResponse>>()
     val platforms: LiveData<List<NovelPlatformPostResponse>> get() = _platforms
-    private val _naverUrl = MutableLiveData<String>()
+    private val _naverUrl = MutableLiveData<String>("")
     val naverUrl: LiveData<String> get() = _naverUrl
-    private val _kakaoUrl = MutableLiveData<String>()
+    private val _kakaoUrl = MutableLiveData<String>("")
     val kakaoUrl: LiveData<String> get() = _kakaoUrl
-    private val _isServerError = MutableLiveData<Boolean>()
-    val isServerError: LiveData<Boolean> get() = _isServerError
+    private val _isFetchError = MutableLiveData<Boolean>()
+    val isFetchError: LiveData<Boolean> get() = _isFetchError
+    private val _isSaveError = MutableLiveData<Boolean>()
+    val isSaveError: LiveData<Boolean> get() = _isSaveError
+    private val _newUserNovelId = MutableLiveData<Long>()
+    val newUserNovelId: LiveData<Long> get() = _newUserNovelId
 
     fun fetchUserNovelInfo(novelId: Long) {
         viewModelScope.launch {
@@ -60,12 +64,10 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.userNovelService.getEditNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
-                _isServerError.value = false
+                _isFetchError.value = false
                 _isNovelAlreadyPosted.value = true
-                Log.e("dsvdgfaesfgwea1", it.toString())
             }.onFailure {
                 _isNovelAlreadyPosted.value = false
-                Log.e("dsvdgfaesfgwea1", it.toString())
             }
         }
     }
@@ -76,12 +78,10 @@ class PostNovelViewModel : ViewModel() {
                 ServicePool.novelService.getPostNovelInfo(novelId)
             }.onSuccess {
                 initUserNovelInfo(it.toUI())
-                _isServerError.value = false
+                _isFetchError.value = false
                 _isNovelAlreadyPosted.value = false
-                Log.e("dsvdgfaesfgwea2", it.toString())
             }.onFailure {
-                _isServerError.value = true
-                Log.e("dsvdgfaesfgwea2", it.toString())
+                _isFetchError.value = true
             }
         }
     }
@@ -91,9 +91,10 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.novelService.postPostNovelInfo(novelId, request)
             }.onSuccess {
-                _isServerError.value = false
+                _newUserNovelId.value = it.userNovelId
+                _isSaveError.value = false
             }.onFailure {
-                _isServerError.value = true
+                _isSaveError.value = true
             }
         }
     }
@@ -103,14 +104,14 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.userNovelService.patchPostNovelInfo(novelId, request)
             }.onSuccess {
-                _isServerError.value = false
+                _isSaveError.value = false
             }.onFailure {
-                _isServerError.value = true
+                _isSaveError.value = true
             }
         }
     }
 
-    private fun initUserNovelInfo(novelInfo: PostNovelInfoModel) {
+    fun initUserNovelInfo(novelInfo: PostNovelInfoModel) {
         _novelInfo.value = novelInfo
         _readStatus.value = novelInfo.readStatus
         _startDate.value = novelInfo.readStartDate ?: LocalDate.now().toString()
@@ -234,18 +235,15 @@ class PostNovelViewModel : ViewModel() {
 
     private fun setPlatforms(list: List<NovelPlatformPostResponse>) {
         _platforms.value = list
-        list.forEach { platform ->
-            when (platform.platformName) {
-                NAVER_SERIES -> _naverUrl.value = platform.platformUrl
-                KAKAO_PAGE -> _kakaoUrl.value = platform.platformUrl
+        list.forEach {
+            when (it.platformName) {
+                Platforms.NAVER_SERIES.platformName -> _naverUrl.value = it.platformUrl
+                Platforms.KAKAO_PAGE.platformName -> _kakaoUrl.value = it.platformUrl
             }
         }
     }
 
     companion object {
-        private const val NAVER_SERIES = "네이버시리즈"
-        private const val KAKAO_PAGE = "카카오페이지"
-
         private const val FEBRUARY = 2
         private const val APRIL = 4
         private const val JUNE = 6

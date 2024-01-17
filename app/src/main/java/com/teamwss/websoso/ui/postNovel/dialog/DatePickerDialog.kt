@@ -1,4 +1,4 @@
-package com.teamwss.websoso.ui.postNovel.postNovelDialog
+package com.teamwss.websoso.ui.postNovel.dialog
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -11,7 +11,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogDatePickerBinding
-import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
+import com.teamwss.websoso.ui.postNovel.PostNovelViewModel
 
 class DatePickerDialog : DialogFragment() {
     private var _binding: DialogDatePickerBinding? = null

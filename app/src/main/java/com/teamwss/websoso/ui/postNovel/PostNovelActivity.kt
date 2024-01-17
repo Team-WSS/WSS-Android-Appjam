@@ -14,15 +14,20 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.common.model.ReadStatus
-import com.teamwss.websoso.ui.postNovel.postNovelDialog.DatePickerDialog
-import com.teamwss.websoso.ui.postNovel.postNovelDialog.ExitPopupDialog
-import com.teamwss.websoso.ui.postNovel.postNovelDialog.PostSuccessDialog
-import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
+import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
+import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
+import com.teamwss.websoso.ui.postNovel.dialog.ExitPopupDialog
+import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
+import com.teamwss.websoso.ui.postNovel.model.PostNovelInfoModel
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostNovelBinding
     private val postNovelViewModel by viewModels<PostNovelViewModel>()
+
+    private var exitPopupDialog: ExitPopupDialog? = null
+    private var datePickerDialog: DatePickerDialog? = null
+    private var postSuccessDialog: PostSuccessDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,10 +93,30 @@ class PostNovelActivity : AppCompatActivity() {
     private fun setupSaveButton() {
         binding.fbPostButton.setOnClickListener {
             saveNovelInfo()
-            if (postNovelViewModel.isServerError.value == false && !binding.tvPostNovelTitle.text.isNullOrEmpty()) {
-                showPostSuccessDialog()
+
+            val isSaveError = postNovelViewModel.isSaveError.value ?: true
+            val isNovelAlreadyPosted: Boolean =
+                postNovelViewModel.isNovelAlreadyPosted.value ?: true
+            val isTitleNotEmpty = !binding.tvPostNovelTitle.text.isNullOrEmpty()
+
+            when {
+                !isSaveError && !isNovelAlreadyPosted && isTitleNotEmpty -> {
+                    showPostSuccessDialog()
+                }
+
+                !isSaveError && isNovelAlreadyPosted && isTitleNotEmpty -> {
+                    navigateToNovelDetail()
+                    finish()
+                }
             }
         }
+    }
+
+    private fun navigateToNovelDetail() {
+        val intent =
+            NovelDetailActivity.createIntent(this, postNovelViewModel.novelInfo.value?.id ?: 0)
+        startActivity(intent)
+        finish()
     }
 
     private fun checkIsDateNull(): NovelPostRequest {
@@ -113,7 +138,8 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun saveNovelInfo() {
-        val id = postNovelViewModel.novelInfo.value?.id ?: 0
+        val errorId: Long = 0
+        val id = postNovelViewModel.novelInfo.value?.id ?: errorId
         val request = checkIsDateNull()
 
         if (postNovelViewModel.isNovelAlreadyPosted.value == false) {
@@ -125,35 +151,46 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun setupExitPopupDialog() {
         binding.ivPostExitPopup.setOnClickListener {
-            postNovelViewModel.updateIsDialogShown(true)
+            if (exitPopupDialog == null || !exitPopupDialog!!.isAdded) {
+                postNovelViewModel.updateIsDialogShown(true)
 
-            val dialogFragment = ExitPopupDialog()
-            dialogFragment.show(supportFragmentManager, "ExitPopupDialog")
+                exitPopupDialog = ExitPopupDialog(::finish)
+                exitPopupDialog!!.show(supportFragmentManager, "ExitPopupDialog")
+            }
         }
     }
 
     private fun setupDatePickerDialog() {
         binding.llPostReadDate.setOnClickListener {
-            postNovelViewModel.updateIsDialogShown(true)
+            if (datePickerDialog == null || !datePickerDialog!!.isAdded) {
+                postNovelViewModel.updateIsDialogShown(true)
 
-            val dialogFragment = DatePickerDialog()
-            dialogFragment.show(supportFragmentManager, "DatePickerDialog")
+                datePickerDialog = DatePickerDialog()
+                datePickerDialog!!.show(supportFragmentManager, "DatePickerDialog")
+            }
         }
     }
 
     private fun showPostSuccessDialog() {
-        postNovelViewModel.updateIsDialogShown(true)
+        if (postSuccessDialog == null || !postSuccessDialog!!.isAdded) {
+            postNovelViewModel.updateIsDialogShown(true)
 
-        val dialogFragment = PostSuccessDialog()
-        dialogFragment.show(supportFragmentManager, "PostSuccessDialog")
+            postSuccessDialog = PostSuccessDialog(::finish)
+            postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
+        }
     }
 
     private fun initUserNovelInfo() {
-        val novelId = intent.getLongExtra(NOVEL_ID, 0)
-        postNovelViewModel.fetchUserNovelInfo(novelId)
-        postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
-            if (!it && postNovelViewModel.novelInfo.value == null) {
-                postNovelViewModel.fetchDefaultNovelInfo(novelId)
+        if (intent.hasExtra(USER_NOVEL_INFO)) {
+            val userNovelInfo = intent.getParcelableExtra<PostNovelInfoModel>(USER_NOVEL_INFO)!!
+            postNovelViewModel.initUserNovelInfo(userNovelInfo)
+        } else {
+            val novelId = intent.getLongExtra(NOVEL_ID, 0)
+            postNovelViewModel.fetchUserNovelInfo(novelId)
+            postNovelViewModel.isNovelAlreadyPosted.observe(this@PostNovelActivity) {
+                if (!it && postNovelViewModel.novelInfo.value == null) {
+                    postNovelViewModel.fetchDefaultNovelInfo(novelId)
+                }
             }
         }
     }
@@ -202,10 +239,18 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupUrlButton() {
-        postNovelViewModel.platforms.observe(this) {
-            binding.llPostNovelLinkNaver.setOnClickListener { openUrl(postNovelViewModel.naverUrl.value.toString()) }
-            binding.llPostNovelLinkKakao.setOnClickListener { openUrl(postNovelViewModel.kakaoUrl.value.toString()) }
+        postNovelViewModel.naverUrl.observe(this) { naverUrl ->
+            bindUrlClickListener(binding.llPostNovelLinkNaver, naverUrl)
         }
+
+        postNovelViewModel.kakaoUrl.observe(this) { kakaoUrl ->
+            bindUrlClickListener(binding.llPostNovelLinkKakao, kakaoUrl)
+        }
+    }
+
+    private fun bindUrlClickListener(view: View, url: String) {
+        view.setOnClickListener { openUrl(url) }
+        view.visibility = if (url.isNotEmpty()) View.VISIBLE else View.GONE
     }
 
     private fun openUrl(url: String) {
@@ -214,7 +259,7 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupIsServerError() {
-        postNovelViewModel.isServerError.observe(this) {
+        val showErrorSnackbar: (Boolean) -> Unit = {
             if (it) {
                 Snackbar.make(
                     binding.root,
@@ -223,6 +268,8 @@ class PostNovelActivity : AppCompatActivity() {
                 ).show()
             }
         }
+        postNovelViewModel.isFetchError.observe(this, showErrorSnackbar)
+        postNovelViewModel.isSaveError.observe(this, showErrorSnackbar)
     }
 
     companion object {
@@ -230,6 +277,13 @@ class PostNovelActivity : AppCompatActivity() {
         fun newIntent(context: Context, novelId: Long): Intent {
             return Intent(context, PostNovelActivity::class.java).apply {
                 putExtra(NOVEL_ID, novelId)
+            }
+        }
+
+        const val USER_NOVEL_INFO = "USER_NOVEL_INFO"
+        fun newIntentFromNovelDetail(context: Context, userNovelInfo: PostNovelInfoModel): Intent {
+            return Intent(context, PostNovelActivity::class.java).apply {
+                putExtra(USER_NOVEL_INFO, userNovelInfo)
             }
         }
     }

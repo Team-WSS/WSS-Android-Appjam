@@ -1,6 +1,5 @@
-package com.teamwss.websoso.ui.postNovel.postNovelDialog
+package com.teamwss.websoso.ui.postNovel.dialog
 
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,10 +9,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.databinding.DialogPostExitBinding
-import com.teamwss.websoso.ui.main.MainActivity
-import com.teamwss.websoso.ui.postNovel.postNovelViewModel.PostNovelViewModel
+import com.teamwss.websoso.ui.postNovel.PostNovelViewModel
 
-class ExitPopupDialog : DialogFragment() {
+class ExitPopupDialog(private val clickExit: () -> Unit) : DialogFragment() {
     private var _binding: DialogPostExitBinding? = null
     private val binding: DialogPostExitBinding get() = requireNotNull(_binding)
     private val postNovelViewModel: PostNovelViewModel by activityViewModels()
@@ -51,9 +49,7 @@ class ExitPopupDialog : DialogFragment() {
 
     private fun setupExitActivityListener() {
         binding.llPostDialogExitButton.setOnClickListener {
-            val intent = Intent(activity, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)
+            clickExit()
             dismiss()
         }
     }
