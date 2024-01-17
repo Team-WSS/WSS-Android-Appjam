@@ -246,8 +246,8 @@
                                 android:id="@+id/scPostDateSwitch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="16dp"
-                                android:checked="@{postNovelViewModel.novelInfo.readStartDate != null}"
-                                android:enabled="@{postNovelViewModel.novelInfo.readStartDate != null}"
+                                android:checked="@{postNovelViewModel.novelInfo.readStatus != @string/api_read_status_wish}"
+                                android:enabled="@{postNovelViewModel.novelInfo.title != null}"
                                 android:thumb="@drawable/shape_date_switch_thumb"
                                 app:layout_constraintBottom_toBottomOf="@id/tvPostReadDateTitle"
                                 app:layout_constraintStart_toEndOf="@id/tvPostReadDateTitle"
@@ -263,7 +263,7 @@
                                 android:background="@drawable/shape_post_read_date_frame"
                                 android:paddingStart="16dp"
                                 android:paddingEnd="16dp"
-                                android:visibility="@{postNovelViewModel.novelInfo.readStartDate != null ? 0 : 8}"
+                                android:visibility="@{postNovelViewModel.novelInfo.readStatus != @string/api_read_status_wish ? 0 : 8}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -555,15 +555,15 @@
 
             <ImageView
                 android:id="@+id/ivPostExitPopup"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:contentDescription="@string/iv_post_navigate_left_description"
                 android:padding="10dp"
                 android:src="@drawable/ic_navigate_left"
-                app:layout_constraintBottom_toBottomOf="@id/viewPostAppBar"
-                app:layout_constraintStart_toStartOf="@id/viewPostAppBar" />
+                app:layout_constraintBottom_toBottomOf="@id/tvPostTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvPostTitle" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
