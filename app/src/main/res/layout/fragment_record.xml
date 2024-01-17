@@ -110,6 +110,7 @@
             android:textAppearance="@style/title1"
             android:textColor="@color/primary_100_6341F0"
             android:paddingVertical="18dp"
+            android:stateListAnimator="@null"
             android:layout_marginStart="28dp"
             android:layout_marginEnd="42dp"
             android:layout_marginTop="48dp"
