@@ -313,6 +313,7 @@
                     android:text="@string/my_page_logout"
                     android:textAppearance="@style/body1"
                     android:textColor="@color/black"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="@id/tvMyPageCheckUserInfo"
                     app:layout_constraintTop_toBottomOf="@id/viewMyPageCheckUserInfoUnderLine" />
 
@@ -322,6 +323,7 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="20dp"
                     android:background="@color/gray_50_F4F5F8"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvMyPageLogOut" />
 
