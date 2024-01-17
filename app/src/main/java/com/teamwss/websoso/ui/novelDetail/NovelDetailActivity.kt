@@ -206,7 +206,7 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun showNovelDetailPopup() {
-        val spinnerItems = listOf("작품을 서재에서 삭제", "작품 수정")
+        val spinnerItems = listOf("작품을 서재에서 삭제", "작품 정보 수정")
         val listView = createListView(spinnerItems)
         popupWindow = createPopupWindow(listView)
 
