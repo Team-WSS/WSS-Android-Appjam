@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.memoPlain
 
+import CustomSnackBar
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -9,9 +10,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityMemoPlainBinding
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
@@ -44,17 +43,12 @@ class MemoPlainActivity : AppCompatActivity() {
         patchedMemoLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    val drawable =
-                        ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
-                    CustomSnackBar.make(binding.root)
-                        .setText("메모를 수정했어요")
-                        .setIcon(
+                    val drawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
+                    CustomSnackBar.make(binding.root).setText("메모를 수정했어요").setIcon(
                             drawable ?: ContextCompat.getDrawable(
-                                this,
-                                R.drawable.ic_alert_default
+                                this, R.drawable.ic_alert_default
                             )!!
-                        )
-                        .show()
+                        ).show()
                 }
             }
 
