@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
 import com.teamwss.websoso.ui.main.library.LibraryFragment
+import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
 
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
@@ -62,8 +62,8 @@ class RecordFragment : Fragment() {
     }
 
     private fun navigateToMemoPlainActivity(memoId: Long) {
-        Toast.makeText(requireContext(), "Memo ID: ${memoId}", Toast.LENGTH_SHORT).show()
-        // TODO: 메모 상세보기로 이동
+        val intent = MemoPlainActivity.newIntent(requireContext(), memoId)
+        startActivity(intent)
     }
 
     private fun setupButtonRecordClickListener() {
