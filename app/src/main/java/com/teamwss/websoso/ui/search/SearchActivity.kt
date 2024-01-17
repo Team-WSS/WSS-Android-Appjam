@@ -61,8 +61,8 @@ class SearchActivity : AppCompatActivity() {
         searchKeyboard.requestFocus()
 
         val inputMethodManager =
-            this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(binding.etSearch, 0)
+            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(searchKeyboard, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun setupSearchEditText() {
