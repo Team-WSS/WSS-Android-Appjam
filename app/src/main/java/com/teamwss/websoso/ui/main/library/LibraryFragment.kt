@@ -89,7 +89,7 @@ class LibraryFragment : Fragment() {
     }
 
     private fun setupPostNovelButtonClickListener() {
-        navigateToSearchActivity()
+        //navigateToSearchActivity()
     }
 
     private fun navigateToSearchActivity() {
