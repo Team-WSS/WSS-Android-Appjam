@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -58,7 +60,6 @@ class NovelDetailActivity : AppCompatActivity() {
         observeUserNovelId()
         observeUserNovelInfoData()
         setupListener()
-        Log.d("oncreate", "실행")
     }
 
     private fun getAndUpdateUserNovelId() {
@@ -122,19 +123,27 @@ class NovelDetailActivity : AppCompatActivity() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val isAvatarUnlocked =
                         result.data?.getBooleanExtra("isAvatarUnlocked", false) ?: false
-                    val drawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
+                    val memoSavedDrawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
+
                     CustomSnackBar.make(binding.root)
                         .setText("메모를 저장했어요")
-                        .setIcon(
-                            drawable ?: ContextCompat.getDrawable(
-                                this,
-                                R.drawable.ic_alert_default
-                            )!!
-                        )
+                        .setIcon(memoSavedDrawable ?: ContextCompat.getDrawable(this, R.drawable.ic_alert_default)!!)
                         .show()
+
+                    if(isAvatarUnlocked) {
+                        val handler = Handler(Looper.getMainLooper())
+                        handler.postDelayed({
+                            val avatarUnlockedDrawable = ContextCompat.getDrawable(this, R.drawable.ic_avatar_unlocked)
+                            CustomSnackBar.make(binding.root)
+                                .setText("새 캐릭터가 열렸어요!")
+                                .setIcon(avatarUnlockedDrawable ?: ContextCompat.getDrawable(this, R.drawable.ic_avatar_unlocked)!!)
+                                .show()
+                        }, 4000)
+                    }
                 }
             }
     }
+
 
     private fun updateToolbarAppearance(isCollapsed: Boolean) {
         with(binding) {
