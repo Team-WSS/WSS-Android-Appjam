@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.main.record
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
+import com.teamwss.websoso.ui.search.SearchActivity
 
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
@@ -28,6 +30,7 @@ class RecordFragment : Fragment() {
         setupRecyclerView()
         setupMemos()
         setupMemoCount()
+        setupButtonRecordClickListener()
     }
 
     private fun setupRecyclerView() {
@@ -65,7 +68,9 @@ class RecordFragment : Fragment() {
 
     private fun setupButtonRecordClickListener() {
         binding.btnRecordGoToPostNovel.setOnClickListener {
-            // TODO: 웹소설 일반등록으로 이동
+            val intent = Intent(binding.root.context, SearchActivity::class.java)
+
+            startActivity(intent)
         }
     }
 
