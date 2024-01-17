@@ -16,7 +16,6 @@ import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
-import com.teamwss.websoso.ui.postNovel.dialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
 import kotlin.math.pow
 
@@ -24,7 +23,6 @@ class PostNovelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostNovelBinding
     private val postNovelViewModel by viewModels<PostNovelViewModel>()
 
-    private var exitPopupDialog: ExitPopupDialog? = null
     private var datePickerDialog: DatePickerDialog? = null
     private var postSuccessDialog: PostSuccessDialog? = null
 
@@ -151,12 +149,7 @@ class PostNovelActivity : AppCompatActivity() {
 
     private fun setupExitPopupDialog() {
         binding.ivPostExitPopup.setOnClickListener {
-            if (exitPopupDialog == null || !exitPopupDialog!!.isAdded) {
-                postNovelViewModel.updateIsDialogShown(true)
-
-                exitPopupDialog = ExitPopupDialog(::finish)
-                exitPopupDialog!!.show(supportFragmentManager, "ExitPopupDialog")
-            }
+            finish()
         }
     }
 
