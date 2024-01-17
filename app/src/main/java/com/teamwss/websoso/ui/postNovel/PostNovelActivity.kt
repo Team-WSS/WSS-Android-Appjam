@@ -64,13 +64,13 @@ class PostNovelActivity : AppCompatActivity() {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.viewPostAppBar.height
 
-            val scrollRatio = ((scrollY.toFloat() + 15) / maxHeight).coerceAtMost(1f).pow(3 / 2)
+            val scrollRatio = ((scrollY.toFloat() + 5) / maxHeight).coerceAtMost(1f).pow(3 / 2)
             val colorAlpha = (scrollRatio * 255).toInt()
 
             binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
             binding.tvPostTitle.setTextColor(getColor(R.color.black).changeAlpha(colorAlpha))
 
-            if (scrollY == 0) {
+            if (scrollY < 5) {
                 binding.viewPostAppBar.visibility = View.INVISIBLE
             } else {
                 binding.viewPostAppBar.visibility = View.VISIBLE
