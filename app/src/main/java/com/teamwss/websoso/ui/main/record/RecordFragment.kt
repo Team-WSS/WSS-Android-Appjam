@@ -1,16 +1,16 @@
 package com.teamwss.websoso.ui.main.record
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
-import com.teamwss.websoso.ui.search.SearchActivity
+import com.teamwss.websoso.ui.main.library.LibraryFragment
 
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
@@ -68,9 +68,9 @@ class RecordFragment : Fragment() {
 
     private fun setupButtonRecordClickListener() {
         binding.btnRecordGoToPostNovel.setOnClickListener {
-            val intent = Intent(binding.root.context, SearchActivity::class.java)
-
-            startActivity(intent)
+            parentFragmentManager.commit {
+                replace(R.id.fcvMain, LibraryFragment.newInstance())
+            }
         }
     }
 
