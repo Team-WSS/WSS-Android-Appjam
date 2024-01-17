@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -115,10 +116,14 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun observePostMemoSuccess() {
         memoWriteViewModel.isMemoPosted.observe(this) { isPosted ->
             if (isPosted) {
-                val resultIntent = Intent()
-                resultIntent.putExtra("isAvatarUnlocked", memoWriteViewModel.isAvatarUnlocked.value ?: false)
-                setResult(Activity.RESULT_OK, resultIntent)
-                finish()
+                memoWriteViewModel.isAvatarUnlocked.observe(this) { isAvatarUnlocked ->
+                    val resultIntent = Intent().apply {
+                        putExtra("isAvatarUnlocked", isAvatarUnlocked)
+                        Log.d("unlocked", isAvatarUnlocked.toString())
+                    }
+                    setResult(Activity.RESULT_OK, resultIntent)
+                    finish()
+                }
             } else {
                 Snackbar.make(
                     binding.root,

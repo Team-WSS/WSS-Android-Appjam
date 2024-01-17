@@ -120,12 +120,18 @@ class NovelDetailActivity : AppCompatActivity() {
         postedMemoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val isAvatarUnlocked = result.data?.getBooleanExtra("isAvatarUnlocked", false) ?: false
-                if (isAvatarUnlocked) {
-                    Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).show()
-                    Snackbar.make(binding.root, "아바타를 해금했어요", Snackbar.LENGTH_SHORT).show()
-                } else {
-                    Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).show()
-                }
+                Snackbar.make(binding.root, "메모를 저장했어요", Snackbar.LENGTH_SHORT).apply {
+                    addCallback(object : Snackbar.Callback() {
+                        override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                            super.onDismissed(transientBottomBar, event)
+                            if (isAvatarUnlocked) {
+                                Snackbar.make(binding.root, "아바타를 해금했어요", Snackbar.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                }.show()
+            } else {
+                Snackbar.make(binding.root, "메모 저장에 실패했어요", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
