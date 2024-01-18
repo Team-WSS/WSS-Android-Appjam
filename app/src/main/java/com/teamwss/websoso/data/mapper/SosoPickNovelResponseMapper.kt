@@ -8,6 +8,7 @@ object SosoPickNovelResponseMapper {
     fun List<SosoPickNovelResponse>.toData(): List<SosoPickNovelEntity> {
         return this.map {
             SosoPickNovelEntity(
+                novelId = it.novelId,
                 novelAuthor = it.novelAuthor,
                 novelImg = it.novelImg,
                 novelRegisteredCount = it.novelRegisteredCount,

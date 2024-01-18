@@ -11,6 +11,8 @@ data class SosopickNovelHomeResponse(
 
 @Serializable
 data class SosoPickNovelResponse(
+    @SerialName("novelId")
+    val novelId: Long,
     @SerialName("novelAuthor")
     val novelAuthor: String,
     @SerialName("novelImg")
