@@ -55,6 +55,11 @@ class MyPageFragment : Fragment() {
         observePatchSuccessObserve()
     }
 
+    override fun onResume() {
+        super.onResume()
+        myPageViewModel.getMyPageUserInfo()
+    }
+
     private fun showAvatarDialog(id: Long) {
         myPageViewModel.getAvatar(id)
         val dialogFragment = AvatarDialogFragment.newInstance()
