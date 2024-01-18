@@ -104,6 +104,7 @@ class PostNovelViewModel : ViewModel() {
             kotlin.runCatching {
                 ServicePool.userNovelService.patchPostNovelInfo(novelId, request)
             }.onSuccess {
+                _newUserNovelId.value = _novelInfo.value?.id
                 _isSaveError.value = false
             }.onFailure {
                 _isSaveError.value = true
