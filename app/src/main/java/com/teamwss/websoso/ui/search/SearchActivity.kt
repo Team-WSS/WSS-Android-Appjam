@@ -1,7 +1,9 @@
 package com.teamwss.websoso.ui.search
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.databinding.ActivitySearchBinding
@@ -36,6 +39,8 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(finishReceiver, IntentFilter("FINISH_SEARCH_ACTIVITY"))
+
         binding.ivSearchBack.setOnClickListener {
             finish()
         }
@@ -47,6 +52,19 @@ class SearchActivity : AppCompatActivity() {
         setResultNovelList()
         setupInfinityScroll()
         isResultEmpty()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishReceiver)
+    }
+
+    private val finishReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == "FINISH_SEARCH_ACTIVITY") {
+                finish()
+            }
+        }
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -127,7 +145,6 @@ class SearchActivity : AppCompatActivity() {
     private fun navigateToPostNovelActivity(novelId: Long) {
         val intent = PostNovelActivity.newIntent(this, novelId)
         startActivity(intent)
-        finish()
     }
 
     private fun setResultNovelList() {
@@ -167,6 +184,7 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         fun newIntent(context: Context): Intent {
             return Intent(context, SearchActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             }
         }
     }

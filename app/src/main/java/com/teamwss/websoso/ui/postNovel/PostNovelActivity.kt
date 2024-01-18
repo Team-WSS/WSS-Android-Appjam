@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
@@ -16,7 +17,6 @@ import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
-import com.teamwss.websoso.ui.postNovel.dialog.ExitPopupDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
 import kotlin.math.pow
 
@@ -24,7 +24,6 @@ class PostNovelActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostNovelBinding
     private val postNovelViewModel by viewModels<PostNovelViewModel>()
 
-    private var exitPopupDialog: ExitPopupDialog? = null
     private var datePickerDialog: DatePickerDialog? = null
     private var postSuccessDialog: PostSuccessDialog? = null
 
@@ -62,17 +61,23 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupAppBar() {
+        val scrollThreshold = 10
+        val alphaThreshold = 5
+        val maxScrollRatio = 1f
+        val alphaMultiplier = 255
+        val powerFactor = 3 / 2
+
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.viewPostAppBar.height
 
-            val scrollRatio = ((scrollY.toFloat() + 15) / maxHeight).coerceAtMost(1f).pow(3 / 2)
-            val colorAlpha = (scrollRatio * 255).toInt()
+            val scrollRatio = ((scrollY.toFloat() + alphaThreshold) / maxHeight).coerceAtMost(maxScrollRatio).pow(powerFactor)
+            val colorAlpha = (scrollRatio * alphaMultiplier).toInt()
 
             binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
             binding.tvPostTitle.setTextColor(getColor(R.color.black).changeAlpha(colorAlpha))
 
-            if (scrollY == 0) {
+            if (scrollY < scrollThreshold) {
                 binding.viewPostAppBar.visibility = View.INVISIBLE
             } else {
                 binding.viewPostAppBar.visibility = View.VISIBLE
@@ -147,16 +152,13 @@ class PostNovelActivity : AppCompatActivity() {
         } else {
             postNovelViewModel.saveUserNovelInfo(id, request)
         }
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(Intent("FINISH_SEARCH_ACTIVITY"))
     }
 
     private fun setupExitPopupDialog() {
         binding.ivPostExitPopup.setOnClickListener {
-            if (exitPopupDialog == null || !exitPopupDialog!!.isAdded) {
-                postNovelViewModel.updateIsDialogShown(true)
-
-                exitPopupDialog = ExitPopupDialog(::finish)
-                exitPopupDialog!!.show(supportFragmentManager, "ExitPopupDialog")
-            }
+            finish()
         }
     }
 
