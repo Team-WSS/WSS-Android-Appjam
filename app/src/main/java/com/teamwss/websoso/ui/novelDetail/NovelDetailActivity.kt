@@ -56,6 +56,7 @@ class NovelDetailActivity : AppCompatActivity() {
         getAndUpdateUserNovelId()
         setupUI()
         registerForPostMemoLauncher()
+        registerForEditMemoLauncher()
         observeUserNovelId()
         observeUserNovelInfoData()
         setupListener()
@@ -152,6 +153,18 @@ class NovelDetailActivity : AppCompatActivity() {
             }
     }
 
+    private fun registerForEditMemoLauncher() {
+        novelPatchedLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    setupNovelInfoFragment()
+                }
+            }
+    }
+
+    private fun setupNovelInfoFragment() {
+        binding.vpNovelDetail.setCurrentItem(NOVEL_INFO_FRAGMENT_INDEX, true)
+    }
 
     private fun updateToolbarAppearance(isCollapsed: Boolean) {
         with(binding) {
@@ -163,7 +176,8 @@ class NovelDetailActivity : AppCompatActivity() {
                 )
             )
 
-            tvNovelDetailTitleOnToolBar.visibility = if (isCollapsed) View.VISIBLE else View.GONE
+            tvNovelDetailTitleOnToolBar.visibility =
+                if (isCollapsed) View.VISIBLE else View.GONE
             ivNovelDetailPopupMenuBtn.visibility = if (isCollapsed) View.GONE else View.VISIBLE
         }
     }
@@ -176,8 +190,10 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun observeUserNovelInfoData() {
         novelDetailViewModel.userNovelMemoInfoResponse.observe(this) {
-            userNovelAuthor = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
-            userNovelTitle = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
+            userNovelAuthor =
+                novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
+            userNovelTitle =
+                novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
             userNovelImage = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelImg
         }
     }
@@ -262,8 +278,8 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun handlePopupItemClick(position: Int) {
         when (position) {
-            0 -> showNovelDeleteDialog()
-            1 -> navigateToNovelEdit()
+            NOVEL_MEMO_FRAGMENT_INDEX -> showNovelDeleteDialog()
+            NOVEL_INFO_FRAGMENT_INDEX -> navigateToNovelEdit()
         }
     }
 
@@ -279,7 +295,7 @@ class NovelDetailActivity : AppCompatActivity() {
             this,
             novelDetailViewModel.userNovelMemoInfoResponse.value?.novelId ?: 0
         )
-        startActivity(intent)
+        novelPatchedLauncher.launch(intent)
     }
 
     override fun onResume() {
@@ -309,6 +325,8 @@ class NovelDetailActivity : AppCompatActivity() {
         const val POPUP_WIDTH = 198
         const val POPUP_MARGIN_END = -6
         const val POPUP_MARGIN_TOP = 4
+        const val NOVEL_MEMO_FRAGMENT_INDEX = 0
+        const val NOVEL_INFO_FRAGMENT_INDEX = 1
 
         fun createIntent(context: Context, userNovelId: Long): Intent {
             return Intent(context, NovelDetailActivity::class.java).apply {
