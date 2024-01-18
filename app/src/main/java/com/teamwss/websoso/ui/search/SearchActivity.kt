@@ -145,9 +145,9 @@ class SearchActivity : AppCompatActivity() {
 
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = searchAdapter.itemCount - EXTRA_PAGE_SIZE
+                val searchCountPoint = searchAdapter.itemCount - EXTRA_PAGE_SIZE
 
-                if (lastVisibleItemPosition == itemTotalCount && viewModel.isLoading.value != true) {
+                if (lastVisibleItemPosition == searchCountPoint && viewModel.isLoading.value != true) {
                     val lastItemNovelId = searchAdapter.getNovelIdAtPosition(searchAdapter.itemCount - 1)
 
                     viewModel.searchNovels(
