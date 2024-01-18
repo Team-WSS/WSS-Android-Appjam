@@ -88,7 +88,7 @@ class ChangeNicknameActivity : AppCompatActivity() {
 
     private fun observeUserName() {
         changeNicknameViewModel.userNickname.observe(this) {
-            if (it.isNotEmpty()) {
+            if (it.isNotBlank()) {
                 binding.tvChangeNicknameComplete.setTextColor(
                     ContextCompat.getColor(
                         this,
