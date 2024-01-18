@@ -19,8 +19,8 @@ data class UserInfoMyPageResponse(
     val representativeAvatarImg: String,
     @SerialName("userAvatars")
     val userAvatars: List<UserAvatarResponse>,
-    @SerialName("userNickName")
-    val userNickName: String,
+    @SerialName("userNickname")
+    val userNickname: String,
     @SerialName("userNovelCount")
     val userNovelCount: Long
 )

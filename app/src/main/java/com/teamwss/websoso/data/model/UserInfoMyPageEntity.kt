@@ -10,6 +10,6 @@ data class UserInfoMyPageEntity(
     val representativeAvatarTag: String,
     val representativeAvatarImg: String,
     val userAvatars: List<UserAvatarResponse>,
-    val userNickName: String,
+    val userNickname: String,
     val userNovelCount: Long,
 )

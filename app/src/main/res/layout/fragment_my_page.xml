@@ -114,7 +114,7 @@
                         android:id="@+id/tvMyPageUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.format(@string/my_page_user_name,viewModel.userInfo.userNickName)}"
+                        android:text="@{String.format(@string/my_page_user_name,viewModel.userInfo.userNickname)}"
                         android:textAppearance="@style/headline1"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"

@@ -79,7 +79,7 @@ class MyPageFragment : Fragment() {
     private fun navigateToChangeNameActivity() {
         val intent = ChangeNicknameActivity.createIntent(
             requireContext(),
-            myPageViewModel.userInfo.value?.userNickName ?: ""
+            myPageViewModel.userInfo.value?.userNickname ?: ""
         )
         changeNicknameActivityResultLauncher.launch(intent)
     }
@@ -93,7 +93,7 @@ class MyPageFragment : Fragment() {
     private fun navigateToCheckUserInfoActivity() {
         val intent = CheckUserInfoActivity.createIntent(
             requireContext(),
-            myPageViewModel.userInfo.value?.userNickName ?: ""
+            myPageViewModel.userInfo.value?.userNickname ?: ""
         )
         startActivity(intent)
     }
