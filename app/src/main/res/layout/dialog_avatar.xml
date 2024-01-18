@@ -115,7 +115,8 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDialogAvatarSetupRepresent"
-            visibleGone="@{viewModel.selectedAvatar.hasAvatar}"
+            andCondition="@{viewModel.selectedAvatarId != viewModel.userInfo.representativeAvatarId}"
+            visibleIf="@{viewModel.selectedAvatar.hasAvatar}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_primary100_radius_12dp"
@@ -131,7 +132,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDialogAvatarReturn"
-            visibleGone="@{!viewModel.selectedAvatar.hasAvatar}"
+            visibleGone="@{!viewModel.selectedAvatar.hasAvatar || viewModel.selectedAvatarId == viewModel.userInfo.representativeAvatarId}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
@@ -148,7 +149,8 @@
 
         <TextView
             android:id="@+id/tvDialogAvatarMaintain"
-            visibleGone="@{viewModel.selectedAvatar.hasAvatar}"
+            andCondition="@{viewModel.selectedAvatarId != viewModel.userInfo.representativeAvatarId}"
+            visibleIf="@{viewModel.selectedAvatar.hasAvatar}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

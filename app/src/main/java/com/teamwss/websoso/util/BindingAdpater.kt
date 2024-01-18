@@ -66,6 +66,11 @@ fun setVisibleGone(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("visibleIf", "andCondition")
+fun setVisibility(view: View, condition1: Boolean, condition2: Boolean) {
+    view.visibility = if (condition1 && condition2) View.VISIBLE else View.GONE
+}
+
 private fun loadCustomImage(view: ImageView, imageUrl: String?, transformation: Transformation) {
     imageUrl?.let {
         view.load(it) {
