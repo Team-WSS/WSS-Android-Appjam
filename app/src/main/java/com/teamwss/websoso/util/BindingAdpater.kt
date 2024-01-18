@@ -107,7 +107,7 @@ fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
 @BindingAdapter("setNovelInfoReadStatusText")
 fun setReadStatusText(textView: TextView, status: String) {
     textView.text = when (status) {
-        ReadStatus.FINISH.name -> "완료"
+        ReadStatus.FINISH.name -> "읽음"
         ReadStatus.READING.name -> "읽는 중"
         ReadStatus.DROP.name -> "하차"
         ReadStatus.WISH.name -> "읽고 싶음"
