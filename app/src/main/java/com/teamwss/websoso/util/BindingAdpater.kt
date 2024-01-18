@@ -42,7 +42,8 @@ fun loadCoverImageBlurred5(view: ImageView, imageUrl: String?) {
 
 @BindingAdapter("loadLottieRawRes")
 fun loadLottieAnimation(view: LottieAnimationView, avatarId: Long) {
-    val resId = avatarId.toLottieImage()
+    val currentTime = System.currentTimeMillis()
+    val resId = if (currentTime % 2 == 0L) avatarId.toLottieImage() else (avatarId + 100L).toLottieImage()
     try {
         if (resId != 0) {
             view.setAnimation(resId)
@@ -51,6 +52,11 @@ fun loadLottieAnimation(view: LottieAnimationView, avatarId: Long) {
     } catch (e: IllegalArgumentException) {
         e.printStackTrace()
     }
+}
+
+@BindingAdapter("visibleGone")
+fun setVisibleGone(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
 private fun loadCustomImage(view: ImageView, imageUrl: String?, transformation: Transformation) {
