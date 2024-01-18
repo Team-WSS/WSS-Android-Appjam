@@ -5,10 +5,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.teamwss.websoso.data.model.SosoPickNovelEntity
 
-class HomeAdapter : ListAdapter<SosoPickNovelEntity, HomeViewHolder>(HomeDiffCallback) {
+class HomeAdapter(
+    private val onClick: (Long) -> Unit,
+) : ListAdapter<SosoPickNovelEntity, HomeViewHolder>(HomeDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder.newInstance(parent)
+        return HomeViewHolder.newInstance(parent, onClick)
     }
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
