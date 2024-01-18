@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:text="@string/record_title_my_record"
-        android:textAppearance="@style/headline1"
+        android:textAppearance="@style/title2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
