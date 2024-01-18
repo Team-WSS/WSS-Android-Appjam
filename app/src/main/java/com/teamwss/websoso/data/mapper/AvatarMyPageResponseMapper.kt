@@ -8,6 +8,7 @@ object AvatarMyPageResponseMapper {
     fun AvatarMyPageResponse.toData(): AvatarEntity {
         return AvatarEntity(
             avatarId = avatarId,
+            avatarImg = avatarImg,
             avatarCondition = avatarCondition,
             avatarGenreBadgeImg = avatarGenreBadgeImg,
             avatarMent = avatarMent,
