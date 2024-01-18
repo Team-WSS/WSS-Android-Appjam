@@ -37,13 +37,13 @@ class NovelDetailActivity : AppCompatActivity() {
     }
     private val novelDetailViewModel: NovelDetailViewModel by viewModels()
     private var userNovelId: Long = 0
+    private var boolean: Boolean = false
     private lateinit var userNovelTitle: String
     private lateinit var userNovelAuthor: String
     private lateinit var userNovelImage: String
     private var popupWindow: PopupWindow? = null
 
     private lateinit var postedMemoLauncher: ActivityResultLauncher<Intent>
-    private lateinit var novelPatchedLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +53,16 @@ class NovelDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.novelDetailViewModel = novelDetailViewModel
 
+        boolean = intent.getBooleanExtra("isPostNovel", false)
+        if (boolean) {
+            binding.vpNovelDetail.post {
+                binding.vpNovelDetail.setCurrentItem(1, true)
+            }
+        }
+
         getAndUpdateUserNovelId()
         setupUI()
         registerForPostMemoLauncher()
-        registerForEditMemoLauncher()
         observeUserNovelId()
         observeUserNovelInfoData()
         setupListener()
@@ -65,7 +71,6 @@ class NovelDetailActivity : AppCompatActivity() {
     private fun getAndUpdateUserNovelId() {
         val errorUserId: Long = 0
         userNovelId = intent.getLongExtra("userNovelId", errorUserId)
-        Log.e("test123", userNovelId.toString())
         novelDetailViewModel.getUserNovelId(userNovelId)
         novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }
@@ -151,19 +156,6 @@ class NovelDetailActivity : AppCompatActivity() {
                     }
                 }
             }
-    }
-
-    private fun registerForEditMemoLauncher() {
-        novelPatchedLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    setupNovelInfoFragment()
-                }
-            }
-    }
-
-    private fun setupNovelInfoFragment() {
-        binding.vpNovelDetail.setCurrentItem(NOVEL_INFO_FRAGMENT_INDEX, true)
     }
 
     private fun updateToolbarAppearance(isCollapsed: Boolean) {
@@ -295,7 +287,7 @@ class NovelDetailActivity : AppCompatActivity() {
             this,
             novelDetailViewModel.userNovelMemoInfoResponse.value?.novelId ?: 0
         )
-        novelPatchedLauncher.launch(intent)
+        startActivity(intent)
     }
 
     override fun onResume() {
@@ -331,6 +323,17 @@ class NovelDetailActivity : AppCompatActivity() {
         fun createIntent(context: Context, userNovelId: Long): Intent {
             return Intent(context, NovelDetailActivity::class.java).apply {
                 putExtra("userNovelId", userNovelId)
+            }
+        }
+
+        fun createIntentFromPostNovel(
+            context: Context,
+            userNovelId: Long,
+            boolean: Boolean
+        ): Intent {
+            return Intent(context, NovelDetailActivity::class.java).apply {
+                putExtra("userNovelId", userNovelId)
+                putExtra("isPostNovel", boolean)
             }
         }
     }

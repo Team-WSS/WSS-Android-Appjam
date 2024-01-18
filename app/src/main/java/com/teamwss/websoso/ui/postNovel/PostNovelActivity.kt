@@ -1,6 +1,5 @@
 package com.teamwss.websoso.ui.postNovel
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -124,11 +123,21 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateToNovelDetailFromSuccessDialog() {
+        navigateToHome()
+        navigateToNovelDetail()
+        finishAffinity()
+    }
+
+    private fun navigateToHomeFromSuccessDialog() {
+        navigateToHome()
+        finishAffinity()
+    }
+
     private fun navigateToNovelDetail() {
-        val intent =
-            NovelDetailActivity.createIntent(this, postNovelViewModel.novelInfo.value?.id ?: 0)
+        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
+        val intent = NovelDetailActivity.createIntentFromPostNovel(this, newUserNovelId, true)
         startActivity(intent)
-        finish()
     }
 
     private fun navigateToHome() {
