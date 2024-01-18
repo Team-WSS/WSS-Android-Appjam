@@ -25,6 +25,9 @@ class NovelDetailViewModel : ViewModel() {
     private val _platforms: MutableLiveData<List<NovelPlatformInfoResponse>> = MutableLiveData()
     val platforms: LiveData<List<NovelPlatformInfoResponse>> = _platforms
 
+    private val _isDateNull: MutableLiveData<Boolean> = MutableLiveData()
+    val isDateNull: LiveData<Boolean> = _isDateNull
+
     fun getUserNovelMemoInfo(userNovelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -33,6 +36,7 @@ class NovelDetailViewModel : ViewModel() {
                 _userNovelMemoInfoResponse.value = response
                 _memos.value = response.memos
                 _platforms.value = response.platforms
+                validateStartEndDateNull()
             }.onFailure { throwable ->
                 Log.e("tongsin", throwable.toString())
             }
@@ -53,5 +57,9 @@ class NovelDetailViewModel : ViewModel() {
 
     fun getUserNovelId(userNovelId: Long) {
         _userNovelId.value = userNovelId
+    }
+
+    private fun validateStartEndDateNull() {
+        _isDateNull.value = _userNovelMemoInfoResponse.value?.userNovelReadStartDate.isNullOrEmpty() && _userNovelMemoInfoResponse.value?.userNovelReadEndDate.isNullOrEmpty()
     }
 }

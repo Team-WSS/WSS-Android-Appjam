@@ -113,6 +113,7 @@
             <TextView
                 android:id="@+id/tvNovelInfoReadDate"
                 setNovelInfoReadDateText="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
+                setNovelInfoReadDateTitleToDate="@{novelDetailViewModel.isDateNull}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
@@ -125,6 +126,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoReadDate"
                 setNovelInfoReadDateBox="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
+                setNovelInfoReadDateBoxToDate="@{novelDetailViewModel.isDateNull}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

@@ -43,7 +43,8 @@ fun loadCoverImageBlurred5(view: ImageView, imageUrl: String?) {
 @BindingAdapter("loadLottieRawRes")
 fun loadLottieAnimation(view: LottieAnimationView, avatarId: Long) {
     val currentTime = System.currentTimeMillis()
-    val resId = if (currentTime % 2 == 0L) avatarId.toLottieImage() else (avatarId + 100L).toLottieImage()
+    val resId =
+        if (currentTime % 2 == 0L) avatarId.toLottieImage() else (avatarId + 100L).toLottieImage()
     try {
         if (resId != 0) {
             view.setAnimation(resId)
@@ -169,6 +170,24 @@ fun setReadDateBox(layout: ConstraintLayout, status: String) {
     }
 }
 
+@BindingAdapter("setNovelInfoReadDateBoxToDate")
+fun setReadDateBoxToDate(layout: ConstraintLayout, isDateNull: Boolean) {
+    if (isDateNull) {
+        layout.visibility = View.GONE
+    } else {
+        layout.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter("setNovelInfoReadDateTitleToDate")
+fun setReadDateTitleToDate(view: TextView, isDateNull: Boolean) {
+    if (isDateNull) {
+        view.visibility = View.GONE
+    } else {
+        view.visibility = View.VISIBLE
+    }
+}
+
 @BindingAdapter("setNovelInfoReadDateTilde")
 fun setReadDateTilde(textView: TextView, status: String) {
     when (status) {
@@ -187,13 +206,19 @@ fun setReadDateTilde(textView: TextView, status: String) {
 }
 
 @BindingAdapter("observeNaverSeriesPlatformUrl")
-fun observeNaverSeriesPlatform(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
+fun observeNaverSeriesPlatform(
+    layout: ConstraintLayout,
+    platformInfo: List<NovelPlatformInfoResponse>
+) {
     val isNaverSeriesVisible = platformInfo.any { it.platformName == "네이버시리즈" }
     layout.visibility = if (isNaverSeriesVisible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("observeKakaoPagePlatformUrl")
-fun observeKakaoPagePlatform(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
-    val isKakaoPageViesible = platformInfo.any {it.platformName == "카카오페이지"}
+fun observeKakaoPagePlatform(
+    layout: ConstraintLayout,
+    platformInfo: List<NovelPlatformInfoResponse>
+) {
+    val isKakaoPageViesible = platformInfo.any { it.platformName == "카카오페이지" }
     layout.visibility = if (isKakaoPageViesible) View.VISIBLE else View.GONE
 }
