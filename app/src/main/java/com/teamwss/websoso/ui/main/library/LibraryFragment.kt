@@ -90,7 +90,6 @@ class LibraryFragment : Fragment() {
 
     private fun navigateToSearchActivity() {
         val intent = SearchActivity.newIntent(requireContext())
-        Log.e("LibraryFragment", "navigateToSearchActivity")
         startActivity(intent)
     }
 
