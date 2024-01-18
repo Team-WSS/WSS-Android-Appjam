@@ -20,7 +20,7 @@ import com.teamwss.websoso.databinding.ActivitySearchBinding
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.EXTRA_PAGE_SIZE
-import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.LAST_NOVEL_ID
+import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.DEFAULT_LAST_NOVEL_ID
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.PAGE_SIZE
 import com.teamwss.websoso.ui.search.searchViewModel.SearchViewModel.Companion.SEARCH_DELAY
 import kotlinx.coroutines.Job
@@ -103,7 +103,7 @@ class SearchActivity : AppCompatActivity() {
             viewModel.removeSearchResult()
             binding.clSearchResultNoExist.visibility = View.GONE
         }
-        viewModel.searchNovels(LAST_NOVEL_ID, PAGE_SIZE, text.toString())
+        viewModel.searchNovels(DEFAULT_LAST_NOVEL_ID, PAGE_SIZE, text.toString())
     }
 
     private fun setupTextRemover() {
@@ -145,11 +145,13 @@ class SearchActivity : AppCompatActivity() {
 
                 val lastVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter!!.itemCount - EXTRA_PAGE_SIZE
+                val searchCountPoint = searchAdapter.itemCount - EXTRA_PAGE_SIZE
 
-                if (lastVisibleItemPosition == itemTotalCount && viewModel.isLoading.value != true) {
+                if (lastVisibleItemPosition == searchCountPoint && viewModel.isLoading.value != true) {
+                    val lastItemNovelId = searchAdapter.getNovelIdAtPosition(searchAdapter.itemCount - 1)
+
                     viewModel.searchNovels(
-                        LAST_NOVEL_ID, PAGE_SIZE, viewModel.searchWord.value.toString()
+                        lastItemNovelId, PAGE_SIZE, viewModel.searchWord.value.toString()
                     )
                 }
             }

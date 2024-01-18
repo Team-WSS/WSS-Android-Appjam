@@ -124,16 +124,20 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelDetailFromSuccessDialog() {
-        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
-        val intent = NovelDetailActivity.createIntent(this, newUserNovelId)
         navigateToHome()
-        startActivity(intent)
+        navigateToNovelDetail()
         finishAffinity()
     }
 
     private fun navigateToHomeFromSuccessDialog() {
         navigateToHome()
         finishAffinity()
+    }
+
+    private fun navigateToNovelDetail(){
+        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
+        val intent = NovelDetailActivity.createIntent(this, newUserNovelId)
+        startActivity(intent)
     }
 
     private fun navigateToHome() {

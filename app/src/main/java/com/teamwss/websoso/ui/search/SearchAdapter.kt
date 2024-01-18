@@ -22,4 +22,8 @@ class SearchAdapter(private val onItemClick: (Long) -> Unit) :
         this.novelItems = novelList.toList()
         notifyDataSetChanged()
     }
+
+    fun getNovelIdAtPosition(position: Int): Long {
+        return novelItems[position].novelId
+    }
 }
