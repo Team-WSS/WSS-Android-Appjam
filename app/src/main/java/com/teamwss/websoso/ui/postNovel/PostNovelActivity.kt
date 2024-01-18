@@ -116,16 +116,26 @@ class PostNovelActivity : AppCompatActivity() {
                 }
 
                 !isSaveError && isNovelAlreadyPosted && isTitleNotEmpty -> {
-                    navigateToNovelDetailFromSuccessDialog()
+                    navigateToNovelDetail()
                     finish()
                 }
             }
         }
     }
 
-    private fun navigateToNovelDetailFromSuccessDialog() {
+    private fun navigateToNovelDetail() {
         navigateToHome()
-        navigateToNovelDetail()
+        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
+        val intent = NovelDetailActivity.createIntentFromPostNovel(this, newUserNovelId, true)
+        startActivity(intent)
+        finishAffinity()
+    }
+
+    private fun navigateToMemoWriteFromSuccessDialog() {
+        navigateToHome()
+        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
+        val intent = NovelDetailActivity.createIntentFromPostNovel(this, newUserNovelId, false)
+        startActivity(intent)
         finishAffinity()
     }
 
@@ -134,11 +144,6 @@ class PostNovelActivity : AppCompatActivity() {
         finishAffinity()
     }
 
-    private fun navigateToNovelDetail() {
-        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
-        val intent = NovelDetailActivity.createIntentFromPostNovel(this, newUserNovelId, true)
-        startActivity(intent)
-    }
 
     private fun navigateToHome() {
         val intent = MainActivity.newIntent(this)
@@ -195,7 +200,7 @@ class PostNovelActivity : AppCompatActivity() {
 
             postSuccessDialog =
                 PostSuccessDialog(
-                    ::navigateToNovelDetailFromSuccessDialog,
+                    ::navigateToMemoWriteFromSuccessDialog,
                     ::navigateToHomeFromSuccessDialog
                 )
             postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
