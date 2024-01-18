@@ -78,7 +78,6 @@ class MyPageViewModel(
             runCatching {
                 selectedAvatarId.value?.let { avatarRepository.patchRepresentativeAvatar(it) }
             }.onSuccess {
-                Log.e("patchAvatar", "patchAvatar: Success $it")
                 _patchSuccess.value = true
             }.onFailure {
                 Log.e("patchAvatar error", it.toString())
