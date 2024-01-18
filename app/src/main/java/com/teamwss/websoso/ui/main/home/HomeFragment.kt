@@ -1,8 +1,6 @@
 package com.teamwss.websoso.ui.main.home
 
-import android.content.Intent
 import android.os.Bundle
-import android.text.Editable.Factory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.databinding.FragmentHomeBinding
 import com.teamwss.websoso.ui.main.home.adapter.HomeAdapter
-import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.SearchActivity
 
@@ -18,10 +15,12 @@ import com.teamwss.websoso.ui.search.SearchActivity
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = requireNotNull(_binding)
-    private val homeViewModel: HomeViewModel by viewModels{
+    private val homeViewModel: HomeViewModel by viewModels {
         HomeViewModel.Factory
     }
-    private val homeAdapter: HomeAdapter by lazy { HomeAdapter() }
+    private val homeAdapter: HomeAdapter by lazy {
+        HomeAdapter(::navigateToPostNovel)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,10 +48,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupSearchBarListener() {
-        binding.clHomeSearch.setOnClickListener{
+        binding.clHomeSearch.setOnClickListener {
             val intent = SearchActivity.newIntent(requireContext())
             startActivity(intent)
         }
+    }
+
+    private fun navigateToPostNovel(novelId: Long) {
+        val intent = PostNovelActivity.newIntent(requireContext(), novelId)
+        startActivity(intent)
     }
 
     private fun observeSosoPickNovels() {

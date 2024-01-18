@@ -14,7 +14,7 @@ object UserInfoMyPageResponseMapper {
             representativeAvatarTag = representativeAvatarTag,
             representativeAvatarImg = representativeAvatarImg,
             userAvatars = userAvatars,
-            userNickName = userNickName,
+            userNickname = userNickname,
             userNovelCount = userNovelCount,
         )
     }

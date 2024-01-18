@@ -58,6 +58,7 @@
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/avMyPageDialogAvatar"
             loadLottieRawRes="@{viewModel.selectedAvatarId}"
+            visibleGone="@{viewModel.selectedAvatar.hasAvatar}"
             android:layout_width="220dp"
             android:layout_height="0dp"
             android:layout_marginHorizontal="32dp"
@@ -69,19 +70,34 @@
             app:layout_constraintStart_toStartOf="@id/clDialogHeader"
             app:layout_constraintTop_toBottomOf="@id/clDialogHeader"
             app:lottie_autoPlay="true"
-            app:lottie_loop="true" />
+            app:lottie_loop="false" />
+
+        <ImageView
+            android:id="@+id/ivMyPageDialogAvatar"
+            loadImageUrl="@{viewModel.selectedAvatar.avatarImg}"
+            visibleGone="@{!viewModel.selectedAvatar.hasAvatar}"
+            android:layout_width="220dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="32dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintEnd_toEndOf="@id/clDialogHeader"
+            app:layout_constraintStart_toStartOf="@id/clDialogHeader"
+            app:layout_constraintTop_toBottomOf="@id/clDialogHeader" />
 
         <TextView
             android:id="@+id/tvDialogAvatarMent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="268dp"
             android:text="@{viewModel.selectedAvatar.avatarMent}"
             android:textAppearance="@style/headline1"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/avMyPageDialogAvatar"
+            app:layout_constraintTop_toBottomOf="@id/clDialogHeader"
             tools:text="아쉽지만 아직은 만날 때가 아니야" />
 
         <TextView
@@ -98,7 +114,9 @@
             tools:text="메모를 1개 작성하면 잠금해제 돼요" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDialogAvatarRepresent"
+            android:id="@+id/btnDialogAvatarSetupRepresent"
+            andCondition="@{viewModel.selectedAvatarId != viewModel.userInfo.representativeAvatarId}"
+            visibleIf="@{viewModel.selectedAvatar.hasAvatar}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_primary100_radius_12dp"
@@ -112,8 +130,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarCondition" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDialogAvatarReturn"
+            visibleGone="@{!viewModel.selectedAvatar.hasAvatar || viewModel.selectedAvatarId == viewModel.userInfo.representativeAvatarId}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_primary100_radius_12dp"
+            android:paddingHorizontal="44dp"
+            android:paddingVertical="16dp"
+            android:text="@string/dialog_avatar_return"
+            android:textAppearance="@style/body1"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarCondition" />
+
         <TextView
             android:id="@+id/tvDialogAvatarMaintain"
+            andCondition="@{viewModel.selectedAvatarId != viewModel.userInfo.representativeAvatarId}"
+            visibleIf="@{viewModel.selectedAvatar.hasAvatar}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -123,25 +160,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnDialogAvatarRepresent" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnDialogAvatarReturn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_primary100_radius_12dp"
-            android:paddingHorizontal="44dp"
-            android:paddingVertical="16dp"
-            android:text="@string/dialog_avatar_return"
-            android:textAppearance="@style/body1"
-            android:textColor="@color/white"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDialogAvatarCondition" />
-
+            app:layout_constraintTop_toBottomOf="@id/btnDialogAvatarSetupRepresent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -10,10 +10,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentMyPageBinding
+import com.teamwss.websoso.ui.main.MainActivity
+import com.teamwss.websoso.ui.main.library.LibraryFragment
 import com.teamwss.websoso.ui.main.myPage.changeNickName.ChangeNicknameActivity
 import com.teamwss.websoso.ui.main.myPage.checkUserInfo.CheckUserInfoActivity
+import com.teamwss.websoso.ui.main.record.RecordFragment
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
@@ -39,15 +44,26 @@ class MyPageFragment : Fragment() {
 
         setupChangeNicknameActivityResultLauncher()
         initRecyclerView()
+
         setupEditButtonClickListener()
         setupCheckUserInfoButtonClickListener()
         setupLinkToWebClickListener()
+        setupRegistrationNovelLayoutClickListener()
+        setupMemoLayoutClickListener()
+
         observeUserAvatar()
+        observePatchSuccessObserve()
     }
 
     override fun onResume() {
         super.onResume()
         myPageViewModel.getMyPageUserInfo()
+    }
+
+    private fun showAvatarDialog(id: Long) {
+        myPageViewModel.getAvatar(id)
+        val dialogFragment = AvatarDialogFragment.newInstance()
+        dialogFragment.show(childFragmentManager, AvatarDialogFragment.TAG)
     }
 
     private fun setupChangeNicknameActivityResultLauncher() {
@@ -72,7 +88,7 @@ class MyPageFragment : Fragment() {
     private fun navigateToChangeNameActivity() {
         val intent = ChangeNicknameActivity.createIntent(
             requireContext(),
-            myPageViewModel.userInfo.value?.userNickName ?: ""
+            myPageViewModel.userInfo.value?.userNickname ?: ""
         )
         changeNicknameActivityResultLauncher.launch(intent)
     }
@@ -86,7 +102,7 @@ class MyPageFragment : Fragment() {
     private fun navigateToCheckUserInfoActivity() {
         val intent = CheckUserInfoActivity.createIntent(
             requireContext(),
-            myPageViewModel.userInfo.value?.userNickName ?: ""
+            myPageViewModel.userInfo.value?.userNickname ?: ""
         )
         startActivity(intent)
     }
@@ -101,6 +117,39 @@ class MyPageFragment : Fragment() {
         }
     }
 
+    private fun setupRegistrationNovelLayoutClickListener() {
+        binding.clMyPageRegistrationNovel.setOnClickListener {
+            navigateToFragment(LibraryFragment.newInstance())
+        }
+    }
+
+    private fun setupMemoLayoutClickListener() {
+        binding.clMyPageMemo.setOnClickListener {
+            navigateToFragment(RecordFragment.newInstance())
+        }
+    }
+
+    private fun navigateToFragment(fragment: Fragment) {
+        parentFragmentManager.commit {
+            replace(R.id.fcvMain, fragment)
+        }
+        updateBottomNavigationForFragment(fragment)
+    }
+
+    private fun updateBottomNavigationForFragment(fragment: Fragment) {
+        val mainActivity = requireActivity() as MainActivity
+
+        when (fragment) {
+            is LibraryFragment -> {
+                mainActivity.updateBottomNavigation(R.id.menu_library)
+            }
+
+            is RecordFragment -> {
+                mainActivity.updateBottomNavigation(R.id.menu_record)
+            }
+        }
+    }
+
     private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
@@ -112,10 +161,13 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    private fun showAvatarDialog(id: Long) {
-        myPageViewModel.getAvatar(id)
-        val dialogFragment = AvatarDialogFragment.newInstance()
-        dialogFragment.show(childFragmentManager, AvatarDialogFragment.TAG)
+    private fun observePatchSuccessObserve() {
+        myPageViewModel.patchSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                myPageViewModel.getMyPageUserInfo()
+                myPageViewModel.setPatchSuccess(false)
+            }
+        }
     }
 
     companion object {

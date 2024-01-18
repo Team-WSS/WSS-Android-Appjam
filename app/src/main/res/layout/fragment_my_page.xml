@@ -114,7 +114,7 @@
                         android:id="@+id/tvMyPageUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{String.format(@string/my_page_user_name,viewModel.userInfo.userNickName)}"
+                        android:text="@{String.format(@string/my_page_user_name,viewModel.userInfo.userNickname)}"
                         android:textAppearance="@style/headline1"
                         android:textColor="@color/black"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -136,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="26dp"
-                        app:layout_constraintEnd_toEndOf="@id/guideLineMyPage"
+                        app:layout_constraintEnd_toEndOf="@id/viewMyPageBetweenLine"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvMyPageUserName">
 
@@ -145,7 +145,6 @@
                             android:layout_width="18dp"
                             android:layout_height="0dp"
                             android:src="@drawable/ic_book"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="1"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -162,29 +161,21 @@
                             app:layout_constraintStart_toEndOf="@id/ivMyPageRegistrationNovel"
                             app:layout_constraintTop_toTopOf="@id/ivMyPageRegistrationNovel" />
 
+                        <TextView
+                            android:id="@+id/tvMyPageRegistrationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
+                            android:text="@{Long.toString(viewModel.userInfo.userNovelCount)}"
+                            android:textAppearance="@style/title1"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="@id/tvMyPageRegistrationNovel"
+                            app:layout_constraintStart_toStartOf="@id/clMyPageRegistrationNovel"
+                            app:layout_constraintTop_toBottomOf="@id/ivMyPageRegistrationNovel"
+                            tools:text="10" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/guideLineMyPage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_begin="193dp" />
-
-                    <TextView
-                        android:id="@+id/tvMyPageRegistrationCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
-                        android:text="@{Long.toString(viewModel.userInfo.userNovelCount)}"
-                        android:textAppearance="@style/title1"
-                        android:textColor="@color/black"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@id/clMyPageRegistrationNovel"
-                        app:layout_constraintStart_toStartOf="@id/clMyPageRegistrationNovel"
-                        app:layout_constraintTop_toBottomOf="@id/clMyPageRegistrationNovel"
-                        tools:text="10" />
 
                     <View
                         android:id="@+id/viewMyPageBetweenLine"
@@ -193,7 +184,8 @@
                         android:layout_marginTop="20dp"
                         android:background="@color/gray_70_DFDFE3"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@id/guideLineMyPage"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvMyPageUserName" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -201,7 +193,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/guideLineMyPage"
+                        app:layout_constraintStart_toEndOf="@id/viewMyPageBetweenLine"
                         app:layout_constraintTop_toTopOf="@id/clMyPageRegistrationNovel">
 
                         <ImageView
@@ -209,7 +201,6 @@
                             android:layout_width="18dp"
                             android:layout_height="0dp"
                             android:src="@drawable/ic_memo"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="1"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -227,20 +218,20 @@
                             app:layout_constraintStart_toEndOf="@+id/ivMyPageMemo"
                             app:layout_constraintTop_toTopOf="@id/ivMyPageMemo" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                            android:id="@+id/tvMyPageMemoCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="@{Long.toString(viewModel.userInfo.memoCount)}"
+                            android:textAppearance="@style/title1"
+                            android:textColor="@color/black"
+                            app:layout_constraintEnd_toEndOf="@id/tvMyPageMemo"
+                            app:layout_constraintStart_toStartOf="@id/ivMyPageMemo"
+                            app:layout_constraintTop_toBottomOf="@id/ivMyPageMemo"
+                            tools:text="3" />
 
-                    <TextView
-                        android:id="@+id/tvMyPageMemoCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:text="@{Long.toString(viewModel.userInfo.memoCount)}"
-                        android:textAppearance="@style/title1"
-                        android:textColor="@color/black"
-                        app:layout_constraintEnd_toEndOf="@id/clMyPageMemo"
-                        app:layout_constraintStart_toStartOf="@id/clMyPageMemo"
-                        app:layout_constraintTop_toBottomOf="@id/clMyPageMemo"
-                        tools:text="3" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

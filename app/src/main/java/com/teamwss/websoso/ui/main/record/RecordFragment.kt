@@ -9,6 +9,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
+import com.teamwss.websoso.ui.main.MainActivity
 import com.teamwss.websoso.ui.main.library.LibraryFragment
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity
 
@@ -68,10 +69,21 @@ class RecordFragment : Fragment() {
 
     private fun setupButtonRecordClickListener() {
         binding.btnRecordGoToPostNovel.setOnClickListener {
-            parentFragmentManager.commit {
-                replace(R.id.fcvMain, LibraryFragment.newInstance())
-            }
+            navigateToLibraryFragment()
         }
+    }
+
+    private fun navigateToLibraryFragment() {
+        parentFragmentManager.commit {
+            replace(R.id.fcvMain, LibraryFragment.newInstance())
+        }
+        updateBottomNavigationForFragment()
+    }
+
+    private fun updateBottomNavigationForFragment() {
+        val mainActivity = requireActivity() as MainActivity
+
+        mainActivity.updateBottomNavigation(R.id.menu_library)
     }
 
     override fun onResume() {
