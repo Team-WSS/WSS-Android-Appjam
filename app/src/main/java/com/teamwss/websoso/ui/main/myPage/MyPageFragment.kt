@@ -3,11 +3,9 @@ package com.teamwss.websoso.ui.main.myPage
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -95,11 +93,11 @@ class MyPageFragment : Fragment() {
 
     private fun setupLinkToWebClickListener() {
         binding.viewMyPageInstagramButton.setOnClickListener {
-            openUrl("https://www.instagram.com/websoso_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==")
+            openUrl(INSTAGRAM_URL)
         }
 
         binding.viewMyPageTermsOfUseButton.setOnClickListener {
-            openUrl("https://www.notion.so/kimmjabc/4acd397608c146cbbf8dd4fe11a82e19")
+            openUrl(TERMS_OF_USE_URL)
         }
     }
 
@@ -122,5 +120,10 @@ class MyPageFragment : Fragment() {
 
     companion object {
         fun newInstance() = MyPageFragment()
+
+        private const val INSTAGRAM_URL =
+            "https://www.instagram.com/websoso_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        private const val TERMS_OF_USE_URL =
+            "https://www.notion.so/kimmjabc/4acd397608c146cbbf8dd4fe11a82e19"
     }
 }
