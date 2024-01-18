@@ -1,5 +1,7 @@
 package com.teamwss.websoso.ui.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import com.teamwss.websoso.ui.main.home.HomeFragment
 import com.teamwss.websoso.ui.main.library.LibraryFragment
 import com.teamwss.websoso.ui.main.myPage.MyPageFragment
 import com.teamwss.websoso.ui.main.record.RecordFragment
+import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -62,4 +65,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java).apply {
+            }
+        }
+    }
 }

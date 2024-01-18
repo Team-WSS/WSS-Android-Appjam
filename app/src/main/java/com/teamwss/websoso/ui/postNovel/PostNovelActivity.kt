@@ -152,8 +152,6 @@ class PostNovelActivity : AppCompatActivity() {
         } else {
             postNovelViewModel.saveUserNovelInfo(id, request)
         }
-
-        LocalBroadcastManager.getInstance(this).sendBroadcast(Intent("FINISH_SEARCH_ACTIVITY"))
     }
 
     private fun setupExitPopupDialog() {

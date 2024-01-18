@@ -39,8 +39,6 @@ class SearchActivity : AppCompatActivity() {
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(finishReceiver, IntentFilter("FINISH_SEARCH_ACTIVITY"))
-
         binding.ivSearchBack.setOnClickListener {
             finish()
         }
@@ -52,19 +50,6 @@ class SearchActivity : AppCompatActivity() {
         setResultNovelList()
         setupInfinityScroll()
         isResultEmpty()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(finishReceiver)
-    }
-
-    private val finishReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            if (intent.action == "FINISH_SEARCH_ACTIVITY") {
-                finish()
-            }
-        }
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -184,7 +169,6 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         fun newIntent(context: Context): Intent {
             return Intent(context, SearchActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             }
         }
     }
