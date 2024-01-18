@@ -9,7 +9,7 @@ data class AvatarMyPageResponse(
     @SerialName("avatarId")
     val avatarId: Long,
     @SerialName("avatarImg")
-    val avatarImg: String?,
+    val avatarImg: String,
     @SerialName("avatarCondition")
     val avatarCondition: String,
     @SerialName("avatarGenreBadgeImg")
