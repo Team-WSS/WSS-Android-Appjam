@@ -1,7 +1,6 @@
 package com.teamwss.websoso.ui.main.library
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +13,13 @@ import com.teamwss.websoso.databinding.FragmentLibraryBinding
 import com.teamwss.websoso.ui.main.library.adapter.LibraryViewPagerAdapter
 import com.teamwss.websoso.ui.main.library.model.ReadState
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
-import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 import com.teamwss.websoso.ui.search.SearchActivity
 
 class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
     private val binding: FragmentLibraryBinding get() = requireNotNull(_binding)
     private val viewPagerAdapter: LibraryViewPagerAdapter by lazy {
-        LibraryViewPagerAdapter(::clickNovelItem,::navigateToSearchActivity)
+        LibraryViewPagerAdapter(::clickNovelItem, ::navigateToSearchActivity)
     }
     private val viewModel: LibraryViewModel by viewModels {
         LibraryViewModel.Factory
