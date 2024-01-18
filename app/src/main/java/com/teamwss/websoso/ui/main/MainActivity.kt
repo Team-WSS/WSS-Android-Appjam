@@ -58,6 +58,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun updateBottomNavigation(selectedItemId: Int) {
+        binding.bnvMain.selectedItemId = selectedItemId
+    }
+
     private fun initializeDefaultFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             val homeFragment = HomeFragment.newInstance()

@@ -10,10 +10,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentMyPageBinding
+import com.teamwss.websoso.ui.main.MainActivity
+import com.teamwss.websoso.ui.main.library.LibraryFragment
 import com.teamwss.websoso.ui.main.myPage.changeNickName.ChangeNicknameActivity
 import com.teamwss.websoso.ui.main.myPage.checkUserInfo.CheckUserInfoActivity
+import com.teamwss.websoso.ui.main.record.RecordFragment
 
 class MyPageFragment : Fragment() {
     private lateinit var binding: FragmentMyPageBinding
@@ -42,6 +47,8 @@ class MyPageFragment : Fragment() {
         setupEditButtonClickListener()
         setupCheckUserInfoButtonClickListener()
         setupLinkToWebClickListener()
+        setupRegistrationNovelLayoutClickListener()
+        setupMemoLayoutClickListener()
         observeUserAvatar()
     }
 
@@ -100,6 +107,40 @@ class MyPageFragment : Fragment() {
             openUrl(TERMS_OF_USE_URL)
         }
     }
+
+    private fun setupRegistrationNovelLayoutClickListener() {
+        binding.clMyPageRegistrationNovel.setOnClickListener {
+            navigateToFragment(LibraryFragment.newInstance())
+        }
+    }
+
+    private fun setupMemoLayoutClickListener() {
+        binding.clMyPageMemo.setOnClickListener {
+            navigateToFragment(RecordFragment.newInstance())
+        }
+    }
+
+    private fun navigateToFragment(fragment: Fragment) {
+        parentFragmentManager.commit {
+            replace(R.id.fcvMain, fragment)
+        }
+        updateBottomNavigationForFragment(fragment)
+    }
+
+    private fun updateBottomNavigationForFragment(fragment: Fragment) {
+        val mainActivity = requireActivity() as MainActivity
+
+        when (fragment) {
+            is LibraryFragment -> {
+                mainActivity.updateBottomNavigation(R.id.menu_library)
+            }
+
+            is RecordFragment -> {
+                mainActivity.updateBottomNavigation(R.id.menu_record)
+            }
+        }
+    }
+
 
     private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
