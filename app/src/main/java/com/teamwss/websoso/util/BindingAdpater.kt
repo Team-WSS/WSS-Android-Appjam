@@ -170,24 +170,6 @@ fun setReadDateBox(layout: ConstraintLayout, status: String) {
     }
 }
 
-@BindingAdapter("setNovelInfoReadDateBoxToDate")
-fun setReadDateBoxToDate(layout: ConstraintLayout, isDateNull: Boolean) {
-    if (isDateNull) {
-        layout.visibility = View.GONE
-    } else {
-        layout.visibility = View.VISIBLE
-    }
-}
-
-@BindingAdapter("setNovelInfoReadDateTitleToDate")
-fun setReadDateTitleToDate(view: TextView, isDateNull: Boolean) {
-    if (isDateNull) {
-        view.visibility = View.GONE
-    } else {
-        view.visibility = View.VISIBLE
-    }
-}
-
 @BindingAdapter("setNovelInfoReadDateTilde")
 fun setReadDateTilde(textView: TextView, status: String) {
     when (status) {
