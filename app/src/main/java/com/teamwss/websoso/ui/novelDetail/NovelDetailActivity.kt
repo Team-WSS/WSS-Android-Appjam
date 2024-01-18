@@ -43,6 +43,7 @@ class NovelDetailActivity : AppCompatActivity() {
     private var popupWindow: PopupWindow? = null
 
     private lateinit var postedMemoLauncher: ActivityResultLauncher<Intent>
+    private lateinit var novelPatchedLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,7 +140,12 @@ class NovelDetailActivity : AppCompatActivity() {
                     } else {
                         CustomSnackBar.make(binding.root)
                             .setText("메모를 저장했어요")
-                            .setIcon(memoSavedDrawable ?: ContextCompat.getDrawable(this, R.drawable.ic_alert_default)!!)
+                            .setIcon(
+                                memoSavedDrawable ?: ContextCompat.getDrawable(
+                                    this,
+                                    R.drawable.ic_alert_default
+                                )!!
+                            )
                             .show()
                     }
                 }
@@ -269,11 +275,11 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelEdit() {
-        novelDetailViewModel.userNovelMemoInfoResponse.observe(this) { response ->
-            val intent = PostNovelActivity.newIntent(this, response.novelId)
-            startActivity(intent)
-            finish()
-        }
+        val intent = PostNovelActivity.newIntent(
+            this,
+            novelDetailViewModel.userNovelMemoInfoResponse.value?.novelId ?: 0
+        )
+        startActivity(intent)
     }
 
     override fun onResume() {
