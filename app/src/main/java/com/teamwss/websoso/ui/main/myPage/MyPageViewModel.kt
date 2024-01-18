@@ -32,6 +32,9 @@ class MyPageViewModel(
     private var _selectedAvatarId = MutableLiveData<Long>()
     val selectedAvatarId: LiveData<Long> get() = _selectedAvatarId
 
+    private var _patchSuccess = MutableLiveData<Boolean>()
+    val patchSuccess: LiveData<Boolean> get() = _patchSuccess
+
     init {
         getMyPageUserInfo()
     }
@@ -76,10 +79,15 @@ class MyPageViewModel(
                 selectedAvatarId.value?.let { avatarRepository.patchRepresentativeAvatar(it) }
             }.onSuccess {
                 Log.e("patchAvatar", "patchAvatar: Success $it")
+                _patchSuccess.value = true
             }.onFailure {
                 Log.e("patchAvatar error", it.toString())
             }
         }
+    }
+
+    fun setPatchSuccess(success: Boolean) {
+        _patchSuccess.value = success
     }
 
     companion object {

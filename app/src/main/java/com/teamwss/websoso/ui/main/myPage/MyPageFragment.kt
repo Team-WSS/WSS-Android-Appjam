@@ -44,17 +44,21 @@ class MyPageFragment : Fragment() {
 
         setupChangeNicknameActivityResultLauncher()
         initRecyclerView()
+
         setupEditButtonClickListener()
         setupCheckUserInfoButtonClickListener()
         setupLinkToWebClickListener()
         setupRegistrationNovelLayoutClickListener()
         setupMemoLayoutClickListener()
+
         observeUserAvatar()
+        observePatchSuccessObserve()
     }
 
-    override fun onResume() {
-        super.onResume()
-        myPageViewModel.getMyPageUserInfo()
+    private fun showAvatarDialog(id: Long) {
+        myPageViewModel.getAvatar(id)
+        val dialogFragment = AvatarDialogFragment.newInstance()
+        dialogFragment.show(childFragmentManager, AvatarDialogFragment.TAG)
     }
 
     private fun setupChangeNicknameActivityResultLauncher() {
@@ -152,10 +156,13 @@ class MyPageFragment : Fragment() {
         }
     }
 
-    private fun showAvatarDialog(id: Long) {
-        myPageViewModel.getAvatar(id)
-        val dialogFragment = AvatarDialogFragment.newInstance()
-        dialogFragment.show(childFragmentManager, AvatarDialogFragment.TAG)
+    private fun observePatchSuccessObserve() {
+        myPageViewModel.patchSuccess.observe(viewLifecycleOwner) { success ->
+            if (success) {
+                myPageViewModel.getMyPageUserInfo()
+                myPageViewModel.setPatchSuccess(false)
+            }
+        }
     }
 
     companion object {
