@@ -9,12 +9,12 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.common.model.ReadStatus
+import com.teamwss.websoso.ui.main.MainActivity
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
@@ -122,10 +122,18 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelDetail() {
+        val mainIntent = MainActivity.newIntent(this)
+        startActivity(mainIntent)
         val intent =
-            NovelDetailActivity.createIntent(this, postNovelViewModel.novelInfo.value?.id ?: 0)
+            NovelDetailActivity.createIntent(this, postNovelViewModel.newUserNovelId.value ?: 0)
         startActivity(intent)
-        finish()
+        finishAffinity()
+    }
+
+    private fun navigateToHome(){
+        val intent = MainActivity.newIntent(this)
+        startActivity(intent)
+        finishAffinity()
     }
 
     private fun checkIsDateNull(): NovelPostRequest {
@@ -175,7 +183,7 @@ class PostNovelActivity : AppCompatActivity() {
         if (postSuccessDialog == null || !postSuccessDialog!!.isAdded) {
             postNovelViewModel.updateIsDialogShown(true)
 
-            postSuccessDialog = PostSuccessDialog(::finish)
+            postSuccessDialog = PostSuccessDialog(::navigateToNovelDetail, ::navigateToHome)
             postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
         }
     }

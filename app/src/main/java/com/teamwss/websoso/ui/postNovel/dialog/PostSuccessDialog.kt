@@ -11,10 +11,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.teamwss.websoso.databinding.DialogPostSuccessBinding
 import com.teamwss.websoso.ui.main.MainActivity
-import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.PostNovelViewModel
 
-class PostSuccessDialog(private val clickNavigateToMemo: () -> Unit) : DialogFragment() {
+class PostSuccessDialog(
+    private val clickNavigateToMemo: () -> Unit,
+    private val clickNavigateToHome: () -> Unit
+) : DialogFragment() {
 
     private var _binding: DialogPostSuccessBinding? = null
     private val binding: DialogPostSuccessBinding get() = requireNotNull(_binding)
@@ -40,24 +42,18 @@ class PostSuccessDialog(private val clickNavigateToMemo: () -> Unit) : DialogFra
         super.onDestroyView()
     }
 
-    private fun setupNavigateMemoListener() {
-        binding.llNavigateToMemo.setOnClickListener {
-            val intent =
-                NovelDetailActivity.createIntent(
-                    requireActivity(),
-                    viewModel.newUserNovelId.value ?: 0
-                )
-            startActivity(intent)
-            clickNavigateToMemo()
-            dismiss()
-        }
-    }
-
     private fun setupDialogUI() {
         dialog?.window?.apply {
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             isCancelable = false
+        }
+    }
+
+    private fun setupNavigateMemoListener() {
+        binding.llNavigateToMemo.setOnClickListener {
+            clickNavigateToMemo()
+            dismiss()
         }
     }
 
