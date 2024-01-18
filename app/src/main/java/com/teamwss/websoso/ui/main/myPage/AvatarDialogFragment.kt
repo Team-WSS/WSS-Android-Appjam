@@ -3,14 +3,11 @@ package com.teamwss.websoso.ui.main.myPage
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogAvatarBinding
@@ -30,13 +27,15 @@ class AvatarDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        myPageViewModel = ViewModelProvider(requireParentFragment()).get(MyPageViewModel::class.java)
+        myPageViewModel =
+            ViewModelProvider(requireParentFragment()).get(MyPageViewModel::class.java)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = myPageViewModel
 
         setupDialogUI()
-        setupRepresentativeAvatarButtonClickListener()
+        setupAvatarRepresentButtonClickListener()
         setupTextViewMaintainClickListener()
+        setupDialogAvatarReturnButtonClickListener()
     }
 
     private fun setupDialogUI() {
@@ -54,9 +53,15 @@ class AvatarDialogFragment : DialogFragment() {
         }
     }
 
-    private fun setupRepresentativeAvatarButtonClickListener() {
-        binding.btnDialogAvatarRepresent.setOnClickListener {
+    private fun setupAvatarRepresentButtonClickListener() {
+        binding.btnDialogAvatarSetupRepresent.setOnClickListener {
             myPageViewModel.patchRepresentativeAvatar()
+            dismiss()
+        }
+    }
+
+    private fun setupDialogAvatarReturnButtonClickListener() {
+        binding.btnDialogAvatarReturn.setOnClickListener {
             dismiss()
         }
     }
