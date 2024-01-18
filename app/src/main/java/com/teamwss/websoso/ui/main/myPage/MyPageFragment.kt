@@ -141,7 +141,6 @@ class MyPageFragment : Fragment() {
         }
     }
 
-
     private fun openUrl(url: String) {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)

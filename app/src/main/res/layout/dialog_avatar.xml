@@ -58,9 +58,9 @@
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/avMyPageDialogAvatar"
             loadLottieRawRes="@{viewModel.selectedAvatarId}"
+            visibleGone="@{viewModel.selectedAvatar.hasAvatar}"
             android:layout_width="220dp"
             android:layout_height="0dp"
-            visibleGone="@{viewModel.selectedAvatar.hasAvatar}"
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="32dp"
@@ -74,10 +74,10 @@
 
         <ImageView
             android:id="@+id/ivMyPageDialogAvatar"
-            android:layout_width="220dp"
-            android:layout_height="0dp"
             loadImageUrl="@{viewModel.selectedAvatar.avatarImg}"
             visibleGone="@{!viewModel.selectedAvatar.hasAvatar}"
+            android:layout_width="220dp"
+            android:layout_height="0dp"
             android:layout_marginHorizontal="32dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="32dp"
@@ -85,19 +85,19 @@
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintEnd_toEndOf="@id/clDialogHeader"
             app:layout_constraintStart_toStartOf="@id/clDialogHeader"
-            app:layout_constraintTop_toBottomOf="@id/clDialogHeader"/>
+            app:layout_constraintTop_toBottomOf="@id/clDialogHeader" />
 
         <TextView
             android:id="@+id/tvDialogAvatarMent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="268dp"
             android:text="@{viewModel.selectedAvatar.avatarMent}"
             android:textAppearance="@style/headline1"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/avMyPageDialogAvatar"
+            app:layout_constraintTop_toBottomOf="@id/clDialogHeader"
             tools:text="아쉽지만 아직은 만날 때가 아니야" />
 
         <TextView
@@ -134,10 +134,10 @@
             visibleGone="@{!viewModel.selectedAvatar.hasAvatar}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
             android:background="@drawable/bg_primary100_radius_12dp"
             android:paddingHorizontal="44dp"
             android:paddingVertical="16dp"
-            android:layout_marginTop="30dp"
             android:text="@string/dialog_avatar_return"
             android:textAppearance="@style/body1"
             android:textColor="@color/white"
