@@ -89,23 +89,29 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Websoso.ShapeableImageView4"
             tools:src="@drawable/img" />
 
-        <EditText
-            android:id="@+id/etMemoWriteContent"
+        <ScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/gray_50_F4F5F8"
-            android:breakStrategy="simple"
-            android:gravity="start"
-            android:maxLength="2000"
-            android:onTextChanged="@{(text, start, before, count) -> memoWriteViewModel.updateMemoContent(text.toString())}"
             android:padding="20dp"
-            android:text="@={memoWriteViewModel.memoContent}"
-            android:textAppearance="@style/body1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMemoWriteAuthor"
-            tools:text="dddddddffffff" />
+            app:layout_constraintTop_toBottomOf="@id/tvMemoWriteAuthor">
 
+            <EditText
+                android:id="@+id/etMemoWriteContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:breakStrategy="simple"
+                android:gravity="start"
+                android:maxLength="2000"
+                android:minHeight="500dp"
+                android:onTextChanged="@{(text, start, before, count) -> memoWriteViewModel.updateMemoContent(text.toString())}"
+                android:text="@={memoWriteViewModel.memoContent}"
+                android:textAppearance="@style/body1"
+                tools:text="dddddddffffff" />
+        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
