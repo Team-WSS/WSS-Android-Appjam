@@ -90,6 +90,11 @@ dependencies {
 
     // security-crypto
     implementation ("androidx.security:security-crypto:1.1.0-alpha03")
+
+    // splash-screen
+    dependencies {
+        implementation("androidx.core:core-splashscreen:1.0.1")
+    }
 }
 
 fun getApiKey(propertyKey: String): String {
