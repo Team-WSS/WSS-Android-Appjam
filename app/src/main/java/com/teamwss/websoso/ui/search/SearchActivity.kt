@@ -148,8 +148,7 @@ class SearchActivity : AppCompatActivity() {
                 val itemTotalCount = searchAdapter.itemCount - EXTRA_PAGE_SIZE
 
                 if (lastVisibleItemPosition == itemTotalCount && viewModel.isLoading.value != true) {
-                    val lastItemNovelId =
-                        searchAdapter.getNovelIdAtPosition(lastVisibleItemPosition)
+                    val lastItemNovelId = searchAdapter.getNovelIdAtPosition(searchAdapter.itemCount - 1)
 
                     viewModel.searchNovels(
                         lastItemNovelId, PAGE_SIZE, viewModel.searchWord.value.toString()
