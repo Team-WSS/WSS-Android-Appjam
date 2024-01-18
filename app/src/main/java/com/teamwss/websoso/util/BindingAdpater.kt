@@ -1,6 +1,7 @@
 package com.teamwss.websoso.util
 
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -14,6 +15,11 @@ import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.response.NovelPlatformInfoResponse
 import com.teamwss.websoso.ui.common.model.ReadStatus
 import jp.wasabeef.transformers.coil.BlurTransformation
+
+@BindingAdapter("loadCoverImageRounded4")
+fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
+    loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
+}
 
 @BindingAdapter("loadCoverImageRounded6")
 fun loadCoverImageRounded6(view: ImageView, imageUrl: String?) {
@@ -93,16 +99,6 @@ private fun loadDefaultImage(view: ImageView, transformation: Transformation) {
 @BindingAdapter("loadImageUrl")
 fun loadImageUrl(view: ImageView, imageUrl: String?) {
     view.load(imageUrl)
-}
-
-@BindingAdapter("loadCoverImageRounded6")
-fun loadRoundedCoverImage6(view: ImageView, imageUrl: String?) {
-    loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
-}
-
-@BindingAdapter("loadCoverImageRounded4")
-fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
-    loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
 }
 
 @BindingAdapter("setNovelInfoReadStatusText")
@@ -203,4 +199,10 @@ fun observeKakaoPagePlatform(
 ) {
     val isKakaoPageViesible = platformInfo.any { it.platformName == "카카오페이지" }
     layout.visibility = if (isKakaoPageViesible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("enabledTextColor", "disabledTextColor", requireAll = true)
+fun setTextColorBasedOnState(textView: TextView, enabledColorResId: Int, disabledColorResId: Int) {
+    val colorResId = if (textView.isEnabled) enabledColorResId else disabledColorResId
+    textView.setTextColor(ContextCompat.getColor(textView.context, colorResId))
 }
