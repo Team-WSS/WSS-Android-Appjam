@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.main.library.adapter
 
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
@@ -15,7 +16,7 @@ class LibraryViewPagerViewHolder(
     init {
         binding.rvLibraryViewPager.adapter = libraryItemAdapter
         binding.btnRecordGoToPostNovel.setOnClickListener {
-            //onPostClick()
+            onPostClick()
         }
     }
 

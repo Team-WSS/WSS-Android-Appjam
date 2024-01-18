@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.main.library
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,7 @@ class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
     private val binding: FragmentLibraryBinding get() = requireNotNull(_binding)
     private val viewPagerAdapter: LibraryViewPagerAdapter by lazy {
-        LibraryViewPagerAdapter(::clickNovelItem,::setupPostNovelButtonClickListener)
+        LibraryViewPagerAdapter(::clickNovelItem,::navigateToSearchActivity)
     }
     private val viewModel: LibraryViewModel by viewModels {
         LibraryViewModel.Factory
@@ -42,7 +43,6 @@ class LibraryFragment : Fragment() {
         setupViewPager()
         setupTabLayoutWithViewPager()
         setupTabSelectedListener()
-        setupPostNovelButtonClickListener()
         observeReadState()
         observeCurrentNovels()
     }
@@ -88,12 +88,9 @@ class LibraryFragment : Fragment() {
         })
     }
 
-    private fun setupPostNovelButtonClickListener() {
-        //navigateToSearchActivity()
-    }
-
     private fun navigateToSearchActivity() {
         val intent = SearchActivity.newIntent(requireContext())
+        Log.e("LibraryFragment", "navigateToSearchActivity")
         startActivity(intent)
     }
 
