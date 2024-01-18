@@ -18,7 +18,6 @@ import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
-import com.teamwss.websoso.ui.search.SearchActivity
 import kotlin.math.pow
 
 class PostNovelActivity : AppCompatActivity() {
@@ -62,17 +61,23 @@ class PostNovelActivity : AppCompatActivity() {
     }
 
     private fun setupAppBar() {
+        val scrollThreshold = 10
+        val alphaThreshold = 5
+        val maxScrollRatio = 1f
+        val alphaMultiplier = 255
+        val powerFactor = 3 / 2
+
         binding.svPost.viewTreeObserver.addOnScrollChangedListener {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.viewPostAppBar.height
 
-            val scrollRatio = ((scrollY.toFloat() + 5) / maxHeight).coerceAtMost(1f).pow(3 / 2)
-            val colorAlpha = (scrollRatio * 255).toInt()
+            val scrollRatio = ((scrollY.toFloat() + alphaThreshold) / maxHeight).coerceAtMost(maxScrollRatio).pow(powerFactor)
+            val colorAlpha = (scrollRatio * alphaMultiplier).toInt()
 
             binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
             binding.tvPostTitle.setTextColor(getColor(R.color.black).changeAlpha(colorAlpha))
 
-            if (scrollY < 5) {
+            if (scrollY < scrollThreshold) {
                 binding.viewPostAppBar.visibility = View.INVISIBLE
             } else {
                 binding.viewPostAppBar.visibility = View.VISIBLE
