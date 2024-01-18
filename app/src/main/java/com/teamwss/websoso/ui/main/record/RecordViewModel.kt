@@ -20,7 +20,7 @@ class RecordViewModel : ViewModel() {
         updateMemo()
     }
 
-    private fun updateMemo() {
+    fun updateMemo() {
         viewModelScope.launch {
             runCatching {
                 ServicePool.memoService.getRecord(
