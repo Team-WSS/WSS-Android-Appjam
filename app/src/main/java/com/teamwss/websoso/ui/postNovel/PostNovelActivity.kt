@@ -9,12 +9,12 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.request.NovelPostRequest
 import com.teamwss.websoso.databinding.ActivityPostNovelBinding
 import com.teamwss.websoso.ui.common.model.ReadStatus
+import com.teamwss.websoso.ui.main.MainActivity
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.postNovel.dialog.DatePickerDialog
 import com.teamwss.websoso.ui.postNovel.dialog.PostSuccessDialog
@@ -43,7 +43,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupSaveStatusObserver()
         setupIsServerError()
 
-        setupExitPopupDialog()
+        setupExitButton()
         setupDatePickerDialog()
 
         initUserNovelInfo()
@@ -71,7 +71,9 @@ class PostNovelActivity : AppCompatActivity() {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.viewPostAppBar.height
 
-            val scrollRatio = ((scrollY.toFloat() + alphaThreshold) / maxHeight).coerceAtMost(maxScrollRatio).pow(powerFactor)
+            val scrollRatio =
+                ((scrollY.toFloat() + alphaThreshold) / maxHeight).coerceAtMost(maxScrollRatio)
+                    .pow(powerFactor)
             val colorAlpha = (scrollRatio * alphaMultiplier).toInt()
 
             binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
@@ -114,18 +116,29 @@ class PostNovelActivity : AppCompatActivity() {
                 }
 
                 !isSaveError && isNovelAlreadyPosted && isTitleNotEmpty -> {
-                    navigateToNovelDetail()
+                    navigateToNovelDetailFromSuccessDialog()
                     finish()
                 }
             }
         }
     }
 
-    private fun navigateToNovelDetail() {
-        val intent =
-            NovelDetailActivity.createIntent(this, postNovelViewModel.novelInfo.value?.id ?: 0)
+    private fun navigateToNovelDetailFromSuccessDialog() {
+        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
+        val intent = NovelDetailActivity.createIntent(this, newUserNovelId)
+        navigateToHome()
         startActivity(intent)
-        finish()
+        finishAffinity()
+    }
+
+    private fun navigateToHomeFromSuccessDialog() {
+        navigateToHome()
+        finishAffinity()
+    }
+
+    private fun navigateToHome() {
+        val intent = MainActivity.newIntent(this)
+        startActivity(intent)
     }
 
     private fun checkIsDateNull(): NovelPostRequest {
@@ -152,12 +165,10 @@ class PostNovelActivity : AppCompatActivity() {
         } else {
             postNovelViewModel.saveUserNovelInfo(id, request)
         }
-
-        LocalBroadcastManager.getInstance(this).sendBroadcast(Intent("FINISH_SEARCH_ACTIVITY"))
     }
 
-    private fun setupExitPopupDialog() {
-        binding.ivPostExitPopup.setOnClickListener {
+    private fun setupExitButton() {
+        binding.ivPostExitButton.setOnClickListener {
             finish()
         }
     }
@@ -177,7 +188,8 @@ class PostNovelActivity : AppCompatActivity() {
         if (postSuccessDialog == null || !postSuccessDialog!!.isAdded) {
             postNovelViewModel.updateIsDialogShown(true)
 
-            postSuccessDialog = PostSuccessDialog(::finish)
+            postSuccessDialog =
+                PostSuccessDialog(::navigateToNovelDetailFromSuccessDialog, ::navigateToHomeFromSuccessDialog)
             postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
         }
     }
