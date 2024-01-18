@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.main.myPage
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -42,6 +43,7 @@ class MyPageFragment : Fragment() {
         initRecyclerView()
         setupEditButtonClickListener()
         setupCheckUserInfoButtonClickListener()
+        setupLinkToWebClickListener()
         observeUserAvatar()
     }
 
@@ -78,7 +80,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun setupCheckUserInfoButtonClickListener() {
-        binding.tvMyPageCheckUserInfo.setOnClickListener {
+        binding.viewMyPageUserInfoButton.setOnClickListener {
             navigateToCheckUserInfoActivity()
         }
     }
@@ -88,6 +90,21 @@ class MyPageFragment : Fragment() {
             requireContext(),
             myPageViewModel.userInfo.value?.userNickName ?: ""
         )
+        startActivity(intent)
+    }
+
+    private fun setupLinkToWebClickListener() {
+        binding.viewMyPageInstagramButton.setOnClickListener {
+            openUrl("https://www.instagram.com/websoso_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==")
+        }
+
+        binding.viewMyPageTermsOfUseButton.setOnClickListener {
+            openUrl("https://www.notion.so/kimmjabc/4acd397608c146cbbf8dd4fe11a82e19")
+        }
+    }
+
+    private fun openUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
 
