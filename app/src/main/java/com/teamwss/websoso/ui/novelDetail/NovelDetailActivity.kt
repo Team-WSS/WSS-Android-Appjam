@@ -14,6 +14,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.PopupWindow
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -23,6 +24,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityNovelDetailBinding
+import com.teamwss.websoso.ui.main.MainActivity
 import com.teamwss.websoso.ui.memoWrite.MemoWriteActivity
 import com.teamwss.websoso.ui.novelDetail.adapter.NovelDetailViewPagerAdapter
 import com.teamwss.websoso.ui.novelDetail.fragment.DialogNovelDelete
@@ -45,6 +47,12 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private lateinit var postedMemoLauncher: ActivityResultLauncher<Intent>
 
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            navigateToHome()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNovelDetailBinding.inflate(layoutInflater)
@@ -60,12 +68,15 @@ class NovelDetailActivity : AppCompatActivity() {
             }
         }
 
+        this.onBackPressedDispatcher.addCallback(this, callback)
+
         getAndUpdateUserNovelId()
         setupUI()
         registerForPostMemoLauncher()
         observeUserNovelId()
         observeUserNovelInfoData()
         setupListener()
+
     }
 
     private fun getAndUpdateUserNovelId() {
@@ -198,8 +209,14 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun onClickBackButton() {
         binding.ivNovelDetailNavigateBackBtn.setOnClickListener {
-            finish()
+            navigateToHome()
         }
+    }
+
+    private fun navigateToHome() {
+        val intent = MainActivity.newIntent(this, R.id.menu_library)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
     }
 
     private fun onClickAddMemoButton() {

@@ -116,22 +116,11 @@ class PostNovelActivity : AppCompatActivity() {
                 }
 
                 !isSaveError && isNovelAlreadyPosted && isTitleNotEmpty -> {
-                    navigateToNovelDetailFromSuccessDialog()
+                    navigateToNovelDetail()
                     finish()
                 }
             }
         }
-    }
-
-    private fun navigateToNovelDetailFromSuccessDialog() {
-        navigateToHome()
-        navigateToNovelDetail()
-        finishAffinity()
-    }
-
-    private fun navigateToHomeFromSuccessDialog() {
-        navigateToHome()
-        finishAffinity()
     }
 
     private fun navigateToNovelDetail() {
@@ -140,8 +129,15 @@ class PostNovelActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun navigateToMemoWrite() {
+        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
+        val intent = NovelDetailActivity.createIntentFromPostNovel(this, newUserNovelId, false)
+        startActivity(intent)
+    }
+
     private fun navigateToHome() {
-        val intent = MainActivity.newIntent(this)
+        val intent = MainActivity.newIntent(this, R.id.menu_home)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
 
@@ -195,8 +191,8 @@ class PostNovelActivity : AppCompatActivity() {
 
             postSuccessDialog =
                 PostSuccessDialog(
-                    ::navigateToNovelDetailFromSuccessDialog,
-                    ::navigateToHomeFromSuccessDialog
+                    ::navigateToMemoWrite,
+                    ::navigateToHome
                 )
             postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
         }
