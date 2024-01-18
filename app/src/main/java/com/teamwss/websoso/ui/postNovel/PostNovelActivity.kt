@@ -71,7 +71,9 @@ class PostNovelActivity : AppCompatActivity() {
             val scrollY = binding.svPost.scrollY
             val maxHeight = binding.ivPostCoverBackground.height - binding.viewPostAppBar.height
 
-            val scrollRatio = ((scrollY.toFloat() + alphaThreshold) / maxHeight).coerceAtMost(maxScrollRatio).pow(powerFactor)
+            val scrollRatio =
+                ((scrollY.toFloat() + alphaThreshold) / maxHeight).coerceAtMost(maxScrollRatio)
+                    .pow(powerFactor)
             val colorAlpha = (scrollRatio * alphaMultiplier).toInt()
 
             binding.viewPostAppBar.setBackgroundColor(getColor(R.color.white).changeAlpha(colorAlpha))
@@ -114,26 +116,29 @@ class PostNovelActivity : AppCompatActivity() {
                 }
 
                 !isSaveError && isNovelAlreadyPosted && isTitleNotEmpty -> {
-                    navigateToNovelDetail()
+                    navigateToNovelDetailFromSuccessDialog()
                     finish()
                 }
             }
         }
     }
 
-    private fun navigateToNovelDetail() {
-        val mainIntent = MainActivity.newIntent(this)
-        startActivity(mainIntent)
-        val intent =
-            NovelDetailActivity.createIntent(this, postNovelViewModel.newUserNovelId.value ?: 0)
+    private fun navigateToNovelDetailFromSuccessDialog() {
+        val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
+        val intent = NovelDetailActivity.createIntent(this, newUserNovelId)
+        navigateToHome()
         startActivity(intent)
         finishAffinity()
     }
 
-    private fun navigateToHome(){
+    private fun navigateToHomeFromSuccessDialog() {
+        navigateToHome()
+        finishAffinity()
+    }
+
+    private fun navigateToHome() {
         val intent = MainActivity.newIntent(this)
         startActivity(intent)
-        finishAffinity()
     }
 
     private fun checkIsDateNull(): NovelPostRequest {
@@ -183,7 +188,8 @@ class PostNovelActivity : AppCompatActivity() {
         if (postSuccessDialog == null || !postSuccessDialog!!.isAdded) {
             postNovelViewModel.updateIsDialogShown(true)
 
-            postSuccessDialog = PostSuccessDialog(::navigateToNovelDetail, ::navigateToHome)
+            postSuccessDialog =
+                PostSuccessDialog(::navigateToNovelDetailFromSuccessDialog, ::navigateToHomeFromSuccessDialog)
             postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
         }
     }
