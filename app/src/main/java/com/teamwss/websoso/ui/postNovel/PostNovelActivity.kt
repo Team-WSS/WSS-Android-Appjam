@@ -148,15 +148,16 @@ class PostNovelActivity : AppCompatActivity() {
     private fun checkIsDateNull(): NovelPostRequest {
         val rating = binding.rbPostRating.rating
         val readStatus = postNovelViewModel.readStatus.value ?: ReadStatus.FINISH.toString()
-        val startDate = binding.tvPostReadDateStart.text.toString()
-        val endDate = binding.tvPostReadDateEnd.text.toString()
 
-        return when (readStatus) {
-            ReadStatus.FINISH.toString() -> NovelPostRequest(rating, readStatus, startDate, endDate)
-            ReadStatus.READING.toString() -> NovelPostRequest(rating, readStatus, startDate, null)
-            ReadStatus.DROP.toString() -> NovelPostRequest(rating, readStatus, null, endDate)
-            else -> NovelPostRequest(rating, readStatus, null, null)
+        if (!binding.scPostDateSwitch.isChecked || readStatus == ReadStatus.WISH.toString()) {
+            return NovelPostRequest(rating, readStatus, null, null)
         }
+
+        val startDate = if (readStatus != ReadStatus.DROP.toString())
+            binding.tvPostReadDateStart.text.toString() else null
+        val endDate = if (readStatus != ReadStatus.READING.toString())
+            binding.tvPostReadDateEnd.text.toString() else null
+        return NovelPostRequest(rating, readStatus, startDate, endDate)
     }
 
     private fun saveNovelInfo() {
@@ -193,7 +194,10 @@ class PostNovelActivity : AppCompatActivity() {
             postNovelViewModel.updateIsDialogShown(true)
 
             postSuccessDialog =
-                PostSuccessDialog(::navigateToNovelDetailFromSuccessDialog, ::navigateToHomeFromSuccessDialog)
+                PostSuccessDialog(
+                    ::navigateToNovelDetailFromSuccessDialog,
+                    ::navigateToHomeFromSuccessDialog
+                )
             postSuccessDialog!!.show(supportFragmentManager, "PostSuccessDialog")
         }
     }
