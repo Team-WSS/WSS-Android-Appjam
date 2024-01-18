@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
+import com.teamwss.websoso.ui.main.library.LibraryFragment
 
 class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
@@ -28,6 +30,7 @@ class RecordFragment : Fragment() {
         setupRecyclerView()
         setupMemos()
         setupMemoCount()
+        setupButtonRecordClickListener()
     }
 
     private fun setupRecyclerView() {
@@ -65,7 +68,9 @@ class RecordFragment : Fragment() {
 
     private fun setupButtonRecordClickListener() {
         binding.btnRecordGoToPostNovel.setOnClickListener {
-            // TODO: 웹소설 일반등록으로 이동
+            parentFragmentManager.commit {
+                replace(R.id.fcvMain, LibraryFragment.newInstance())
+            }
         }
     }
 
