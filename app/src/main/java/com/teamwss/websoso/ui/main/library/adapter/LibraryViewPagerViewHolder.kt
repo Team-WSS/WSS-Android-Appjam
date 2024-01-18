@@ -15,7 +15,7 @@ class LibraryViewPagerViewHolder(
     init {
         binding.rvLibraryViewPager.adapter = libraryItemAdapter
         binding.btnRecordGoToPostNovel.setOnClickListener {
-            //onPostClick()
+            onPostClick()
         }
     }
 
