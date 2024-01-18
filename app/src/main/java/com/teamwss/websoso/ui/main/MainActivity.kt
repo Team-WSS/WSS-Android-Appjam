@@ -13,7 +13,6 @@ import com.teamwss.websoso.ui.main.home.HomeFragment
 import com.teamwss.websoso.ui.main.library.LibraryFragment
 import com.teamwss.websoso.ui.main.myPage.MyPageFragment
 import com.teamwss.websoso.ui.main.record.RecordFragment
-import com.teamwss.websoso.ui.postNovel.PostNovelActivity
 
 class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
@@ -24,9 +23,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        initializeDefaultFragment(savedInstanceState)
         setTranslucentOnStatusBar()
         setupBottomNavigation()
-        initializeDefaultFragment(savedInstanceState)
+        initFragmentPage()
+    }
+
+    private fun initFragmentPage() {
+        val selectedMenuId = intent.getIntExtra(FRAGMENT_PAGE, R.id.menu_home)
+        binding.bnvMain.selectedItemId = selectedMenuId
     }
 
     private fun setTranslucentOnStatusBar() {
@@ -38,18 +43,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBottomNavigation() {
         binding.bnvMain.setOnItemSelectedListener { item ->
-            val selectedFragment = when (item.itemId) {
-                R.id.menu_home -> HomeFragment.newInstance()
-                R.id.menu_library -> LibraryFragment.newInstance()
-                R.id.menu_record -> RecordFragment.newInstance()
-                R.id.menu_my_page -> MyPageFragment.newInstance()
-                else -> null
-            }
+            val selectedFragment = createFragmentByMenuId(item.itemId)
             selectedFragment?.let { changeFragment(it) }
             return@setOnItemSelectedListener selectedFragment != null
         }
-
         binding.bnvMain.setOnItemReselectedListener { }
+    }
+
+    private fun createFragmentByMenuId(menuId: Int) = when (menuId) {
+        R.id.menu_home -> HomeFragment.newInstance()
+        R.id.menu_library -> LibraryFragment.newInstance()
+        R.id.menu_record -> RecordFragment.newInstance()
+        R.id.menu_my_page -> MyPageFragment.newInstance()
+        else -> null
     }
 
     private fun changeFragment(fragment: Fragment) {
@@ -70,8 +76,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun newIntent(context: Context): Intent {
+        const val FRAGMENT_PAGE = "FRAGMENT_PAGE"
+        fun newIntent(context: Context, page: Int): Intent {
             return Intent(context, MainActivity::class.java).apply {
+                putExtra(FRAGMENT_PAGE, page)
             }
         }
     }

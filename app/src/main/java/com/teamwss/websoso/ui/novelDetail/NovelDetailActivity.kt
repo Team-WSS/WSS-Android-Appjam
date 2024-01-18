@@ -214,7 +214,7 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToHome() {
-        val intent = MainActivity.newIntent(this)
+        val intent = MainActivity.newIntent(this, R.id.menu_library)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
