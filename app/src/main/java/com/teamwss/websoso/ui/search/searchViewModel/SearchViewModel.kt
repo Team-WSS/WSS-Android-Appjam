@@ -43,7 +43,7 @@ class SearchViewModel : ViewModel() {
     }
 
     companion object {
-        const val LAST_NOVEL_ID = 99999999L
+        const val DEFAULT_LAST_NOVEL_ID = 99999999L
         const val PAGE_SIZE = 40
         const val EXTRA_PAGE_SIZE = 20
         const val SEARCH_DELAY = 1000L
