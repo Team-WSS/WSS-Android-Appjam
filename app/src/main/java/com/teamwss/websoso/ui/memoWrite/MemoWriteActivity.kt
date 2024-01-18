@@ -81,8 +81,6 @@ class MemoWriteActivity : AppCompatActivity() {
         val inputMethodManager =
             this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.etMemoWriteContent, 0)
-
-
     }
 
     private fun getUserNovelDataFromBeforeView() {
@@ -113,17 +111,31 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun observeMemoContent() {
         memoWriteViewModel.memoContent.observe(this) {
             memoContent = memoWriteViewModel.memoContent.value
+            if(memoContent?.isBlank() == true) {
+                binding.tvMemoWriteCompleteBtn.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.gray_200_AEADB3
+                    )
+                )
+            }
         }
     }
 
     private fun observeMemoContentIsChanged() {
         memoWriteViewModel.isChanged.observe(this) { isChanged ->
             if (isChanged) {
-                binding.tvMemoWriteCompleteBtn.isEnabled = true
                 binding.tvMemoWriteCompleteBtn.setTextColor(
                     ContextCompat.getColor(
                         this,
                         R.color.primary_100_6341F0
+                    )
+                )
+            } else {
+                binding.tvMemoWriteCompleteBtn.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.gray_200_AEADB3
                     )
                 )
             }
@@ -132,8 +144,8 @@ class MemoWriteActivity : AppCompatActivity() {
 
     private fun onClickBackButton() {
         binding.ivMemoWriteCancelBtn.setOnClickListener {
-            memoWriteViewModel.isChanged.observe(this) { isChanged ->
-                if (isChanged) {
+            memoWriteViewModel.isMemoChanged.observe(this) { isMemoChanged ->
+                if (isMemoChanged) {
                     dialogMemoCancel.show((supportFragmentManager), "memoCancelDialog")
                 } else {
                     finish()
