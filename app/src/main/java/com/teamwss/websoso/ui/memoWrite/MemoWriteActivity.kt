@@ -45,7 +45,7 @@ class MemoWriteActivity : AppCompatActivity() {
         observeMemoContent()
         observeMemoContentIsChanged()
         onClickBackButton()
-        observePostMemoSuccess()
+        observeIsAvatarUnlocked()
         observePatchedMemoSuccess()
 
         if (userNovelId != -1L) {
@@ -148,20 +148,28 @@ class MemoWriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun observePostMemoSuccess() {
+    private fun observeIsAvatarUnlocked() {
+        memoWriteViewModel.isAvatarUnlocked.observe(this) { isAvatarUnlocked ->
+            if (isAvatarUnlocked) {
+                val resultIntent = Intent().apply {
+                    putExtra("isAvatarUnlocked", isAvatarUnlocked)
+                }
+                setResult(Activity.RESULT_OK, resultIntent)
+                Log.d("avatarUnlocked", isAvatarUnlocked.toString())
+                finish()
+            } else {
+                observeMemoPost()
+            }
+        }
+    }
+
+    private fun observeMemoPost() {
         memoWriteViewModel.isMemoPosted.observe(this) { isPosted ->
             if (isPosted) {
-                memoWriteViewModel.isAvatarUnlocked.observe(this) { isAvatarUnlocked ->
-                    val resultIntent = Intent().apply {
-                        putExtra("isAvatarUnlocked", isAvatarUnlocked)
-                        Log.d("unlocked", isAvatarUnlocked.toString())
-                    }
-                    setResult(Activity.RESULT_OK, resultIntent)
-                    finish()
-                }
+                setResult(Activity.RESULT_OK)
+                finish()
             } else {
-                val drawable =
-                    ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
+                val drawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
                 CustomSnackBar.make(binding.root)
                     .setText("메모 저장에 실패했어요")
                     .setIcon(
