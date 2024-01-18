@@ -1,12 +1,11 @@
 package com.teamwss.websoso.ui.main.myPage
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +41,7 @@ class MyPageFragment : Fragment() {
         initRecyclerView()
         setupEditButtonClickListener()
         setupCheckUserInfoButtonClickListener()
+        setupLinkToWebClickListener()
         observeUserAvatar()
     }
 
@@ -78,7 +78,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun setupCheckUserInfoButtonClickListener() {
-        binding.tvMyPageCheckUserInfo.setOnClickListener {
+        binding.viewMyPageUserInfoButton.setOnClickListener {
             navigateToCheckUserInfoActivity()
         }
     }
@@ -88,6 +88,21 @@ class MyPageFragment : Fragment() {
             requireContext(),
             myPageViewModel.userInfo.value?.userNickName ?: ""
         )
+        startActivity(intent)
+    }
+
+    private fun setupLinkToWebClickListener() {
+        binding.viewMyPageInstagramButton.setOnClickListener {
+            openUrl(INSTAGRAM_URL)
+        }
+
+        binding.viewMyPageTermsOfUseButton.setOnClickListener {
+            openUrl(TERMS_OF_USE_URL)
+        }
+    }
+
+    private fun openUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
     }
 
@@ -105,5 +120,10 @@ class MyPageFragment : Fragment() {
 
     companion object {
         fun newInstance() = MyPageFragment()
+
+        private const val INSTAGRAM_URL =
+            "https://www.instagram.com/websoso_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+        private const val TERMS_OF_USE_URL =
+            "https://www.notion.so/kimmjabc/4acd397608c146cbbf8dd4fe11a82e19"
     }
 }
