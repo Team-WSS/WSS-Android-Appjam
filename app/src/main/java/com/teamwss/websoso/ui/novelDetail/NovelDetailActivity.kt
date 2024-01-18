@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -39,6 +37,7 @@ class NovelDetailActivity : AppCompatActivity() {
     }
     private val novelDetailViewModel: NovelDetailViewModel by viewModels()
     private var userNovelId: Long = 0
+    private var boolean: Boolean = false
     private lateinit var userNovelTitle: String
     private lateinit var userNovelAuthor: String
     private lateinit var userNovelImage: String
@@ -54,6 +53,13 @@ class NovelDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.novelDetailViewModel = novelDetailViewModel
 
+        boolean = intent.getBooleanExtra("isPostNovel", false)
+        if (boolean) {
+            binding.vpNovelDetail.post {
+                binding.vpNovelDetail.setCurrentItem(1, true)
+            }
+        }
+
         getAndUpdateUserNovelId()
         setupUI()
         registerForPostMemoLauncher()
@@ -65,7 +71,6 @@ class NovelDetailActivity : AppCompatActivity() {
     private fun getAndUpdateUserNovelId() {
         val errorUserId: Long = 0
         userNovelId = intent.getLongExtra("userNovelId", errorUserId)
-        Log.e("test123", userNovelId.toString())
         novelDetailViewModel.getUserNovelId(userNovelId)
         novelDetailViewModel.getUserNovelMemoInfo(userNovelId)
     }
@@ -123,27 +128,35 @@ class NovelDetailActivity : AppCompatActivity() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val isAvatarUnlocked =
                         result.data?.getBooleanExtra("isAvatarUnlocked", false) ?: false
-                    val memoSavedDrawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
+                    val memoSavedDrawable =
+                        ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
 
-                    CustomSnackBar.make(binding.root)
-                        .setText("메모를 저장했어요")
-                        .setIcon(memoSavedDrawable ?: ContextCompat.getDrawable(this, R.drawable.ic_alert_default)!!)
-                        .show()
-
-                    if(isAvatarUnlocked) {
-                        val handler = Handler(Looper.getMainLooper())
-                        handler.postDelayed({
-                            val avatarUnlockedDrawable = ContextCompat.getDrawable(this, R.drawable.ic_avatar_unlocked)
-                            CustomSnackBar.make(binding.root)
-                                .setText("새 캐릭터가 열렸어요!")
-                                .setIcon(avatarUnlockedDrawable ?: ContextCompat.getDrawable(this, R.drawable.ic_avatar_unlocked)!!)
-                                .show()
-                        }, 4000)
+                    if (isAvatarUnlocked) {
+                        val avatarUnlockedDrawable =
+                            ContextCompat.getDrawable(this, R.drawable.ic_avatar_unlocked)
+                        CustomSnackBar.make(binding.root)
+                            .setText("새 캐릭터가 열렸어요!")
+                            .setIcon(
+                                avatarUnlockedDrawable ?: ContextCompat.getDrawable(
+                                    this,
+                                    R.drawable.ic_avatar_unlocked
+                                )!!
+                            )
+                            .show()
+                    } else {
+                        CustomSnackBar.make(binding.root)
+                            .setText("메모를 저장했어요")
+                            .setIcon(
+                                memoSavedDrawable ?: ContextCompat.getDrawable(
+                                    this,
+                                    R.drawable.ic_alert_default
+                                )!!
+                            )
+                            .show()
                     }
                 }
             }
     }
-
 
     private fun updateToolbarAppearance(isCollapsed: Boolean) {
         with(binding) {
@@ -155,7 +168,8 @@ class NovelDetailActivity : AppCompatActivity() {
                 )
             )
 
-            tvNovelDetailTitleOnToolBar.visibility = if (isCollapsed) View.VISIBLE else View.GONE
+            tvNovelDetailTitleOnToolBar.visibility =
+                if (isCollapsed) View.VISIBLE else View.GONE
             ivNovelDetailPopupMenuBtn.visibility = if (isCollapsed) View.GONE else View.VISIBLE
         }
     }
@@ -168,8 +182,10 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun observeUserNovelInfoData() {
         novelDetailViewModel.userNovelMemoInfoResponse.observe(this) {
-            userNovelAuthor = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
-            userNovelTitle = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
+            userNovelAuthor =
+                novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelAuthor
+            userNovelTitle =
+                novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelTitle
             userNovelImage = novelDetailViewModel.userNovelMemoInfoResponse.value!!.userNovelImg
         }
     }
@@ -206,7 +222,7 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun showNovelDetailPopup() {
-        val spinnerItems = listOf("작품을 서재에서 삭제", "작품 수정")
+        val spinnerItems = listOf("작품을 서재에서 삭제", "작품 정보 수정")
         val listView = createListView(spinnerItems)
         popupWindow = createPopupWindow(listView)
 
@@ -254,8 +270,8 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun handlePopupItemClick(position: Int) {
         when (position) {
-            0 -> showNovelDeleteDialog()
-            1 -> navigateToNovelEdit()
+            NOVEL_MEMO_FRAGMENT_INDEX -> showNovelDeleteDialog()
+            NOVEL_INFO_FRAGMENT_INDEX -> navigateToNovelEdit()
         }
     }
 
@@ -267,11 +283,11 @@ class NovelDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToNovelEdit() {
-        novelDetailViewModel.userNovelMemoInfoResponse.observe(this) {response->
-            val intent = PostNovelActivity.newIntent(this, response.novelId)
-            startActivity(intent)
-            finish()
-        }
+        val intent = PostNovelActivity.newIntent(
+            this,
+            novelDetailViewModel.userNovelMemoInfoResponse.value?.novelId ?: 0
+        )
+        startActivity(intent)
     }
 
     override fun onResume() {
@@ -301,10 +317,23 @@ class NovelDetailActivity : AppCompatActivity() {
         const val POPUP_WIDTH = 198
         const val POPUP_MARGIN_END = -6
         const val POPUP_MARGIN_TOP = 4
+        const val NOVEL_MEMO_FRAGMENT_INDEX = 0
+        const val NOVEL_INFO_FRAGMENT_INDEX = 1
 
         fun createIntent(context: Context, userNovelId: Long): Intent {
             return Intent(context, NovelDetailActivity::class.java).apply {
                 putExtra("userNovelId", userNovelId)
+            }
+        }
+
+        fun createIntentFromPostNovel(
+            context: Context,
+            userNovelId: Long,
+            boolean: Boolean
+        ): Intent {
+            return Intent(context, NovelDetailActivity::class.java).apply {
+                putExtra("userNovelId", userNovelId)
+                putExtra("isPostNovel", boolean)
             }
         }
     }

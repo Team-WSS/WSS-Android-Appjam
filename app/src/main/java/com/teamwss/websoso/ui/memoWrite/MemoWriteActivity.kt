@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -44,7 +45,7 @@ class MemoWriteActivity : AppCompatActivity() {
         observeMemoContent()
         observeMemoContentIsChanged()
         onClickBackButton()
-        observePostMemoSuccess()
+        observeIsAvatarUnlocked()
         observePatchedMemoSuccess()
 
         if (userNovelId != -1L) {
@@ -80,8 +81,6 @@ class MemoWriteActivity : AppCompatActivity() {
         val inputMethodManager =
             this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(binding.etMemoWriteContent, 0)
-
-
     }
 
     private fun getUserNovelDataFromBeforeView() {
@@ -112,17 +111,31 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun observeMemoContent() {
         memoWriteViewModel.memoContent.observe(this) {
             memoContent = memoWriteViewModel.memoContent.value
+            if(memoContent?.isBlank() == true) {
+                binding.tvMemoWriteCompleteBtn.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.gray_200_AEADB3
+                    )
+                )
+            }
         }
     }
 
     private fun observeMemoContentIsChanged() {
         memoWriteViewModel.isChanged.observe(this) { isChanged ->
             if (isChanged) {
-                binding.tvMemoWriteCompleteBtn.isEnabled = true
                 binding.tvMemoWriteCompleteBtn.setTextColor(
                     ContextCompat.getColor(
                         this,
                         R.color.primary_100_6341F0
+                    )
+                )
+            } else {
+                binding.tvMemoWriteCompleteBtn.setTextColor(
+                    ContextCompat.getColor(
+                        this,
+                        R.color.gray_200_AEADB3
                     )
                 )
             }
@@ -131,8 +144,8 @@ class MemoWriteActivity : AppCompatActivity() {
 
     private fun onClickBackButton() {
         binding.ivMemoWriteCancelBtn.setOnClickListener {
-            memoWriteViewModel.isChanged.observe(this) { isChanged ->
-                if (isChanged) {
+            memoWriteViewModel.isMemoChanged.observe(this) { isMemoChanged ->
+                if (isMemoChanged) {
                     dialogMemoCancel.show((supportFragmentManager), "memoCancelDialog")
                 } else {
                     finish()
@@ -147,20 +160,28 @@ class MemoWriteActivity : AppCompatActivity() {
         }
     }
 
-    private fun observePostMemoSuccess() {
+    private fun observeIsAvatarUnlocked() {
+        memoWriteViewModel.isAvatarUnlocked.observe(this) { isAvatarUnlocked ->
+            if (isAvatarUnlocked) {
+                val resultIntent = Intent().apply {
+                    putExtra("isAvatarUnlocked", isAvatarUnlocked)
+                }
+                setResult(Activity.RESULT_OK, resultIntent)
+                Log.d("avatarUnlocked", isAvatarUnlocked.toString())
+                finish()
+            } else {
+                observeMemoPost()
+            }
+        }
+    }
+
+    private fun observeMemoPost() {
         memoWriteViewModel.isMemoPosted.observe(this) { isPosted ->
             if (isPosted) {
-                memoWriteViewModel.isAvatarUnlocked.observe(this) { isAvatarUnlocked ->
-                    val resultIntent = Intent().apply {
-                        putExtra("isAvatarUnlocked", isAvatarUnlocked)
-                        Log.d("unlocked", isAvatarUnlocked.toString())
-                    }
-                    setResult(Activity.RESULT_OK, resultIntent)
-                    finish()
-                }
+                setResult(Activity.RESULT_OK)
+                finish()
             } else {
-                val drawable =
-                    ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
+                val drawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_warning)
                 CustomSnackBar.make(binding.root)
                     .setText("메모 저장에 실패했어요")
                     .setIcon(
@@ -199,6 +220,13 @@ class MemoWriteActivity : AppCompatActivity() {
         binding.tvMemoWriteCompleteBtn.setOnClickListener {
             memoWriteViewModel.patchMemo(memoId)
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val imm: InputMethodManager =
+            getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+        return super.dispatchTouchEvent(ev)
     }
 
     companion object {

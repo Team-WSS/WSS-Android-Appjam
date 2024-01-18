@@ -43,7 +43,8 @@ fun loadCoverImageBlurred5(view: ImageView, imageUrl: String?) {
 @BindingAdapter("loadLottieRawRes")
 fun loadLottieAnimation(view: LottieAnimationView, avatarId: Long) {
     val currentTime = System.currentTimeMillis()
-    val resId = if (currentTime % 2 == 0L) avatarId.toLottieImage() else (avatarId + 100L).toLottieImage()
+    val resId =
+        if (currentTime % 2 == 0L) avatarId.toLottieImage() else (avatarId + 100L).toLottieImage()
     try {
         if (resId != 0) {
             view.setAnimation(resId)
@@ -107,7 +108,7 @@ fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
 @BindingAdapter("setNovelInfoReadStatusText")
 fun setReadStatusText(textView: TextView, status: String) {
     textView.text = when (status) {
-        ReadStatus.FINISH.name -> "완료"
+        ReadStatus.FINISH.name -> "읽음"
         ReadStatus.READING.name -> "읽는 중"
         ReadStatus.DROP.name -> "하차"
         ReadStatus.WISH.name -> "읽고 싶음"
@@ -187,13 +188,19 @@ fun setReadDateTilde(textView: TextView, status: String) {
 }
 
 @BindingAdapter("observeNaverSeriesPlatformUrl")
-fun observeNaverSeriesPlatform(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
+fun observeNaverSeriesPlatform(
+    layout: ConstraintLayout,
+    platformInfo: List<NovelPlatformInfoResponse>
+) {
     val isNaverSeriesVisible = platformInfo.any { it.platformName == "네이버시리즈" }
     layout.visibility = if (isNaverSeriesVisible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("observeKakaoPagePlatformUrl")
-fun observeKakaoPagePlatform(layout: ConstraintLayout, platformInfo: List<NovelPlatformInfoResponse>) {
-    val isKakaoPageViesible = platformInfo.any {it.platformName == "카카오페이지"}
+fun observeKakaoPagePlatform(
+    layout: ConstraintLayout,
+    platformInfo: List<NovelPlatformInfoResponse>
+) {
+    val isKakaoPageViesible = platformInfo.any { it.platformName == "카카오페이지" }
     layout.visibility = if (isKakaoPageViesible) View.VISIBLE else View.GONE
 }

@@ -17,6 +17,9 @@ class MemoWriteViewModel : ViewModel() {
     private var _isChanged: MutableLiveData<Boolean> = MutableLiveData(false)
     val isChanged: LiveData<Boolean> = _isChanged
 
+    private var _isMemoChanged: MutableLiveData<Boolean> = MutableLiveData(false)
+    val isMemoChanged: LiveData<Boolean> = _isMemoChanged
+
     private var _isAvatarUnlocked: MutableLiveData<Boolean> = MutableLiveData()
     val isAvatarUnlocked: LiveData<Boolean> = _isAvatarUnlocked
 
@@ -90,16 +93,23 @@ class MemoWriteViewModel : ViewModel() {
             initialMemoContent = memoContent
         }
         _memoContent.value = memoContent
-        checkIfContentChanged()
+        validateMemoContent()
+        validateMemoContentChanged()
     }
 
     fun updateMemoContent(memoContent: String) {
         _memoContent.value = memoContent
-        checkIfContentChanged()
+        validateMemoContent()
+        validateMemoContentChanged()
     }
 
-    private fun checkIfContentChanged() {
+    private fun validateMemoContent() {
         val currentContent = _memoContent.value.orEmpty()
-        _isChanged.value = currentContent != initialMemoContent || currentContent.isEmpty()
+        _isChanged.value = currentContent.isNotEmpty() && currentContent != initialMemoContent
+    }
+
+    private fun validateMemoContentChanged() {
+        val currentContent = _memoContent.value.orEmpty()
+        _isMemoChanged.value = currentContent != initialMemoContent
     }
 }

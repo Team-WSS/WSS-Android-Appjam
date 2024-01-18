@@ -31,7 +31,7 @@
     <View
         android:id="@+id/viewMemoShortLine"
         android:layout_width="0dp"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@color/gray_70_DFDFE3"
         app:layout_constraintBottom_toBottomOf="@id/viewMemoLongLine"
         app:layout_constraintEnd_toEndOf="parent"

@@ -134,9 +134,9 @@ class PostNovelActivity : AppCompatActivity() {
         finishAffinity()
     }
 
-    private fun navigateToNovelDetail(){
+    private fun navigateToNovelDetail() {
         val newUserNovelId = postNovelViewModel.newUserNovelId.value ?: 0
-        val intent = NovelDetailActivity.createIntent(this, newUserNovelId)
+        val intent = NovelDetailActivity.createIntentFromPostNovel(this, newUserNovelId, true)
         startActivity(intent)
     }
 

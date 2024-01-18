@@ -52,9 +52,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="@{memoPlainViewModel.memo.userNovelTitle}"
             android:textAppearance="@style/title1"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/ivMemoPlainThumbnail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivMemoPlainCancelBtn"
             tools:text="당신의 이해를 돕기 위하여" />
@@ -84,21 +88,6 @@
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Websoso.ShapeableImageView4"
             tools:src="@drawable/img" />
 
-        <EditText
-            android:id="@+id/etMemoPlainContent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/gray_50_F4F5F8"
-            android:gravity="start"
-            android:padding="20dp"
-            android:textAppearance="@style/body1"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMemoPlainAuthor"
-            tools:text="dddddddffffff" />
-
         <View
             android:id="@+id/viewMemoPlainLine"
             android:layout_width="0dp"
@@ -111,7 +100,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clMemoPlainContent"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="12dp"
@@ -143,18 +132,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvMemoPlainContentMemo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="26dp"
-                android:text="@{memoPlainViewModel.memo.memoContent}"
-                android:textAppearance="@style/body1"
-                android:textColor="@color/black"
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvMemoPlainContentDate"
-                tools:text="가을이 지나가는 하늘에는 가을로 가득차 있습니다. 나는 아무 걱정도 없이 가을 속의 별들을 다 헬 듯합니다. 가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요, 내일 밤이 남은 까닭이요, 아직 나의 청춘이 다하지 않은 까닭입니다. 별 하나에 추억과 별하나의 사랑과 별 하나에 쓸쓸함과 별 하나에 존경과 별 하나에 시와 별 하나에 어머니, 어머니 어머님, 나는 별 하나에 아름다운 말 한마디씩 붙여봅니다. 소학교 때 책상을 같이 했던 아이들의 이름과, 폐, 경, 옥, 이런 이국 소녀들의 이름과" />
+                app:layout_constraintTop_toBottomOf="@id/ivMemoPlainDeleteBtn">
+
+                <TextView
+                    android:id="@+id/tvMemoPlainContentMemo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:breakStrategy="simple"
+                    android:text="@{memoPlainViewModel.memo.memoContent}"
+                    android:textAppearance="@style/body1"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvMemoPlainContentDate"
+                    tools:text="가을이 지나가는 하늘에는 가을로 가득차 있습니다. 나는 아무 걱정도 없이 가을 속의 별들을 다 헬 듯합니다. 가슴 속에 하나 둘 새겨지는 별을 이제 다 못 헤는 것은 쉬이 아침이 오는 까닭이요, 내일 밤이 남은 까닭이요, 아직 나의 청춘이 다하지 않은 까닭입니다. 별 하나에 추억과 별하나의 사랑과 별 하나에 쓸쓸함과 별 하나에 존경과 별 하나에 시와 별 하나에 어머니, 어머니 어머님, 나는 별 하나에 아름다운 말 한마디씩 붙여봅니다. 소학교 때 책상을 같이 했던 아이들의 이름과, 폐, 경, 옥, 이런 이국 소녀들의 이름과" />
+
+            </ScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
