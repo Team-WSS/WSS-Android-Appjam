@@ -43,7 +43,7 @@ class PostNovelActivity : AppCompatActivity() {
         setupSaveStatusObserver()
         setupIsServerError()
 
-        setupExitPopupDialog()
+        setupExitButton()
         setupDatePickerDialog()
 
         initUserNovelInfo()
@@ -167,8 +167,8 @@ class PostNovelActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupExitPopupDialog() {
-        binding.ivPostExitPopup.setOnClickListener {
+    private fun setupExitButton() {
+        binding.ivPostExitButton.setOnClickListener {
             finish()
         }
     }

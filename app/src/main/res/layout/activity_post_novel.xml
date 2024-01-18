@@ -555,7 +555,7 @@
                 app:layout_goneMarginBottom="15dp" />
 
             <ImageView
-                android:id="@+id/ivPostExitPopup"
+                android:id="@+id/ivPostExitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
