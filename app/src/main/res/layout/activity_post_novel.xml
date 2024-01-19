@@ -41,7 +41,7 @@
                             android:id="@+id/ivPostCoverBackground"
                             loadCoverImageBlurred5="@{postNovelViewModel.novelInfo.image}"
                             android:layout_width="match_parent"
-                            android:layout_height="252dp"
+                            android:layout_height="272dp"
                             android:foreground="@drawable/bg_gray_gradient"
                             android:importantForAccessibility="no"
                             android:scaleType="centerCrop"
@@ -52,7 +52,7 @@
                             android:id="@+id/tvPostNovelTitle"
                             android:layout_width="248dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="96dp"
+                            android:layout_marginTop="98dp"
                             android:ellipsize="end"
                             android:maxLines="3"
                             android:text="@{postNovelViewModel.novelInfo.title}"
@@ -246,9 +246,9 @@
                                 android:id="@+id/scPostDateSwitch"
                                 android:layout_width="wrap_content"
                                 android:layout_height="16dp"
-                                android:paddingHorizontal="8dp"
                                 android:checked="@{postNovelViewModel.novelInfo.readStatus != @string/api_read_status_wish}"
                                 android:enabled="@{postNovelViewModel.novelInfo.title != null}"
+                                android:paddingHorizontal="8dp"
                                 android:thumb="@drawable/shape_date_switch_thumb"
                                 app:layout_constraintBottom_toBottomOf="@id/tvPostReadDateTitle"
                                 app:layout_constraintStart_toEndOf="@id/tvPostReadDateTitle"
@@ -533,7 +533,7 @@
             <View
                 android:id="@+id/viewPostAppBar"
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
+                android:layout_height="108dp"
                 android:background="@color/transparent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -542,29 +542,29 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{postNovelViewModel.novelInfo.title}"
                 android:textAlignment="center"
                 android:textAppearance="@style/title2"
                 android:textColor="@color/transparent"
-                app:layout_constraintBottom_toBottomOf="@id/viewPostAppBar"
+                app:layout_constraintBottom_toBottomOf="@id/ivPostExitButton"
                 app:layout_constraintEnd_toEndOf="@id/viewPostAppBar"
                 app:layout_constraintStart_toStartOf="@id/viewPostAppBar"
+                app:layout_constraintTop_toTopOf="@id/ivPostExitButton"
                 app:layout_goneMarginBottom="15dp" />
 
             <ImageView
                 android:id="@+id/ivPostExitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="64dp"
                 android:contentDescription="@string/iv_post_navigate_left_description"
                 android:padding="10dp"
                 android:src="@drawable/ic_navigate_left"
-                app:layout_constraintBottom_toBottomOf="@id/tvPostTitle"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvPostTitle" />
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

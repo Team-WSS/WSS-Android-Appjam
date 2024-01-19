@@ -9,8 +9,9 @@
         android:id="@+id/ivCheckUserInfoBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:padding="10dp"
         android:src="@drawable/ic_navigate_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,20 +32,21 @@
         android:id="@+id/viewHeaderUnderLine"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="108dp"
         android:background="@color/gray_50_F4F5F8"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCheckUserInfoTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvCheckUserInfoNickNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
+        android:layout_marginStart="20dp"
         android:text="@string/check_user_info_nickname_title"
         android:textAppearance="@style/body1"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/ivCheckUserInfoBack"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivCheckUserInfoBack" />
 
     <TextView

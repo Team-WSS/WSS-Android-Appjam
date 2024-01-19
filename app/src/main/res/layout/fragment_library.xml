@@ -20,7 +20,7 @@
             android:id="@+id/tvLibraryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="72dp"
             android:text="@string/library_title"
             android:textAppearance="@style/title2"
             app:layout_constraintEnd_toEndOf="parent"

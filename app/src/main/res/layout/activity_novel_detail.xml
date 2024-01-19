@@ -42,7 +42,7 @@
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="276dp"
+                    android:layout_height="280dp"
                     android:background="@color/transparent"
                     app:collapsedTitleGravity="center"
                     app:contentScrim="@color/white"
@@ -59,7 +59,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="20dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="28dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,7 +109,7 @@
                         android:id="@+id/tbNovelDetail"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:layout_marginTop="40dp"
+                        android:layout_marginTop="64dp"
                         app:contentInsetStart="0dp"
                         app:layout_collapseMode="pin">
 
