@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.AppSplash" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowSplashScreenBackground">@color/primary_100_6341F0</item>
+        <item name="android:windowSplashScreenAnimationDuration">1000</item>
+        <item name="android:windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="android:statusBarColor">@color/primary_100_6341F0</item>
+        <item name="android:navigationBarColor">@color/primary_100_6341F0</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

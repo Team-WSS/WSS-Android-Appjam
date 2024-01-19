@@ -1,9 +1,14 @@
 package com.teamwss.websoso.ui.main.record
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
@@ -17,6 +22,7 @@ class RecordFragment : Fragment() {
     private lateinit var binding: FragmentRecordBinding
     private val recordViewModel: RecordViewModel by viewModels()
     private val memoAdapter: RecordAdapter by lazy { RecordAdapter(::navigateToMemoPlainActivity) }
+    private lateinit var deleteMemoLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -32,6 +38,7 @@ class RecordFragment : Fragment() {
         setupMemos()
         setupMemoCount()
         setupButtonRecordClickListener()
+        registerForDeleteMemoLauncher()
     }
 
     private fun setupRecyclerView() {
@@ -64,7 +71,7 @@ class RecordFragment : Fragment() {
 
     private fun navigateToMemoPlainActivity(memoId: Long) {
         val intent = MemoPlainActivity.newIntent(requireContext(), memoId)
-        startActivity(intent)
+        deleteMemoLauncher.launch(intent)
     }
 
     private fun setupButtonRecordClickListener() {
@@ -84,6 +91,25 @@ class RecordFragment : Fragment() {
         val mainActivity = requireActivity() as MainActivity
 
         mainActivity.updateBottomNavigation(R.id.menu_library)
+    }
+
+    private fun registerForDeleteMemoLauncher() {
+        deleteMemoLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val drawable =
+                        ContextCompat.getDrawable(requireContext(), R.drawable.ic_alert_warning)
+                    CustomSnackBar.make(binding.root)
+                        .setText("메모를 삭제했어요")
+                        .setIcon(
+                            drawable ?: ContextCompat.getDrawable(
+                                requireContext(),
+                                R.drawable.ic_alert_warning
+                            )!!
+                        )
+                        .show()
+                }
+            }
     }
 
     override fun onResume() {
