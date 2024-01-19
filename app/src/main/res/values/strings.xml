@@ -46,6 +46,7 @@
     <string name="home_sosopick">소소’s pick</string>
     <string name="home_sosopick_description">지금 소소들이 등록한 작품</string>
     <string name="home_sosopick_register_count">%d명이 등록</string>
+    <string name="home_pressed_back_button">뒤로가기를 한 번 더 누르면 종료됩니다</string>
 
     <!-- SearchActivity -->
     <string name="search_result_null">검색결과가 없어요ㅠ</string>

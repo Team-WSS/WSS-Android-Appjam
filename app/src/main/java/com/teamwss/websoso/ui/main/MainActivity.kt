@@ -1,11 +1,13 @@
 package com.teamwss.websoso.ui.main
 
+import CustomSnackBar
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.teamwss.websoso.R
@@ -20,9 +22,24 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private var backPressedTime: Long = 0
+    private val callback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (System.currentTimeMillis() - backPressedTime > 2000) {
+                backPressedTime = System.currentTimeMillis()
+                showSnackbar()
+            } else {
+                this.isEnabled = false
+                finish()
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        this.onBackPressedDispatcher.addCallback(this, callback)
 
         initializeDefaultFragment(savedInstanceState)
         setTranslucentOnStatusBar()
@@ -74,6 +91,19 @@ class MainActivity : AppCompatActivity() {
             val homeFragment = HomeFragment.newInstance()
             changeFragment(homeFragment)
         }
+    }
+
+    private fun showSnackbar() {
+        val drawable = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_alert_default)
+        CustomSnackBar.make(binding.root)
+            .setText(getString(R.string.home_pressed_back_button))
+            .setIcon(
+                drawable ?: ContextCompat.getDrawable(
+                    this@MainActivity,
+                    R.drawable.ic_alert_default
+                )!!
+            )
+            .show()
     }
 
     companion object {
