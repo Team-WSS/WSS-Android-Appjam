@@ -46,6 +46,8 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private lateinit var postedMemoLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var patchedNovelLauncher: ActivityResultLauncher<Intent>
+
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             navigateToLibrary()
@@ -60,12 +62,14 @@ class NovelDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.novelDetailViewModel = novelDetailViewModel
 
-        boolean = intent.getBooleanExtra("isPostNovel", false)
-        if (boolean) {
-            binding.vpNovelDetail.post {
-                binding.vpNovelDetail.setCurrentItem(1, true)
+        patchedNovelLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    binding.vpNovelDetail.post {
+                        binding.vpNovelDetail.setCurrentItem(NOVEL_INFO_FRAGMENT_INDEX, true)
+                    }
+                }
             }
-        }
 
         this.onBackPressedDispatcher.addCallback(this, callback)
 
@@ -303,7 +307,7 @@ class NovelDetailActivity : AppCompatActivity() {
             this,
             novelDetailViewModel.userNovelMemoInfoResponse.value?.novelId ?: 0
         )
-        startActivity(intent)
+        patchedNovelLauncher.launch(intent)
     }
 
     override fun onResume() {
