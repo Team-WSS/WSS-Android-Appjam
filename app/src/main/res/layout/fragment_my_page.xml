@@ -19,21 +19,21 @@
             android:id="@+id/tvMyPageTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="68dp"
             android:text="@string/my_page_title"
+            android:layout_marginBottom="15dp"
             android:textAppearance="@style/title2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toTopOf="@id/slMyPage"/>
 
         <ScrollView
             android:id="@+id/slMyPage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="108dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvMyPageTitle">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clMyPageContent"
@@ -127,6 +127,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_navigate_right"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
                         app:layout_constraintBottom_toBottomOf="@id/tvMyPageUserName"
                         app:layout_constraintStart_toEndOf="@id/tvMyPageUserName"
                         app:layout_constraintTop_toTopOf="@id/tvMyPageUserName" />
