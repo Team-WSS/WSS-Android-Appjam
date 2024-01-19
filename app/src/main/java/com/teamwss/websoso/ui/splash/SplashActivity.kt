@@ -3,6 +3,7 @@ package com.teamwss.websoso.ui.splash
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.teamwss.websoso.databinding.ActivitySplashBinding
 import com.teamwss.websoso.ui.main.MainActivity
@@ -18,13 +19,14 @@ class SplashActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         splashViewModel.postLogin()
 
         lifecycleScope.launch {
-            delay(1500L)
+            delay(1000L)
             navigateToMainActivity()
         }
     }
