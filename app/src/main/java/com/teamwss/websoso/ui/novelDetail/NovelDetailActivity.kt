@@ -330,7 +330,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
     companion object {
         const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
-        const val TOOLBAR_COLLAPSE_THRESHOLD = 0.1
+        const val TOOLBAR_COLLAPSE_THRESHOLD = 0.7
         const val POPUP_WIDTH = 198
         const val POPUP_MARGIN_END = -6
         const val POPUP_MARGIN_TOP = 4
