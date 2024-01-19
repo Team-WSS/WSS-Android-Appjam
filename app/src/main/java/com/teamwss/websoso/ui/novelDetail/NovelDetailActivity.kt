@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
@@ -47,9 +46,11 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private lateinit var postedMemoLauncher: ActivityResultLauncher<Intent>
 
+    private lateinit var patchedNovelLauncher: ActivityResultLauncher<Intent>
+
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            navigateToHome()
+            navigateToLibrary()
         }
     }
 
@@ -61,12 +62,14 @@ class NovelDetailActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.novelDetailViewModel = novelDetailViewModel
 
-        boolean = intent.getBooleanExtra("isPostNovel", false)
-        if (boolean) {
-            binding.vpNovelDetail.post {
-                binding.vpNovelDetail.setCurrentItem(1, true)
+        patchedNovelLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    binding.vpNovelDetail.post {
+                        binding.vpNovelDetail.setCurrentItem(NOVEL_INFO_FRAGMENT_INDEX, true)
+                    }
+                }
             }
-        }
 
         this.onBackPressedDispatcher.addCallback(this, callback)
 
@@ -209,11 +212,11 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun onClickBackButton() {
         binding.ivNovelDetailNavigateBackBtn.setOnClickListener {
-            navigateToHome()
+            navigateToLibrary()
         }
     }
 
-    private fun navigateToHome() {
+    private fun navigateToLibrary() {
         val intent = MainActivity.newIntent(this, R.id.menu_library)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
@@ -304,7 +307,7 @@ class NovelDetailActivity : AppCompatActivity() {
             this,
             novelDetailViewModel.userNovelMemoInfoResponse.value?.novelId ?: 0
         )
-        startActivity(intent)
+        patchedNovelLauncher.launch(intent)
     }
 
     override fun onResume() {
@@ -330,7 +333,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
     companion object {
         const val INDEX_OF_FRAGMENT_NOVEL_INFO = 1
-        const val TOOLBAR_COLLAPSE_THRESHOLD = 0.1
+        const val TOOLBAR_COLLAPSE_THRESHOLD = 0.7
         const val POPUP_WIDTH = 198
         const val POPUP_MARGIN_END = -6
         const val POPUP_MARGIN_TOP = 4
