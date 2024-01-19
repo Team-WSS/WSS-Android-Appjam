@@ -1,5 +1,6 @@
 package com.teamwss.websoso.ui.main
 
+import CustomSnackBar
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityMainBinding
 import com.teamwss.websoso.ui.main.home.HomeFragment
@@ -27,17 +27,7 @@ class MainActivity : AppCompatActivity() {
         override fun handleOnBackPressed() {
             if (System.currentTimeMillis() - backPressedTime > 2000) {
                 backPressedTime = System.currentTimeMillis()
-
-                val drawable = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_alert_default)
-                CustomSnackBar.make(binding.root)
-                    .setText("뒤로가기를 한 번 더 누르면 종료됩니다")
-                    .setIcon(
-                        drawable ?: ContextCompat.getDrawable(
-                            this@MainActivity,
-                            R.drawable.ic_alert_default
-                        )!!
-                    )
-                    .show()
+                showSnackbar()
             } else {
                 this.isEnabled = false
                 finish()
@@ -101,6 +91,19 @@ class MainActivity : AppCompatActivity() {
             val homeFragment = HomeFragment.newInstance()
             changeFragment(homeFragment)
         }
+    }
+
+    private fun showSnackbar() {
+        val drawable = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_alert_default)
+        CustomSnackBar.make(binding.root)
+            .setText(getString(R.string.home_pressed_back_button))
+            .setIcon(
+                drawable ?: ContextCompat.getDrawable(
+                    this@MainActivity,
+                    R.drawable.ic_alert_default
+                )!!
+            )
+            .show()
     }
 
     companion object {
