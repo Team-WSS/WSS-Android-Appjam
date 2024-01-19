@@ -16,15 +16,17 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        appContext = applicationContext
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     companion object {
-        lateinit var applicationContext: Context
+        lateinit var appContext: Context
             private set
 
         fun getWebsosoLocalStorage(): WebsosoLocalStorage {
-            return WebsosoLocalStorage.getInstance(applicationContext)
+            return WebsosoLocalStorage.getInstance(appContext)
         }
 
         fun getUserNovelsRepository(): UserNovelsRepository {

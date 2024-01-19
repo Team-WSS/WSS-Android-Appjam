@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -79,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val FRAGMENT_PAGE = "FRAGMENT_PAGE"
-        fun newIntent(context: Context, page: Int): Intent {
+        fun newIntent(context: Context, page: Int = R.id.menu_home): Intent {
             return Intent(context, MainActivity::class.java).apply {
                 putExtra(FRAGMENT_PAGE, page)
             }

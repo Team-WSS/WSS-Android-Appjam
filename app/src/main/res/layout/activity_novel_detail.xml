@@ -19,7 +19,7 @@
             android:id="@+id/ivNovelDetailBackgroundImg"
             loadCoverImageBlurred5="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
             android:layout_width="match_parent"
-            android:layout_height="276dp"
+            android:layout_height="288dp"
             android:foreground="@drawable/bg_gray_gradient"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
 
                 <com.google.android.material.appbar.CollapsingToolbarLayout
                     android:layout_width="match_parent"
-                    android:layout_height="280dp"
+                    android:layout_height="292dp"
                     android:background="@color/transparent"
                     app:collapsedTitleGravity="center"
                     app:contentScrim="@color/white"
@@ -109,7 +109,7 @@
                         android:id="@+id/tbNovelDetail"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:layout_marginTop="64dp"
+                        android:layout_marginTop="56dp"
                         app:contentInsetStart="0dp"
                         app:layout_collapseMode="pin">
 
