@@ -38,8 +38,10 @@
             app:layout_constraintTop_toBottomOf="@id/tvLibraryTitle"
             app:tabGravity="center"
             app:tabMode="scrollable"
-            app:tabTextColor="@color/gray_200_AEADB3"
-            app:tabTextAppearance="@style/body1">
+            app:tabSelectedTextAppearance="@style/body1"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/body1"
+            app:tabTextColor="@color/gray_200_AEADB3">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
