@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
@@ -49,7 +48,7 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private val callback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            navigateToHome()
+            navigateToLibrary()
         }
     }
 
@@ -209,11 +208,11 @@ class NovelDetailActivity : AppCompatActivity() {
 
     private fun onClickBackButton() {
         binding.ivNovelDetailNavigateBackBtn.setOnClickListener {
-            navigateToHome()
+            navigateToLibrary()
         }
     }
 
-    private fun navigateToHome() {
+    private fun navigateToLibrary() {
         val intent = MainActivity.newIntent(this, R.id.menu_library)
         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
