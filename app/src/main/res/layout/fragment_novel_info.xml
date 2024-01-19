@@ -46,7 +46,7 @@
         <View
             android:id="@+id/viewNovelInfoLine"
             android:layout_width="0dp"
-            android:layout_height="7dp"
+            android:layout_height="8dp"
             android:layout_marginTop="36dp"
             android:background="@color/gray_50_F4F5F8"
             app:layout_constraintEnd_toEndOf="parent"
