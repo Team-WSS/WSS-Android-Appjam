@@ -131,15 +131,20 @@
 
                             <TextView
                                 android:id="@+id/tvNovelDetailTitleOnToolBar"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="28dp"
+                                android:ellipsize="end"
+                                android:gravity="center"
+                                android:maxLines="1"
                                 android:text="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelTitle}"
                                 android:textAppearance="@style/title2"
                                 android:textColor="@color/black"
                                 android:visibility="gone"
                                 app:layout_constraintBottom_toBottomOf="@id/ivNovelDetailNavigateBackBtn"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/ivNovelDetailNavigateBackBtn"
                                 app:layout_constraintTop_toTopOf="@id/ivNovelDetailNavigateBackBtn"
                                 tools:text="당신의 이해를 돕기 위하여" />
 
