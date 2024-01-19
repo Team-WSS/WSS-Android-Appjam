@@ -35,7 +35,7 @@
             android:layout_marginTop="12dp"
             android:isIndicator="true"
             android:numStars="5"
-            android:progressBackgroundTint="@color/gray_70_DFDFE3"
+            android:progressBackgroundTint="@color/gray_200_AEADB3"
             android:progressTint="@color/secondary_100_FF675D"
             android:rating="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelRating}"
             android:secondaryProgressTint="@color/secondary_100_FF675D"
