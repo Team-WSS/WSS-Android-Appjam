@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.google.android.material.snackbar.Snackbar
@@ -26,7 +27,17 @@ class MainActivity : AppCompatActivity() {
         override fun handleOnBackPressed() {
             if (System.currentTimeMillis() - backPressedTime > 2000) {
                 backPressedTime = System.currentTimeMillis()
-                Snackbar.make(binding.root, "경고경고", Snackbar.LENGTH_SHORT).show()
+
+                val drawable = ContextCompat.getDrawable(this@MainActivity, R.drawable.ic_alert_default)
+                CustomSnackBar.make(binding.root)
+                    .setText("뒤로가기를 한 번 더 누르면 종료됩니다")
+                    .setIcon(
+                        drawable ?: ContextCompat.getDrawable(
+                            this@MainActivity,
+                            R.drawable.ic_alert_default
+                        )!!
+                    )
+                    .show()
             } else {
                 this.isEnabled = false
                 finish()
