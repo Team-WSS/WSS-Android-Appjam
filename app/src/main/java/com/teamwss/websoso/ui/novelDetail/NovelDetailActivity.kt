@@ -345,16 +345,5 @@ class NovelDetailActivity : AppCompatActivity() {
                 putExtra("userNovelId", userNovelId)
             }
         }
-
-        fun createIntentFromPostNovel(
-            context: Context,
-            userNovelId: Long,
-            boolean: Boolean
-        ): Intent {
-            return Intent(context, NovelDetailActivity::class.java).apply {
-                putExtra("userNovelId", userNovelId)
-                putExtra("isPostNovel", boolean)
-            }
-        }
     }
 }
