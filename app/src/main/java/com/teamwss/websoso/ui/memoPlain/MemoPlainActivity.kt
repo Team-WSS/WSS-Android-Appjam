@@ -26,7 +26,10 @@ class MemoPlainActivity : AppCompatActivity() {
     private lateinit var userNovelAuthor: String
     private lateinit var userNovelImage: String
     private val dialogMemoDelete: DialogMemoDelete by lazy {
-        DialogMemoDelete(::finish)
+        DialogMemoDelete {
+            setResult(Activity.RESULT_OK)
+            finish()
+        }
     }
 
     private lateinit var patchedMemoLauncher: ActivityResultLauncher<Intent>
@@ -45,10 +48,10 @@ class MemoPlainActivity : AppCompatActivity() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val drawable = ContextCompat.getDrawable(this, R.drawable.ic_alert_default)
                     CustomSnackBar.make(binding.root).setText("메모를 수정했어요").setIcon(
-                            drawable ?: ContextCompat.getDrawable(
-                                this, R.drawable.ic_alert_default
-                            )!!
-                        ).show()
+                        drawable ?: ContextCompat.getDrawable(
+                            this, R.drawable.ic_alert_default
+                        )!!
+                    ).show()
                 }
             }
 
@@ -79,7 +82,7 @@ class MemoPlainActivity : AppCompatActivity() {
     }
 
     private fun getUserNovelData() {
-        memoPlainViewModel.memo.observe(this) {response ->
+        memoPlainViewModel.memo.observe(this) { response ->
             userNovelImage = response.userNovelImg
             userNovelTitle = response.userNovelTitle
             userNovelAuthor = response.userNovelAuthor
@@ -112,7 +115,6 @@ class MemoPlainActivity : AppCompatActivity() {
 
     private fun showMemoDeleteDialog() {
         dialogMemoDelete.show((supportFragmentManager), "DeleteMemoDialog")
-        setResult(Activity.RESULT_OK)
     }
 
     private fun onClickMemoEditButton() {
