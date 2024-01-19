@@ -74,7 +74,7 @@
             android:id="@+id/viewLibraryTbTopLine"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:background="@color/gray_200_AEADB3"
+            android:background="@color/gray_70_DFDFE3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tbLibrary" />
