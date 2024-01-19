@@ -1,9 +1,6 @@
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.databinding.CustomSnackBarBinding
