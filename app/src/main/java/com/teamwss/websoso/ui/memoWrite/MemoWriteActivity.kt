@@ -1,12 +1,16 @@
 package com.teamwss.websoso.ui.memoWrite
 
 import CustomSnackBar
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
+import android.view.WindowInsets
+import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -15,6 +19,7 @@ import androidx.core.content.ContextCompat
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.ActivityMemoWriteBinding
 import kotlin.properties.Delegates
+
 
 class MemoWriteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMemoWriteBinding
@@ -63,11 +68,11 @@ class MemoWriteActivity : AppCompatActivity() {
         binding.memoWriteViewModel = memoWriteViewModel
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun setTranslucentOnStatusBar() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+//        window.insetsController?.hide(WindowInsets.Type.statusBars())
+        window.statusBarColor = R.color.transparent
     }
 
     private fun showKeyboardOnEditTextFocus() {
@@ -111,7 +116,7 @@ class MemoWriteActivity : AppCompatActivity() {
     private fun observeMemoContent() {
         memoWriteViewModel.memoContent.observe(this) {
             memoContent = memoWriteViewModel.memoContent.value
-            if(memoContent?.isBlank() == true) {
+            if (memoContent?.isBlank() == true) {
                 binding.tvMemoWriteCompleteBtn.setTextColor(
                     ContextCompat.getColor(
                         this,
