@@ -57,7 +57,7 @@ class HomeViewModel(
     }
 
     companion object {
-        val sosoPickInitData = listOf(
+        private val sosoPickInitData = listOf(
             SosoPickNovelEntity(0, "", "", 0, ""),
             SosoPickNovelEntity(0, "", "", 0, ""),
             SosoPickNovelEntity(0, "", "", 0, ""),
