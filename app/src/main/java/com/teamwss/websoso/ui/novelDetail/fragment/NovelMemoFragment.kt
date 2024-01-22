@@ -1,6 +1,6 @@
 package com.teamwss.websoso.ui.novelDetail.fragment
 
-import CustomSnackBar
+import com.teamwss.websoso.ui.common.view.CustomSnackBar
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +12,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentNovelMemoBinding
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity

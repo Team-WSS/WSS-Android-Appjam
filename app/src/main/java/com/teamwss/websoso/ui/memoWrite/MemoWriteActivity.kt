@@ -1,16 +1,13 @@
 package com.teamwss.websoso.ui.memoWrite
 
-import CustomSnackBar
+import com.teamwss.websoso.ui.common.view.CustomSnackBar
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
-import android.view.WindowInsets
-import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
