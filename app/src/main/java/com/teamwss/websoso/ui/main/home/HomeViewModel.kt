@@ -23,7 +23,7 @@ class HomeViewModel(
     val sosopickNovels: LiveData<List<SosoPickNovelEntity>>
         get() = _sosopickNovels
 
-    private var _representativeAvatar: MutableLiveData<RepresentiveAvatarEntity> = MutableLiveData()
+    private var _representativeAvatar: MutableLiveData<RepresentiveAvatarEntity> = MutableLiveData(representativeAvatarInitData)
     val representativeAvatar: LiveData<RepresentiveAvatarEntity>
         get() = _representativeAvatar
 
@@ -63,6 +63,12 @@ class HomeViewModel(
             SosoPickNovelEntity(0, "", "", 0, ""),
             SosoPickNovelEntity(0, "", "", 0, ""),
         )
+        private val representativeAvatarInitData = RepresentiveAvatarEntity(
+            avatarId = 0,
+            userNickname = "",
+            avatarLine = "",
+            avatarTag = ""
+        )
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 val userNovelsRepository = App.getUserNovelsRepository()
@@ -75,3 +81,4 @@ class HomeViewModel(
         }
     }
 }
+
