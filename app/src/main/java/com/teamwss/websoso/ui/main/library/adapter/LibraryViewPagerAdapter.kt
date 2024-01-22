@@ -12,7 +12,7 @@ class LibraryViewPagerAdapter(
 ) :
     RecyclerView.Adapter<LibraryViewPagerViewHolder>() {
 
-    private var userNovels = emptyList<LibraryUserNovelEntity>()
+    private var userNovels :List<LibraryUserNovelEntity> = libraryUserNovelsInitData
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryViewPagerViewHolder {
         val binding =
@@ -30,4 +30,44 @@ class LibraryViewPagerAdapter(
     }
 
     override fun getItemCount(): Int = 5
+
+    companion object{
+        private val libraryUserNovelsInitData = listOf(
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+        )
+    }
 }
