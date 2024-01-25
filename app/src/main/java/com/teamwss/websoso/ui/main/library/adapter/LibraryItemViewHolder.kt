@@ -7,7 +7,7 @@ import kotlin.properties.Delegates
 
 class LibraryItemViewHolder(
     private val binding: ItemLibraryNovelBinding,
-    private val onItemClick: (Long) -> Unit
+    private val userNovelClick: (userNovelId: Long) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     private var userNovelId by Delegates.notNull<Long>()
@@ -15,7 +15,7 @@ class LibraryItemViewHolder(
     init {
         binding.root.setOnClickListener {
             if (adapterPosition != RecyclerView.NO_POSITION) {
-                onItemClick(userNovelId)
+                userNovelClick(userNovelId)
             }
         }
     }
