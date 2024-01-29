@@ -5,7 +5,7 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomItemDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
+class CustomHomeItemDecoration(private val context: Context) : RecyclerView.ItemDecoration() {
     private val marginStartEnd = dpToPx(context, 20)
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
