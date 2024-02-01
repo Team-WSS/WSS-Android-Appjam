@@ -55,9 +55,9 @@ class LibraryViewModel(
     }
 
     fun getNovels() {
+        _libraryUiState.value = LibraryUiState.Loading
         viewModelScope.launch {
             runCatching {
-                _libraryUiState.value = LibraryUiState.Loading
                 userNovelsRepository.getUserNovels(
                     currentReadState.value.toString(),
                     setupLastUserId(),
