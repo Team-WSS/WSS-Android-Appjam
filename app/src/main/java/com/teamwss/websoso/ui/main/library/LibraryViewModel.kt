@@ -48,7 +48,7 @@ class LibraryViewModel(
         }
     }
 
-    fun setUiSateResumed() {
+    fun updateUiStateResumed() {
         // 최초 시작 시에 Resumed 상태로 변경 되는 것을 방지합니다.
         if (_libraryUiState.value != LibraryUiState.Loading)
             _libraryUiState.value = LibraryUiState.Resumed

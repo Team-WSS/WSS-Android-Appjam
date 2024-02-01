@@ -49,7 +49,7 @@ class LibraryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.setUiSateResumed()
+        viewModel.updateUiStateResumed()
     }
 
     private fun setupViewPager() {
