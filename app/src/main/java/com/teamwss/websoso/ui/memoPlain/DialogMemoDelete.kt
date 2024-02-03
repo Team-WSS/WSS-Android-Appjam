@@ -10,9 +10,9 @@ import android.view.Window
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.google.android.material.snackbar.Snackbar
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.DialogMemoDeleteBinding
+import com.teamwss.websoso.ui.common.view.CustomSnackBar
 
 class DialogMemoDelete(private val memoDeleteSuccess: () -> Unit) : DialogFragment() {
     private var _binding: DialogMemoDeleteBinding? = null

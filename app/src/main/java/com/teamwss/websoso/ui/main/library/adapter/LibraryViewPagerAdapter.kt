@@ -7,17 +7,17 @@ import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.databinding.ItemLibraryViewPagerBinding
 
 class LibraryViewPagerAdapter(
-    private val onItemClick: (Long) -> Unit,
+    private val userNovelClick: (userNovelId: Long) -> Unit,
     private val onPostClick: () -> Unit
 ) :
     RecyclerView.Adapter<LibraryViewPagerViewHolder>() {
 
-    private var userNovels = emptyList<LibraryUserNovelEntity>()
+    private var userNovels :List<LibraryUserNovelEntity> = libraryUserNovelsInitData
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryViewPagerViewHolder {
         val binding =
             ItemLibraryViewPagerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LibraryViewPagerViewHolder(binding, onItemClick, onPostClick)
+        return LibraryViewPagerViewHolder(binding, userNovelClick, onPostClick)
     }
 
     override fun onBindViewHolder(holder: LibraryViewPagerViewHolder, position: Int) {
@@ -30,4 +30,44 @@ class LibraryViewPagerAdapter(
     }
 
     override fun getItemCount(): Int = 5
+
+    companion object{
+        private val libraryUserNovelsInitData = listOf(
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+            LibraryUserNovelEntity(
+                userNovelId = 1,
+                userNovelTitle = "",
+                userNovelCover = "",
+                userNovelAuthor = "",
+                userNovelRating = 0f
+            ),
+        )
+    }
 }

@@ -14,6 +14,7 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentRecordBinding
+import com.teamwss.websoso.ui.common.view.CustomSnackBar
 import com.teamwss.websoso.ui.main.MainActivity
 import com.teamwss.websoso.ui.main.library.LibraryFragment
 import com.teamwss.websoso.ui.memoPlain.MemoPlainActivity

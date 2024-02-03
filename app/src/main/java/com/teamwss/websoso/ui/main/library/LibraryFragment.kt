@@ -14,15 +14,17 @@ import com.teamwss.websoso.ui.main.library.adapter.LibraryViewPagerAdapter
 import com.teamwss.websoso.ui.main.library.model.ReadState
 import com.teamwss.websoso.ui.novelDetail.NovelDetailActivity
 import com.teamwss.websoso.ui.search.SearchActivity
+import com.teamwss.websoso.util.fragment.hideLoading
+import com.teamwss.websoso.util.fragment.showLoading
 
 class LibraryFragment : Fragment() {
     private var _binding: FragmentLibraryBinding? = null
     private val binding: FragmentLibraryBinding get() = requireNotNull(_binding)
-    private val viewPagerAdapter: LibraryViewPagerAdapter by lazy {
-        LibraryViewPagerAdapter(::clickNovelItem, ::navigateToSearchActivity)
-    }
     private val viewModel: LibraryViewModel by viewModels {
         LibraryViewModel.Factory
+    }
+    private val viewPagerAdapter: LibraryViewPagerAdapter by lazy {
+        LibraryViewPagerAdapter(::navigateToNovelDetail, ::navigateToSearchActivity)
     }
 
     override fun onCreateView(
@@ -41,13 +43,13 @@ class LibraryFragment : Fragment() {
         setupViewPager()
         setupTabLayoutWithViewPager()
         setupTabSelectedListener()
-        observeReadState()
-        observeCurrentNovels()
+
+        observeLibraryUiState()
     }
 
     override fun onResume() {
         super.onResume()
-        viewModel.getNovels(viewModel.readState.value ?: ReadState.ALL)
+        viewModel.getNovels()
     }
 
     private fun setupViewPager() {
@@ -86,11 +88,6 @@ class LibraryFragment : Fragment() {
         })
     }
 
-    private fun navigateToSearchActivity() {
-        val intent = SearchActivity.newIntent(requireContext())
-        startActivity(intent)
-    }
-
     private fun getReadStateFromTabPosition(position: Int): ReadState {
         return when (position) {
             0 -> ReadState.ALL
@@ -102,22 +99,42 @@ class LibraryFragment : Fragment() {
         }
     }
 
-    private fun observeReadState() {
-        viewModel.readState.observe(viewLifecycleOwner) { readState ->
-            if (viewModel.lastReadState.value != readState) {
-                viewModel.setReadState(readState)
+    private fun observeLibraryUiState() {
+        viewModel.libraryUiState.observe(viewLifecycleOwner) { libraryUiState ->
+            when (libraryUiState) {
+                LibraryUiState.Loading -> {
+                    showLoading()
+                }
+
+                LibraryUiState.Resumed -> {
+                    showLoading()
+                    viewModel.getNovels()
+                }
+
+                LibraryUiState.Success -> {
+                    hideLoading()
+                    viewPagerAdapter.fetchUserNovels(
+                        viewModel.currentUserNovels.value ?: emptyList()
+                    )
+                }
+
+                LibraryUiState.Error -> {
+                    hideLoading()
+                    // TODO: Error SnackBar
+                }
+
+                else -> {}
             }
         }
     }
 
-    private fun observeCurrentNovels() {
-        viewModel.currentUserNovels.observe(viewLifecycleOwner) { currentUserNovels ->
-            viewPagerAdapter.fetchUserNovels(currentUserNovels)
-        }
+    private fun navigateToNovelDetail(novelId: Long) {
+        val intent = NovelDetailActivity.createIntent(requireContext(), novelId)
+        startActivity(intent)
     }
 
-    private fun clickNovelItem(novelId: Long) {
-        val intent = NovelDetailActivity.createIntent(requireContext(), novelId)
+    private fun navigateToSearchActivity() {
+        val intent = SearchActivity.newIntent(requireContext())
         startActivity(intent)
     }
 

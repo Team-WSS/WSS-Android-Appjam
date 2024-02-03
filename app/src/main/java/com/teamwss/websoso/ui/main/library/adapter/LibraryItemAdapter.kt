@@ -8,14 +8,14 @@ import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.databinding.ItemLibraryNovelBinding
 
 class LibraryItemAdapter(
-    private val onItemClick: (Long) -> Unit
+    private val userNovelClick: (userNovelId: Long) -> Unit
 ) :
     ListAdapter<LibraryUserNovelEntity, LibraryItemViewHolder>(FollowerDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LibraryItemViewHolder {
         val binding =
             ItemLibraryNovelBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LibraryItemViewHolder(binding,onItemClick)
+        return LibraryItemViewHolder(binding,userNovelClick)
     }
 
     override fun onBindViewHolder(holder: LibraryItemViewHolder, position: Int) {

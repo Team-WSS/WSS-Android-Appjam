@@ -5,25 +5,25 @@
 
     <data>
 
-            <variable
-                name="libraryNovel"
-                type="com.teamwss.websoso.data.model.LibraryUserNovelEntity" />
+        <variable
+            name="libraryNovel"
+            type="com.teamwss.websoso.data.model.LibraryUserNovelEntity" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="24dp">
+        android:paddingVertical="12dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivLibraryNovelCover"
+            loadCoverImageRounded30="@{libraryNovel.userNovelCover}"
             android:layout_width="105dp"
             android:layout_height="155dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            loadCoverImageRounded30="@{libraryNovel.userNovelCover}"
             tools:src="@mipmap/ic_launcher" />
 
         <TextView
@@ -36,9 +36,9 @@
             android:gravity="left"
             android:lineSpacingExtra="5sp"
             android:maxLines="2"
+            android:text="@{libraryNovel.userNovelTitle}"
             android:textAppearance="@style/body2"
             android:textColor="@color/black"
-            android:text="@{libraryNovel.userNovelTitle}"
             app:layout_constraintEnd_toEndOf="@id/ivLibraryNovelCover"
             app:layout_constraintStart_toStartOf="@id/ivLibraryNovelCover"
             app:layout_constraintTop_toBottomOf="@id/ivLibraryNovelCover"
@@ -48,9 +48,9 @@
             android:id="@+id/tvLibraryNovelAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{libraryNovel.userNovelAuthor}"
             android:textAppearance="@style/label1"
             android:textColor="@color/gray_200_AEADB3"
-            android:text="@{libraryNovel.userNovelAuthor}"
             app:layout_constraintStart_toStartOf="@+id/tvLibraryNovelTitle"
             app:layout_constraintTop_toBottomOf="@id/tvLibraryNovelTitle"
             tools:text="이보라" />
@@ -59,23 +59,23 @@
             android:id="@+id/ivLibraryStar"
             android:layout_width="11dp"
             android:layout_height="10dp"
-            app:visibleGone="@{libraryNovel.userNovelRating != 0}"
             android:layout_marginTop="6dp"
             android:src="@drawable/ic_star_full"
             app:layout_constraintStart_toStartOf="@+id/tvLibraryNovelTitle"
-            app:layout_constraintTop_toBottomOf="@id/tvLibraryNovelAuthor" />
+            app:layout_constraintTop_toBottomOf="@id/tvLibraryNovelAuthor"
+            app:visibleGone="@{libraryNovel.userNovelRating != 0}" />
 
         <TextView
             android:id="@+id/tvLibraryNovelRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            app:visibleGone="@{libraryNovel.userNovelRating != 0}"
             android:text="@{Float.toString(libraryNovel.userNovelRating)}"
             android:textAppearance="@style/label1"
             app:layout_constraintBottom_toBottomOf="@id/ivLibraryStar"
             app:layout_constraintStart_toEndOf="@id/ivLibraryStar"
             app:layout_constraintTop_toTopOf="@id/ivLibraryStar"
+            app:visibleGone="@{libraryNovel.userNovelRating != 0}"
             tools:text="4.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

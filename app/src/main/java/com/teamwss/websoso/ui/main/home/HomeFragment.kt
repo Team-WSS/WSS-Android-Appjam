@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
     private fun setupRecyclerView() {
         with(binding.rvHomeSosoPick) {
             adapter = homeAdapter
-            addItemDecoration(CustomItemDecoration(requireContext()))
+            addItemDecoration(CustomHomeItemDecoration(requireContext()))
         }
     }
 

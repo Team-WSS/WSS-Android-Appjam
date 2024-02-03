@@ -9,7 +9,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.teamwss.websoso.App
-import com.teamwss.websoso.data.mapper.UserNovelMapper.toData
 import com.teamwss.websoso.data.model.LibraryUserNovelEntity
 import com.teamwss.websoso.data.repository.UserNovelsRepository
 import com.teamwss.websoso.ui.main.library.model.ReadState
@@ -20,13 +19,9 @@ class LibraryViewModel(
     private val userNovelsRepository: UserNovelsRepository
 ) : ViewModel() {
 
-    private var _readState: MutableLiveData<ReadState> = MutableLiveData(ReadState.ALL)
-    val readState: LiveData<ReadState>
-        get() = _readState
-
-    private var _lastReadState: MutableLiveData<ReadState> = MutableLiveData(ReadState.ALL)
-    val lastReadState: LiveData<ReadState>
-        get() = _lastReadState
+    private var _currentReadState: MutableLiveData<ReadState> = MutableLiveData(ReadState.ALL)
+    val currentReadState: LiveData<ReadState>
+        get() = _currentReadState
 
     private var _currentUserNovels: MutableLiveData<List<LibraryUserNovelEntity>> =
         MutableLiveData(emptyList())
@@ -41,32 +36,32 @@ class LibraryViewModel(
     val userNovelCount: LiveData<Long>
         get() = _userNovelCount
 
-    init {
-        _currentSortType.value = SortType.NEWEST
-        getNovels(ReadState.ALL)
-    }
+    private var _libraryUiState: MutableLiveData<LibraryUiState> = MutableLiveData(LibraryUiState.Loading)
+    val libraryUiState: LiveData<LibraryUiState>
+        get() = _libraryUiState
 
     fun setReadState(readState: ReadState) {
-        if (this.readState.value != readState) {
-            _lastReadState.value = this.readState.value
-            _readState.value = readState
-            getNovels(readState)
+        if (this.currentReadState.value != readState) {
+            _currentReadState.value = readState
+            _libraryUiState.value = LibraryUiState.Resumed
         }
     }
 
-    fun getNovels(readState: ReadState) {
+    fun getNovels() {
         viewModelScope.launch {
             runCatching {
                 userNovelsRepository.getUserNovels(
-                    readState.toString(),
+                    currentReadState.value.toString(),
                     setupLastUserId(),
-                    USER_NOVEL_COUNT,
+                    NOVEL_GET_SIZE,
                     currentSortType.value.toString()
                 )
-            }.onSuccess {(userNovels, userNovelCount) ->
+            }.onSuccess { (userNovels, userNovelCount) ->
                 _currentUserNovels.value = userNovels
                 _userNovelCount.value = userNovelCount
+                _libraryUiState.value = LibraryUiState.Success
             }.onFailure {
+                _libraryUiState.value = LibraryUiState.Error
                 Log.e("LibraryViewModel", it.message ?: "error")
             }
         }
@@ -79,7 +74,7 @@ class LibraryViewModel(
     }
 
     companion object {
-        const val USER_NOVEL_COUNT = 20
+        const val NOVEL_GET_SIZE = 20
         const val NEWEST_MAXIMUM_ID = 9999L
         const val OLDEST_MINIMUM_ID = 0L
 

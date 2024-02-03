@@ -1,6 +1,6 @@
 package com.teamwss.websoso.ui.main
 
-import CustomSnackBar
+import com.teamwss.websoso.ui.common.view.CustomSnackBar
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
