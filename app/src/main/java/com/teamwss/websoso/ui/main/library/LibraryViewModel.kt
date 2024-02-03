@@ -36,8 +36,7 @@ class LibraryViewModel(
     val userNovelCount: LiveData<Long>
         get() = _userNovelCount
 
-    private var _libraryUiState: MutableLiveData<LibraryUiState> =
-        MutableLiveData(LibraryUiState.Uninitialized)
+    private var _libraryUiState: MutableLiveData<LibraryUiState> = MutableLiveData(LibraryUiState.Loading)
     val libraryUiState: LiveData<LibraryUiState>
         get() = _libraryUiState
 
@@ -48,14 +47,7 @@ class LibraryViewModel(
         }
     }
 
-    fun updateUiStateResumed() {
-        // 최초 시작 시에 Resumed 상태로 변경 되는 것을 방지합니다.
-        if (_libraryUiState.value != LibraryUiState.Loading)
-            _libraryUiState.value = LibraryUiState.Resumed
-    }
-
     fun getNovels() {
-        _libraryUiState.value = LibraryUiState.Loading
         viewModelScope.launch {
             runCatching {
                 userNovelsRepository.getUserNovels(
