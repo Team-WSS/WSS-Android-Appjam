@@ -49,7 +49,7 @@ class LibraryFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.updateUiStateResumed()
+        viewModel.getNovels()
     }
 
     private fun setupViewPager() {
@@ -102,16 +102,13 @@ class LibraryFragment : Fragment() {
     private fun observeLibraryUiState() {
         viewModel.libraryUiState.observe(viewLifecycleOwner) { libraryUiState ->
             when (libraryUiState) {
-                LibraryUiState.Uninitialized -> {
-                    viewModel.getNovels()
+                LibraryUiState.Loading -> {
+                    showLoading()
                 }
 
                 LibraryUiState.Resumed -> {
-                    viewModel.getNovels()
-                }
-
-                LibraryUiState.Loading -> {
                     showLoading()
+                    viewModel.getNovels()
                 }
 
                 LibraryUiState.Success -> {
