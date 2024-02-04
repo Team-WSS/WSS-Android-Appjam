@@ -1,7 +1,6 @@
 package com.teamwss.websoso.util
 
 import android.view.View
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -46,6 +45,36 @@ fun loadCoverImageBlurred5(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, BlurTransformation(view.context, 5))
 }
 
+private fun loadCustomImage(view: ImageView, imageUrl: String?, transformation: Transformation) {
+    imageUrl?.let {
+        view.load(it) {
+            listener(
+                onSuccess = { _, _ -> applyImageTransformations(view, it, transformation) },
+                onError = { _, _ -> loadDefaultImage(view, transformation) }
+            )
+        }
+    } ?: run {
+        loadDefaultImage(view, transformation)
+    }
+}
+
+private fun loadDefaultImage(view: ImageView, transformation: Transformation) {
+    view.load(R.drawable.img_loading_thumbnail) {
+        transformations(transformation)
+    }
+}
+
+private fun applyImageTransformations(
+    view: ImageView,
+    imageUrl: String,
+    transformation: Transformation
+) {
+    view.load(imageUrl) {
+        crossfade(true)
+        transformations(transformation)
+    }
+}
+
 @BindingAdapter("loadLottieRawRes")
 fun loadLottieAnimation(view: LottieAnimationView, avatarId: Long) {
     val currentTime = System.currentTimeMillis()
@@ -69,36 +98,6 @@ fun setVisibleGone(view: View, visible: Boolean) {
 @BindingAdapter("visibleIf", "andCondition")
 fun setVisibility(view: View, condition1: Boolean, condition2: Boolean) {
     view.visibility = if (condition1 && condition2) View.VISIBLE else View.GONE
-}
-
-private fun loadCustomImage(view: ImageView, imageUrl: String?, transformation: Transformation) {
-    imageUrl?.let {
-        view.load(it) {
-            listener(
-                onSuccess = { _, _ -> applyImageTransformations(view, it, transformation) },
-                onError = { _, _ -> loadDefaultImage(view, transformation) }
-            )
-        }
-    } ?: run {
-        loadDefaultImage(view, transformation)
-    }
-}
-
-private fun applyImageTransformations(
-    view: ImageView,
-    imageUrl: String,
-    transformation: Transformation
-) {
-    view.load(imageUrl) {
-        crossfade(true)
-        transformations(transformation)
-    }
-}
-
-private fun loadDefaultImage(view: ImageView, transformation: Transformation) {
-    view.load(R.drawable.img_loading_thumbnail) {
-        transformations(transformation)
-    }
 }
 
 @BindingAdapter("loadImageUrl")
@@ -130,7 +129,7 @@ fun setReadStatusImage(imageView: ImageView, status: String) {
     imageView.setImageDrawable(ContextCompat.getDrawable(context, drawableId))
 }
 
-@BindingAdapter("setNovelInfoReadDateText")
+@BindingAdapter("setUserNovelInfoReadDateText")
 fun setReadDateText(textView: TextView, status: String) {
     when (status) {
         ReadStatus.FINISH.name -> {
@@ -188,7 +187,7 @@ fun setReadDateTilde(textView: TextView, status: String) {
     }
 }
 
-@BindingAdapter("observeNaverSeriesPlatformUrl")
+@BindingAdapter("setNaverSeriesPlatformUrl")
 fun observeNaverSeriesPlatform(
     layout: ConstraintLayout,
     platformInfo: List<NovelPlatformInfoResponse>
@@ -197,17 +196,11 @@ fun observeNaverSeriesPlatform(
     layout.visibility = if (isNaverSeriesVisible) View.VISIBLE else View.GONE
 }
 
-@BindingAdapter("observeKakaoPagePlatformUrl")
+@BindingAdapter("setKakaoPagePlatformUrl")
 fun observeKakaoPagePlatform(
     layout: ConstraintLayout,
     platformInfo: List<NovelPlatformInfoResponse>
 ) {
     val isKakaoPageViesible = platformInfo.any { it.platformName == "카카오페이지" }
     layout.visibility = if (isKakaoPageViesible) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("enabledTextColor", "disabledTextColor", requireAll = true)
-fun setTextColorBasedOnState(textView: TextView, enabledColorResId: Int, disabledColorResId: Int) {
-    val colorResId = if (textView.isEnabled) enabledColorResId else disabledColorResId
-    textView.setTextColor(ContextCompat.getColor(textView.context, colorResId))
 }
