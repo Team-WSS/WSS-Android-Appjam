@@ -120,7 +120,7 @@
 
             <TextView
                 android:id="@+id/tvNovelInfoReadDate"
-                setNovelInfoReadDateText="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
+                setNovelInfoReadStatusText="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
                 visibleGone="@{!novelDetailViewModel.isDateNull}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoNaverSeries"
-                observeNaverSeriesPlatformUrl="@{novelDetailViewModel.platforms}"
+                setNaverSeriesPlatformUrl="@{novelDetailViewModel.platforms}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -285,8 +285,8 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="17dp"
+                    android:layout_height="16dp"
                     android:layout_marginStart="8dp"
                     android:src="@drawable/ic_link_platform"
                     app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoNaverSeriesTitle"
@@ -296,7 +296,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoKakaoPage"
-                observeKakaoPagePlatformUrl="@{novelDetailViewModel.platforms}"
+                setKakaoPagePlatformUrl="@{novelDetailViewModel.platforms}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
