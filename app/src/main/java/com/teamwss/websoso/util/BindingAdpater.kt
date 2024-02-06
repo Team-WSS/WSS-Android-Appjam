@@ -25,11 +25,6 @@ fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
 }
 
-@BindingAdapter("loadCoverImageRounded10")
-fun loadCoverImageRounded10(view: ImageView, imageUrl: String?) {
-    loadCustomImage(view, imageUrl, RoundedCornersTransformation(10F))
-}
-
 //TODO: SearchViewHolder 데이터 바인딩 적용시 삭제 예정
 @BindingAdapter("loadCoverImageRounded14")
 fun loadCoverImageRounded14(view: ImageView, imageUrl: String?) {
