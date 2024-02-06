@@ -93,7 +93,8 @@
 
                         <ImageView
                             android:id="@+id/ivNovelDetailThumbnail"
-                            loadCoverImageRounded6="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
+                            cornerRadius="@{6f}"
+                            imageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
                             android:layout_width="64dp"
                             android:layout_height="92dp"
                             android:layout_marginStart="4dp"

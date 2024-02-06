@@ -15,13 +15,13 @@ import com.teamwss.websoso.data.remote.response.NovelPlatformInfoResponse
 import com.teamwss.websoso.ui.common.model.ReadStatus
 import jp.wasabeef.transformers.coil.BlurTransformation
 
-@BindingAdapter("loadCoverImageRounded4")
-fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
-    loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
+@BindingAdapter("imageUrl", "cornerRadius")
+fun loadRoundedCornerImage(view: ImageView, imageUrl: String?, cornerRadius: Float) {
+    loadCustomImage(view, imageUrl, RoundedCornersTransformation(cornerRadius))
 }
 
-@BindingAdapter("loadCoverImageRounded6")
-fun loadCoverImageRounded6(view: ImageView, imageUrl: String?) {
+@BindingAdapter("loadCoverImageRounded4")
+fun loadRoundedCoverImage4(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(6F))
 }
 
@@ -30,6 +30,7 @@ fun loadCoverImageRounded10(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(10F))
 }
 
+//TODO: SearchViewHolder 데이터 바인딩 적용시 삭제 예정
 @BindingAdapter("loadCoverImageRounded14")
 fun loadCoverImageRounded14(view: ImageView, imageUrl: String?) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(14F))
@@ -188,7 +189,7 @@ fun setReadDateTilde(textView: TextView, status: String) {
 }
 
 @BindingAdapter("setNaverSeriesPlatformUrl")
-fun observeNaverSeriesPlatform(
+fun setNaverSeriesPlatformUrl(
     layout: ConstraintLayout,
     platformInfo: List<NovelPlatformInfoResponse>
 ) {
@@ -197,7 +198,7 @@ fun observeNaverSeriesPlatform(
 }
 
 @BindingAdapter("setKakaoPagePlatformUrl")
-fun observeKakaoPagePlatform(
+fun setKakaoPagePlatformUrl(
     layout: ConstraintLayout,
     platformInfo: List<NovelPlatformInfoResponse>
 ) {
