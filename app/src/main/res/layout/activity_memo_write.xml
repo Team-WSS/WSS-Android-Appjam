@@ -80,7 +80,8 @@
 
         <ImageView
             android:id="@+id/ivMemoWriteThumbnail"
-            loadCoverImageRounded4="@{memoWriteViewModel.userNovelImage}"
+            cornerRadius="@{4f}"
+            imageUrl="@{memoWriteViewModel.userNovelImage}"
             android:layout_width="68dp"
             android:layout_height="48dp"
             android:layout_marginEnd="20dp"
