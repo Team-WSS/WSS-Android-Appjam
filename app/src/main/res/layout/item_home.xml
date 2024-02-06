@@ -35,14 +35,15 @@
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/ivHomeItemCover"
+                    cornerRadius="@{14f}"
+                    imageUrl="@{sosoPickNovel.novelImg}"
                     android:layout_width="64dp"
                     android:layout_height="94dp"
                     android:layout_marginTop="22dp"
-                    loadCoverImageRounded14="@{sosoPickNovel.novelImg}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/img_cover_test"/>
+                    tools:src="@drawable/img_cover_test" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
