@@ -15,6 +15,11 @@ import com.teamwss.websoso.data.remote.response.NovelPlatformInfoResponse
 import com.teamwss.websoso.ui.common.model.ReadStatus
 import jp.wasabeef.transformers.coil.BlurTransformation
 
+@BindingAdapter("imageUrl")
+fun loadImage(view: ImageView, imageUrl: String?) {
+    view.load(imageUrl)
+}
+
 @BindingAdapter("imageUrl", "cornerRadius")
 fun loadRoundedCornerImage(view: ImageView, imageUrl: String?, cornerRadius: Float) {
     loadCustomImage(view, imageUrl, RoundedCornersTransformation(cornerRadius))
@@ -84,11 +89,6 @@ fun setVisibleGone(view: View, visible: Boolean) {
 @BindingAdapter("visibleIf", "andCondition")
 fun setVisibility(view: View, condition1: Boolean, condition2: Boolean) {
     view.visibility = if (condition1 && condition2) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("loadImageUrl")
-fun loadImageUrl(view: ImageView, imageUrl: String?) {
-    view.load(imageUrl)
 }
 
 @BindingAdapter("setNovelInfoReadStatusText")

@@ -56,7 +56,7 @@
 
                         <ImageView
                             android:id="@+id/ivNovelDetailGenre"
-                            loadImageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenreBadgeImg}"
+                            imageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenreBadgeImg}"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="20dp"

@@ -16,7 +16,7 @@
 
         <ImageView
             android:id="@+id/ivAvatar"
-            loadImageUrl="@{avatar.avatarImg}"
+            imageUrl="@{avatar.avatarImg}"
             android:layout_width="84dp"
             android:layout_height="96dp"
             android:paddingHorizontal="6dp"
