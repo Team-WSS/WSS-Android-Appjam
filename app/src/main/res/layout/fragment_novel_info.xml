@@ -97,7 +97,6 @@
 
                 <ImageView
                     android:id="@+id/ivNovelInfoReadStatus"
-                    setNovelInfoReadStatusImage="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -106,10 +105,10 @@
 
                 <TextView
                     android:id="@+id/tvNovelInfoReadStatus"
-                    setNovelInfoReadStatusText="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
+                    android:text="@{novelDetailViewModel.readStatusText}"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/primary_100_6341F0"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -120,21 +119,20 @@
 
             <TextView
                 android:id="@+id/tvNovelInfoReadDate"
-                setNovelInfoReadStatusText="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
-                visibleGone="@{!novelDetailViewModel.isDateNull}"
+                visibleGone="@{novelDetailViewModel.isDateNull()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:text="@string/novel_info_read_date"
+                android:text="@{novelDetailViewModel.readDateText}"
                 android:textAppearance="@style/title1"
                 android:textColor="@color/primary_200_180A3F"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/clNovelInfoReadStatus" />
+                app:layout_constraintTop_toBottomOf="@id/clNovelInfoReadStatus"
+                tools:hint="읽은 날짜" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoReadDate"
-                setNovelInfoReadDateBox="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
-                visibleGone="@{!novelDetailViewModel.isDateNull}"
+                visibleGone="@{novelDetailViewModel.isDateNull}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -166,13 +164,13 @@
 
                 <TextView
                     android:id="@+id/tvNovelInfoReadTilde"
-                    setNovelInfoReadDateTilde="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelReadStatus}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"
                     android:text="@string/novel_info_tilde"
                     android:textAppearance="@style/body2"
                     android:textColor="@color/gray_300_52515F"
+                    android:visibility="@{novelDetailViewModel.readDateTildeVisibility}"
                     app:layout_constraintBottom_toBottomOf="@id/tvNovelInfoReadStartDate"
                     app:layout_constraintStart_toEndOf="@id/tvNovelInfoReadStartDate"
                     app:layout_constraintTop_toTopOf="@id/tvNovelInfoReadStartDate" />
