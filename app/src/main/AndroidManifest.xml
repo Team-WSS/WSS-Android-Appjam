@@ -30,6 +30,7 @@
             android:name=".ui.memoWrite.MemoWriteActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.MemoWriteActivityWithWhiteStatusBar"
             android:windowSoftInputMode="stateAlwaysVisible|adjustPan" />
         <activity
             android:name=".ui.keyword.KeywordActivity"
