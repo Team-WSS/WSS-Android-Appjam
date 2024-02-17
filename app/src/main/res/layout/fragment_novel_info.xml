@@ -262,7 +262,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoNaverSeries"
-                setNaverSeriesPlatformUrl="@{novelDetailViewModel.platforms}"
+                platformInfo="@{novelDetailViewModel.platforms}"
+                platformName="@{@string/tv_post_novel_site_naver}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
@@ -295,7 +296,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clNovelInfoKakaoPage"
-                setKakaoPagePlatformUrl="@{novelDetailViewModel.platforms}"
+                platformInfo="@{novelDetailViewModel.platforms}"
+                platformName="@{@string/tv_post_novel_site_kakao}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

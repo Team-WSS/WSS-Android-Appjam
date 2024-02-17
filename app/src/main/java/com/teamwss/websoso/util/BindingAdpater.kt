@@ -2,7 +2,6 @@ package com.teamwss.websoso.util
 
 import android.view.View
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -88,20 +87,12 @@ fun setVisibility(view: View, condition1: Boolean, condition2: Boolean) {
     view.visibility = if (condition1 && condition2) View.VISIBLE else View.GONE
 }
 
-@BindingAdapter("setNaverSeriesPlatformUrl")
-fun setNaverSeriesPlatformUrl(
-    layout: ConstraintLayout,
-    platformInfo: List<NovelPlatformInfoResponse>
+@BindingAdapter("platformInfo", "platformName")
+fun setPlatformVisibility(
+    view: View,
+    platformInfo: List<NovelPlatformInfoResponse>,
+    platformName: String,
 ) {
-    val isNaverSeriesVisible = platformInfo.any { it.platformName == "네이버시리즈" }
-    layout.visibility = if (isNaverSeriesVisible) View.VISIBLE else View.GONE
-}
-
-@BindingAdapter("setKakaoPagePlatformUrl")
-fun setKakaoPagePlatformUrl(
-    layout: ConstraintLayout,
-    platformInfo: List<NovelPlatformInfoResponse>
-) {
-    val isKakaoPageViesible = platformInfo.any { it.platformName == "카카오페이지" }
-    layout.visibility = if (isKakaoPageViesible) View.VISIBLE else View.GONE
+    val platformData = platformInfo.find { it.platformName == platformName }
+    view.visibility = if (platformData != null) View.VISIBLE else View.GONE
 }
