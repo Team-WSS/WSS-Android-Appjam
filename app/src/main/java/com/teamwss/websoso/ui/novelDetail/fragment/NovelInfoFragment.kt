@@ -31,6 +31,7 @@ class NovelInfoFragment : Fragment() {
 
         setupLifecycleOwner()
         setupDataBinding()
+        observeReadImage()
         observeNovelData()
     }
 
@@ -40,6 +41,12 @@ class NovelInfoFragment : Fragment() {
 
     private fun setupDataBinding() {
         binding.novelDetailViewModel = novelDetailViewModel
+    }
+
+    private fun observeReadImage() {
+        novelDetailViewModel.readStatusImage.observe(viewLifecycleOwner) { imageResId ->
+            binding.ivNovelInfoReadStatus.setImageResource(imageResId)
+        }
     }
 
     private fun observeNovelData() {

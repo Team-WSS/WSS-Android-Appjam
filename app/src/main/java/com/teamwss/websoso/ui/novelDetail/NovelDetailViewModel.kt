@@ -43,12 +43,6 @@ class NovelDetailViewModel : ViewModel() {
     private val _readDateText = MutableLiveData<String>()
     val readDateText: LiveData<String> = _readDateText
 
-    private val _readDateVisibility = MutableLiveData<Int>()
-    val readDateVisibility: LiveData<Int> = _readDateVisibility
-
-    private val _readDateBoxVisibility = MutableLiveData<Int>()
-    val readDateBoxVisibility: LiveData<Int> = _readDateBoxVisibility
-
     private val _readDateTildeVisibility = MutableLiveData<Int>()
     val readDateTildeVisibility: LiveData<Int> = _readDateTildeVisibility
 
@@ -85,8 +79,10 @@ class NovelDetailViewModel : ViewModel() {
     }
 
     private fun validateStartEndDateNull() {
-        _isDateNull.value =
-            _userNovelMemoInfoResponse.value?.userNovelReadStartDate.isNullOrEmpty() && _userNovelMemoInfoResponse.value?.userNovelReadEndDate.isNullOrEmpty()
+        _isDateNull.value = !(
+                _userNovelMemoInfoResponse.value?.userNovelReadStartDate.isNullOrEmpty() &&
+                        _userNovelMemoInfoResponse.value?.userNovelReadEndDate.isNullOrEmpty()
+                )
     }
 
     private fun updateReadStatus(status: ReadStatus) {
@@ -109,8 +105,6 @@ class NovelDetailViewModel : ViewModel() {
             else -> null
         }
         val isVisible = status != ReadStatus.WISH
-        _readDateVisibility.value = if (isVisible) View.VISIBLE else View.GONE
-        _readDateBoxVisibility.value = readDateVisibility.value
         _readDateTildeVisibility.value =
             if (status == ReadStatus.FINISH) View.VISIBLE else View.GONE
     }

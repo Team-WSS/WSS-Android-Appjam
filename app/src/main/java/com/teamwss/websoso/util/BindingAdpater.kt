@@ -2,9 +2,7 @@ package com.teamwss.websoso.util
 
 import android.view.View
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.load
 import coil.transform.RoundedCornersTransformation
@@ -12,7 +10,6 @@ import coil.transform.Transformation
 import com.airbnb.lottie.LottieAnimationView
 import com.teamwss.websoso.R
 import com.teamwss.websoso.data.remote.response.NovelPlatformInfoResponse
-import com.teamwss.websoso.ui.common.model.ReadStatus
 import jp.wasabeef.transformers.coil.BlurTransformation
 
 @BindingAdapter("imageUrl")
