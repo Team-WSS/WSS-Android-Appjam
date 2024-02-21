@@ -60,16 +60,8 @@ class MemoWriteActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        setTranslucentOnStatusBar()
         binding.lifecycleOwner = this
         binding.memoWriteViewModel = memoWriteViewModel
-    }
-
-    @SuppressLint("ResourceAsColor")
-    private fun setTranslucentOnStatusBar() {
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-//        window.insetsController?.hide(WindowInsets.Type.statusBars())
-        window.statusBarColor = R.color.transparent
     }
 
     private fun showKeyboardOnEditTextFocus() {

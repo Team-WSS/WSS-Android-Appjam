@@ -4,6 +4,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@color/white</item>
     </style>
 
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
@@ -13,6 +14,10 @@
         <item name="postSplashScreenTheme">@style/Theme.Websoso</item>
     </style>
 
-    <style name="Theme.Websoso" parent="Base.Theme.Websoso" />
+    <style name="Theme.MemoWriteActivityWithWhiteStatusBar" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
+    <style name="Theme.Websoso" parent="Base.Theme.Websoso" />
 </resources>
