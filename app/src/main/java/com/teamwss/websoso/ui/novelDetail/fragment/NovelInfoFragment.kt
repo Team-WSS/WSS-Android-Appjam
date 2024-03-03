@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.teamwss.websoso.R
 import com.teamwss.websoso.databinding.FragmentNovelInfoBinding
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import com.teamwss.websoso.ui.novelDetail.NovelDetailViewModel
 
 class NovelInfoFragment : Fragment() {
@@ -31,7 +33,7 @@ class NovelInfoFragment : Fragment() {
 
         setupLifecycleOwner()
         setupDataBinding()
-        observeReadImage()
+        observeReadStatus()
         observeNovelData()
     }
 
@@ -43,9 +45,16 @@ class NovelInfoFragment : Fragment() {
         binding.novelDetailViewModel = novelDetailViewModel
     }
 
-    private fun observeReadImage() {
-        novelDetailViewModel.readStatusImage.observe(viewLifecycleOwner) { imageResId ->
-            binding.ivNovelInfoReadStatus.setImageResource(imageResId)
+    private fun observeReadStatus() {
+        novelDetailViewModel.readStatus.observe(viewLifecycleOwner) { readStatus ->
+            val drawableRes = when (readStatus) {
+                ReadStatus.FINISH -> R.drawable.ic_status_finish
+                ReadStatus.READING -> R.drawable.ic_status_reading
+                ReadStatus.DROP -> R.drawable.ic_status_drop
+                ReadStatus.WISH -> R.drawable.ic_status_wish
+                else -> null
+            }
+            drawableRes?.let { binding.ivNovelInfoReadStatus.setImageResource(it) }
         }
     }
 

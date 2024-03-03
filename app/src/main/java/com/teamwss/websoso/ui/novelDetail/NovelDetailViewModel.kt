@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.teamwss.websoso.R
 import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.remote.response.NovelMemoInfoResponse
 import com.teamwss.websoso.data.remote.response.NovelMemoResponse
@@ -37,9 +36,6 @@ class NovelDetailViewModel : ViewModel() {
     private val _readStatusText = MutableLiveData<String>()
     val readStatusText: LiveData<String> = _readStatusText
 
-    private val _readStatusImage = MutableLiveData<Int>()
-    val readStatusImage: LiveData<Int> = _readStatusImage
-
     private val _readDateText = MutableLiveData<String>()
     val readDateText: LiveData<String> = _readDateText
 
@@ -54,6 +50,7 @@ class NovelDetailViewModel : ViewModel() {
                 _userNovelMemoInfoResponse.value = response
                 _memos.value = response.memos
                 _platforms.value = response.platforms
+                _readStatus.value = enumValueOf<ReadStatus>(response.userNovelReadStatus)
                 validateStartEndDateNull()
                 updateReadStatus(ReadStatus.valueOf(response.userNovelReadStatus))
             }.onFailure { throwable ->
@@ -91,12 +88,6 @@ class NovelDetailViewModel : ViewModel() {
             ReadStatus.READING -> "읽는 중"
             ReadStatus.DROP -> "하차"
             ReadStatus.WISH -> "읽고 싶음"
-        }
-        _readStatusImage.value = when (status) {
-            ReadStatus.FINISH -> R.drawable.ic_status_finish
-            ReadStatus.READING -> R.drawable.ic_status_reading
-            ReadStatus.DROP -> R.drawable.ic_status_drop
-            ReadStatus.WISH -> R.drawable.ic_status_wish
         }
         _readDateText.value = when (status) {
             ReadStatus.FINISH -> "읽은 날짜"
