@@ -17,7 +17,8 @@
 
         <ImageView
             android:id="@+id/ivNovelDetailBackgroundImg"
-            loadCoverImageBlurred5="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
+            blurRadius="@{5}"
+            imageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
             android:layout_width="match_parent"
             android:layout_height="288dp"
             android:foreground="@drawable/bg_gray_gradient"
@@ -55,7 +56,7 @@
 
                         <ImageView
                             android:id="@+id/ivNovelDetailGenre"
-                            loadImageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenreBadgeImg}"
+                            imageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelGenreBadgeImg}"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginStart="20dp"
@@ -93,7 +94,8 @@
 
                         <ImageView
                             android:id="@+id/ivNovelDetailThumbnail"
-                            loadCoverImageRounded6="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
+                            cornerRadius="@{6f}"
+                            imageUrl="@{novelDetailViewModel.userNovelMemoInfoResponse.userNovelImg}"
                             android:layout_width="64dp"
                             android:layout_height="92dp"
                             android:layout_marginStart="4dp"

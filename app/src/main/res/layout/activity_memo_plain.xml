@@ -78,7 +78,8 @@
 
         <ImageView
             android:id="@+id/ivMemoPlainThumbnail"
-            loadCoverImageRounded4="@{memoPlainViewModel.memo.userNovelImg}"
+            cornerRadius="@{4f}"
+            imageUrl="@{memoPlainViewModel.memo.userNovelImg}"
             android:layout_width="68dp"
             android:layout_height="48dp"
             android:layout_marginEnd="20dp"

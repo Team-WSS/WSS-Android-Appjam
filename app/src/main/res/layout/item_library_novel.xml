@@ -18,7 +18,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/ivLibraryNovelCover"
-            loadCoverImageRounded30="@{libraryNovel.userNovelCover}"
+            cornerRadius="@{30f}"
+            imageUrl="@{libraryNovel.userNovelCover}"
             android:layout_width="105dp"
             android:layout_height="155dp"
             app:layout_constraintEnd_toEndOf="parent"

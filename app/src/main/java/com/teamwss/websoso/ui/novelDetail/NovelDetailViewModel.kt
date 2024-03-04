@@ -1,6 +1,7 @@
 package com.teamwss.websoso.ui.novelDetail
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.teamwss.websoso.data.ServicePool
 import com.teamwss.websoso.data.remote.response.NovelMemoInfoResponse
 import com.teamwss.websoso.data.remote.response.NovelMemoResponse
 import com.teamwss.websoso.data.remote.response.NovelPlatformInfoResponse
+import com.teamwss.websoso.ui.common.model.ReadStatus
 import kotlinx.coroutines.launch
 
 class NovelDetailViewModel : ViewModel() {
@@ -28,6 +30,18 @@ class NovelDetailViewModel : ViewModel() {
     private val _isDateNull: MutableLiveData<Boolean> = MutableLiveData()
     val isDateNull: LiveData<Boolean> = _isDateNull
 
+    private val _readStatus = MutableLiveData<ReadStatus>()
+    val readStatus: LiveData<ReadStatus> = _readStatus
+
+    private val _readStatusText = MutableLiveData<String>()
+    val readStatusText: LiveData<String> = _readStatusText
+
+    private val _readDateText = MutableLiveData<String>()
+    val readDateText: LiveData<String> = _readDateText
+
+    private val _readDateTildeVisibility = MutableLiveData<Int>()
+    val readDateTildeVisibility: LiveData<Int> = _readDateTildeVisibility
+
     fun getUserNovelMemoInfo(userNovelId: Long) {
         viewModelScope.launch {
             kotlin.runCatching {
@@ -36,7 +50,9 @@ class NovelDetailViewModel : ViewModel() {
                 _userNovelMemoInfoResponse.value = response
                 _memos.value = response.memos
                 _platforms.value = response.platforms
+                _readStatus.value = enumValueOf<ReadStatus>(response.userNovelReadStatus)
                 validateStartEndDateNull()
+                updateReadStatus(ReadStatus.valueOf(response.userNovelReadStatus))
             }.onFailure { throwable ->
                 Log.e("tongsin", throwable.toString())
             }
@@ -60,6 +76,27 @@ class NovelDetailViewModel : ViewModel() {
     }
 
     private fun validateStartEndDateNull() {
-        _isDateNull.value = _userNovelMemoInfoResponse.value?.userNovelReadStartDate.isNullOrEmpty() && _userNovelMemoInfoResponse.value?.userNovelReadEndDate.isNullOrEmpty()
+        _isDateNull.value = !(
+                _userNovelMemoInfoResponse.value?.userNovelReadStartDate.isNullOrEmpty() &&
+                        _userNovelMemoInfoResponse.value?.userNovelReadEndDate.isNullOrEmpty()
+                )
+    }
+
+    private fun updateReadStatus(status: ReadStatus) {
+        _readStatusText.value = when (status) {
+            ReadStatus.FINISH -> "읽음"
+            ReadStatus.READING -> "읽는 중"
+            ReadStatus.DROP -> "하차"
+            ReadStatus.WISH -> "읽고 싶음"
+        }
+        _readDateText.value = when (status) {
+            ReadStatus.FINISH -> "읽은 날짜"
+            ReadStatus.READING -> "시작 날짜"
+            ReadStatus.DROP -> "종료 날짜"
+            else -> null
+        }
+        val isVisible = status != ReadStatus.WISH
+        _readDateTildeVisibility.value =
+            if (status == ReadStatus.FINISH) View.VISIBLE else View.GONE
     }
 }

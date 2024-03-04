@@ -51,7 +51,7 @@
 
                 <ImageView
                     android:id="@+id/ivMyPageGenreMark"
-                    loadImageUrl="@{viewModel.userInfo.representativeAvatarGenreBadge}"
+                    imageUrl="@{viewModel.userInfo.representativeAvatarGenreBadge}"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="28dp"
@@ -88,7 +88,7 @@
 
                 <ImageView
                     android:id="@+id/ivMyPageAvatar"
-                    loadImageUrl="@{viewModel.userInfo.representativeAvatarImg}"
+                    imageUrl="@{viewModel.userInfo.representativeAvatarImg}"
                     android:layout_width="0dp"
                     android:layout_height="220dp"
                     android:layout_marginHorizontal="68dp"
